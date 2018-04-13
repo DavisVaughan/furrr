@@ -1,19 +1,8 @@
 # ------------------------------------------------------------------------------
-# Copied from rlang
-
-is_true <- function(x) {
-  identical(x, TRUE)
-}
-
-is_installed <- function(pkg) {
-  is_true(requireNamespace(pkg, quietly = TRUE))
-}
-
-# ------------------------------------------------------------------------------
 # Unexported functions from purrr
 
 probe <- function(.x, .p, ...) {
-  if (is_logical(.p)) {
+  if (rlang::is_logical(.p)) {
     stopifnot(length(.p) == length(.x))
     .p
   }

@@ -6,9 +6,11 @@ Depends:
     future (>= 1.6.2)
 Imports:
     globals (>= 0.10.3),
+    rlang (>= 0.2.0),
     purrr (>= 0.2.4)
 Suggests:
     listenv (>= 0.6.0),
+    dplyr (>= 0.7.4)
 Authors@R: c(
     person("Henrik", "Bengtsson", role=c("aut", "cre", "cph"),
                                           email = "henrikb@braju.com"),

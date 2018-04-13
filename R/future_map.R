@@ -116,8 +116,8 @@ future_map_lgl <- function(.x, .f, ..., future.globals = TRUE, future.packages =
 future_map_dfr <- function(.x, .f, ..., .id = NULL, future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
   # Passing through the template doesn't work because of the way fold() works.
   # Could parameterize around fold(res, ___), but this is easier
-  if (!is_installed("dplyr")) {
-    abort("`future_map_dfr()` requires dplyr")
+  if (!rlang::is_installed("dplyr")) {
+    rlang::abort("`future_map_dfr()` requires dplyr")
   }
 
   res <- future_map(.x, .f, ..., future.globals = future.globals, future.packages = future.packages, future.seed = future.seed, future.lazy = future.lazy, future.scheduling = future.scheduling)
@@ -129,8 +129,8 @@ future_map_dfr <- function(.x, .f, ..., .id = NULL, future.globals = TRUE, futur
 future_map_dfc <- function(.x, .f, ..., future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
   # Passing through the template doesn't work because of the way fold() works.
   # Could parameterize around fold(res, ___), but this is easier
-  if (!is_installed("dplyr")) {
-    abort("`future_map_dfc()` requires dplyr")
+  if (!rlang::is_installed("dplyr")) {
+    rlang::abort("`future_map_dfc()` requires dplyr")
   }
 
   res <- future_map(.x, .f, ..., future.globals = future.globals, future.packages = future.packages, future.seed = future.seed, future.lazy = future.lazy, future.scheduling = future.scheduling)
