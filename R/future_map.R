@@ -35,7 +35,7 @@
 #'
 #' [future_map()] returns a list, [future_map_lgl()] a logical vector,
 #' [future_map_int()] an integer vector, [future_map_dbl()] a double vector,
-#' and [map_chr()] a character vector.
+#' and [future_map_chr()] a character vector.
 #' The output of `.f` will be automatically typed upwards,
 #'  e.g. logical -> integer -> double -> character.
 #'

@@ -109,7 +109,7 @@ All functions return a vector the same length as \code{.x}.
 
 \code{\link[=future_map]{future_map()}} returns a list, \code{\link[=future_map_lgl]{future_map_lgl()}} a logical vector,
 \code{\link[=future_map_int]{future_map_int()}} an integer vector, \code{\link[=future_map_dbl]{future_map_dbl()}} a double vector,
-and \code{\link[=map_chr]{map_chr()}} a character vector.
+and \code{\link[=future_map_chr]{future_map_chr()}} a character vector.
 The output of \code{.f} will be automatically typed upwards,
 e.g. logical -> integer -> double -> character.
 }
