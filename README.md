@@ -3,16 +3,16 @@
 
 # furrr
 
-The goal of furrr is to simplify the use of `purrr`’s family of `map()`
-with `future`’s parallel processing capabilities. A new set of
-`future_map*()` functions have been defined, and can be used as
+The goal of furrr is to simplify the combination of `purrr`’s family of
+`map()` functions and `future`’s parallel processing capabilities. A new
+set of `future_map*()` functions have been defined, and can be used as
 (hopefully) drop in replacements for the corresponding `map*()`
 function.
 
 The code draws *heavily* from the implementations of `purrr` and
 `future.apply` and this package would not be possible without either of
 them. Each `future_map*()` function has additional `future.*` arguments
-that are taken from `future.lapply()` and allow fine tuned control over
+that are taken from `future_lapply()` and allow fine tuned control over
 the parallel execution.
 
 ## Installation
@@ -34,7 +34,7 @@ devtools::install_github("DavisVaughan/furrr")
 
 ## Example
 
-`furrr` has been designed to be function identically to `purrr`, so that
+`furrr` has been designed to function identically to `purrr`, so that
 you can immediately have familiarity with it.
 
 ``` r
@@ -89,14 +89,14 @@ plan(sequential)
 tic()
 nothingness <- future_map(c(3, 3, 3), ~Sys.sleep(.x))
 toc()
-#> 9.066 sec elapsed
+#> 9.058 sec elapsed
 
 # This should take ~3 seconds running in parallel, with a little overhead
 plan(multiprocess)
 tic()
 nothingness <- future_map(c(3, 3, 3), ~Sys.sleep(.x))
 toc()
-#> 3.071 sec elapsed
+#> 3.076 sec elapsed
 ```
 
 ## A more compelling use case
@@ -138,7 +138,7 @@ names(attrition)
 #> [31] "YearsWithCurrManager"
 ```
 
-20 fold CV with 100 repeats
+Set up an rsample split tibble of 20 fold CV with 100 repeats.
 
 ``` r
 set.seed(4622)
@@ -169,8 +169,8 @@ mod_form <- as.formula(Attrition ~ JobSatisfaction + Gender + MonthlyIncome)
 ```
 
 For each split, we want to calculate assessments on the holdout data, so
-a function was created to allow us to easily extract what we need from
-each split.
+a function was created to allow us to apply the model and easily extract
+what we need from each split.
 
 ``` r
 library(broom)
@@ -193,8 +193,8 @@ holdout_results <- function(splits, ...) {
 }
 ```
 
-Finally, `purrr` was used to map over all of the splits, apply the
-model, and extract the results.
+Finally, `purrr` was used to map over all of the splits, apply the model
+to each, and extract the results.
 
 First in sequential order…
 
@@ -203,11 +203,9 @@ library(purrr)
 library(tictoc)
 
 tic()
-rs_obj$results <- map(rs_obj$splits,
-                      holdout_results,
-                      mod_form)
+rs_obj$results <- map(rs_obj$splits, holdout_results, mod_form)
 toc()
-#> 24.515 sec elapsed
+#> 26.507 sec elapsed
 ```
 
 Then in parallel…
@@ -217,11 +215,9 @@ library(furrr)
 plan(multiprocess)
 
 tic()
-rs_obj$results <- future_map(rs_obj$splits,
-                      holdout_results,
-                      mod_form)
+rs_obj$results <- future_map(rs_obj$splits, holdout_results, mod_form)
 toc()
-#> 12.522 sec elapsed
+#> 14.929 sec elapsed
 ```
 
 If you’re curious, the resulting object looks like this.
@@ -250,7 +246,7 @@ speed up without doing any hard work. The reason we don’t get a 4x
 improvement is likely because of time spent transfering data to each R
 process, so this penalty will be minimized with longer running tasks and
 you might see better performance. The implementation of
-`future.lapply()` does include a scheduling feature, which carried over
+`future_lapply()` does include a scheduling feature, which carried over
 nicely into `furrr` and efficiently breaks up the list of splits into 4
 equal subsets. Each is passed to 1 core of my machine.
 
