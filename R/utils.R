@@ -28,6 +28,10 @@ inv_which <- function(x, sel) {
   }
 }
 
+vec_index <- function(x){
+  names(x) %||% seq_along(x)
+}
+
 # ------------------------------------------------------------------------------
 # util
 
