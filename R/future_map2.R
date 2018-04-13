@@ -84,7 +84,7 @@
 #' "forwarded one step" from the RNG state that was before the call and
 #' in the same way regardless of `future.seed`, `future.scheduling`
 #' and future strategy used.  This is done in order to guarantee that an \R
-#' script calling `future_map()` multiple times should be numerically
+#' script calling `future_map2()` multiple times should be numerically
 #' reproducible given the same initial seed.
 #'
 #' @examples
@@ -144,7 +144,7 @@ future_map2_dfr <- function(.x, .y, .f, ..., .id = NULL, future.globals = TRUE, 
     rlang::abort("`future_map2_dfr()` requires dplyr")
   }
 
-  res <- future_map2(.x, .f, ..., future.globals = future.globals, future.packages = future.packages, future.seed = future.seed, future.lazy = future.lazy, future.scheduling = future.scheduling)
+  res <- future_map2(.x, .y, .f, ..., future.globals = future.globals, future.packages = future.packages, future.seed = future.seed, future.lazy = future.lazy, future.scheduling = future.scheduling)
   dplyr::bind_rows(res, .id = .id)
 }
 
@@ -157,6 +157,6 @@ future_map2_dfc <- function(.x, .y, .f, ..., future.globals = TRUE, future.packa
     rlang::abort("`future_map2_dfc()` requires dplyr")
   }
 
-  res <- future_map2(.x, .f, ..., future.globals = future.globals, future.packages = future.packages, future.seed = future.seed, future.lazy = future.lazy, future.scheduling = future.scheduling)
+  res <- future_map2(.x, .y, .f, ..., future.globals = future.globals, future.packages = future.packages, future.seed = future.seed, future.lazy = future.lazy, future.scheduling = future.scheduling)
   dplyr::bind_cols(res)
 }
