@@ -175,8 +175,9 @@ rs_obj
 We don't get a 4x improvement on my 4 core Mac, but we do get a nice 2x speed
 up without doing any hard work. The reason we don't get a 4x improvement is likely
 because of time spent transfering data to each R process, so this penalty will
-be minimized with longer running tasks and you might see better performance. The 
-implementation of `future_lapply()` does include a scheduling feature, which 
+be minimized with longer running tasks and you might see better performance (for
+example, 100 fold CV with 100 repeats gave `122` seconds sequentially and
+`48` seconds in parallel). The implementation of `future_lapply()` does include a scheduling feature, which 
 carried over nicely into `furrr` and efficiently breaks up the list of splits
 into 4 equal subsets. Each is passed to 1 core of my machine.
 

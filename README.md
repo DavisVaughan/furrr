@@ -40,6 +40,7 @@ you can immediately have familiarity with it.
 ``` r
 library(furrr)
 #> Loading required package: future
+#> Warning: package 'future' was built under R version 3.4.4
 library(purrr)
 
 map(c("hello", "world"), ~.x)
@@ -89,14 +90,14 @@ plan(sequential)
 tic()
 nothingness <- future_map(c(3, 3, 3), ~Sys.sleep(.x))
 toc()
-#> 9.058 sec elapsed
+#> 9.057 sec elapsed
 
 # This should take ~3 seconds running in parallel, with a little overhead
 plan(multiprocess)
 tic()
 nothingness <- future_map(c(3, 3, 3), ~Sys.sleep(.x))
 toc()
-#> 3.076 sec elapsed
+#> 3.082 sec elapsed
 ```
 
 ## A more compelling use case
@@ -205,7 +206,7 @@ library(tictoc)
 tic()
 rs_obj$results <- map(rs_obj$splits, holdout_results, mod_form)
 toc()
-#> 26.507 sec elapsed
+#> 25.107 sec elapsed
 ```
 
 Then in parallel…
@@ -217,7 +218,7 @@ plan(multiprocess)
 tic()
 rs_obj$results <- future_map(rs_obj$splits, holdout_results, mod_form)
 toc()
-#> 14.929 sec elapsed
+#> 13.006 sec elapsed
 ```
 
 If you’re curious, the resulting object looks like this.
@@ -245,10 +246,12 @@ We don’t get a 4x improvement on my 4 core Mac, but we do get a nice 2x
 speed up without doing any hard work. The reason we don’t get a 4x
 improvement is likely because of time spent transfering data to each R
 process, so this penalty will be minimized with longer running tasks and
-you might see better performance. The implementation of
-`future_lapply()` does include a scheduling feature, which carried over
-nicely into `furrr` and efficiently breaks up the list of splits into 4
-equal subsets. Each is passed to 1 core of my machine.
+you might see better performance (for example, 100 fold CV with 100
+repeats gave `122` seconds sequentially and `48` seconds in parallel).
+The implementation of `future_lapply()` does include a scheduling
+feature, which carried over nicely into `furrr` and efficiently breaks
+up the list of splits into 4 equal subsets. Each is passed to 1 core of
+my machine.
 
 ## What has been implemented?
 
