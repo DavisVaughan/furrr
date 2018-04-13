@@ -91,6 +91,12 @@ future_map_template <- function(.map, .type, .x, .f, ..., future.globals = TRUE,
     globals <- c(globals, .f = .f)
   }
 
+  # The purrr function that gets used must be passed as a global
+  # This mainly affects multisession
+  if (!is.element(".map", names)) {
+    globals <- c(globals, .map = .map)
+  }
+
   if (!is.element("...", names)) {
     if (debug) mdebug("Getting '...' globals ...")
     dotdotdot <- globalsByName("...", envir = envir, mustExist = TRUE)
@@ -112,6 +118,7 @@ future_map_template <- function(.map, .type, .x, .f, ..., future.globals = TRUE,
   ## Avoid .f() clash with map(.x, .f, ...) below.
   names <- names(globals)
   names[names == ".f"] <- "...future.f"
+  names[names == ".map"] <- "...future.map" # add the map function
   names(globals) <- names
 
   if (debug) {
@@ -265,7 +272,7 @@ future_map_template <- function(.map, .type, .x, .f, ..., future.globals = TRUE,
   ##  stopifnot(attr(globals, "resolved"), !is.na(attr(globals, "total_size")))
 
   ## To please R CMD check
-  ...future.f <- ...future.x_ii <- ...future.seeds_ii <- NULL
+  ...future.map <- ...future.f <- ...future.x_ii <- ...future.seeds_ii <- NULL
 
   nchunks <- length(chunks)
   fs <- vector("list", length = nchunks)
@@ -286,32 +293,23 @@ future_map_template <- function(.map, .type, .x, .f, ..., future.globals = TRUE,
       if (debug) mdebug(" - seeds: <none>")
       fs[[ii]] <- future({
 
-        .map(seq_along(...future.x_ii), .f = function(jj) {
+        ...future.map(seq_along(...future.x_ii), .f = function(jj) {
           ...future.x_jj <- ...future.x_ii[[jj]]
           ...future.f(...future.x_jj, ...)
         })
 
-        # lapply(seq_along(...future.x_ii), FUN = function(jj) {
-        #   ...future.x_jj <- ...future.x_ii[[jj]]
-        #   ...future.FUN(...future.x_jj, ...)
-        # })
       }, envir = envir, lazy = future.lazy, globals = globals_ii, packages = packages)
     } else {
       if (debug) mdebug(" - seeds: [%d] <seeds>", length(chunk))
       globals_ii[["...future.seeds_ii"]] <- seeds[chunk]
       fs[[ii]] <- future({
 
-        .map(seq_along(...future.x_ii), .f = function(jj) {
+        ...future.map(seq_along(...future.x_ii), .f = function(jj) {
           ...future.x_jj <- ...future.x_ii[[jj]]
           assign(".Random.seed", ...future.seeds_ii[[jj]], envir = globalenv(), inherits = FALSE)
           ...future.f(...future.x_jj, ...)
         })
 
-        # lapply(seq_along(...future.x_ii), FUN = function(jj) {
-        #   ...future.x_jj <- ...future.x_ii[[jj]]
-        #   assign(".Random.seed", ...future.seeds_ii[[jj]], envir = globalenv(), inherits = FALSE)
-        #   ...future.FUN(...future.x_jj, ...)
-        # })
       }, envir = envir, lazy = future.lazy, globals = globals_ii, packages = packages)
     }
 

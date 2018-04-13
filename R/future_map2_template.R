@@ -103,6 +103,12 @@ future_map2_template <- function(.map, .type, .x, .y, .f, ..., future.globals = 
     globals <- c(globals, .f = .f)
   }
 
+  # The purrr function that gets used must be passed as a global
+  # This mainly affects multisession
+  if (!is.element(".map", names)) {
+    globals <- c(globals, .map = .map)
+  }
+
   if (!is.element("...", names)) {
     if (debug) mdebug("Getting '...' globals ...")
     dotdotdot <- globalsByName("...", envir = envir, mustExist = TRUE)
@@ -124,6 +130,7 @@ future_map2_template <- function(.map, .type, .x, .y, .f, ..., future.globals = 
   ## Avoid .f() clash with map(.x, .f, ...) below.
   names <- names(globals)
   names[names == ".f"] <- "...future.f"
+  names[names == ".map"] <- "...future.map" # add the map function
   names(globals) <- names
 
   if (debug) {
@@ -277,7 +284,7 @@ future_map2_template <- function(.map, .type, .x, .y, .f, ..., future.globals = 
   ##  stopifnot(attr(globals, "resolved"), !is.na(attr(globals, "total_size")))
 
   ## To please R CMD check
-  ...future.f <- ...future.x_ii <- ...future.y_ii <- ...future.seeds_ii <- NULL
+  ...future.map <- ...future.f <- ...future.x_ii <- ...future.y_ii <- ...future.seeds_ii <- NULL
 
   nchunks <- length(chunks)
   fs <- vector("list", length = nchunks)
@@ -299,7 +306,7 @@ future_map2_template <- function(.map, .type, .x, .y, .f, ..., future.globals = 
       if (debug) mdebug(" - seeds: <none>")
       fs[[ii]] <- future({
 
-        .map(seq_along(...future.x_ii), .f = function(jj) {
+        ...future.map(seq_along(...future.x_ii), .f = function(jj) {
           ...future.x_jj <- ...future.x_ii[[jj]]
           ...future.y_jj <- ...future.y_ii[[jj]]
           ...future.f(...future.x_jj, ...future.y_jj, ...)
@@ -311,7 +318,7 @@ future_map2_template <- function(.map, .type, .x, .y, .f, ..., future.globals = 
       globals_ii[["...future.seeds_ii"]] <- seeds[chunk]
       fs[[ii]] <- future({
 
-        .map(seq_along(...future.x_ii), .f = function(jj) {
+        ...future.map(seq_along(...future.x_ii), .f = function(jj) {
           ...future.x_jj <- ...future.x_ii[[jj]]
           ...future.y_jj <- ...future.y_ii[[jj]]
           assign(".Random.seed", ...future.seeds_ii[[jj]], envir = globalenv(), inherits = FALSE)
