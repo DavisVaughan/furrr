@@ -12,11 +12,12 @@ Suggests:
     listenv (>= 0.6.0),
     dplyr (>= 0.7.4)
 Authors@R: c(
-    person("Henrik", "Bengtsson", role=c("aut", "cre", "cph"),
+    person("Davis", "Vaughan", email = "dvaughan@business-science.io", role = c("aut", "cre")),
+    person("Henrik", "Bengtsson", role=c("aut", "cph"),
                                           email = "henrikb@braju.com"),
-    person("Davis", "Vaughan", email = "dvaughan@business-science.io", role = c("aut")),
     person("Matt", "Dancho", email = "mdancho@business-science.io", role = c("aut"))
   )
+Maintainer: Davis Vaughan <dvaughan@business-science.io>
 Description: Implementations of the family of map() functions that can be resolved using any future-supported backend, e.g. parallel on the local machine or distributed on a compute cluster.
 License: LGPL (>= 2.1)
 LazyLoad: TRUE
