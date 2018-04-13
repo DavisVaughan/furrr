@@ -1,0 +1,24 @@
+Package: furrr
+Version: 0.1.0
+Title: Apply Mapping Functions in Parallel using Futures
+Depends:
+    R (>= 3.2.0),
+    future (>= 1.6.2)
+Imports:
+    globals (>= 0.10.3),
+    purrr (>= 0.2.4)
+Suggests:
+    listenv (>= 0.6.0),
+Authors@R: c(
+    person("Henrik", "Bengtsson", role=c("aut", "cre", "cph"),
+                                          email = "henrikb@braju.com"),
+    person("Davis", "Vaughan", email = "dvaughan@business-science.io", role = c("aut")),
+    person("Matt", "Dancho", email = "mdancho@business-science.io", role = c("aut"))
+  )
+Description: Implementations of the family of map() functions that can be resolved using any future-supported backend, e.g. parallel on the local machine or distributed on a compute cluster.
+License: LGPL (>= 2.1)
+LazyLoad: TRUE
+URL: https://github.com/DavisVaughan/furrr
+BugReports: https://github.com/DavisVaughan/furrr/issues
+RoxygenNote: 6.0.1
+Roxygen: list(markdown = TRUE)
