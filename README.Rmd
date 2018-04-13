@@ -26,6 +26,13 @@ and this package would not be possible without either of them. Each `future_map*
 function has additional `future.*` arguments that are taken from `future_lapply()`
 and allow fine tuned control over the parallel execution.
 
+## What has been implemented?
+
+The full range of `map()`, `map2()`, `imap()`, and `modify()` functions have been implemented. 
+
+This includes strict versions like `map_dbl()` through `future_map_dbl()` and predicate
+versions like `map_at()` through `future_map_at()`.
+
 ## Installation
 
 You can install the released version of furrr from [CRAN](https://CRAN.R-project.org) with:
@@ -181,19 +188,11 @@ example, 100 fold CV with 100 repeats gave `122` seconds sequentially and
 carried over nicely into `furrr` and efficiently breaks up the list of splits
 into 4 equal subsets. Each is passed to 1 core of my machine.
 
-## What has been implemented?
-
-The full range of `map()` and `map2()` functions have been implemented. This
-includes strict versions like `map_dbl()` through `future_map_dbl()` and predicate
-versions like `map_at()` and `map_if()`.
-
 ## What has not been implemented (yet)?
 
 * `pmap()` 
 * `walk()`
-* `imap()`
 * `lmap()`
-* `modify()`
 
 ## Found a bug?
 

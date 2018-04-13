@@ -15,6 +15,15 @@ them. Each `future_map*()` function has additional `future.*` arguments
 that are taken from `future_lapply()` and allow fine tuned control over
 the parallel execution.
 
+## What has been implemented?
+
+The full range of `map()`, `map2()`, `imap()`, and `modify()` functions
+have been implemented.
+
+This includes strict versions like `map_dbl()` through
+`future_map_dbl()` and predicate versions like `map_at()` through
+`future_map_at()`.
+
 ## Installation
 
 You can install the released version of furrr from
@@ -90,14 +99,14 @@ plan(sequential)
 tic()
 nothingness <- future_map(c(3, 3, 3), ~Sys.sleep(.x))
 toc()
-#> 9.057 sec elapsed
+#> 9.044 sec elapsed
 
 # This should take ~3 seconds running in parallel, with a little overhead
 plan(multiprocess)
 tic()
 nothingness <- future_map(c(3, 3, 3), ~Sys.sleep(.x))
 toc()
-#> 3.082 sec elapsed
+#> 3.085 sec elapsed
 ```
 
 ## A more compelling use case
@@ -206,7 +215,7 @@ library(tictoc)
 tic()
 rs_obj$results <- map(rs_obj$splits, holdout_results, mod_form)
 toc()
-#> 25.107 sec elapsed
+#> 26.666 sec elapsed
 ```
 
 Then in parallel…
@@ -218,7 +227,7 @@ plan(multiprocess)
 tic()
 rs_obj$results <- future_map(rs_obj$splits, holdout_results, mod_form)
 toc()
-#> 13.006 sec elapsed
+#> 13.552 sec elapsed
 ```
 
 If you’re curious, the resulting object looks like this.
@@ -253,20 +262,11 @@ feature, which carried over nicely into `furrr` and efficiently breaks
 up the list of splits into 4 equal subsets. Each is passed to 1 core of
 my machine.
 
-## What has been implemented?
-
-The full range of `map()` and `map2()` functions have been implemented.
-This includes strict versions like `map_dbl()` through
-`future_map_dbl()` and predicate versions like `map_at()` and
-`map_if()`.
-
 ## What has not been implemented (yet)?
 
   - `pmap()`
   - `walk()`
-  - `imap()`
   - `lmap()`
-  - `modify()`
 
 ## Found a bug?
 
