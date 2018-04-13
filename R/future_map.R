@@ -1,5 +1,11 @@
 #' Apply a function to each element of a vector via futures
 #'
+#' These functions work exactly the same as [purrr::map()] functions, but allow
+#' you to run the map in parallel. There are a number of `future.*` arguments
+#' to allow you to fine tune the parallel processing. The documentation is
+#' adapted from both `purrr::map()`, and `future.apply::future_lapply()`,
+#' so look there for more details.
+#'
 #' @inheritParams purrr::map
 #'
 #' @param future.globals A logical, a character vector, or a named list for
@@ -25,7 +31,13 @@
 #'        `.x` is used.
 #'
 #' @return
-#' For `future_map()`, a list with same length and names as `.x`.
+#' All functions return a vector the same length as `.x`.
+#'
+#' [future_map()] returns a list, [future_map_lgl()] a logical vector,
+#' [future_map_int()] an integer vector, [future_map_dbl()] a double vector,
+#' and [map_chr()] a character vector.
+#' The output of `.f` will be automatically typed upwards,
+#'  e.g. logical -> integer -> double -> character.
 #'
 #' @section Global variables:
 #' Argument `future.globals` may be used to control how globals
@@ -77,6 +89,24 @@
 #' script calling `future_map()` multiple times should be numerically
 #' reproducible given the same initial seed.
 #'
+#'
+#' @examples
+#'
+#' library(furrr)
+#' library(dplyr) # for the pipe
+#'
+#' plan(multiprocess)
+#'
+#' 1:10 %>%
+#'   future_map(rnorm, n = 10) %>%
+#'   future_map_dbl(mean)
+#'
+#' # If each element of the output is a data frame, use
+#' # map_dfr to row-bind them together:
+#' mtcars %>%
+#'   split(.$cyl) %>%
+#'   future_map(~ lm(mpg ~ wt, data = .x)) %>%
+#'   future_map_dfr(~ as.data.frame(t(as.matrix(coef(.)))))
 #'
 #' @importFrom globals globalsByName cleanup
 #' @importFrom future future resolve values as.FutureGlobals nbrOfWorkers getGlobalsAndPackages

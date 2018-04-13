@@ -105,10 +105,20 @@ positions. Only those elements corresponding to \code{.at} will be
 modified.}
 }
 \value{
-For \code{future_map()}, a list with same length and names as \code{.x}.
+All functions return a vector the same length as \code{.x}.
+
+\code{\link[=future_map]{future_map()}} returns a list, \code{\link[=future_map_lgl]{future_map_lgl()}} a logical vector,
+\code{\link[=future_map_int]{future_map_int()}} an integer vector, \code{\link[=future_map_dbl]{future_map_dbl()}} a double vector,
+and \code{\link[=map_chr]{map_chr()}} a character vector.
+The output of \code{.f} will be automatically typed upwards,
+e.g. logical -> integer -> double -> character.
 }
 \description{
-Apply a function to each element of a vector via futures
+These functions work exactly the same as \code{\link[purrr:map]{purrr::map()}} functions, but allow
+you to run the map in parallel. There are a number of \code{future.*} arguments
+to allow you to fine tune the parallel processing. The documentation is
+adapted from both \code{purrr::map()}, and \code{future.apply::future_lapply()},
+so look there for more details.
 }
 \section{Global variables}{
 
@@ -164,3 +174,22 @@ script calling \code{future_map()} multiple times should be numerically
 reproducible given the same initial seed.
 }
 
+\examples{
+
+library(furrr)
+library(dplyr) # for the pipe
+
+plan(multiprocess)
+
+1:10 \%>\%
+  future_map(rnorm, n = 10) \%>\%
+  future_map_dbl(mean)
+
+# If each element of the output is a data frame, use
+# map_dfr to row-bind them together:
+mtcars \%>\%
+  split(.$cyl) \%>\%
+  future_map(~ lm(mpg ~ wt, data = .x)) \%>\%
+  future_map_dfr(~ as.data.frame(t(as.matrix(coef(.)))))
+
+}

@@ -1,5 +1,11 @@
 #' Map over multiple inputs simulatneously via futures
 #'
+#' These functions work exactly the same as [purrr::map2()] functions, but allow
+#' you to run the map in parallel. Note that "parallel" as described in `purrr`
+#' is just saying that you are working with multiple inputs, and parallel in
+#' this case means that you can work on multiple inputs AND process
+#' them all in parallel as well.
+#'
 #' @inheritParams purrr::map2
 #'
 #' @param future.globals A logical, a character vector, or a named list for
@@ -25,7 +31,11 @@
 #'        `.x` is used.
 #'
 #' @return
-#' For `future_map()`, a list with same length and names as `.x`.
+#' An atomic vector, list, or data frame, depending on the suffix.
+#' Atomic vectors and lists will be named if `.x` or the first element of `.l` is named.
+#'
+#' If all input is length 0, the output will be length 0.
+#' If any input is length 1, it will be recycled to the length of the longest.
 #'
 #' @section Global variables:
 #' Argument `future.globals` may be used to control how globals
@@ -77,6 +87,20 @@
 #' script calling `future_map()` multiple times should be numerically
 #' reproducible given the same initial seed.
 #'
+#' @examples
+#'
+#' library(furrr)
+#' plan(multiprocess)
+#'
+#' x <- list(1, 10, 100)
+#' y <- list(1, 2, 3)
+#'
+#' future_map2(x, y, ~ .x + .y)
+#'
+#' # Split into pieces, fit model to each piece, then predict
+#' by_cyl <- split(mtcars, mtcars$cyl)
+#' mods <- future_map(by_cyl, ~ lm(mpg ~ wt, data = .))
+#' future_map2(mods, by_cyl, predict)
 #'
 #' @importFrom globals globalsByName cleanup
 #' @importFrom future future resolve values as.FutureGlobals nbrOfWorkers getGlobalsAndPackages
