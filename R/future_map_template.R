@@ -371,6 +371,11 @@ future_map_template <- function(.map, .type, .x, .f, ..., .progress = FALSE, fut
 
     if(not_resolved_once) {
       # Separate progress from output
+      max_width <- console_width()
+      progress_width <- 10
+      finish_width <- 5
+      carriage_width <- 1
+      filler_width <- max_width - progress_width - finish_width - carriage_width
       progress <- paste0(rep("\u2500", times = filler_width), collapse = "")
       all_text <- paste0("Progress: ", progress, " 100%")
       cat("\r", all_text)
