@@ -5,29 +5,7 @@
 #' to allow you to fine tune the parallel processing.
 #'
 #' @inheritParams purrr::imap
-#'
-#' @param future.globals A logical, a character vector, or a named list for
-#'        controlling how globals are handled. For details, see below section.
-#'
-#' @param future.packages (optional) a character vector specifying packages
-#'        to be attached in the R environment evaluating the future.
-#'
-#' @param future.seed A logical or an integer (of length one or seven),
-#'        or a list of `length(.x)` with pre-generated random seeds.
-#'        For details, see below section.
-#'
-#' @param future.lazy Specifies whether the futures should be resolved
-#'        lazily or eagerly (default).
-#'
-#' @param future.scheduling Average number of futures ("chunks") per worker.
-#'        If `0.0`, then a single future is used to process all elements
-#'        of `.x`.
-#'        If `1.0` or `TRUE`, then one future per worker is used.
-#'        If `2.0`, then each worker will process two futures
-#'        (if there are enough elements in `.x`).
-#'        If `Inf` or `FALSE`, then one future per element of
-#'        `.x` is used.
-#'
+#' @inheritParams future_map
 #'
 #' @return
 #' A vector the same length as .x.
@@ -91,36 +69,36 @@
 #' future_imap_chr(sample(10), ~ paste0(.y, ": ", .x))
 #'
 #' @export
-future_imap <- function(.x, .f, ..., future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
-  future_map2(.x, vec_index(.x), .f, ..., future.globals = future.globals, future.packages = future.packages, future.seed = future.seed, future.lazy = future.lazy, future.scheduling = future.scheduling)
+future_imap <- function(.x, .f, ..., .progress = FALSE, future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
+  future_map2(.x, vec_index(.x), .f, ..., .progress = .progress, future.globals = future.globals, future.packages = future.packages, future.seed = future.seed, future.lazy = future.lazy, future.scheduling = future.scheduling)
 }
 
 #' @rdname future_imap
 #' @export
-future_imap_chr <- function(.x, .f, ..., future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
-  future_map2_chr(.x, vec_index(.x), .f, ..., future.globals = future.globals, future.packages = future.packages, future.seed = future.seed, future.lazy = future.lazy, future.scheduling = future.scheduling)
+future_imap_chr <- function(.x, .f, ..., .progress = FALSE, future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
+  future_map2_chr(.x, vec_index(.x), .f, ..., .progress = .progress, future.globals = future.globals, future.packages = future.packages, future.seed = future.seed, future.lazy = future.lazy, future.scheduling = future.scheduling)
 }
 
 #' @rdname future_imap
 #' @export
-future_imap_dbl <- function(.x, .f, ..., future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
-  future_map2_dbl(.x, vec_index(.x), .f, ..., future.globals = future.globals, future.packages = future.packages, future.seed = future.seed, future.lazy = future.lazy, future.scheduling = future.scheduling)
+future_imap_dbl <- function(.x, .f, ..., .progress = FALSE, future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
+  future_map2_dbl(.x, vec_index(.x), .f, ..., .progress = .progress, future.globals = future.globals, future.packages = future.packages, future.seed = future.seed, future.lazy = future.lazy, future.scheduling = future.scheduling)
 }
 
 #' @rdname future_imap
 #' @export
-future_imap_lgl <- function(.x, .f, ..., future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
-  future_map2_lgl(.x, vec_index(.x), .f, ..., future.globals = future.globals, future.packages = future.packages, future.seed = future.seed, future.lazy = future.lazy, future.scheduling = future.scheduling)
+future_imap_lgl <- function(.x, .f, ..., .progress = FALSE, future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
+  future_map2_lgl(.x, vec_index(.x), .f, ..., .progress = .progress, future.globals = future.globals, future.packages = future.packages, future.seed = future.seed, future.lazy = future.lazy, future.scheduling = future.scheduling)
 }
 
 #' @rdname future_imap
 #' @export
-future_imap_dfr <- function(.x, .f, ..., .id = NULL, future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
-  future_map2_dfr(.x, vec_index(.x), .f, ..., .id = .id, future.globals = future.globals, future.packages = future.packages, future.seed = future.seed, future.lazy = future.lazy, future.scheduling = future.scheduling)
+future_imap_dfr <- function(.x, .f, ..., .id = NULL, .progress = FALSE, future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
+  future_map2_dfr(.x, vec_index(.x), .f, ..., .id = .id, .progress = .progress, future.globals = future.globals, future.packages = future.packages, future.seed = future.seed, future.lazy = future.lazy, future.scheduling = future.scheduling)
 }
 
 #' @rdname future_imap
 #' @export
-future_imap_dfc <- function(.x, .f, ..., future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
-  future_map2_dfc(.x, vec_index(.x), .f, ..., future.globals = future.globals, future.packages = future.packages, future.seed = future.seed, future.lazy = future.lazy, future.scheduling = future.scheduling)
+future_imap_dfc <- function(.x, .f, ..., .progress = FALSE, future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
+  future_map2_dfc(.x, vec_index(.x), .f, ..., .progress = .progress, future.globals = future.globals, future.packages = future.packages, future.seed = future.seed, future.lazy = future.lazy, future.scheduling = future.scheduling)
 }

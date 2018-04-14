@@ -10,30 +10,31 @@
 \alias{future_map2_dfc}
 \title{Map over multiple inputs simulatneously via futures}
 \usage{
-future_map2(.x, .y, .f, ..., future.globals = TRUE, future.packages = NULL,
-  future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1)
-
-future_map2_chr(.x, .y, .f, ..., future.globals = TRUE,
+future_map2(.x, .y, .f, ..., .progress = FALSE, future.globals = TRUE,
   future.packages = NULL, future.seed = FALSE, future.lazy = FALSE,
   future.scheduling = 1)
 
-future_map2_dbl(.x, .y, .f, ..., future.globals = TRUE,
+future_map2_chr(.x, .y, .f, ..., .progress = FALSE, future.globals = TRUE,
   future.packages = NULL, future.seed = FALSE, future.lazy = FALSE,
   future.scheduling = 1)
 
-future_map2_int(.x, .y, .f, ..., future.globals = TRUE,
+future_map2_dbl(.x, .y, .f, ..., .progress = FALSE, future.globals = TRUE,
   future.packages = NULL, future.seed = FALSE, future.lazy = FALSE,
   future.scheduling = 1)
 
-future_map2_lgl(.x, .y, .f, ..., future.globals = TRUE,
+future_map2_int(.x, .y, .f, ..., .progress = FALSE, future.globals = TRUE,
   future.packages = NULL, future.seed = FALSE, future.lazy = FALSE,
   future.scheduling = 1)
 
-future_map2_dfr(.x, .y, .f, ..., .id = NULL, future.globals = TRUE,
+future_map2_lgl(.x, .y, .f, ..., .progress = FALSE, future.globals = TRUE,
   future.packages = NULL, future.seed = FALSE, future.lazy = FALSE,
   future.scheduling = 1)
 
-future_map2_dfc(.x, .y, .f, ..., future.globals = TRUE,
+future_map2_dfr(.x, .y, .f, ..., .id = NULL, .progress = FALSE,
+  future.globals = TRUE, future.packages = NULL, future.seed = FALSE,
+  future.lazy = FALSE, future.scheduling = 1)
+
+future_map2_dfc(.x, .y, .f, ..., .progress = FALSE, future.globals = TRUE,
   future.packages = NULL, future.seed = FALSE, future.lazy = FALSE,
   future.scheduling = 1)
 }
@@ -66,6 +67,9 @@ to extract named attributes. If a component is not present, the value of
 \code{.default} will be returned.}
 
 \item{...}{Additional arguments passed on to \code{.f}.}
+
+\item{.progress}{A logical, for whether or not to print a progress bar for
+multiprocess, multisession, and multicore plans.}
 
 \item{future.globals}{A logical, a character vector, or a named list for
 controlling how globals are handled. For details, see below section.}

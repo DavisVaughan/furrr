@@ -1,3 +1,5 @@
+#' @importFrom rlang %||%
+
 # ------------------------------------------------------------------------------
 # Unexported functions from purrr
 
@@ -35,6 +37,22 @@ vec_index <- function(x){
 # ------------------------------------------------------------------------------
 # util
 
+# Needed for progress updates
+update_progress <- function (file) {
+  progress_text <- sprintf("tick\n")
+  cat(progress_text, file = file, append = TRUE)
+}
+
+# Needed for progress updates
+all_resolved <- function (futures) {
+  each_resolved <- vapply(futures, future::resolved, FALSE)
+  all(each_resolved)
+}
+
+console_width <- function() {
+  width <- Sys.getenv("RSTUDIO_CONSOLE_WIDTH", getOption("width", 80))
+  as.integer(width)
+}
 
 # ------------------------------------------------------------------------------
 # from future.apply
