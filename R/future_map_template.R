@@ -263,10 +263,14 @@ future_map_template <- function(.map, .type, .x, .f, ..., .progress = FALSE, fut
   ## 5. Create futures
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+  # .progress always needs to be on the workers for the if statement...
+  globals <- c(globals, .progress = .progress)
+
+  # ...but we add the tempfile and the function if .progress = TRUE
   if(.progress) {
     temp_file <- tempfile(fileext = ".txt")
     writeLines("falsetick", temp_file)
-    globals <- c(globals, update_progress = update_progress, temp_file = temp_file, .progress = .progress)
+    globals <- c(globals, update_progress = update_progress, temp_file = temp_file)
   }
 
   ## Add argument placeholders
