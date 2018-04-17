@@ -322,6 +322,7 @@ future_map2_template <- function(.map, .type, .x, .y, .f, ..., .progress = FALSE
         ...future.f.env <- environment(...future.f)
         if(!is.null(...future.f.env$`~`)) {
           mask <- rlang::as_data_mask(list(a=1))
+          unlockBinding(sym = as.name("~"), ...future.f.env)
           ...future.f.env$`~` <- mask$`~`
         }
 
@@ -344,6 +345,7 @@ future_map2_template <- function(.map, .type, .x, .y, .f, ..., .progress = FALSE
         ...future.f.env <- environment(...future.f)
         if(!is.null(...future.f.env$`~`)) {
           mask <- rlang::as_data_mask(list(a=1))
+          unlockBinding(sym = as.name("~"), ...future.f.env)
           ...future.f.env$`~` <- mask$`~`
         }
 
