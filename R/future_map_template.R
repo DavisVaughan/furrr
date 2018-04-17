@@ -131,8 +131,8 @@ future_map_template <- function(.map, .type, .x, .f, ..., future.globals = TRUE,
   ## 2. Packages
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  # purrr is always included
-  packages <- unique(c(packages, "purrr"))
+  # purrr and rlang are always included
+  packages <- unique(c(packages, "purrr", "rlang"))
 
   if (!is.null(future.packages)) {
     stopifnot(is.character(future.packages))
@@ -293,6 +293,14 @@ future_map_template <- function(.map, .type, .x, .f, ..., future.globals = TRUE,
       if (debug) mdebug(" - seeds: <none>")
       fs[[ii]] <- future({
 
+        # rlang tilde - when serializing with multisession, the pointer becomes 0x0
+        # Temp solution is to readd into the .f environment if necessary
+        ...future.f.env <- environment(...future.f)
+        if(!is.null(...future.f.env$`~`)) {
+          mask <- rlang::as_data_mask(list(a=1))
+          ...future.f.env$`~` <- mask$`~`
+        }
+
         ...future.map(seq_along(...future.x_ii), .f = function(jj) {
           ...future.x_jj <- ...future.x_ii[[jj]]
           ...future.f(...future.x_jj, ...)
@@ -303,6 +311,14 @@ future_map_template <- function(.map, .type, .x, .f, ..., future.globals = TRUE,
       if (debug) mdebug(" - seeds: [%d] <seeds>", length(chunk))
       globals_ii[["...future.seeds_ii"]] <- seeds[chunk]
       fs[[ii]] <- future({
+
+        # rlang tilde - when serializing with multisession, the pointer becomes 0x0
+        # Temp solution is to readd into the .f environment if necessary
+        ...future.f.env <- environment(...future.f)
+        if(!is.null(...future.f.env$`~`)) {
+          mask <- rlang::as_data_mask(list(a=1))
+          ...future.f.env$`~` <- mask$`~`
+        }
 
         ...future.map(seq_along(...future.x_ii), .f = function(jj) {
           ...future.x_jj <- ...future.x_ii[[jj]]
