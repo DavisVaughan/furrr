@@ -6,14 +6,15 @@
 \alias{future_modify_if}
 \title{Modify elements selectively via futures}
 \usage{
-future_modify(.x, .f, ..., future.globals = TRUE, future.packages = NULL,
-  future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1)
-
-future_modify_at(.x, .at, .f, ..., future.globals = TRUE,
+future_modify(.x, .f, ..., .progress = FALSE, future.globals = TRUE,
   future.packages = NULL, future.seed = FALSE, future.lazy = FALSE,
   future.scheduling = 1)
 
-future_modify_if(.x, .p, .f, ..., future.globals = TRUE,
+future_modify_at(.x, .at, .f, ..., .progress = FALSE, future.globals = TRUE,
+  future.packages = NULL, future.seed = FALSE, future.lazy = FALSE,
+  future.scheduling = 1)
+
+future_modify_if(.x, .p, .f, ..., .progress = FALSE, future.globals = TRUE,
   future.packages = NULL, future.seed = FALSE, future.lazy = FALSE,
   future.scheduling = 1)
 }
@@ -42,6 +43,9 @@ to extract named attributes. If a component is not present, the value of
 \code{.default} will be returned.}
 
 \item{...}{Additional arguments passed on to \code{.f}.}
+
+\item{.progress}{A logical, for whether or not to print a progress bar for
+multiprocess, multisession, and multicore plans.}
 
 \item{future.globals}{A logical, a character vector, or a named list for
 controlling how globals are handled. For details, see below section.}

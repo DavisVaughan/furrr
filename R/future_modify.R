@@ -5,28 +5,7 @@
 #' to allow you to fine tune the parallel processing.
 #'
 #' @inheritParams purrr::modify
-#'
-#' @param future.globals A logical, a character vector, or a named list for
-#'        controlling how globals are handled. For details, see below section.
-#'
-#' @param future.packages (optional) a character vector specifying packages
-#'        to be attached in the R environment evaluating the future.
-#'
-#' @param future.seed A logical or an integer (of length one or seven),
-#'        or a list of `length(.x)` with pre-generated random seeds.
-#'        For details, see below section.
-#'
-#' @param future.lazy Specifies whether the futures should be resolved
-#'        lazily or eagerly (default).
-#'
-#' @param future.scheduling Average number of futures ("chunks") per worker.
-#'        If `0.0`, then a single future is used to process all elements
-#'        of `.x`.
-#'        If `1.0` or `TRUE`, then one future per worker is used.
-#'        If `2.0`, then each worker will process two futures
-#'        (if there are enough elements in `.x`).
-#'        If `Inf` or `FALSE`, then one future per element of
-#'        `.x` is used.
+#' @inheritParams future_map
 #'
 #' @details
 #'
@@ -106,38 +85,38 @@
 #' mtcars %>% future_modify_at(c(1, 4, 5), as.character) %>% str()
 #'
 #' @export
-future_modify <- function(.x, .f, ..., future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
+future_modify <- function(.x, .f, ..., .progress = FALSE, future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
   UseMethod("future_modify")
 }
 
 #' @export
-future_modify.default <- function(.x, .f, ..., future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
-  .x[] <- future_map(.x, .f, ..., future.globals = future.globals, future.packages = future.packages, future.seed = future.seed, future.lazy = future.lazy, future.scheduling = future.scheduling)
+future_modify.default <- function(.x, .f, ..., .progress = FALSE, future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
+  .x[] <- future_map(.x, .f, ..., .progress = .progress, future.globals = future.globals, future.packages = future.packages, future.seed = future.seed, future.lazy = future.lazy, future.scheduling = future.scheduling)
   .x
 }
 
 #' @rdname future_modify
 #' @export
-future_modify_at <- function(.x, .at, .f, ..., future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
+future_modify_at <- function(.x, .at, .f, ..., .progress = FALSE, future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
   UseMethod("future_modify_at")
 }
 
 #' @export
-future_modify_at.default <- function(.x, .at, .f, ..., future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
+future_modify_at.default <- function(.x, .at, .f, ..., .progress = FALSE, future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
   sel <- inv_which(.x, .at)
-  .x[sel] <- future_map(.x[sel], .f, ..., future.globals = future.globals, future.packages = future.packages, future.seed = future.seed, future.lazy = future.lazy, future.scheduling = future.scheduling)
+  .x[sel] <- future_map(.x[sel], .f, ..., .progress = .progress, future.globals = future.globals, future.packages = future.packages, future.seed = future.seed, future.lazy = future.lazy, future.scheduling = future.scheduling)
   .x
 }
 
 #' @rdname future_modify
 #' @export
-future_modify_if <- function(.x, .p, .f, ..., future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
+future_modify_if <- function(.x, .p, .f, ..., .progress = FALSE, future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
   UseMethod("future_modify_if")
 }
 
 #' @export
-future_modify_if.default <- function(.x, .p, .f, ..., future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
+future_modify_if.default <- function(.x, .p, .f, ..., .progress = FALSE, future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
   sel <- probe(.x, .p)
-  .x[sel] <- future_map(.x[sel], .f, ..., future.globals = future.globals, future.packages = future.packages, future.seed = future.seed, future.lazy = future.lazy, future.scheduling = future.scheduling)
+  .x[sel] <- future_map(.x[sel], .f, ..., .progress = .progress, future.globals = future.globals, future.packages = future.packages, future.seed = future.seed, future.lazy = future.lazy, future.scheduling = future.scheduling)
   .x
 }

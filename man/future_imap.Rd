@@ -9,24 +9,29 @@
 \alias{future_imap_dfc}
 \title{Apply a function to each element of a vector, and its index via futures}
 \usage{
-future_imap(.x, .f, ..., future.globals = TRUE, future.packages = NULL,
-  future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1)
-
-future_imap_chr(.x, .f, ..., future.globals = TRUE, future.packages = NULL,
-  future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1)
-
-future_imap_dbl(.x, .f, ..., future.globals = TRUE, future.packages = NULL,
-  future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1)
-
-future_imap_lgl(.x, .f, ..., future.globals = TRUE, future.packages = NULL,
-  future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1)
-
-future_imap_dfr(.x, .f, ..., .id = NULL, future.globals = TRUE,
+future_imap(.x, .f, ..., .progress = FALSE, future.globals = TRUE,
   future.packages = NULL, future.seed = FALSE, future.lazy = FALSE,
   future.scheduling = 1)
 
-future_imap_dfc(.x, .f, ..., future.globals = TRUE, future.packages = NULL,
-  future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1)
+future_imap_chr(.x, .f, ..., .progress = FALSE, future.globals = TRUE,
+  future.packages = NULL, future.seed = FALSE, future.lazy = FALSE,
+  future.scheduling = 1)
+
+future_imap_dbl(.x, .f, ..., .progress = FALSE, future.globals = TRUE,
+  future.packages = NULL, future.seed = FALSE, future.lazy = FALSE,
+  future.scheduling = 1)
+
+future_imap_lgl(.x, .f, ..., .progress = FALSE, future.globals = TRUE,
+  future.packages = NULL, future.seed = FALSE, future.lazy = FALSE,
+  future.scheduling = 1)
+
+future_imap_dfr(.x, .f, ..., .id = NULL, .progress = FALSE,
+  future.globals = TRUE, future.packages = NULL, future.seed = FALSE,
+  future.lazy = FALSE, future.scheduling = 1)
+
+future_imap_dfc(.x, .f, ..., .progress = FALSE, future.globals = TRUE,
+  future.packages = NULL, future.seed = FALSE, future.lazy = FALSE,
+  future.scheduling = 1)
 }
 \arguments{
 \item{.x}{A list or atomic vector.}
@@ -53,6 +58,9 @@ to extract named attributes. If a component is not present, the value of
 \code{.default} will be returned.}
 
 \item{...}{Additional arguments passed on to \code{.f}.}
+
+\item{.progress}{A logical, for whether or not to print a progress bar for
+multiprocess, multisession, and multicore plans.}
 
 \item{future.globals}{A logical, a character vector, or a named list for
 controlling how globals are handled. For details, see below section.}

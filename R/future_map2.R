@@ -7,28 +7,7 @@
 #' them all in parallel as well.
 #'
 #' @inheritParams purrr::map2
-#'
-#' @param future.globals A logical, a character vector, or a named list for
-#'        controlling how globals are handled. For details, see below section.
-#'
-#' @param future.packages (optional) a character vector specifying packages
-#'        to be attached in the R environment evaluating the future.
-#'
-#' @param future.seed A logical or an integer (of length one or seven),
-#'        or a list of `length(.x)` with pre-generated random seeds.
-#'        For details, see below section.
-#'
-#' @param future.lazy Specifies whether the futures should be resolved
-#'        lazily or eagerly (default).
-#'
-#' @param future.scheduling Average number of futures ("chunks") per worker.
-#'        If `0.0`, then a single future is used to process all elements
-#'        of `.x`.
-#'        If `1.0` or `TRUE`, then one future per worker is used.
-#'        If `2.0`, then each worker will process two futures
-#'        (if there are enough elements in `.x`).
-#'        If `Inf` or `FALSE`, then one future per element of
-#'        `.x` is used.
+#' @inheritParams future_map
 #'
 #' @return
 #' An atomic vector, list, or data frame, depending on the suffix.
@@ -107,56 +86,56 @@
 #' @importFrom parallel nextRNGStream nextRNGSubStream splitIndices
 #' @importFrom utils capture.output str
 #' @export
-future_map2 <- function(.x, .y, .f, ..., future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
-  future_map2_template(purrr::map, "list", .x, .y, .f, ..., future.globals = future.globals, future.packages = future.packages, future.seed = future.seed, future.lazy = future.lazy, future.scheduling = future.scheduling)
+future_map2 <- function(.x, .y, .f, ..., .progress = FALSE, future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
+  future_map2_template(purrr::map, "list", .x, .y, .f, ..., .progress = .progress, future.globals = future.globals, future.packages = future.packages, future.seed = future.seed, future.lazy = future.lazy, future.scheduling = future.scheduling)
 }
 
 #' @rdname future_map2
 #' @export
-future_map2_chr <- function(.x, .y, .f, ..., future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
-  future_map2_template(purrr::map_chr, "character", .x, .y, .f, ..., future.globals = future.globals, future.packages = future.packages, future.seed = future.seed, future.lazy = future.lazy, future.scheduling = future.scheduling)
+future_map2_chr <- function(.x, .y, .f, ..., .progress = FALSE, future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
+  future_map2_template(purrr::map_chr, "character", .x, .y, .f, ..., .progress = .progress, future.globals = future.globals, future.packages = future.packages, future.seed = future.seed, future.lazy = future.lazy, future.scheduling = future.scheduling)
 }
 
 #' @rdname future_map2
 #' @export
-future_map2_dbl <- function(.x, .y, .f, ..., future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
-  future_map2_template(purrr::map_dbl, "double", .x, .y, .f, ..., future.globals = future.globals, future.packages = future.packages, future.seed = future.seed, future.lazy = future.lazy, future.scheduling = future.scheduling)
+future_map2_dbl <- function(.x, .y, .f, ..., .progress = FALSE, future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
+  future_map2_template(purrr::map_dbl, "double", .x, .y, .f, ..., .progress = .progress, future.globals = future.globals, future.packages = future.packages, future.seed = future.seed, future.lazy = future.lazy, future.scheduling = future.scheduling)
 }
 
 #' @rdname future_map2
 #' @export
-future_map2_int <- function(.x, .y, .f, ..., future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
-  future_map2_template(purrr::map_int, "integer", .x, .y, .f, ..., future.globals = future.globals, future.packages = future.packages, future.seed = future.seed, future.lazy = future.lazy, future.scheduling = future.scheduling)
+future_map2_int <- function(.x, .y, .f, ..., .progress = FALSE, future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
+  future_map2_template(purrr::map_int, "integer", .x, .y, .f, ..., .progress = .progress, future.globals = future.globals, future.packages = future.packages, future.seed = future.seed, future.lazy = future.lazy, future.scheduling = future.scheduling)
 }
 
 #' @rdname future_map2
 #' @export
-future_map2_lgl <- function(.x, .y, .f, ..., future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
-  future_map2_template(purrr::map_lgl, "logical", .x, .y, .f, ..., future.globals = future.globals, future.packages = future.packages, future.seed = future.seed, future.lazy = future.lazy, future.scheduling = future.scheduling)
+future_map2_lgl <- function(.x, .y, .f, ..., .progress = FALSE, future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
+  future_map2_template(purrr::map_lgl, "logical", .x, .y, .f, ..., .progress = .progress, future.globals = future.globals, future.packages = future.packages, future.seed = future.seed, future.lazy = future.lazy, future.scheduling = future.scheduling)
 }
 
 #' @rdname future_map2
 #' @export
-future_map2_dfr <- function(.x, .y, .f, ..., .id = NULL, future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
+future_map2_dfr <- function(.x, .y, .f, ..., .id = NULL, .progress = FALSE, future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
   # Passing through the template doesn't work because of the way fold() works.
   # Could parameterize around fold(res, ___), but this is easier
   if (!rlang::is_installed("dplyr")) {
     rlang::abort("`future_map2_dfr()` requires dplyr")
   }
 
-  res <- future_map2(.x, .y, .f, ..., future.globals = future.globals, future.packages = future.packages, future.seed = future.seed, future.lazy = future.lazy, future.scheduling = future.scheduling)
+  res <- future_map2(.x, .y, .f, ..., .progress = .progress, future.globals = future.globals, future.packages = future.packages, future.seed = future.seed, future.lazy = future.lazy, future.scheduling = future.scheduling)
   dplyr::bind_rows(res, .id = .id)
 }
 
 #' @rdname future_map2
 #' @export
-future_map2_dfc <- function(.x, .y, .f, ..., future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
+future_map2_dfc <- function(.x, .y, .f, ..., .progress = FALSE, future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
   # Passing through the template doesn't work because of the way fold() works.
   # Could parameterize around fold(res, ___), but this is easier
   if (!rlang::is_installed("dplyr")) {
     rlang::abort("`future_map2_dfc()` requires dplyr")
   }
 
-  res <- future_map2(.x, .y, .f, ..., future.globals = future.globals, future.packages = future.packages, future.seed = future.seed, future.lazy = future.lazy, future.scheduling = future.scheduling)
+  res <- future_map2(.x, .y, .f, ..., .progress = .progress, future.globals = future.globals, future.packages = future.packages, future.seed = future.seed, future.lazy = future.lazy, future.scheduling = future.scheduling)
   dplyr::bind_cols(res)
 }

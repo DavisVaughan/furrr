@@ -1,4 +1,4 @@
-future_map_template <- function(.map, .type, .x, .f, ..., future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
+future_map_template <- function(.map, .type, .x, .f, ..., .progress = FALSE, future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
 
   # Create function from .f
   .f <- purrr::as_mapper(.f, ...) # ... required in case you pass .null / .default through for purrr::as_mapper.numeric
@@ -262,6 +262,17 @@ future_map_template <- function(.map, .type, .x, .f, ..., future.globals = TRUE,
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   ## 5. Create futures
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  # .progress always needs to be on the workers for the if statement...
+  globals <- c(globals, .progress = .progress)
+
+  # ...but we add the tempfile and the function if .progress = TRUE
+  if(.progress) {
+    temp_file <- tempfile(fileext = ".txt")
+    writeLines("falsetick", temp_file)
+    globals <- c(globals, update_progress = update_progress, temp_file = temp_file)
+  }
+
   ## Add argument placeholders
   globals_extra <- as.FutureGlobals(list(...future.x_ii = NULL, ...future.seeds_ii = NULL))
   attr(globals_extra, "resolved") <- TRUE
@@ -298,12 +309,15 @@ future_map_template <- function(.map, .type, .x, .f, ..., future.globals = TRUE,
         ...future.f.env <- environment(...future.f)
         if(!is.null(...future.f.env$`~`)) {
           mask <- rlang::as_data_mask(list(a=1))
+          unlockBinding(sym = as.name("~"), ...future.f.env)
           ...future.f.env$`~` <- mask$`~`
         }
 
         ...future.map(seq_along(...future.x_ii), .f = function(jj) {
           ...future.x_jj <- ...future.x_ii[[jj]]
-          ...future.f(...future.x_jj, ...)
+          .out <- ...future.f(...future.x_jj, ...)
+          if(.progress) update_progress(temp_file)
+          .out
         })
 
       }, envir = envir, lazy = future.lazy, globals = globals_ii, packages = packages)
@@ -317,13 +331,16 @@ future_map_template <- function(.map, .type, .x, .f, ..., future.globals = TRUE,
         ...future.f.env <- environment(...future.f)
         if(!is.null(...future.f.env$`~`)) {
           mask <- rlang::as_data_mask(list(a=1))
+          unlockBinding(sym = as.name("~"), ...future.f.env)
           ...future.f.env$`~` <- mask$`~`
         }
 
         ...future.map(seq_along(...future.x_ii), .f = function(jj) {
           ...future.x_jj <- ...future.x_ii[[jj]]
           assign(".Random.seed", ...future.seeds_ii[[jj]], envir = globalenv(), inherits = FALSE)
-          ...future.f(...future.x_jj, ...)
+          .out <- ...future.f(...future.x_jj, ...)
+          if(.progress) update_progress(temp_file)
+          .out
         })
 
       }, envir = envir, lazy = future.lazy, globals = globals_ii, packages = packages)
@@ -339,7 +356,63 @@ future_map_template <- function(.map, .type, .x, .f, ..., future.globals = TRUE,
   ## Not needed anymore
   rm(list = c("chunks", "globals", "envir"))
 
-  ## 4. Resolving futures
+  ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  ## 6. Print progress
+  ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  if(.progress) {
+
+    if (debug) mdebug("Polling for progress ...")
+
+    not_resolved_once <- !all_resolved(fs)
+
+    # Poll the files until all the jobs are complete
+    while (!all_resolved(fs)) {
+
+      # -1 because of empty tick needed to init file.
+      # Otherwise if we get here too quickly it gives error
+      n_ticks <- length(readLines(temp_file)) - 1
+
+      max_width <- console_width()
+      progress_width <- 10
+      finish_width <- 5
+      carriage_width <- 1
+      filler_width <- max_width - progress_width - finish_width - carriage_width
+
+      rule_width <- floor(filler_width * n_ticks / n.x)
+      space_width <- filler_width - rule_width
+
+      spaces <- paste0(rep(" ", times = space_width), collapse = "")
+
+      # The one line - symbol came from cli::symbols$line
+      progress <- paste0(rep("\u2500", times = rule_width), collapse = "")
+      all_text <- paste0("Progress: ", progress, spaces, " 100%")
+
+      cat("\r", all_text)
+      utils::flush.console()
+    }
+
+    if(not_resolved_once) {
+      # Separate progress from output
+      max_width <- console_width()
+      progress_width <- 10
+      finish_width <- 5
+      carriage_width <- 1
+      filler_width <- max_width - progress_width - finish_width - carriage_width
+      progress <- paste0(rep("\u2500", times = filler_width), collapse = "")
+      all_text <- paste0("Progress: ", progress, " 100%")
+      cat("\r", all_text)
+      cat("\n\n")
+    }
+
+    if (debug) mdebug("Polling for progress ... DONE")
+
+  }
+
+  ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  ## 7. Resolve
+  ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  ## Resolving futures
   if (debug) mdebug("Resolving %d futures (chunks) ...", nchunks)
   values <- values(fs)
   if (debug) mdebug("Resolving %d futures (chunks) ... DONE", nchunks)
