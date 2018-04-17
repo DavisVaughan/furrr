@@ -49,7 +49,6 @@ you can immediately have familiarity with it.
 ``` r
 library(furrr)
 #> Loading required package: future
-#> Warning: package 'future' was built under R version 3.4.4
 library(purrr)
 
 map(c("hello", "world"), ~.x)
@@ -99,15 +98,25 @@ plan(sequential)
 tic()
 nothingness <- future_map(c(3, 3, 3), ~Sys.sleep(.x))
 toc()
-#> 9.044 sec elapsed
+#> 9.056 sec elapsed
 
 # This should take ~3 seconds running in parallel, with a little overhead
 plan(multiprocess)
 tic()
 nothingness <- future_map(c(3, 3, 3), ~Sys.sleep(.x))
 toc()
-#> 3.085 sec elapsed
+#> 3.076 sec elapsed
 ```
+
+## Progress bars
+
+Who doesn’t love progress bars? For `multiprocess`, `multicore`, and
+`multisession` plans, you can activate a progress bar for your long
+running task with `.progress = TRUE`. Note that these are still a bit
+experimental so feedback is welcome. You should get a nice progress bar
+that looks like this:
+
+<img src="man/figures/progress.gif" width="100%" />
 
 ## A more compelling use case
 
@@ -215,7 +224,7 @@ library(tictoc)
 tic()
 rs_obj$results <- map(rs_obj$splits, holdout_results, mod_form)
 toc()
-#> 26.666 sec elapsed
+#> 24.474 sec elapsed
 ```
 
 Then in parallel…
@@ -227,7 +236,7 @@ plan(multiprocess)
 tic()
 rs_obj$results <- future_map(rs_obj$splits, holdout_results, mod_form)
 toc()
-#> 13.552 sec elapsed
+#> 12.297 sec elapsed
 ```
 
 If you’re curious, the resulting object looks like this.
@@ -261,6 +270,39 @@ The implementation of `future_lapply()` does include a scheduling
 feature, which carried over nicely into `furrr` and efficiently breaks
 up the list of splits into 4 equal subsets. Each is passed to 1 core of
 my machine.
+
+## A note on performance
+
+It’s important to remember that data has to be passed back and forth
+between the cores. This means that whatever performance gain you might
+have gotten from your parallelization can be crushed by moving large
+amounts of data around. For example, if instead of returning a results
+data frame in the above example, we returned the larger `glm` model
+object for each split, our performance drops a bit.
+
+``` r
+model_only <- function(splits, ...) {
+  # Fit the model to the 90%
+  mod <- glm(..., data = analysis(splits), family = binomial)
+  
+  mod
+}
+
+plan(multiprocess)
+
+tic()
+rs_obj$results2 <- future_map(rs_obj$splits, model_only, mod_form)
+toc()
+#> 18.733 sec elapsed
+```
+
+Luckily, the `glm` model is relatively small, so we don’t experience
+much loss, but there are model objects out there that can be 10’s of MBs
+in size. For models like those, I would advise wrapping up the work you
+want each core to do into a function, and only returning the actual
+performance metric you are looking for. This might mean a little bit
+more work on your side, but it results in smaller objects, and faster
+performance.
 
 ## What has not been implemented (yet)?
 
