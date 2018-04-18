@@ -143,8 +143,8 @@ future_map2_template <- function(.map, .type, .x, .y, .f, ..., .progress = FALSE
   ## 2. Packages
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  # purrr and rlang are always included
-  packages <- unique(c(packages, "purrr", "rlang"))
+  # purrr is always included
+  packages <- unique(c(packages, "purrr"))
 
   if (!is.null(future.packages)) {
     stopifnot(is.character(future.packages))
