@@ -305,12 +305,11 @@ future_map_template <- function(.map, .type, .x, .f, ..., .progress = FALSE, fut
       fs[[ii]] <- future({
 
         # rlang tilde - when serializing with multisession, the pointer becomes 0x0
-        # Temp solution is to readd into the .f environment if necessary
+        # Temp solution is to readd base::`~` into the .f environment if necessary
         ...future.f.env <- environment(...future.f)
         if(!is.null(...future.f.env$`~`)) {
-          mask <- rlang::as_data_mask(list(a=1))
           unlockBinding(sym = as.name("~"), ...future.f.env)
-          ...future.f.env$`~` <- mask$`~`
+          ...future.f.env$`~` <- base::`~`
         }
 
         ...future.map(seq_along(...future.x_ii), .f = function(jj) {
@@ -327,12 +326,11 @@ future_map_template <- function(.map, .type, .x, .f, ..., .progress = FALSE, fut
       fs[[ii]] <- future({
 
         # rlang tilde - when serializing with multisession, the pointer becomes 0x0
-        # Temp solution is to readd into the .f environment if necessary
+        # Temp solution is to readd base::`~` into the .f environment if necessary
         ...future.f.env <- environment(...future.f)
         if(!is.null(...future.f.env$`~`)) {
-          mask <- rlang::as_data_mask(list(a=1))
           unlockBinding(sym = as.name("~"), ...future.f.env)
-          ...future.f.env$`~` <- mask$`~`
+          ...future.f.env$`~` <- base::`~`
         }
 
         ...future.map(seq_along(...future.x_ii), .f = function(jj) {
