@@ -34,6 +34,15 @@ vec_index <- function(x){
   names(x) %||% seq_along(x)
 }
 
+as_invoke_function <- function(f) {
+  if (is.function(f)) {
+    list(f)
+  }
+  else {
+    f
+  }
+}
+
 # ------------------------------------------------------------------------------
 # util
 
