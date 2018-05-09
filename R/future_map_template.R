@@ -5,6 +5,9 @@
 
 future_map_template <- function(.map, .type, .x, .f, ..., .progress, .options) {
 
+  # Assert future options
+  assert_future_options(.options)
+
   # Create function from .f
   .f <- purrr::as_mapper(.f, ...) # ... required in case you pass .null / .default through for purrr::as_mapper.numeric
 

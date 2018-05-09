@@ -149,3 +149,9 @@ validate_future_options <- function(.options) {
 
   .options
 }
+
+assert_future_options <- function(.options) {
+  if(!inherits(.options, "future_options")) {
+    stop(".options must be created from future_options().", call. = FALSE)
+  }
+}
