@@ -35,6 +35,12 @@ future_imap_dbl <- function(.x, .f, ..., .progress = FALSE, .options = future_op
 
 #' @rdname future_imap
 #' @export
+future_imap_int <- function(.x, .f, ..., .progress = FALSE, .options = future_options()) {
+  future_map2_int(.x, vec_index(.x), .f, ..., .progress = .progress, .options = .options)
+}
+
+#' @rdname future_imap
+#' @export
 future_imap_lgl <- function(.x, .f, ..., .progress = FALSE, .options = future_options()) {
   future_map2_lgl(.x, vec_index(.x), .f, ..., .progress = .progress, .options = .options)
 }

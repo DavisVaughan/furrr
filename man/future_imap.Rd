@@ -4,6 +4,7 @@
 \alias{future_imap}
 \alias{future_imap_chr}
 \alias{future_imap_dbl}
+\alias{future_imap_int}
 \alias{future_imap_lgl}
 \alias{future_imap_dfr}
 \alias{future_imap_dfc}
@@ -14,6 +15,8 @@ future_imap(.x, .f, ..., .progress = FALSE, .options = future_options())
 future_imap_chr(.x, .f, ..., .progress = FALSE, .options = future_options())
 
 future_imap_dbl(.x, .f, ..., .progress = FALSE, .options = future_options())
+
+future_imap_int(.x, .f, ..., .progress = FALSE, .options = future_options())
 
 future_imap_lgl(.x, .f, ..., .progress = FALSE, .options = future_options())
 
