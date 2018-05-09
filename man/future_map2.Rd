@@ -10,33 +10,25 @@
 \alias{future_map2_dfc}
 \title{Map over multiple inputs simulatneously via futures}
 \usage{
-future_map2(.x, .y, .f, ..., .progress = FALSE, future.globals = TRUE,
-  future.packages = NULL, future.seed = FALSE, future.lazy = FALSE,
-  future.scheduling = 1)
+future_map2(.x, .y, .f, ..., .progress = FALSE, .options = future_options())
 
-future_map2_chr(.x, .y, .f, ..., .progress = FALSE, future.globals = TRUE,
-  future.packages = NULL, future.seed = FALSE, future.lazy = FALSE,
-  future.scheduling = 1)
+future_map2_chr(.x, .y, .f, ..., .progress = FALSE,
+  .options = future_options())
 
-future_map2_dbl(.x, .y, .f, ..., .progress = FALSE, future.globals = TRUE,
-  future.packages = NULL, future.seed = FALSE, future.lazy = FALSE,
-  future.scheduling = 1)
+future_map2_dbl(.x, .y, .f, ..., .progress = FALSE,
+  .options = future_options())
 
-future_map2_int(.x, .y, .f, ..., .progress = FALSE, future.globals = TRUE,
-  future.packages = NULL, future.seed = FALSE, future.lazy = FALSE,
-  future.scheduling = 1)
+future_map2_int(.x, .y, .f, ..., .progress = FALSE,
+  .options = future_options())
 
-future_map2_lgl(.x, .y, .f, ..., .progress = FALSE, future.globals = TRUE,
-  future.packages = NULL, future.seed = FALSE, future.lazy = FALSE,
-  future.scheduling = 1)
+future_map2_lgl(.x, .y, .f, ..., .progress = FALSE,
+  .options = future_options())
 
 future_map2_dfr(.x, .y, .f, ..., .id = NULL, .progress = FALSE,
-  future.globals = TRUE, future.packages = NULL, future.seed = FALSE,
-  future.lazy = FALSE, future.scheduling = 1)
+  .options = future_options())
 
-future_map2_dfc(.x, .y, .f, ..., .progress = FALSE, future.globals = TRUE,
-  future.packages = NULL, future.seed = FALSE, future.lazy = FALSE,
-  future.scheduling = 1)
+future_map2_dfc(.x, .y, .f, ..., .progress = FALSE,
+  .options = future_options())
 }
 \arguments{
 \item{.x}{Vectors of the same length. A vector of length 1 will
@@ -71,27 +63,8 @@ to extract named attributes. If a component is not present, the value of
 \item{.progress}{A logical, for whether or not to print a progress bar for
 multiprocess, multisession, and multicore plans.}
 
-\item{future.globals}{A logical, a character vector, or a named list for
-controlling how globals are handled. For details, see below section.}
-
-\item{future.packages}{(optional) a character vector specifying packages
-to be attached in the R environment evaluating the future.}
-
-\item{future.seed}{A logical or an integer (of length one or seven),
-or a list of \code{length(.x)} with pre-generated random seeds.
-For details, see below section.}
-
-\item{future.lazy}{Specifies whether the futures should be resolved
-lazily or eagerly (default).}
-
-\item{future.scheduling}{Average number of futures ("chunks") per worker.
-If \code{0.0}, then a single future is used to process all elements
-of \code{.x}.
-If \code{1.0} or \code{TRUE}, then one future per worker is used.
-If \code{2.0}, then each worker will process two futures
-(if there are enough elements in \code{.x}).
-If \code{Inf} or \code{FALSE}, then one future per element of
-\code{.x} is used.}
+\item{.options}{The \code{future} specific options to use with the workers. This must
+be the result from a call to \code{\link[=future_options]{future_options()}}.}
 
 \item{.id}{If not \code{NULL} a variable with this name will be created
 giving either the name or the index of the data frame.}
@@ -110,60 +83,6 @@ is just saying that you are working with multiple inputs, and parallel in
 this case means that you can work on multiple inputs AND process
 them all in parallel as well.
 }
-\section{Global variables}{
-
-Argument \code{future.globals} may be used to control how globals
-should be handled similarly how the \code{globals} argument is used with
-\code{future()}.
-Since all function calls use the same set of globals, this function can do
-any gathering of globals upfront (once), which is more efficient than if
-it would be done for each future independently.
-If \code{TRUE}, \code{NULL} or not is specified (default), then globals
-are automatically identified and gathered.
-If a character vector of names is specified, then those globals are gathered.
-If a named list, then those globals are used as is.
-In all cases, \code{.f} and any \code{...} arguments are automatically
-passed as globals to each future created as they are always needed.
-}
-
-\section{Reproducible random number generation (RNG)}{
-
-Unless \code{future.seed = FALSE}, this function guarantees to generate
-the exact same sequence of random numbers \emph{given the same initial
-seed / RNG state} - this regardless of type of futures and scheduling
-("chunking") strategy.
-
-RNG reproducibility is achieved by pregenerating the random seeds for all
-iterations (over \code{.x}) by using L'Ecuyer-CMRG RNG streams.  In each
-iteration, these seeds are set before calling \code{.f(.x[[ii]], ...)}.
-\emph{Note, for large \code{length(.x)} this may introduce a large overhead.}
-As input (\code{future.seed}), a fixed seed (integer) may be given, either
-as a full L'Ecuyer-CMRG RNG seed (vector of 1+6 integers) or as a seed
-generating such a full L'Ecuyer-CMRG seed.
-If \code{future.seed = TRUE}, then \code{\link[base:Random]{.Random.seed}}
-is returned if it holds a L'Ecuyer-CMRG RNG seed, otherwise one is created
-randomly.
-If \code{future.seed = NA}, a L'Ecuyer-CMRG RNG seed is randomly created.
-If none of the function calls \code{.f(.x[[ii]], ...)} uses random number
-generation, then \code{future.seed = FALSE} may be used.
-
-In addition to the above, it is possible to specify a pre-generated
-sequence of RNG seeds as a list such that
-\code{length(future.seed) == length(.x)} and where each element is an
-integer seed that can be assigned to \code{\link[base:Random]{.Random.seed}}.
-Use this alternative with caution.
-\strong{Note that \code{as.list(seq_along(.x))} is \emph{not} a valid set of such
-\code{.Random.seed} values.}
-
-In all cases but \code{future.seed = FALSE}, the RNG state of the calling
-R processes after this function returns is guaranteed to be
-"forwarded one step" from the RNG state that was before the call and
-in the same way regardless of \code{future.seed}, \code{future.scheduling}
-and future strategy used.  This is done in order to guarantee that an \R
-script calling \code{future_map2()} multiple times should be numerically
-reproducible given the same initial seed.
-}
-
 \examples{
 
 library(furrr)

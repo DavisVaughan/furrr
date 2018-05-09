@@ -29,7 +29,7 @@ recursive folding.}
 A vector.
 }
 \description{
-Efficient fold / reduce / accumulate / combine of a vector
+This function comes from the \code{future.apply} package.
 }
 \details{
 In order for recursive folding to give the same results as non-recursive

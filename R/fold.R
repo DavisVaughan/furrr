@@ -1,7 +1,9 @@
 #' Efficient fold / reduce / accumulate / combine of a vector
 #'
+#' This function comes from the `future.apply` package.
+#'
 #' @param x A vector.
-#' 
+#'
 #' @param f A binary function, i.e. a function take takes two arguments.
 #'
 #' @param left If `TRUE`, vector is combined from the left (the first element),
@@ -16,12 +18,12 @@
 #' recursive folding.
 #'
 #' @return A vector.
-#' 
+#'
 #' @details
 #' In order for recursive folding to give the same results as non-recursive
 #' folding, binary function `f` must be _associative_ with itself, i.e.
 #' `f(f(x[[1]], x[[2]]), x[[3]])` equals `f(x[[1]], f(x[[2]]), x[[3]])`.
-#' 
+#'
 #' This function is a more efficient (memory and speed) of
 #' [`base::Reduce(f, x, right = !left, accumulate = FALSE)`][base::Reduce],
 #' especially when `x` is long.
