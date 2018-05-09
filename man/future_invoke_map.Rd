@@ -2,14 +2,39 @@
 % Please edit documentation in R/future_invoke_map.R
 \name{future_invoke_map}
 \alias{future_invoke_map}
+\alias{future_invoke_map_chr}
+\alias{future_invoke_map_dbl}
+\alias{future_invoke_map_int}
+\alias{future_invoke_map_lgl}
 \alias{future_invoke_map_dfr}
+\alias{future_invoke_map_dfc}
 \title{Invoke functions via futures}
 \usage{
 future_invoke_map(.f, .x = list(NULL), ..., .env = NULL,
   .progress = FALSE, future.globals = TRUE, future.packages = NULL,
   future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1)
 
+future_invoke_map_chr(.f, .x = list(NULL), ..., .env = NULL,
+  .progress = FALSE, future.globals = TRUE, future.packages = NULL,
+  future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1)
+
+future_invoke_map_dbl(.f, .x = list(NULL), ..., .env = NULL,
+  .progress = FALSE, future.globals = TRUE, future.packages = NULL,
+  future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1)
+
+future_invoke_map_int(.f, .x = list(NULL), ..., .env = NULL,
+  .progress = FALSE, future.globals = TRUE, future.packages = NULL,
+  future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1)
+
+future_invoke_map_lgl(.f, .x = list(NULL), ..., .env = NULL,
+  .progress = FALSE, future.globals = TRUE, future.packages = NULL,
+  future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1)
+
 future_invoke_map_dfr(.f, .x = list(NULL), ..., .env = NULL,
+  .progress = FALSE, future.globals = TRUE, future.packages = NULL,
+  future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1)
+
+future_invoke_map_dfc(.f, .x = list(NULL), ..., .env = NULL,
   .progress = FALSE, future.globals = TRUE, future.packages = NULL,
   future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1)
 }
@@ -73,4 +98,21 @@ If \code{Inf} or \code{FALSE}, then one future per element of
 These functions work exactly the same as \code{\link[purrr:invoke_map]{purrr::invoke_map()}} functions, but allow
 you to invoke in parallel. There are a number of \code{future.*} arguments
 to allow you to fine tune the parallel processing.
+}
+\examples{
+
+plan(multiprocess)
+
+df <- dplyr::tibble(
+  f = c("runif", "rpois", "rnorm"),
+  params = list(
+    list(n = 10),
+    list(n = 5, lambda = 10),
+    list(n = 10, mean = -3, sd = 10)
+  )
+)
+
+future_invoke_map(df$f, df$params)
+
+
 }
