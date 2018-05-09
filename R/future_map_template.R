@@ -1,18 +1,16 @@
-future_map_template <- function(.map, .type, .x, .f, ..., .progress = FALSE, future.globals = TRUE, future.packages = NULL, future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1.0) {
+#' @importFrom globals globalsByName cleanup
+#' @importFrom future future resolve values as.FutureGlobals nbrOfWorkers getGlobalsAndPackages
+#' @importFrom parallel nextRNGStream nextRNGSubStream splitIndices
+#' @importFrom utils capture.output str
+
+future_map_template <- function(.map, .type, .x, .f, ..., .progress, .options) {
 
   # Create function from .f
   .f <- purrr::as_mapper(.f, ...) # ... required in case you pass .null / .default through for purrr::as_mapper.numeric
 
+  # Setup
   objectSize <- import_future("objectSize")
-
-  stopifnot(is.function(.f))
-
-  stopifnot(is.logical(future.lazy))
-
-  stopifnot(!is.null(future.seed))
-
-  stopifnot(length(future.scheduling) == 1, !is.na(future.scheduling),
-            is.numeric(future.scheduling) || is.logical(future.scheduling))
+  debug      <- getOption("future.debug", FALSE)
 
   ## Nothing to do?
   n.x <- length(.x)
@@ -30,27 +28,24 @@ future_map_template <- function(.map, .type, .x, .f, ..., .progress = FALSE, fut
     return(empty_type)
   }
 
-  debug <- getOption("future.debug", FALSE)
-
-  if (debug) mdebug("future_lapply() ...")
+  if (debug) mdebug("future_map_*() ...")
 
   ## NOTE TO SELF: We'd ideally have a 'future.envir' argument also for
   ## future_lapply(), cf. future().  However, it's not yet clear to me how
   ## to do this, because we need to have globalsOf() to search for globals
   ## from the current environment in order to identify the globals of
   ## arguments 'FUN' and '...'. /HB 2017-03-10
-  future.envir <- environment()  ## Not used; just to clarify the above.
-
+  future.envir <- environment()  ## Used once in getGlobalsAndPackages() below
   envir <- future.envir
 
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   ## 1. Global variables
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   ## The default is to gather globals
-  if (is.null(future.globals)) future.globals <- TRUE
+  if (is.null(.options$globals)) .options$globals <- TRUE
 
   packages <- NULL
-  globals <- future.globals
+  globals <- .options$globals
   if (is.logical(globals)) {
     ## Gather all globals?
     if (globals) {
@@ -78,10 +73,10 @@ future_map_template <- function(.map, .type, .x, .f, ..., .progress = FALSE, fut
   } else if (is.list(globals)) {
     names <- names(globals)
     if (length(globals) > 0 && is.null(names)) {
-      stop("Invalid argument 'future.globals'. All globals must be named.")
+      stop("Invalid argument '.options$globals'. All globals must be named.")
     }
   } else {
-    stop("Invalid argument 'future.globals': ", mode(globals))
+    stop("Invalid argument '.options$globals': ", mode(globals))
   }
   globals <- as.FutureGlobals(globals)
   stopifnot(inherits(globals, "FutureGlobals"))
@@ -134,11 +129,11 @@ future_map_template <- function(.map, .type, .x, .f, ..., .progress = FALSE, fut
   # purrr is always included
   packages <- unique(c(packages, "purrr"))
 
-  if (!is.null(future.packages)) {
-    stopifnot(is.character(future.packages))
-    future.packages <- unique(future.packages)
-    stopifnot(!anyNA(future.packages), all(nzchar(future.packages)))
-    packages <- unique(c(packages, future.packages))
+  if (!is.null(.options$packages)) {
+    stopifnot(is.character(.options$packages))
+    .options$packages <- unique(.options$packages)
+    stopifnot(!anyNA(.options$packages), all(nzchar(.options$packages)))
+    packages <- unique(c(packages, .options$packages))
   }
 
   if (debug) {
@@ -150,7 +145,7 @@ future_map_template <- function(.map, .type, .x, .f, ..., .progress = FALSE, fut
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   ## 3. Reproducible RNG (for sequential and parallel processing)
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  seed <- future.seed
+  seed <- .options$seed
 
   ## Placeholder for all RNG stream seeds.
   seeds <- NULL
@@ -235,19 +230,19 @@ future_map_template <- function(.map, .type, .x, .f, ..., .progress = FALSE, fut
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   ## 4. Load balancing ("chunking")
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  if (is.logical(future.scheduling)) {
-    if (future.scheduling) {
+  if (is.logical(.options$scheduling)) {
+    if (.options$scheduling) {
       nbr_of_futures <- nbrOfWorkers()
       if (nbr_of_futures > n.x) nbr_of_futures <- n.x
     } else {
       nbr_of_futures <- n.x
     }
   } else {
-    ## Treat 'future.scheduling' as the number of futures per worker.
-    stopifnot(future.scheduling >= 0)
+    ## Treat '.options$scheduling' as the number of futures per worker.
+    stopifnot(.options$scheduling >= 0)
     nbr_of_workers <- nbrOfWorkers()
     if (nbr_of_workers > n.x) nbr_of_workers <- n.x
-    nbr_of_futures <- future.scheduling * nbr_of_workers
+    nbr_of_futures <- .options$scheduling * nbr_of_workers
     if (nbr_of_futures < 1) {
       nbr_of_futures <- 1L
     } else if (nbr_of_futures > n.x) {
@@ -319,7 +314,7 @@ future_map_template <- function(.map, .type, .x, .f, ..., .progress = FALSE, fut
           .out
         })
 
-      }, envir = envir, lazy = future.lazy, globals = globals_ii, packages = packages)
+      }, envir = envir, lazy = .options$lazy, globals = globals_ii, packages = packages)
     } else {
       if (debug) mdebug(" - seeds: [%d] <seeds>", length(chunk))
       globals_ii[["...future.seeds_ii"]] <- seeds[chunk]
@@ -341,7 +336,7 @@ future_map_template <- function(.map, .type, .x, .f, ..., .progress = FALSE, fut
           .out
         })
 
-      }, envir = envir, lazy = future.lazy, globals = globals_ii, packages = packages)
+      }, envir = envir, lazy = .options$lazy, globals = globals_ii, packages = packages)
     }
 
     ## Not needed anymore

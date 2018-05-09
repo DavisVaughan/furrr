@@ -11,32 +11,25 @@
 \title{Invoke functions via futures}
 \usage{
 future_invoke_map(.f, .x = list(NULL), ..., .env = NULL,
-  .progress = FALSE, future.globals = TRUE, future.packages = NULL,
-  future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1)
+  .progress = FALSE, .options = future_options())
 
 future_invoke_map_chr(.f, .x = list(NULL), ..., .env = NULL,
-  .progress = FALSE, future.globals = TRUE, future.packages = NULL,
-  future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1)
+  .progress = FALSE, .options = future_options())
 
 future_invoke_map_dbl(.f, .x = list(NULL), ..., .env = NULL,
-  .progress = FALSE, future.globals = TRUE, future.packages = NULL,
-  future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1)
+  .progress = FALSE, .options = future_options())
 
 future_invoke_map_int(.f, .x = list(NULL), ..., .env = NULL,
-  .progress = FALSE, future.globals = TRUE, future.packages = NULL,
-  future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1)
+  .progress = FALSE, .options = future_options())
 
 future_invoke_map_lgl(.f, .x = list(NULL), ..., .env = NULL,
-  .progress = FALSE, future.globals = TRUE, future.packages = NULL,
-  future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1)
+  .progress = FALSE, .options = future_options())
 
 future_invoke_map_dfr(.f, .x = list(NULL), ..., .env = NULL,
-  .progress = FALSE, future.globals = TRUE, future.packages = NULL,
-  future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1)
+  .progress = FALSE, .options = future_options())
 
 future_invoke_map_dfc(.f, .x = list(NULL), ..., .env = NULL,
-  .progress = FALSE, future.globals = TRUE, future.packages = NULL,
-  future.seed = FALSE, future.lazy = FALSE, future.scheduling = 1)
+  .progress = FALSE, .options = future_options())
 }
 \arguments{
 \item{.f}{A function, formula, or atomic vector.
@@ -72,32 +65,12 @@ as \code{.f} the name of a function rather than its value, or as
 \item{.progress}{A logical, for whether or not to print a progress bar for
 multiprocess, multisession, and multicore plans.}
 
-\item{future.globals}{A logical, a character vector, or a named list for
-controlling how globals are handled. For details, see below section.}
-
-\item{future.packages}{(optional) a character vector specifying packages
-to be attached in the R environment evaluating the future.}
-
-\item{future.seed}{A logical or an integer (of length one or seven),
-or a list of \code{length(.x)} with pre-generated random seeds.
-For details, see below section.}
-
-\item{future.lazy}{Specifies whether the futures should be resolved
-lazily or eagerly (default).}
-
-\item{future.scheduling}{Average number of futures ("chunks") per worker.
-If \code{0.0}, then a single future is used to process all elements
-of \code{.x}.
-If \code{1.0} or \code{TRUE}, then one future per worker is used.
-If \code{2.0}, then each worker will process two futures
-(if there are enough elements in \code{.x}).
-If \code{Inf} or \code{FALSE}, then one future per element of
-\code{.x} is used.}
+\item{.options}{The \code{future} specific options to use with the workers. This must
+be the result from a call to \code{\link[=future_options]{future_options()}}.}
 }
 \description{
 These functions work exactly the same as \code{\link[purrr:invoke_map]{purrr::invoke_map()}} functions, but allow
-you to invoke in parallel. There are a number of \code{future.*} arguments
-to allow you to fine tune the parallel processing.
+you to invoke in parallel.
 }
 \examples{
 
