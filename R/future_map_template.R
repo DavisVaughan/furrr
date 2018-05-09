@@ -9,23 +9,12 @@ future_map_template <- function(.map, .type, .x, .f, ..., .progress, .options) {
   .f <- purrr::as_mapper(.f, ...) # ... required in case you pass .null / .default through for purrr::as_mapper.numeric
 
   # Setup
-  objectSize <- import_future("objectSize")
-  debug      <- getOption("future.debug", FALSE)
+  debug <- getOption("future.debug", FALSE)
 
   ## Nothing to do?
   n.x <- length(.x)
   if (n.x == 0)  {
-    # To stay consistent with purrr::map_*() return types
-    # purrr handles this at the C level
-    empty_type <- switch(
-      .type,
-      "character" = character(),
-      "double"    = double(),
-      "list"      = list(),
-      "integer"   = integer(),
-      "logical"   = logical()
-    )
-    return(empty_type)
+    return(get_zero_length_type(.type))
   }
 
   if (debug) mdebug("future_map_*() ...")
@@ -40,118 +29,24 @@ future_map_template <- function(.map, .type, .x, .f, ..., .progress, .options) {
 
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   ## 1. Global variables
-  ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  ## The default is to gather globals
-  if (is.null(.options$globals)) .options$globals <- TRUE
-
-  packages <- NULL
-  globals <- .options$globals
-  if (is.logical(globals)) {
-    ## Gather all globals?
-    if (globals) {
-      if (debug) mdebug("Finding globals ...")
-
-      expr <- do.call(call, args = c(list(".f"), list(...)))
-      gp <- getGlobalsAndPackages(expr, envir = envir, globals = TRUE)
-      globals <- gp$globals
-      packages <- gp$packages
-      gp <- NULL
-
-      if (debug) {
-        mdebug(" - globals found: [%d] %s", length(globals), hpaste(sQuote(names(globals))))
-        mdebug(" - needed namespaces: [%d] %s", length(packages), hpaste(sQuote(packages)))
-        mdebug("Finding globals ... DONE")
-      }
-    } else {
-      ## globals = FALSE
-      globals <- c(".f", names(list(...)), "...")
-      globals <- globalsByName(globals, envir = envir, mustExist = FALSE)
-    }
-  } else if (is.character(globals)) {
-    globals <- unique(c(globals, ".f", names(list(...)), "..."))
-    globals <- globalsByName(globals, envir = envir, mustExist = FALSE)
-  } else if (is.list(globals)) {
-    names <- names(globals)
-    if (length(globals) > 0 && is.null(names)) {
-      stop("Invalid argument '.options$globals'. All globals must be named.")
-    }
-  } else {
-    stop("Invalid argument '.options$globals': ", mode(globals))
-  }
-  globals <- as.FutureGlobals(globals)
-  stopifnot(inherits(globals, "FutureGlobals"))
-
-  names <- names(globals)
-  if (!is.element(".f", names)) {
-    globals <- c(globals, .f = .f)
-  }
-
-  # The purrr function that gets used must be passed as a global
-  # This mainly affects multisession
-  if (!is.element(".map", names)) {
-    globals <- c(globals, .map = .map)
-  }
-
-  if (!is.element("...", names)) {
-    if (debug) mdebug("Getting '...' globals ...")
-    dotdotdot <- globalsByName("...", envir = envir, mustExist = TRUE)
-    dotdotdot <- as.FutureGlobals(dotdotdot)
-    dotdotdot <- resolve(dotdotdot)
-    attr(dotdotdot, "total_size") <- objectSize(dotdotdot)
-    if (debug) mdebug("Getting '...' globals ... DONE")
-    globals <- c(globals, dotdotdot)
-  }
-
-  ## Assert there are no reserved variables names among globals
-  reserved <- intersect(c("...future.f", "...future.x_ii",
-                          "...future.seeds_ii"), names)
-  if (length(reserved) > 0) {
-    stop("Detected globals using reserved variables names: ",
-         paste(sQuote(reserved), collapse = ", "))
-  }
-
-  ## Avoid .f() clash with map(.x, .f, ...) below.
-  names <- names(globals)
-  names[names == ".f"] <- "...future.f"
-  names[names == ".map"] <- "...future.map" # add the map function
-  names(globals) <- names
-
-  if (debug) {
-    mdebug("Globals to be used in all futures:")
-    mdebug(paste(capture.output(str(globals)), collapse = "\n"))
-  }
-
-
-  ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   ## 2. Packages
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  # purrr is always included
-  packages <- unique(c(packages, "purrr"))
+  .options <- gather_globals_and_packages(.options, .map, .f, .progress, envir, ...)
 
-  if (!is.null(.options$packages)) {
-    stopifnot(is.character(.options$packages))
-    .options$packages <- unique(.options$packages)
-    stopifnot(!anyNA(.options$packages), all(nzchar(.options$packages)))
-    packages <- unique(c(packages, .options$packages))
-  }
-
-  if (debug) {
-    mdebug("Packages to be attached in all futures:")
-    mdebug(paste(capture.output(str(packages)), collapse = "\n"))
-  }
-
+  globals <- .options$globals
+  packages <- .options$packages
 
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   ## 3. Reproducible RNG (for sequential and parallel processing)
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   seed <- .options$seed
-
-  ## Placeholder for all RNG stream seeds.
-  seeds <- NULL
+  seeds <- NULL # Placeholder needs to be set to null
 
   ## Don't use RNGs? (seed = FALSE)
-  if (is.logical(seed) && !is.na(seed) && !seed) seed <- NULL
+  if (is.logical(seed) && !is.na(seed) && !seed) {
+    seed  <- NULL
+  }
 
   # Use RNGs?
   if (!is.null(seed)) {
@@ -166,62 +61,7 @@ future_map_template <- function(.map, .type, .x, .f, ..., .progress, .options) {
     oseed <- next_random_seed()
     on.exit(set_random_seed(oseed))
 
-    ## A pregenerated sequence of random seeds?
-    if (is.list(seed)) {
-      if (debug) mdebug("Using a pre-define stream of random seeds ...", n.x)
-
-      nseed <- length(seed)
-      if (nseed != n.x) {
-        stop("Argument 'seed' is a list, which specifies the sequence of seeds to be used for each element in '.x', but length(seed) != length(.x): ", nseed, " != ", n.x)
-      }
-
-      ## Assert same type of RNG seeds?
-      ns <- unique(unlist(lapply(seed, FUN = length), use.names = FALSE))
-      if (length(ns) != 1) {
-        stop("The elements of the list specified in argument 'seed' are not all of the same lengths (did you really pass RNG seeds?): ", hpaste(ns))
-      }
-
-      ## Did use specify scalar integers as meant for set.seed()?
-      if (ns == 1L) {
-        stop("Argument 'seed' is invalid. Pre-generated random seeds must be valid .Random.seed seeds, which means they should be all integers and consists of two or more elements, not just one.")
-      }
-
-      types <- unlist(lapply(seed, FUN = typeof), use.names = FALSE)
-      if (!all(types == "integer")) {
-        stop("The elements of the list specified in argument 'seed' are not all integers (did you really pass RNG seeds?): ", hpaste(unique(types)))
-      }
-
-      ## Check if valid random seeds are specified.
-      ## For efficiency, only look at the first one.
-      if (!is_valid_random_seed(seed[[1]])) {
-        stop("The list in argument 'seed' does not seem to hold elements that are valid .Random.seed values: ", capture.output(str(seeds[[1]])))
-      }
-
-      seeds <- seed
-
-      if (debug) mdebug("Using a pre-define stream of random seeds ... DONE", n.x)
-    } else {
-      if (debug) mdebug("Generating random seed streams for %d elements ...", n.x)
-
-      ## Generate sequence of _all_ RNG seeds starting with an initial seed
-      ## '.seed' that is based on argument 'seed'.
-      .seed <- as_lecyer_cmrg_seed(seed)
-
-      seeds <- vector("list", length = n.x)
-      for (ii in seq_len(n.x)) {
-        ## RNG substream seed used in call FUN(.x[[ii]], ...):
-        ## This way each future can in turn generate further seeds, also
-        ## recursively, with minimal risk of generating the same seeds as
-        ## another future. This should make it safe to recursively call
-        ## future_lapply(). /HB 2017-01-11
-        seeds[[ii]] <- nextRNGSubStream(.seed)
-
-        ## Main random seed for next iteration (= ii + 1)
-        .seed <- nextRNGStream(.seed)
-      }
-
-      if (debug) mdebug("Generating random seed streams for %d elements ... DONE", n.x)
-    }
+    seeds <- generate_seed_streams(seed, n_seeds = n.x)
 
     if (debug) mdebug("Generating random seeds ... DONE")
   } ## if (!is.null(seed))
@@ -230,43 +70,12 @@ future_map_template <- function(.map, .type, .x, .f, ..., .progress, .options) {
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   ## 4. Load balancing ("chunking")
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  if (is.logical(.options$scheduling)) {
-    if (.options$scheduling) {
-      nbr_of_futures <- nbrOfWorkers()
-      if (nbr_of_futures > n.x) nbr_of_futures <- n.x
-    } else {
-      nbr_of_futures <- n.x
-    }
-  } else {
-    ## Treat '.options$scheduling' as the number of futures per worker.
-    stopifnot(.options$scheduling >= 0)
-    nbr_of_workers <- nbrOfWorkers()
-    if (nbr_of_workers > n.x) nbr_of_workers <- n.x
-    nbr_of_futures <- .options$scheduling * nbr_of_workers
-    if (nbr_of_futures < 1) {
-      nbr_of_futures <- 1L
-    } else if (nbr_of_futures > n.x) {
-      nbr_of_futures <- n.x
-    }
-  }
 
-  chunks <- splitIndices(n.x, ncl = nbr_of_futures)
-  if (debug) mdebug("Number of chunks: %d", length(chunks))
-
+  chunks <- generate_balanced_chunks(.options$scheduling, n.x)
 
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   ## 5. Create futures
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-  # .progress always needs to be on the workers for the if statement...
-  globals <- c(globals, .progress = .progress)
-
-  # ...but we add the tempfile and the function if .progress = TRUE
-  if(.progress) {
-    temp_file <- tempfile(fileext = ".txt")
-    writeLines("falsetick", temp_file)
-    globals <- c(globals, update_progress = update_progress, temp_file = temp_file)
-  }
 
   ## Add argument placeholders
   globals_extra <- as.FutureGlobals(list(...future.x_ii = NULL, ...future.seeds_ii = NULL))
@@ -346,79 +155,22 @@ future_map_template <- function(.map, .type, .x, .f, ..., .progress, .options) {
   } ## for (ii ...)
   if (debug) mdebug("Launching %d futures (chunks) ... DONE", nchunks)
 
-  ## Not needed anymore
-  rm(list = c("chunks", "globals", "envir"))
-
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   ## 6. Print progress
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   if(.progress) {
-
-    if (debug) mdebug("Polling for progress ...")
-
-    not_resolved_once <- !all_resolved(fs)
-
-    # Poll the files until all the jobs are complete
-    while (!all_resolved(fs)) {
-
-      # -1 because of empty tick needed to init file.
-      # Otherwise if we get here too quickly it gives error
-      n_ticks <- length(readLines(temp_file)) - 1
-
-      max_width <- console_width()
-      progress_width <- 10
-      finish_width <- 5
-      carriage_width <- 1
-      filler_width <- max_width - progress_width - finish_width - carriage_width
-
-      rule_width <- floor(filler_width * n_ticks / n.x)
-      space_width <- filler_width - rule_width
-
-      spaces <- paste0(rep(" ", times = space_width), collapse = "")
-
-      # The one line - symbol came from cli::symbols$line
-      progress <- paste0(rep("\u2500", times = rule_width), collapse = "")
-      all_text <- paste0("Progress: ", progress, spaces, " 100%")
-
-      cat("\r", all_text)
-      utils::flush.console()
-    }
-
-    if(not_resolved_once) {
-      # Separate progress from output
-      max_width <- console_width()
-      progress_width <- 10
-      finish_width <- 5
-      carriage_width <- 1
-      filler_width <- max_width - progress_width - finish_width - carriage_width
-      progress <- paste0(rep("\u2500", times = filler_width), collapse = "")
-      all_text <- paste0("Progress: ", progress, " 100%")
-      cat("\r", all_text)
-      cat("\n\n")
-    }
-
-    if (debug) mdebug("Polling for progress ... DONE")
-
+    poll_progress(fs, globals$temp_file, n.x)
   }
+
+  ## FINISHED - Not needed anymore
+  rm(list = c("chunks", "globals", "envir"))
 
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   ## 7. Resolve
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  values <- multi_resolve(fs, names(.x))
 
-  ## Resolving futures
-  if (debug) mdebug("Resolving %d futures (chunks) ...", nchunks)
-  values <- values(fs)
-  if (debug) mdebug("Resolving %d futures (chunks) ... DONE", nchunks)
-
-  ## Not needed anymore
-  rm(list = "fs")
-
-  if (debug) mdebug("Reducing values from %d chunks ...", nchunks)
-  values <- fold(values, c)
-  names(values) <- names(.x)
-  if (debug) mdebug("Reducing values from %d chunks ... DONE", nchunks)
-
-  if (debug) mdebug("future_lapply() ... DONE")
+  if (debug) mdebug("future_map_*() ... DONE")
 
   values
 }

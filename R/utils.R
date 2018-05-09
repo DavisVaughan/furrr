@@ -63,6 +63,20 @@ console_width <- function() {
   as.integer(width)
 }
 
+# Early abort from mapping function
+# To stay consistent with purrr::map_*() return types
+# purrr handles this at the C level
+get_zero_length_type <- function(.type) {
+  switch(
+    .type,
+    "character" = character(),
+    "double"    = double(),
+    "list"      = list(),
+    "integer"   = integer(),
+    "logical"   = logical()
+  )
+}
+
 # ------------------------------------------------------------------------------
 # from future.apply
 
