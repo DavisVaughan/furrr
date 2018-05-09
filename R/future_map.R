@@ -35,11 +35,26 @@
 #'   future_map_dbl(mean)
 #'
 #' # If each element of the output is a data frame, use
-#' # map_dfr to row-bind them together:
+#' # future_map_dfr to row-bind them together:
 #' mtcars %>%
 #'   split(.$cyl) %>%
 #'   future_map(~ lm(mpg ~ wt, data = .x)) %>%
 #'   future_map_dfr(~ as.data.frame(t(as.matrix(coef(.)))))
+#'
+#' # You can be explicit about what gets exported to the workers
+#'
+#' # To see this, use multisession (NOT multicore if on a Mac as the forked workers
+#' # still have access to this environment)
+#' plan(multisession)
+#' x <- 1
+#' y <- 2
+#'
+#' # This will fail, y is not exported (no black magic occurs)
+#' # future_map(1, ~y, .options = future_options(globals = "x"))
+#'
+#' # y is exported
+#' future_map(1, ~y, .options = future_options(globals = "y"))
+#'
 #'
 #' @export
 future_map <- function(.x, .f, ..., .progress = FALSE, .options = future_options()) {

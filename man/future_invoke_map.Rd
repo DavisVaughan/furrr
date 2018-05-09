@@ -32,30 +32,14 @@ future_invoke_map_dfc(.f, .x = list(NULL), ..., .env = NULL,
   .progress = FALSE, .options = future_options())
 }
 \arguments{
-\item{.f}{A function, formula, or atomic vector.
+\item{.f}{A list of functions.}
 
-If a \strong{function}, it is used as is.
+\item{.x}{A list of argument-lists the same length as \code{.f} (or length 1).
+The default argument, \code{list(NULL)}, will be recycled to the same length as
+\code{.f}, and will call each function with no arguments
+(apart from any supplied in \code{...}.)}
 
-If a \strong{formula}, e.g. \code{~ .x + 2}, it is converted to a function. There
-are three ways to refer to the arguments:
-\itemize{
-\item For a single argument function, use \code{.}
-\item For a two argument function, use \code{.x} and \code{.y}
-\item For more arguments, use \code{..1}, \code{..2}, \code{..3} etc
-}
-
-This syntax allows you to create very compact anonymous functions.
-
-If \strong{character vector}, \strong{numeric vector}, or \strong{list}, it
-is converted to an extractor function. Character vectors index by name
-and numeric vectors index by position; use a list to index by position
-and name at different levels. Within a list, wrap strings in \code{\link[=get-attr]{get-attr()}}
-to extract named attributes. If a component is not present, the value of
-\code{.default} will be returned.}
-
-\item{.x}{A list or atomic vector.}
-
-\item{...}{Additional arguments passed on to \code{.f}.}
+\item{...}{Additional arguments passed to each function.}
 
 \item{.env}{Environment in which \code{\link[=do.call]{do.call()}} should
 evaluate a constructed expression. This only matters if you pass

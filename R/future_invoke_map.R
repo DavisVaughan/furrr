@@ -3,8 +3,14 @@
 #' These functions work exactly the same as [purrr::invoke_map()] functions, but allow
 #' you to invoke in parallel.
 #'
-#' @inheritParams future_map
 #' @inheritParams purrr::invoke_map
+#' @inheritParams future_map
+#'
+#' @param .f A list of functions.
+#' @param .x A list of argument-lists the same length as `.f` (or length 1).
+#' The default argument, `list(NULL)`, will be recycled to the same length as
+#' `.f`, and will call each function with no arguments
+#' (apart from any supplied in `...`.)
 #'
 #' @examples
 #'
