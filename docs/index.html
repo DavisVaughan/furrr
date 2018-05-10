@@ -44,6 +44,9 @@
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
+<li>
+  <a href="news/index.html">Changelog</a>
+</li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
@@ -71,8 +74,14 @@
 <div id="furrr" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#furrr" class="anchor"></a>furrr</h1></div>
-<p>The goal of furrr is to simplify the combination of <code>purrr</code>’s family of <code><a href="http://www.rdocumentation.org/packages/purrr/topics/map">map()</a></code> functions and <code>future</code>’s parallel processing capabilities. A new set of <code>future_map*()</code> functions have been defined, and can be used as (hopefully) drop in replacements for the corresponding <code>map*()</code> function.</p>
-<p>The code draws <em>heavily</em> from the implementations of <code>purrr</code> and <code>future.apply</code> and this package would not be possible without either of them. Each <code>future_map*()</code> function has additional <code>future.*</code> arguments that are taken from <code><a href="http://www.rdocumentation.org/packages/future/topics/future_lapply">future_lapply()</a></code> and allow fine tuned control over the parallel execution.</p>
+<p>The goal of furrr is to simplify the combination of <code>purrr</code>’s family of mapping functions and <code>future</code>’s parallel processing capabilities. A new set of <code>future_map_*()</code> functions have been defined, and can be used as (hopefully) drop in replacements for the corresponding <code>map*()</code> function.</p>
+<p>The code draws <em>heavily</em> from the implementations of <code>purrr</code> and <code>future.apply</code> and this package would not be possible without either of them.</p>
+<div id="what-has-been-implemented" class="section level2">
+<h2 class="hasAnchor">
+<a href="#what-has-been-implemented" class="anchor"></a>What has been implemented?</h2>
+<p>The full range of <code><a href="http://www.rdocumentation.org/packages/purrr/topics/map">map()</a></code>, <code><a href="http://www.rdocumentation.org/packages/purrr/topics/map2">map2()</a></code>, <code><a href="http://www.rdocumentation.org/packages/purrr/topics/map2">pmap()</a></code>, <code><a href="http://www.rdocumentation.org/packages/purrr/topics/imap">imap()</a></code>, <code><a href="http://www.rdocumentation.org/packages/purrr/topics/modify">modify()</a></code>, and <code><a href="http://www.rdocumentation.org/packages/purrr/topics/invoke">invoke_map()</a></code> functions have been implemented.</p>
+<p>This includes strict versions like <code><a href="http://www.rdocumentation.org/packages/purrr/topics/map">map_dbl()</a></code> through <code><a href="reference/future_map.html">future_map_dbl()</a></code> and predicate versions like <code><a href="http://www.rdocumentation.org/packages/purrr/topics/map">map_at()</a></code> through <code><a href="reference/future_map.html">future_map_at()</a></code>.</p>
+</div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -88,175 +97,163 @@
 <a href="#example" class="anchor"></a>Example</h2>
 <p><code>furrr</code> has been designed to function identically to <code>purrr</code>, so that you can immediately have familiarity with it.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">library</span>(furrr)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">#&gt; Loading required package: future</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; Warning: package 'future' was built under R version 3.4.4</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="kw">library</span>(purrr)</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="kw"><a href="http://www.rdocumentation.org/packages/purrr/topics/map">map</a></span>(<span class="kw">c</span>(<span class="st">"hello"</span>, <span class="st">"world"</span>), <span class="op">~</span>.x)</a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt; [[1]]</span></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt; [1] "hello"</span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt; [[2]]</span></a>
-<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt; [1] "world"</span></a>
-<a class="sourceLine" id="cb3-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="kw"><a href="reference/future_map.html">future_map</a></span>(<span class="kw">c</span>(<span class="st">"hello"</span>, <span class="st">"world"</span>), <span class="op">~</span>.x)</a>
-<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt; [[1]]</span></a>
-<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt; [1] "hello"</span></a>
-<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb3-17" data-line-number="17"><span class="co">#&gt; [[2]]</span></a>
-<a class="sourceLine" id="cb3-18" data-line-number="18"><span class="co">#&gt; [1] "world"</span></a></code></pre></div>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">library</span>(purrr)</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="kw"><a href="http://www.rdocumentation.org/packages/purrr/topics/map">map</a></span>(<span class="kw">c</span>(<span class="st">"hello"</span>, <span class="st">"world"</span>), <span class="op">~</span>.x)</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt; [[1]]</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt; [1] "hello"</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt; [[2]]</span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt; [1] "world"</span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="kw"><a href="reference/future_map.html">future_map</a></span>(<span class="kw">c</span>(<span class="st">"hello"</span>, <span class="st">"world"</span>), <span class="op">~</span>.x)</a>
+<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt; [[1]]</span></a>
+<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt; [1] "hello"</span></a>
+<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt; [[2]]</span></a>
+<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">#&gt; [1] "world"</span></a></code></pre></div>
 <p>The default backend for <code>future</code> is a sequential one. This means that the code will run out of the box, but it will <em>not</em> be in parallel. The design of <code>future</code> makes this incredibly easy to change so that your code does run in parallel.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">library</span>(future)</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co"># You set a "plan" for how the code should run. The easiest is `multiprocess`</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co"># On Mac this picks plan(multicore) and on Windows this picks plan(multisession)</span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="kw"><a href="http://www.rdocumentation.org/packages/future/topics/plan">plan</a></span>(multiprocess)</a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co"># This DOES run in parallel!</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="kw"><a href="reference/future_map.html">future_map</a></span>(<span class="kw">c</span>(<span class="st">"hello"</span>, <span class="st">"world"</span>), <span class="op">~</span>.x)</a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt; [[1]]</span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; [1] "hello"</span></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; [[2]]</span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; [1] "world"</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># You set a "plan" for how the code should run. The easiest is `multiprocess`</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co"># On Mac this picks plan(multicore) and on Windows this picks plan(multisession)</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="kw">plan</span>(multiprocess)</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co"># This DOES run in parallel!</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="kw"><a href="reference/future_map.html">future_map</a></span>(<span class="kw">c</span>(<span class="st">"hello"</span>, <span class="st">"world"</span>), <span class="op">~</span>.x)</a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt; [[1]]</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; [1] "hello"</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; [[2]]</span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; [1] "world"</span></a></code></pre></div>
 <p>If you are still skeptical, here is some proof that we are running in parallel.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">library</span>(tictoc)</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co"># This should take 9 seconds in total running sequentially</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="kw"><a href="http://www.rdocumentation.org/packages/future/topics/plan">plan</a></span>(sequential)</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co"># This should take 6 seconds in total running sequentially</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="kw">plan</span>(sequential)</a>
 <a class="sourceLine" id="cb5-5" data-line-number="5"><span class="kw"><a href="http://www.rdocumentation.org/packages/tictoc/topics/tic">tic</a></span>()</a>
-<a class="sourceLine" id="cb5-6" data-line-number="6">nothingness &lt;-<span class="st"> </span><span class="kw"><a href="reference/future_map.html">future_map</a></span>(<span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>), <span class="op">~</span><span class="kw">Sys.sleep</span>(.x))</a>
+<a class="sourceLine" id="cb5-6" data-line-number="6">nothingness &lt;-<span class="st"> </span><span class="kw"><a href="reference/future_map.html">future_map</a></span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>), <span class="op">~</span><span class="kw">Sys.sleep</span>(.x))</a>
 <a class="sourceLine" id="cb5-7" data-line-number="7"><span class="kw"><a href="http://www.rdocumentation.org/packages/tictoc/topics/tic">toc</a></span>()</a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt; 9.04 sec elapsed</span></a>
-<a class="sourceLine" id="cb5-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co"># This should take ~3 seconds running in parallel, with a little overhead</span></a>
-<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="kw"><a href="http://www.rdocumentation.org/packages/future/topics/plan">plan</a></span>(multiprocess)</a>
-<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="kw"><a href="http://www.rdocumentation.org/packages/tictoc/topics/tic">tic</a></span>()</a>
-<a class="sourceLine" id="cb5-13" data-line-number="13">nothingness &lt;-<span class="st"> </span><span class="kw"><a href="reference/future_map.html">future_map</a></span>(<span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>), <span class="op">~</span><span class="kw">Sys.sleep</span>(.x))</a>
-<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="kw"><a href="http://www.rdocumentation.org/packages/tictoc/topics/tic">toc</a></span>()</a>
-<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt; 3.089 sec elapsed</span></a></code></pre></div>
+<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt; 6.08 sec elapsed</span></a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co"># This should take ~2 seconds running in parallel, with a little overhead</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw">plan</span>(multiprocess)</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="kw"><a href="http://www.rdocumentation.org/packages/tictoc/topics/tic">tic</a></span>()</a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">nothingness &lt;-<span class="st"> </span><span class="kw"><a href="reference/future_map.html">future_map</a></span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>), <span class="op">~</span><span class="kw">Sys.sleep</span>(.x))</a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="kw"><a href="http://www.rdocumentation.org/packages/tictoc/topics/tic">toc</a></span>()</a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co">#&gt; 2.212 sec elapsed</span></a></code></pre></div>
+</div>
+<div id="progress-bars" class="section level2">
+<h2 class="hasAnchor">
+<a href="#progress-bars" class="anchor"></a>Progress bars</h2>
+<p>Who doesn’t love progress bars? For <code>multiprocess</code>, <code>multicore</code>, and <code>multisession</code> plans, you can activate a progress bar for your long running task with <code>.progress = TRUE</code>. Note that these are still a bit experimental so feedback is welcome. You should get a nice progress bar that looks like this:</p>
+<p><img src="reference/figures/progress.gif" width="100%"></p>
 </div>
 <div id="a-more-compelling-use-case" class="section level2">
 <h2 class="hasAnchor">
 <a href="#a-more-compelling-use-case" class="anchor"></a>A more compelling use case</h2>
 <p>This example comes from a Vignette from <code>rsample</code>. The vignette performs a 10 fold cross validation with 10 repeats of a GLM on the attrition data set. If you want all the details with explanation, see <a href="https://topepo.github.io/rsample/articles/Working_with_rsets.html">the vignette</a>.</p>
 <p>The vignette example runs pretty quickly on its own, so to make things more…interesting we are going to use 20 fold CV with 100 repeats.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">library</span>(rsample)</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co">#&gt; Loading required package: broom</span></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co">#&gt; Loading required package: tidyr</span></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#&gt; Attaching package: 'rsample'</span></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co">#&gt; The following object is masked from 'package:tidyr':</span></a>
-<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co">#&gt;     fill</span></a>
-<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="kw">data</span>(<span class="st">"attrition"</span>)</a>
-<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="kw">names</span>(attrition)</a>
-<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">#&gt;  [1] "Age"                      "Attrition"               </span></a>
-<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co">#&gt;  [3] "BusinessTravel"           "DailyRate"               </span></a>
-<a class="sourceLine" id="cb6-13" data-line-number="13"><span class="co">#&gt;  [5] "Department"               "DistanceFromHome"        </span></a>
-<a class="sourceLine" id="cb6-14" data-line-number="14"><span class="co">#&gt;  [7] "Education"                "EducationField"          </span></a>
-<a class="sourceLine" id="cb6-15" data-line-number="15"><span class="co">#&gt;  [9] "EnvironmentSatisfaction"  "Gender"                  </span></a>
-<a class="sourceLine" id="cb6-16" data-line-number="16"><span class="co">#&gt; [11] "HourlyRate"               "JobInvolvement"          </span></a>
-<a class="sourceLine" id="cb6-17" data-line-number="17"><span class="co">#&gt; [13] "JobLevel"                 "JobRole"                 </span></a>
-<a class="sourceLine" id="cb6-18" data-line-number="18"><span class="co">#&gt; [15] "JobSatisfaction"          "MaritalStatus"           </span></a>
-<a class="sourceLine" id="cb6-19" data-line-number="19"><span class="co">#&gt; [17] "MonthlyIncome"            "MonthlyRate"             </span></a>
-<a class="sourceLine" id="cb6-20" data-line-number="20"><span class="co">#&gt; [19] "NumCompaniesWorked"       "OverTime"                </span></a>
-<a class="sourceLine" id="cb6-21" data-line-number="21"><span class="co">#&gt; [21] "PercentSalaryHike"        "PerformanceRating"       </span></a>
-<a class="sourceLine" id="cb6-22" data-line-number="22"><span class="co">#&gt; [23] "RelationshipSatisfaction" "StockOptionLevel"        </span></a>
-<a class="sourceLine" id="cb6-23" data-line-number="23"><span class="co">#&gt; [25] "TotalWorkingYears"        "TrainingTimesLastYear"   </span></a>
-<a class="sourceLine" id="cb6-24" data-line-number="24"><span class="co">#&gt; [27] "WorkLifeBalance"          "YearsAtCompany"          </span></a>
-<a class="sourceLine" id="cb6-25" data-line-number="25"><span class="co">#&gt; [29] "YearsInCurrentRole"       "YearsSinceLastPromotion" </span></a>
-<a class="sourceLine" id="cb6-26" data-line-number="26"><span class="co">#&gt; [31] "YearsWithCurrManager"</span></a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">library</span>(rsample)</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw">data</span>(<span class="st">"attrition"</span>)</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="kw">names</span>(attrition)</a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt;  [1] "Age"                      "Attrition"               </span></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt;  [3] "BusinessTravel"           "DailyRate"               </span></a>
+<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co">#&gt;  [5] "Department"               "DistanceFromHome"        </span></a>
+<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt;  [7] "Education"                "EducationField"          </span></a>
+<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt;  [9] "EnvironmentSatisfaction"  "Gender"                  </span></a>
+<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">#&gt; [11] "HourlyRate"               "JobInvolvement"          </span></a>
+<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="co">#&gt; [13] "JobLevel"                 "JobRole"                 </span></a>
+<a class="sourceLine" id="cb7-11" data-line-number="11"><span class="co">#&gt; [15] "JobSatisfaction"          "MaritalStatus"           </span></a>
+<a class="sourceLine" id="cb7-12" data-line-number="12"><span class="co">#&gt; [17] "MonthlyIncome"            "MonthlyRate"             </span></a>
+<a class="sourceLine" id="cb7-13" data-line-number="13"><span class="co">#&gt; [19] "NumCompaniesWorked"       "OverTime"                </span></a>
+<a class="sourceLine" id="cb7-14" data-line-number="14"><span class="co">#&gt; [21] "PercentSalaryHike"        "PerformanceRating"       </span></a>
+<a class="sourceLine" id="cb7-15" data-line-number="15"><span class="co">#&gt; [23] "RelationshipSatisfaction" "StockOptionLevel"        </span></a>
+<a class="sourceLine" id="cb7-16" data-line-number="16"><span class="co">#&gt; [25] "TotalWorkingYears"        "TrainingTimesLastYear"   </span></a>
+<a class="sourceLine" id="cb7-17" data-line-number="17"><span class="co">#&gt; [27] "WorkLifeBalance"          "YearsAtCompany"          </span></a>
+<a class="sourceLine" id="cb7-18" data-line-number="18"><span class="co">#&gt; [29] "YearsInCurrentRole"       "YearsSinceLastPromotion" </span></a>
+<a class="sourceLine" id="cb7-19" data-line-number="19"><span class="co">#&gt; [31] "YearsWithCurrManager"</span></a></code></pre></div>
 <p>Set up an rsample split tibble of 20 fold CV with 100 repeats.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">4622</span>)</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">rs_obj &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/rsample/topics/vfold_cv">vfold_cv</a></span>(attrition, <span class="dt">v =</span> <span class="dv">20</span>, <span class="dt">repeats =</span> <span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb7-3" data-line-number="3">rs_obj</a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt; #  20-fold cross-validation repeated 100 times </span></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt; # A tibble: 2,000 x 3</span></a>
-<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co">#&gt;    splits       id        id2   </span></a>
-<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt;    &lt;list&gt;       &lt;chr&gt;     &lt;chr&gt; </span></a>
-<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt;  1 &lt;S3: rsplit&gt; Repeat001 Fold01</span></a>
-<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">#&gt;  2 &lt;S3: rsplit&gt; Repeat001 Fold02</span></a>
-<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="co">#&gt;  3 &lt;S3: rsplit&gt; Repeat001 Fold03</span></a>
-<a class="sourceLine" id="cb7-11" data-line-number="11"><span class="co">#&gt;  4 &lt;S3: rsplit&gt; Repeat001 Fold04</span></a>
-<a class="sourceLine" id="cb7-12" data-line-number="12"><span class="co">#&gt;  5 &lt;S3: rsplit&gt; Repeat001 Fold05</span></a>
-<a class="sourceLine" id="cb7-13" data-line-number="13"><span class="co">#&gt;  6 &lt;S3: rsplit&gt; Repeat001 Fold06</span></a>
-<a class="sourceLine" id="cb7-14" data-line-number="14"><span class="co">#&gt;  7 &lt;S3: rsplit&gt; Repeat001 Fold07</span></a>
-<a class="sourceLine" id="cb7-15" data-line-number="15"><span class="co">#&gt;  8 &lt;S3: rsplit&gt; Repeat001 Fold08</span></a>
-<a class="sourceLine" id="cb7-16" data-line-number="16"><span class="co">#&gt;  9 &lt;S3: rsplit&gt; Repeat001 Fold09</span></a>
-<a class="sourceLine" id="cb7-17" data-line-number="17"><span class="co">#&gt; 10 &lt;S3: rsplit&gt; Repeat001 Fold10</span></a>
-<a class="sourceLine" id="cb7-18" data-line-number="18"><span class="co">#&gt; # ... with 1,990 more rows</span></a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">4622</span>)</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">rs_obj &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/rsample/topics/vfold_cv">vfold_cv</a></span>(attrition, <span class="dt">v =</span> <span class="dv">20</span>, <span class="dt">repeats =</span> <span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">rs_obj</a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">#&gt; #  20-fold cross-validation repeated 100 times </span></a>
+<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co">#&gt; # A tibble: 2,000 x 3</span></a>
+<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">#&gt;    splits       id        id2   </span></a>
+<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co">#&gt;    &lt;list&gt;       &lt;chr&gt;     &lt;chr&gt; </span></a>
+<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">#&gt;  1 &lt;S3: rsplit&gt; Repeat001 Fold01</span></a>
+<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="co">#&gt;  2 &lt;S3: rsplit&gt; Repeat001 Fold02</span></a>
+<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="co">#&gt;  3 &lt;S3: rsplit&gt; Repeat001 Fold03</span></a>
+<a class="sourceLine" id="cb8-11" data-line-number="11"><span class="co">#&gt;  4 &lt;S3: rsplit&gt; Repeat001 Fold04</span></a>
+<a class="sourceLine" id="cb8-12" data-line-number="12"><span class="co">#&gt;  5 &lt;S3: rsplit&gt; Repeat001 Fold05</span></a>
+<a class="sourceLine" id="cb8-13" data-line-number="13"><span class="co">#&gt;  6 &lt;S3: rsplit&gt; Repeat001 Fold06</span></a>
+<a class="sourceLine" id="cb8-14" data-line-number="14"><span class="co">#&gt;  7 &lt;S3: rsplit&gt; Repeat001 Fold07</span></a>
+<a class="sourceLine" id="cb8-15" data-line-number="15"><span class="co">#&gt;  8 &lt;S3: rsplit&gt; Repeat001 Fold08</span></a>
+<a class="sourceLine" id="cb8-16" data-line-number="16"><span class="co">#&gt;  9 &lt;S3: rsplit&gt; Repeat001 Fold09</span></a>
+<a class="sourceLine" id="cb8-17" data-line-number="17"><span class="co">#&gt; 10 &lt;S3: rsplit&gt; Repeat001 Fold10</span></a>
+<a class="sourceLine" id="cb8-18" data-line-number="18"><span class="co">#&gt; # ... with 1,990 more rows</span></a></code></pre></div>
 <p>The model formula below is going to be used in the GLM.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">mod_form &lt;-<span class="st"> </span><span class="kw">as.formula</span>(Attrition <span class="op">~</span><span class="st"> </span>JobSatisfaction <span class="op">+</span><span class="st"> </span>Gender <span class="op">+</span><span class="st"> </span>MonthlyIncome)</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">mod_form &lt;-<span class="st"> </span><span class="kw">as.formula</span>(Attrition <span class="op">~</span><span class="st"> </span>JobSatisfaction <span class="op">+</span><span class="st"> </span>Gender <span class="op">+</span><span class="st"> </span>MonthlyIncome)</a></code></pre></div>
 <p>For each split, we want to calculate assessments on the holdout data, so a function was created to allow us to apply the model and easily extract what we need from each split.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">library</span>(broom)</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2">## splits will be the `rsplit` object with the 90/10 partition</a>
-<a class="sourceLine" id="cb9-3" data-line-number="3">holdout_results &lt;-<span class="st"> </span><span class="cf">function</span>(splits, ...) {</a>
-<a class="sourceLine" id="cb9-4" data-line-number="4">  <span class="co"># Fit the model to the 90%</span></a>
-<a class="sourceLine" id="cb9-5" data-line-number="5">  mod &lt;-<span class="st"> </span><span class="kw">glm</span>(..., <span class="dt">data =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/rsample/topics/as.data.frame.rsplit">analysis</a></span>(splits), <span class="dt">family =</span> binomial)</a>
-<a class="sourceLine" id="cb9-6" data-line-number="6">  <span class="co"># Save the 10%</span></a>
-<a class="sourceLine" id="cb9-7" data-line-number="7">  holdout &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/rsample/topics/as.data.frame.rsplit">assessment</a></span>(splits)</a>
-<a class="sourceLine" id="cb9-8" data-line-number="8">  <span class="co"># `augment` will save the predictions with the holdout data set</span></a>
-<a class="sourceLine" id="cb9-9" data-line-number="9">  res &lt;-<span class="st"> </span>broom<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/broom/topics/augment">augment</a></span>(mod, <span class="dt">newdata =</span> holdout)</a>
-<a class="sourceLine" id="cb9-10" data-line-number="10">  <span class="co"># Class predictions on the assessment set from class probs</span></a>
-<a class="sourceLine" id="cb9-11" data-line-number="11">  lvls &lt;-<span class="st"> </span><span class="kw">levels</span>(holdout<span class="op">$</span>Attrition)</a>
-<a class="sourceLine" id="cb9-12" data-line-number="12">  predictions &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">ifelse</span>(res<span class="op">$</span>.fitted <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>, lvls[<span class="dv">2</span>], lvls[<span class="dv">1</span>]),</a>
-<a class="sourceLine" id="cb9-13" data-line-number="13">                        <span class="dt">levels =</span> lvls)</a>
-<a class="sourceLine" id="cb9-14" data-line-number="14">  <span class="co"># Calculate whether the prediction was correct</span></a>
-<a class="sourceLine" id="cb9-15" data-line-number="15">  res<span class="op">$</span>correct &lt;-<span class="st"> </span>predictions <span class="op">==</span><span class="st"> </span>holdout<span class="op">$</span>Attrition</a>
-<a class="sourceLine" id="cb9-16" data-line-number="16">  <span class="co"># Return the assessment data set with the additional columns</span></a>
-<a class="sourceLine" id="cb9-17" data-line-number="17">  res</a>
-<a class="sourceLine" id="cb9-18" data-line-number="18">}</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">library</span>(broom)</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">## splits will be the `rsplit` object with the 90/10 partition</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3">holdout_results &lt;-<span class="st"> </span><span class="cf">function</span>(splits, ...) {</a>
+<a class="sourceLine" id="cb10-4" data-line-number="4">  <span class="co"># Fit the model to the 90%</span></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5">  mod &lt;-<span class="st"> </span><span class="kw">glm</span>(..., <span class="dt">data =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/rsample/topics/as.data.frame.rsplit">analysis</a></span>(splits), <span class="dt">family =</span> binomial)</a>
+<a class="sourceLine" id="cb10-6" data-line-number="6">  <span class="co"># Save the 10%</span></a>
+<a class="sourceLine" id="cb10-7" data-line-number="7">  holdout &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/rsample/topics/as.data.frame.rsplit">assessment</a></span>(splits)</a>
+<a class="sourceLine" id="cb10-8" data-line-number="8">  <span class="co"># `augment` will save the predictions with the holdout data set</span></a>
+<a class="sourceLine" id="cb10-9" data-line-number="9">  res &lt;-<span class="st"> </span>broom<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/broom/topics/augment">augment</a></span>(mod, <span class="dt">newdata =</span> holdout)</a>
+<a class="sourceLine" id="cb10-10" data-line-number="10">  <span class="co"># Class predictions on the assessment set from class probs</span></a>
+<a class="sourceLine" id="cb10-11" data-line-number="11">  lvls &lt;-<span class="st"> </span><span class="kw">levels</span>(holdout<span class="op">$</span>Attrition)</a>
+<a class="sourceLine" id="cb10-12" data-line-number="12">  predictions &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">ifelse</span>(res<span class="op">$</span>.fitted <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>, lvls[<span class="dv">2</span>], lvls[<span class="dv">1</span>]),</a>
+<a class="sourceLine" id="cb10-13" data-line-number="13">                        <span class="dt">levels =</span> lvls)</a>
+<a class="sourceLine" id="cb10-14" data-line-number="14">  <span class="co"># Calculate whether the prediction was correct</span></a>
+<a class="sourceLine" id="cb10-15" data-line-number="15">  res<span class="op">$</span>correct &lt;-<span class="st"> </span>predictions <span class="op">==</span><span class="st"> </span>holdout<span class="op">$</span>Attrition</a>
+<a class="sourceLine" id="cb10-16" data-line-number="16">  <span class="co"># Return the assessment data set with the additional columns</span></a>
+<a class="sourceLine" id="cb10-17" data-line-number="17">  res</a>
+<a class="sourceLine" id="cb10-18" data-line-number="18">}</a></code></pre></div>
 <p>Finally, <code>purrr</code> was used to map over all of the splits, apply the model to each, and extract the results.</p>
 <p>First in sequential order…</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">library</span>(purrr)</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw">library</span>(tictoc)</a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="kw"><a href="http://www.rdocumentation.org/packages/tictoc/topics/tic">tic</a></span>()</a>
-<a class="sourceLine" id="cb10-5" data-line-number="5">rs_obj<span class="op">$</span>results &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/purrr/topics/map">map</a></span>(rs_obj<span class="op">$</span>splits, holdout_results, mod_form)</a>
-<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="kw"><a href="http://www.rdocumentation.org/packages/tictoc/topics/tic">toc</a></span>()</a>
-<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="co">#&gt; 27.276 sec elapsed</span></a></code></pre></div>
-<p>Then in parallel…</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">library</span>(furrr)</a>
-<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="kw"><a href="http://www.rdocumentation.org/packages/future/topics/plan">plan</a></span>(multiprocess)</a>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">library</span>(purrr)</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="kw">library</span>(tictoc)</a>
 <a class="sourceLine" id="cb11-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb11-4" data-line-number="4"><span class="kw"><a href="http://www.rdocumentation.org/packages/tictoc/topics/tic">tic</a></span>()</a>
-<a class="sourceLine" id="cb11-5" data-line-number="5">rs_obj<span class="op">$</span>results &lt;-<span class="st"> </span><span class="kw"><a href="reference/future_map.html">future_map</a></span>(rs_obj<span class="op">$</span>splits, holdout_results, mod_form)</a>
+<a class="sourceLine" id="cb11-5" data-line-number="5">rs_obj<span class="op">$</span>results &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/purrr/topics/map">map</a></span>(rs_obj<span class="op">$</span>splits, holdout_results, mod_form)</a>
 <a class="sourceLine" id="cb11-6" data-line-number="6"><span class="kw"><a href="http://www.rdocumentation.org/packages/tictoc/topics/tic">toc</a></span>()</a>
-<a class="sourceLine" id="cb11-7" data-line-number="7"><span class="co">#&gt; 12.259 sec elapsed</span></a></code></pre></div>
-<p>If you’re curious, the resulting object looks like this.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">rs_obj</a>
-<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="co">#&gt; #  20-fold cross-validation repeated 100 times </span></a>
-<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="co">#&gt; # A tibble: 2,000 x 4</span></a>
-<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="co">#&gt;    splits       id        id2    results               </span></a>
-<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="co">#&gt;    &lt;list&gt;       &lt;chr&gt;     &lt;chr&gt;  &lt;list&gt;                </span></a>
-<a class="sourceLine" id="cb12-6" data-line-number="6"><span class="co">#&gt;  1 &lt;S3: rsplit&gt; Repeat001 Fold01 &lt;data.frame [74 × 35]&gt;</span></a>
-<a class="sourceLine" id="cb12-7" data-line-number="7"><span class="co">#&gt;  2 &lt;S3: rsplit&gt; Repeat001 Fold02 &lt;data.frame [74 × 35]&gt;</span></a>
-<a class="sourceLine" id="cb12-8" data-line-number="8"><span class="co">#&gt;  3 &lt;S3: rsplit&gt; Repeat001 Fold03 &lt;data.frame [74 × 35]&gt;</span></a>
-<a class="sourceLine" id="cb12-9" data-line-number="9"><span class="co">#&gt;  4 &lt;S3: rsplit&gt; Repeat001 Fold04 &lt;data.frame [74 × 35]&gt;</span></a>
-<a class="sourceLine" id="cb12-10" data-line-number="10"><span class="co">#&gt;  5 &lt;S3: rsplit&gt; Repeat001 Fold05 &lt;data.frame [74 × 35]&gt;</span></a>
-<a class="sourceLine" id="cb12-11" data-line-number="11"><span class="co">#&gt;  6 &lt;S3: rsplit&gt; Repeat001 Fold06 &lt;data.frame [74 × 35]&gt;</span></a>
-<a class="sourceLine" id="cb12-12" data-line-number="12"><span class="co">#&gt;  7 &lt;S3: rsplit&gt; Repeat001 Fold07 &lt;data.frame [74 × 35]&gt;</span></a>
-<a class="sourceLine" id="cb12-13" data-line-number="13"><span class="co">#&gt;  8 &lt;S3: rsplit&gt; Repeat001 Fold08 &lt;data.frame [74 × 35]&gt;</span></a>
-<a class="sourceLine" id="cb12-14" data-line-number="14"><span class="co">#&gt;  9 &lt;S3: rsplit&gt; Repeat001 Fold09 &lt;data.frame [74 × 35]&gt;</span></a>
-<a class="sourceLine" id="cb12-15" data-line-number="15"><span class="co">#&gt; 10 &lt;S3: rsplit&gt; Repeat001 Fold10 &lt;data.frame [74 × 35]&gt;</span></a>
-<a class="sourceLine" id="cb12-16" data-line-number="16"><span class="co">#&gt; # ... with 1,990 more rows</span></a></code></pre></div>
-<p>We don’t get a 4x improvement on my 4 core Mac, but we do get a nice 2x speed up without doing any hard work. The reason we don’t get a 4x improvement is likely because of time spent transfering data to each R process, so this penalty will be minimized with longer running tasks and you might see better performance. The implementation of <code><a href="http://www.rdocumentation.org/packages/future/topics/future_lapply">future_lapply()</a></code> does include a scheduling feature, which carried over nicely into <code>furrr</code> and efficiently breaks up the list of splits into 4 equal subsets. Each is passed to 1 core of my machine.</p>
+<a class="sourceLine" id="cb11-7" data-line-number="7"><span class="co">#&gt; 30.095 sec elapsed</span></a></code></pre></div>
+<p>Then in parallel…</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">library</span>(furrr)</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="kw">plan</span>(multiprocess)</a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="kw"><a href="http://www.rdocumentation.org/packages/tictoc/topics/tic">tic</a></span>()</a>
+<a class="sourceLine" id="cb12-5" data-line-number="5">rs_obj<span class="op">$</span>results &lt;-<span class="st"> </span><span class="kw"><a href="reference/future_map.html">future_map</a></span>(rs_obj<span class="op">$</span>splits, holdout_results, mod_form)</a>
+<a class="sourceLine" id="cb12-6" data-line-number="6"><span class="kw"><a href="http://www.rdocumentation.org/packages/tictoc/topics/tic">toc</a></span>()</a>
+<a class="sourceLine" id="cb12-7" data-line-number="7"><span class="co">#&gt; 14.211 sec elapsed</span></a></code></pre></div>
+<p>We don’t get a 4x improvement on my 4 core Mac, but we do get a nice 2x speed up without doing any hard work. The reason we don’t get a 4x improvement is likely because of time spent transfering data to each R process, so this penalty will be minimized with longer running tasks and you might see better performance (for example, 100 fold CV with 100 repeats gave <code>122</code> seconds sequentially and <code>48</code> seconds in parallel). The implementation of <code>future_lapply()</code> does include a scheduling feature, which carried over nicely into <code>furrr</code> and efficiently breaks up the list of splits into 4 equal subsets. Each is passed to 1 core of my machine.</p>
 </div>
-<div id="what-has-been-implemented" class="section level2">
+<div id="a-note-on-performance" class="section level2">
 <h2 class="hasAnchor">
-<a href="#what-has-been-implemented" class="anchor"></a>What has been implemented?</h2>
-<p>The full range of <code><a href="http://www.rdocumentation.org/packages/purrr/topics/map">map()</a></code> and <code><a href="http://www.rdocumentation.org/packages/purrr/topics/map2">map2()</a></code> functions have been implemented. This includes strict versions like <code><a href="http://www.rdocumentation.org/packages/purrr/topics/map">map_dbl()</a></code> through <code><a href="reference/future_map.html">future_map_dbl()</a></code> and predicate versions like <code><a href="http://www.rdocumentation.org/packages/purrr/topics/map">map_at()</a></code> and <code><a href="http://www.rdocumentation.org/packages/purrr/topics/map">map_if()</a></code>.</p>
+<a href="#a-note-on-performance" class="anchor"></a>A note on performance</h2>
+<p>It’s important to remember that data has to be passed back and forth between the cores. This means that whatever performance gain you might have gotten from your parallelization can be crushed by moving large amounts of data around. For example, if instead of returning a results data frame in the above example, we returned the larger <code>glm</code> model object for each split, our performance drops a bit.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">model_only &lt;-<span class="st"> </span><span class="cf">function</span>(splits, ...) {</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2">  <span class="co"># Fit the model to the 90%</span></a>
+<a class="sourceLine" id="cb13-3" data-line-number="3">  mod &lt;-<span class="st"> </span><span class="kw">glm</span>(..., <span class="dt">data =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/rsample/topics/as.data.frame.rsplit">analysis</a></span>(splits), <span class="dt">family =</span> binomial)</a>
+<a class="sourceLine" id="cb13-4" data-line-number="4">  </a>
+<a class="sourceLine" id="cb13-5" data-line-number="5">  mod</a>
+<a class="sourceLine" id="cb13-6" data-line-number="6">}</a>
+<a class="sourceLine" id="cb13-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb13-8" data-line-number="8"><span class="kw">plan</span>(multiprocess)</a>
+<a class="sourceLine" id="cb13-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb13-10" data-line-number="10"><span class="kw"><a href="http://www.rdocumentation.org/packages/tictoc/topics/tic">tic</a></span>()</a>
+<a class="sourceLine" id="cb13-11" data-line-number="11">rs_obj<span class="op">$</span>results2 &lt;-<span class="st"> </span><span class="kw"><a href="reference/future_map.html">future_map</a></span>(rs_obj<span class="op">$</span>splits, model_only, mod_form)</a>
+<a class="sourceLine" id="cb13-12" data-line-number="12"><span class="kw"><a href="http://www.rdocumentation.org/packages/tictoc/topics/tic">toc</a></span>()</a>
+<a class="sourceLine" id="cb13-13" data-line-number="13"><span class="co">#&gt; 20.807 sec elapsed</span></a></code></pre></div>
+<p>Luckily, the <code>glm</code> model is relatively small, so we don’t experience much loss, but there are model objects out there that can be 10’s of MBs in size. For models like those, I would advise wrapping up the work you want each core to do into a function, and only returning the actual performance metric you are looking for. This might mean a little bit more work on your side, but it results in smaller objects, and faster performance.</p>
 </div>
 <div id="what-has-not-been-implemented-yet" class="section level2">
 <h2 class="hasAnchor">
 <a href="#what-has-not-been-implemented-yet" class="anchor"></a>What has not been implemented (yet)?</h2>
 <ul>
-<li><code><a href="http://www.rdocumentation.org/packages/purrr/topics/map2">pmap()</a></code></li>
-<li><code><a href="http://www.rdocumentation.org/packages/purrr/topics/map">walk()</a></code></li>
-<li><code><a href="http://www.rdocumentation.org/packages/purrr/topics/imap">imap()</a></code></li>
-<li><code><a href="http://www.rdocumentation.org/packages/purrr/topics/lmap">lmap()</a></code></li>
-<li><code><a href="http://www.rdocumentation.org/packages/purrr/topics/modify">modify()</a></code></li>
+<li><p><code><a href="http://www.rdocumentation.org/packages/purrr/topics/map">walk()</a></code> - This will likely not be implemented as it is used for side effects which would not be seen on the parallel workers.</p></li>
+<li><p><code><a href="http://www.rdocumentation.org/packages/purrr/topics/lmap">lmap()</a></code></p></li>
 </ul>
 </div>
 <div id="found-a-bug" class="section level2">

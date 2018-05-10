@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Authors • furrr</title>
+<title>Changelog • furrr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -22,13 +22,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
-<link href="pkgdown.css" rel="stylesheet">
-<script src="jquery.sticky-kit.min.js"></script>
-<script src="pkgdown.js"></script>
+<link href="../pkgdown.css" rel="stylesheet">
+<script src="../jquery.sticky-kit.min.js"></script>
+<script src="../pkgdown.js"></script>
 
 
 
-<meta property="og:title" content="Authors" />
+<meta property="og:title" content="Changelog" />
 
 
 <!-- mathjax -->
@@ -43,7 +43,7 @@
   </head>
 
   <body>
-    <div class="container template-authors">
+    <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -54,7 +54,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="index.html">furrr</a>
+        <a class="navbar-link" href="../index.html">furrr</a>
         <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
       </span>
     </div>
@@ -62,16 +62,16 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">
+  <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="reference/index.html">Reference</a>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li>
-  <a href="news/index.html">Changelog</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -92,30 +92,49 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Authors</h1>
+      <h1>Changelog <small></small></h1>
+      <small>Source: <a href='https://github.com/DavisVaughan/furrr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <ul class="list-unstyled">
-      <li>
-        <p><strong>Davis Vaughan</strong>. Author, maintainer. 
-        </p>
-      </li>
-      <li>
-        <p><strong>Henrik Bengtsson</strong>. Author, copyright holder. 
-        </p>
-      </li>
-      <li>
-        <p><strong>Matt Dancho</strong>. Author. 
-        </p>
-      </li>
-    </ul>
+    <div id="furrr-0-1-0" class="section level1">
+<h1 class="page-header">
+<a href="#furrr-0-1-0" class="anchor"></a>furrr 0.1.0</h1>
+<p>Features:</p>
+<ul>
+<li><p><code>future_pmap_*()</code> functions have been added to mirror <code>pmap()</code>.</p></li>
+<li><p>The <code>future.*</code> arguments to each function have been replaced with an overarching <code>.options</code> argument. Use <code><a href="../reference/future_options.html">future_options()</a></code> to create a set of options suitable to be passed to <code>.options</code>. This change streamlines the interface greatly, and simplifies documentation (<a href='https://github.com/DavisVaughan/furrr/issues/8'>#8</a>, <a href='http://github.com/hadley'>@hadley</a>).</p></li>
+<li><p><code>future_invoke_map_*()</code> functions have been added to mirror <code>invoke_map()</code>.</p></li>
+<li><p>More documentation and examples have been added.</p></li>
+<li><p>Added the ability to use a progress bar with <code>.progress = TRUE</code> for multicore, multiprocess, and multisession <code>plan()</code>s.</p></li>
+</ul>
+<p>Bug Fixes:</p>
+<ul>
+<li><p>Fixed a bug with using <code>~</code> inside a <code>mutate()</code> + <code>map()</code> combination.</p></li>
+<li><p>Added a missed <code><a href="../reference/future_imap.html">future_imap_int()</a></code>.</p></li>
+</ul>
+</div>
+    <div id="furrr-0-0-0" class="section level1">
+<h1 class="page-header">
+<a href="#furrr-0-0-0" class="anchor"></a>furrr 0.0.0</h1>
+<ul>
+<li>Original GitHub release of <code>furrr</code> on 2018-04-13.</li>
+</ul>
+</div>
+  </div>
 
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <div id="tocnav">
+      <h2>Contents</h2>
+      <ul class="nav nav-pills nav-stacked">
+        <li><a href="#furrr-0-1-0">0.1.0</a></li>
+        <li><a href="#furrr-0-0-0">0.0.0</a></li>
+      </ul>
+    </div>
   </div>
 
 </div>
-
 
       <footer>
       <div class="copyright">

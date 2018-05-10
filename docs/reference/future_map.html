@@ -25,11 +25,13 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Apply a function to each element of a vector via futures — future_map" />
 
 <meta property="og:description" content="These functions work exactly the same as purrr::map() functions, but allow
-you to run the map in parallel. There are a number of future.* arguments
-to allow you to fine tune the parallel processing. The documentation is
+you to run the map in parallel. The documentation is
 adapted from both purrr::map(), and future.apply::future_lapply(),
 so look there for more details." />
 <meta name="twitter:card" content="summary" />
@@ -42,8 +44,6 @@ so look there for more details." />
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
 
 
   </head>
@@ -76,6 +76,9 @@ so look there for more details." />
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -98,47 +101,39 @@ so look there for more details." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Apply a function to each element of a vector via futures</h1>
-    <small>Source: <a href='https://github.com/DavisVaughan/furrr/blob/master/R/future_map.R'><code>R/future_map.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/DavisVaughan/furrr/blob/master/R/future_map.R'><code>R/future_map.R</code></a></small>
     <div class="hidden name"><code>future_map.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>These functions work exactly the same as <code><a href='http://www.rdocumentation.org/packages/purrr/topics/map'>purrr::map()</a></code> functions, but allow
-you to run the map in parallel. There are a number of <code>future.*</code> arguments
-to allow you to fine tune the parallel processing. The documentation is
+you to run the map in parallel. The documentation is
 adapted from both <code><a href='http://www.rdocumentation.org/packages/purrr/topics/map'>purrr::map()</a></code>, and <code><a href='http://www.rdocumentation.org/packages/future.apply/topics/future_lapply'>future.apply::future_lapply()</a></code>,
 so look there for more details.</p>
     
+    </div>
 
-    <pre class="usage"><span class='fu'>future_map</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>future.globals</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>future.packages</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>future.seed</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>future.lazy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>future.scheduling</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+    <pre class="usage"><span class='fu'>future_map</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>())
 
-<span class='fu'>future_map_chr</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>future.globals</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>future.packages</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>future.seed</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>future.lazy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>future.scheduling</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+<span class='fu'>future_map_chr</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>())
 
-<span class='fu'>future_map_dbl</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>future.globals</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>future.packages</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>future.seed</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>future.lazy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>future.scheduling</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+<span class='fu'>future_map_dbl</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>())
 
-<span class='fu'>future_map_int</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>future.globals</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>future.packages</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>future.seed</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>future.lazy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>future.scheduling</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+<span class='fu'>future_map_int</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>())
 
-<span class='fu'>future_map_lgl</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>future.globals</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>future.packages</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>future.seed</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>future.lazy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>future.scheduling</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+<span class='fu'>future_map_lgl</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>())
 
-<span class='fu'>future_map_dfr</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>future.globals</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>future.packages</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>future.seed</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>future.lazy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>future.scheduling</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+<span class='fu'>future_map_dfr</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>())
 
-<span class='fu'>future_map_dfc</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>future.globals</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>future.packages</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>future.seed</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>future.lazy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>future.scheduling</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+<span class='fu'>future_map_dfc</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>())
 
-<span class='fu'>future_map_if</span>(<span class='no'>.x</span>, <span class='no'>.p</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>future.globals</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>future.packages</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>future.seed</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>future.lazy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>future.scheduling</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+<span class='fu'>future_map_if</span>(<span class='no'>.x</span>, <span class='no'>.p</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>())
 
-<span class='fu'>future_map_at</span>(<span class='no'>.x</span>, <span class='no'>.at</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>future.globals</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>future.packages</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>future.seed</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>future.lazy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>future.scheduling</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+<span class='fu'>future_map_at</span>(<span class='no'>.x</span>, <span class='no'>.at</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>())</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -171,36 +166,14 @@ to extract named attributes. If a component is not present, the value of
       <td><p>Additional arguments passed on to <code>.f</code>.</p></td>
     </tr>
     <tr>
-      <th>future.globals</th>
-      <td><p>A logical, a character vector, or a named list for
-controlling how globals are handled. For details, see below section.</p></td>
+      <th>.progress</th>
+      <td><p>A logical, for whether or not to print a progress bar for
+multiprocess, multisession, and multicore plans.</p></td>
     </tr>
     <tr>
-      <th>future.packages</th>
-      <td><p>(optional) a character vector specifying packages
-to be attached in the R environment evaluating the future.</p></td>
-    </tr>
-    <tr>
-      <th>future.seed</th>
-      <td><p>A logical or an integer (of length one or seven),
-or a list of <code>length(.x)</code> with pre-generated random seeds.
-For details, see below section.</p></td>
-    </tr>
-    <tr>
-      <th>future.lazy</th>
-      <td><p>Specifies whether the futures should be resolved
-lazily or eagerly (default).</p></td>
-    </tr>
-    <tr>
-      <th>future.scheduling</th>
-      <td><p>Average number of futures ("chunks") per worker.
-If <code>0.0</code>, then a single future is used to process all elements
-of <code>.x</code>.
-If <code>1.0</code> or <code>TRUE</code>, then one future per worker is used.
-If <code>2.0</code>, then each worker will process two futures
-(if there are enough elements in <code>.x</code>).
-If <code>Inf</code> or <code>FALSE</code>, then one future per element of
-<code>.x</code> is used.</p></td>
+      <th>.options</th>
+      <td><p>The <code>future</code> specific options to use with the workers. This must
+be the result from a call to <code><a href='future_options.html'>future_options()</a></code>.</p></td>
     </tr>
     <tr>
       <th>.id</th>
@@ -233,57 +206,6 @@ and <code>future_map_chr()</code> a character vector.
 The output of <code>.f</code> will be automatically typed upwards,
 e.g. logical -&gt; integer -&gt; double -&gt; character.</p>
     
-    <h2 class="hasAnchor" id="global-variables"><a class="anchor" href="#global-variables"></a>Global variables</h2>
-
-    
-    <p>Argument <code>future.globals</code> may be used to control how globals
-should be handled similarly how the <code>globals</code> argument is used with
-<code>future()</code>.
-Since all function calls use the same set of globals, this function can do
-any gathering of globals upfront (once), which is more efficient than if
-it would be done for each future independently.
-If <code>TRUE</code>, <code>NULL</code> or not is specified (default), then globals
-are automatically identified and gathered.
-If a character vector of names is specified, then those globals are gathered.
-If a named list, then those globals are used as is.
-In all cases, <code>.f</code> and any <code>...</code> arguments are automatically
-passed as globals to each future created as they are always needed.</p>
-    
-    <h2 class="hasAnchor" id="reproducible-random-number-generation-rng-"><a class="anchor" href="#reproducible-random-number-generation-rng-"></a>Reproducible random number generation (RNG)</h2>
-
-    
-    <p>Unless <code>future.seed = FALSE</code>, this function guarantees to generate
-the exact same sequence of random numbers <em>given the same initial
-seed / RNG state</em> - this regardless of type of futures and scheduling
-("chunking") strategy.</p>
-<p>RNG reproducibility is achieved by pregenerating the random seeds for all
-iterations (over <code>.x</code>) by using L'Ecuyer-CMRG RNG streams.  In each
-iteration, these seeds are set before calling <code>.f(.x[[ii]], ...)</code>.
-<em>Note, for large <code>length(.x)</code> this may introduce a large overhead.</em>
-As input (<code>future.seed</code>), a fixed seed (integer) may be given, either
-as a full L'Ecuyer-CMRG RNG seed (vector of 1+6 integers) or as a seed
-generating such a full L'Ecuyer-CMRG seed.
-If <code>future.seed = TRUE</code>, then <code><a href='http://www.rdocumentation.org/packages/base/topics/Random'>.Random.seed</a></code>
-is returned if it holds a L'Ecuyer-CMRG RNG seed, otherwise one is created
-randomly.
-If <code>future.seed = NA</code>, a L'Ecuyer-CMRG RNG seed is randomly created.
-If none of the function calls <code>.f(.x[[ii]], ...)</code> uses random number
-generation, then <code>future.seed = FALSE</code> may be used.</p>
-<p>In addition to the above, it is possible to specify a pre-generated
-sequence of RNG seeds as a list such that
-<code>length(future.seed) == length(.x)</code> and where each element is an
-integer seed that can be assigned to <code><a href='http://www.rdocumentation.org/packages/base/topics/Random'>.Random.seed</a></code>.
-Use this alternative with caution.
-<strong>Note that <code>as.list(seq_along(.x))</code> is <em>not</em> a valid set of such
-<code>.Random.seed</code> values.</strong></p>
-<p>In all cases but <code>future.seed = FALSE</code>, the RNG state of the calling
-R processes after this function returns is guaranteed to be
-"forwarded one step" from the RNG state that was before the call and
-in the same way regardless of <code>future.seed</code>, <code>future.scheduling</code>
-and future strategy used.  This is done in order to guarantee that an <span style="R">R</span>
-script calling <code>future_map()</code> multiple times should be numerically
-reproducible given the same initial seed.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
@@ -294,10 +216,10 @@ reproducible given the same initial seed.</p>
 
 <span class='fl'>1</span>:<span class='fl'>10</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>future_map</span>(<span class='no'>rnorm</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>10</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>future_map_dbl</span>(<span class='no'>mean</span>)</div><div class='output co'>#&gt;  [1] 1.171826 1.860167 2.928960 3.858197 4.731077 5.852965 7.152533 8.817512
-#&gt;  [9] 8.942318 9.566968</div><div class='input'>
+  <span class='fu'>future_map_dbl</span>(<span class='no'>mean</span>)</div><div class='output co'>#&gt;  [1] 0.669622 1.912702 2.786240 3.710700 4.587927 6.066271 7.333928 8.238807
+#&gt;  [9] 9.119548 9.636555</div><div class='input'>
 <span class='co'># If each element of the output is a data frame, use</span>
-<span class='co'># map_dfr to row-bind them together:</span>
+<span class='co'># future_map_dfr to row-bind them together:</span>
 <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>split</span>(<span class='no'>.</span>$<span class='no'>cyl</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>future_map</span>(~ <span class='fu'>lm</span>(<span class='no'>mpg</span> ~ <span class='no'>wt</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>.x</span>)) <span class='kw'>%&gt;%</span>
@@ -305,6 +227,22 @@ reproducible given the same initial seed.</p>
 #&gt; 1    39.57120 -5.647025
 #&gt; 2    28.40884 -2.780106
 #&gt; 3    23.86803 -2.192438</div><div class='input'>
+<span class='co'># You can be explicit about what gets exported to the workers</span>
+
+<span class='co'># To see this, use multisession (NOT multicore if on a Mac as the forked workers</span>
+<span class='co'># still have access to this environment)</span>
+<span class='fu'>plan</span>(<span class='no'>multisession</span>)
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>2</span>
+
+<span class='co'># This will fail, y is not exported (no black magic occurs)</span>
+<span class='co'># future_map(1, ~y, .options = future_options(globals = "x"))</span>
+
+<span class='co'># y is exported</span>
+<span class='fu'>future_map</span>(<span class='fl'>1</span>, ~<span class='no'>y</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>(<span class='kw'>globals</span> <span class='kw'>=</span> <span class='st'>"y"</span>))</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] 2
+#&gt; </div><div class='input'>
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -313,10 +251,6 @@ reproducible given the same initial seed.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#global-variables">Global variables</a></li>
-
-      <li><a href="#reproducible-random-number-generation-rng-">Reproducible random number generation (RNG)</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
