@@ -14,21 +14,28 @@ knitr::opts_chunk$set(
   out.width = "100%"
 )
 ```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(purrr)
+library(tictoc)
+library(furrr)
+library(rsample)
+library(broom)
+```
+
 # furrr
 
-The goal of furrr is to simplify the combination of `purrr`'s family of `map()` functions and
-`future`'s parallel processing capabilities. A new set of `future_map*()` functions
+The goal of furrr is to simplify the combination of `purrr`'s family of mapping functions and
+`future`'s parallel processing capabilities. A new set of `future_map_*()` functions
 have been defined, and can be used as (hopefully) drop in replacements for 
 the corresponding `map*()` function.
 
 The code draws _heavily_ from the implementations of `purrr` and `future.apply`
-and this package would not be possible without either of them. Each `future_map*()`
-function has additional `future.*` arguments that are taken from `future_lapply()`
-and allow fine tuned control over the parallel execution.
+and this package would not be possible without either of them.
 
 ## What has been implemented?
 
-The full range of `map()`, `map2()`, `imap()`, and `modify()` functions have been implemented. 
+The full range of `map()`, `map2()`, `pmap()`, `imap()`, `modify()`, and `invoke_map()` functions have been implemented. 
 
 This includes strict versions like `map_dbl()` through `future_map_dbl()` and predicate
 versions like `map_at()` through `future_map_at()`.
@@ -66,9 +73,7 @@ The default backend for `future` is a sequential one. This means that the code
 will run out of the box, but it will _not_ be in parallel. The design of `future`
 makes this incredibly easy to change so that your code does run in parallel.
 
-```{r cars}
-library(future)
-
+```{r}
 # You set a "plan" for how the code should run. The easiest is `multiprocess`
 # On Mac this picks plan(multicore) and on Windows this picks plan(multisession)
 plan(multiprocess)
@@ -79,20 +84,24 @@ future_map(c("hello", "world"), ~.x)
 
 If you are still skeptical, here is some proof that we are running in parallel.
 
-```{r}
+```{r, eval=FALSE}
 library(tictoc)
 
-# This should take 9 seconds in total running sequentially
+# This should take 6 seconds in total running sequentially
 plan(sequential)
 tic()
-nothingness <- future_map(c(3, 3, 3), ~Sys.sleep(.x))
+nothingness <- future_map(c(2, 2, 2), ~Sys.sleep(.x))
 toc()
+#> 6.08 sec elapsed
+```
 
-# This should take ~3 seconds running in parallel, with a little overhead
+```{r, eval=FALSE}
+# This should take ~2 seconds running in parallel, with a little overhead
 plan(multiprocess)
 tic()
-nothingness <- future_map(c(3, 3, 3), ~Sys.sleep(.x))
+nothingness <- future_map(c(2, 2, 2), ~Sys.sleep(.x))
 toc()
+#> 2.212 sec elapsed
 ```
 
 ## Progress bars
@@ -164,30 +173,26 @@ and extract the results.
 
 First in sequential order...
 
-```{r}
+```{r, eval=FALSE}
 library(purrr)
 library(tictoc)
 
 tic()
 rs_obj$results <- map(rs_obj$splits, holdout_results, mod_form)
 toc()
+#> 30.095 sec elapsed
 ```
 
 Then in parallel...
 
-```{r}
+```{r, eval=FALSE}
 library(furrr)
 plan(multiprocess)
 
 tic()
 rs_obj$results <- future_map(rs_obj$splits, holdout_results, mod_form)
 toc()
-```
-
-If you're curious, the resulting object looks like this.
-
-```{r}
-rs_obj
+#> 14.211 sec elapsed
 ```
 
 We don't get a 4x improvement on my 4 core Mac, but we do get a nice 2x speed
@@ -208,7 +213,7 @@ example, if instead of returning a results data frame in the above example, we
 returned the larger `glm` model object for each split, our performance 
 drops a bit.
 
-```{r}
+```{r, eval=FALSE}
 model_only <- function(splits, ...) {
   # Fit the model to the 90%
   mod <- glm(..., data = analysis(splits), family = binomial)
@@ -221,6 +226,7 @@ plan(multiprocess)
 tic()
 rs_obj$results2 <- future_map(rs_obj$splits, model_only, mod_form)
 toc()
+#> 20.807 sec elapsed
 ```
 
 Luckily, the `glm` model is relatively small, so we don't experience much loss,
@@ -228,8 +234,9 @@ but there are model objects out there that can be 10's of MBs in size. For model
 
 ## What has not been implemented (yet)?
 
-* `pmap()` 
-* `walk()`
+* `walk()` - This will likely not be implemented as it is used for side effects
+which would not be seen on the parallel workers.
+
 * `lmap()`
 
 ## Found a bug?

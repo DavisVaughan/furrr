@@ -4,21 +4,19 @@
 # furrr
 
 The goal of furrr is to simplify the combination of `purrr`’s family of
-`map()` functions and `future`’s parallel processing capabilities. A new
-set of `future_map*()` functions have been defined, and can be used as
+mapping functions and `future`’s parallel processing capabilities. A new
+set of `future_map_*()` functions have been defined, and can be used as
 (hopefully) drop in replacements for the corresponding `map*()`
 function.
 
 The code draws *heavily* from the implementations of `purrr` and
 `future.apply` and this package would not be possible without either of
-them. Each `future_map*()` function has additional `future.*` arguments
-that are taken from `future_lapply()` and allow fine tuned control over
-the parallel execution.
+them.
 
 ## What has been implemented?
 
-The full range of `map()`, `map2()`, `imap()`, and `modify()` functions
-have been implemented.
+The full range of `map()`, `map2()`, `pmap()`, `imap()`, `modify()`, and
+`invoke_map()` functions have been implemented.
 
 This includes strict versions like `map_dbl()` through
 `future_map_dbl()` and predicate versions like `map_at()` through
@@ -48,7 +46,6 @@ you can immediately have familiarity with it.
 
 ``` r
 library(furrr)
-#> Loading required package: future
 library(purrr)
 
 map(c("hello", "world"), ~.x)
@@ -69,11 +66,10 @@ future_map(c("hello", "world"), ~.x)
 The default backend for `future` is a sequential one. This means that
 the code will run out of the box, but it will *not* be in parallel. The
 design of `future` makes this incredibly easy to change so that your
-code does run in parallel.
+code does run in
+parallel.
 
 ``` r
-library(future)
-
 # You set a "plan" for how the code should run. The easiest is `multiprocess`
 # On Mac this picks plan(multicore) and on Windows this picks plan(multisession)
 plan(multiprocess)
@@ -93,19 +89,21 @@ parallel.
 ``` r
 library(tictoc)
 
-# This should take 9 seconds in total running sequentially
+# This should take 6 seconds in total running sequentially
 plan(sequential)
 tic()
-nothingness <- future_map(c(3, 3, 3), ~Sys.sleep(.x))
+nothingness <- future_map(c(2, 2, 2), ~Sys.sleep(.x))
 toc()
-#> 9.056 sec elapsed
+#> 6.08 sec elapsed
+```
 
-# This should take ~3 seconds running in parallel, with a little overhead
+``` r
+# This should take ~2 seconds running in parallel, with a little overhead
 plan(multiprocess)
 tic()
-nothingness <- future_map(c(3, 3, 3), ~Sys.sleep(.x))
+nothingness <- future_map(c(2, 2, 2), ~Sys.sleep(.x))
 toc()
-#> 3.076 sec elapsed
+#> 2.212 sec elapsed
 ```
 
 ## Progress bars
@@ -130,13 +128,6 @@ more…interesting we are going to use 20 fold CV with 100 repeats.
 
 ``` r
 library(rsample)
-#> Loading required package: broom
-#> Loading required package: tidyr
-#> 
-#> Attaching package: 'rsample'
-#> The following object is masked from 'package:tidyr':
-#> 
-#>     fill
 data("attrition")
 names(attrition)
 #>  [1] "Age"                      "Attrition"               
@@ -224,7 +215,7 @@ library(tictoc)
 tic()
 rs_obj$results <- map(rs_obj$splits, holdout_results, mod_form)
 toc()
-#> 24.474 sec elapsed
+#> 30.095 sec elapsed
 ```
 
 Then in parallel…
@@ -236,28 +227,7 @@ plan(multiprocess)
 tic()
 rs_obj$results <- future_map(rs_obj$splits, holdout_results, mod_form)
 toc()
-#> 12.297 sec elapsed
-```
-
-If you’re curious, the resulting object looks like this.
-
-``` r
-rs_obj
-#> #  20-fold cross-validation repeated 100 times 
-#> # A tibble: 2,000 x 4
-#>    splits       id        id2    results               
-#>    <list>       <chr>     <chr>  <list>                
-#>  1 <S3: rsplit> Repeat001 Fold01 <data.frame [74 × 35]>
-#>  2 <S3: rsplit> Repeat001 Fold02 <data.frame [74 × 35]>
-#>  3 <S3: rsplit> Repeat001 Fold03 <data.frame [74 × 35]>
-#>  4 <S3: rsplit> Repeat001 Fold04 <data.frame [74 × 35]>
-#>  5 <S3: rsplit> Repeat001 Fold05 <data.frame [74 × 35]>
-#>  6 <S3: rsplit> Repeat001 Fold06 <data.frame [74 × 35]>
-#>  7 <S3: rsplit> Repeat001 Fold07 <data.frame [74 × 35]>
-#>  8 <S3: rsplit> Repeat001 Fold08 <data.frame [74 × 35]>
-#>  9 <S3: rsplit> Repeat001 Fold09 <data.frame [74 × 35]>
-#> 10 <S3: rsplit> Repeat001 Fold10 <data.frame [74 × 35]>
-#> # ... with 1,990 more rows
+#> 14.211 sec elapsed
 ```
 
 We don’t get a 4x improvement on my 4 core Mac, but we do get a nice 2x
@@ -293,7 +263,7 @@ plan(multiprocess)
 tic()
 rs_obj$results2 <- future_map(rs_obj$splits, model_only, mod_form)
 toc()
-#> 18.733 sec elapsed
+#> 20.807 sec elapsed
 ```
 
 Luckily, the `glm` model is relatively small, so we don’t experience
@@ -306,8 +276,9 @@ performance.
 
 ## What has not been implemented (yet)?
 
-  - `pmap()`
-  - `walk()`
+  - `walk()` - This will likely not be implemented as it is used for
+    side effects which would not be seen on the parallel workers.
+
   - `lmap()`
 
 ## Found a bug?
