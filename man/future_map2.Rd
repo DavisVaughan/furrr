@@ -15,7 +15,7 @@
 \alias{future_pmap_lgl}
 \alias{future_pmap_dfr}
 \alias{future_pmap_dfc}
-\title{Map over multiple inputs simulatneously via futures}
+\title{Map over multiple inputs simultaneously via futures}
 \usage{
 future_map2(.x, .y, .f, ..., .progress = FALSE, .options = future_options())
 

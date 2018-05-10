@@ -1,4 +1,4 @@
-#' Map over multiple inputs simulatneously via futures
+#' Map over multiple inputs simultaneously via futures
 #'
 #' These functions work exactly the same as [purrr::map2()] functions, but allow
 #' you to run the map in parallel. Note that "parallel" as described in `purrr`
