@@ -98,7 +98,7 @@ future_map2_template <- function(.map, .type, .x, .y, .f, ..., .progress, .optio
   ##  stopifnot(attr(globals, "resolved"), !is.na(attr(globals, "total_size")))
 
   ## To please R CMD check
-  ...future.map <- ...future.f <- ...future.x_ii <- ...future.y_ii <- ...future.seeds_ii <- NULL
+  ...future.map <- ...future.f <- ...future.x_ii <- ...future.y_ii <- ...future.seeds_ii <- temp_file <- NULL
 
   nchunks <- length(chunks)
   fs <- vector("list", length = nchunks)
