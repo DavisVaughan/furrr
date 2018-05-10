@@ -24,6 +24,7 @@
 #'
 #' x <- list(1, 10, 100)
 #' y <- list(1, 2, 3)
+#' z <- list(5, 50, 500)
 #'
 #' future_map2(x, y, ~ .x + .y)
 #'
@@ -31,6 +32,21 @@
 #' by_cyl <- split(mtcars, mtcars$cyl)
 #' mods <- future_map(by_cyl, ~ lm(mpg ~ wt, data = .))
 #' future_map2(mods, by_cyl, predict)
+#'
+#' future_pmap(list(x, y, z), sum)
+#'
+#' # Matching arguments by position
+#' future_pmap(list(x, y, z), function(a, b ,c) a / (b + c))
+#'
+#' # Vectorizing a function over multiple arguments
+#' df <- data.frame(
+#'   x = c("apple", "banana", "cherry"),
+#'   pattern = c("p", "n", "h"),
+#'   replacement = c("x", "f", "q"),
+#'   stringsAsFactors = FALSE
+#' )
+#' future_pmap(df, gsub)
+#' future_pmap_chr(df, gsub)
 #'
 #' @export
 future_map2 <- function(.x, .y, .f, ..., .progress = FALSE, .options = future_options()) {
