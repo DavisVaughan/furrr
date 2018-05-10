@@ -2,6 +2,8 @@
 
 Features:
 
+  * `future_pmap_*()` functions have been added to mirror `pmap()`.
+
   * The `future.*` arguments to each function have been replaced with an 
   overarching `.options` argument. Use `future_options()` to create a set of options
   suitable to be passed to `.options`. This change streamlines the interface 
