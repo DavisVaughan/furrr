@@ -124,8 +124,9 @@ future_map2_template <- function(.map, .type, .x, .y, .f, ..., .progress, .optio
         # Temp solution is to readd base::`~` into the .f environment if necessary
         ...future.f.env <- environment(...future.f)
         if(!is.null(...future.f.env$`~`)) {
-          unlockBinding(sym = as.name("~"), ...future.f.env)
-          ...future.f.env$`~` <- base::`~`
+          if(is_bad_rlang_tilde(...future.f.env$`~`)) {
+            ...future.f.env$`~` <- base::`~`
+          }
         }
 
         ...future.map(seq_along(...future.x_ii), .f = function(jj) {
@@ -146,8 +147,9 @@ future_map2_template <- function(.map, .type, .x, .y, .f, ..., .progress, .optio
         # Temp solution is to readd base::`~` into the .f environment if necessary
         ...future.f.env <- environment(...future.f)
         if(!is.null(...future.f.env$`~`)) {
-          unlockBinding(sym = as.name("~"), ...future.f.env)
-          ...future.f.env$`~` <- base::`~`
+          if(is_bad_rlang_tilde(...future.f.env$`~`)) {
+            ...future.f.env$`~` <- base::`~`
+          }
         }
 
         ...future.map(seq_along(...future.x_ii), .f = function(jj) {

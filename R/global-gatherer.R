@@ -123,6 +123,12 @@ gather_globals_and_packages <- function(.options, .map, .f, .progress, envir, ..
     globals <- c(globals, update_progress = update_progress, temp_file = temp_file)
   }
 
+  ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  ## 3. Extra functions required on the workers
+  ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  globals <- c(globals, is_bad_rlang_tilde = is_bad_rlang_tilde)
+
   .options$packages <- packages
   .options$globals  <- globals
 
