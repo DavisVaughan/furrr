@@ -129,11 +129,17 @@ future_map2_template <- function(.map, .type, .x, .y, .f, ..., .progress, .optio
           }
         }
 
+        # Make persistent file connection
+        if(.progress) {
+          temp_file_con <- file(temp_file, "a")
+          on.exit(close(temp_file_con))
+        }
+
         ...future.map(seq_along(...future.x_ii), .f = function(jj) {
           ...future.x_jj <- ...future.x_ii[[jj]]
           ...future.y_jj <- ...future.y_ii[[jj]]
           .out <- ...future.f(...future.x_jj, ...future.y_jj, ...)
-          if(.progress) update_progress(temp_file)
+          if(.progress) update_progress(temp_file_con)
           .out
         })
 
@@ -152,12 +158,18 @@ future_map2_template <- function(.map, .type, .x, .y, .f, ..., .progress, .optio
           }
         }
 
+        # Make persistent file connection
+        if(.progress) {
+          temp_file_con <- file(temp_file, "a")
+          on.exit(close(temp_file_con))
+        }
+
         ...future.map(seq_along(...future.x_ii), .f = function(jj) {
           ...future.x_jj <- ...future.x_ii[[jj]]
           ...future.y_jj <- ...future.y_ii[[jj]]
           assign(".Random.seed", ...future.seeds_ii[[jj]], envir = globalenv(), inherits = FALSE)
           .out <- ...future.f(...future.x_jj, ...future.y_jj, ...)
-          if(.progress) update_progress(temp_file)
+          if(.progress) update_progress(temp_file_con)
           .out
         })
 

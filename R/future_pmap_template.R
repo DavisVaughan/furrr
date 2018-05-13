@@ -9,17 +9,22 @@ future_pmap_template <- function(.map, .type, .l, .f, ..., .progress, .options) 
   # Debug
   debug <- getOption("future.debug", FALSE)
 
+  # Check .l is list (consistent with purrr)
+  if(!is.list(.l)) {
+    stop("`.x` is not a list (%s)", typeof(.l), call. = FALSE)
+  }
+
   # ## Nothing to do?
   n.l <- length(.l)
-  n.l_elems <- length(.l[[1L]])
   n_all <- purrr::map_int(.l, length)
+  n.l_elems <- max(n_all)
 
   if(any(n_all == 0L)) {
     return(get_zero_length_type(.type))
   }
 
   ## Improper lengths
-  possible_len_problems <- which(n_all != n_all[1])
+  possible_len_problems <- which(n_all != n.l_elems)
   any_possible_problems <- length(possible_len_problems)
 
   if(any_possible_problems) {
@@ -125,7 +130,6 @@ future_pmap_template <- function(.map, .type, .l, .f, ..., .progress, .options) 
     for(.l_i in seq_along(.l)) {
       globals_ii[["...future.lst_ii"]][[.l_i]] <- .l[[.l_i]][chunk]
     }
-    globals_ii[["...future.lst_ii"]] <- purrr::transpose(globals_ii[["...future.lst_ii"]])
 
     ## Using RNG seeds or not?
     if (is.null(seeds)) {
@@ -141,13 +145,24 @@ future_pmap_template <- function(.map, .type, .l, .f, ..., .progress, .options) 
           }
         }
 
-        # pmap() is accomplished through a transposed map()
-        user_dots <- list(...)
-        ...future.map(seq_along(...future.lst_ii), .f = function(jj) {
-          out <- do.call(...future.f, c(...future.lst_ii[[jj]], user_dots))
-          if(.progress) update_progress(temp_file)
-          out
-        })
+        # Attach the dots as a named element, these will be recycled
+        # double list to keep the names once passed to ...future.f
+        ...future.lst_ii$...future.dots <- list(list(...))
+
+        # Make persistent file connection
+        if(.progress) {
+          temp_file_con <- file(temp_file, "a")
+          on.exit(close(temp_file_con))
+        }
+
+        # In the wrapper, refer to the random seeds by name to match them in pmap
+        ...future.f_wrapper <- function(..., ...future.dots) {
+          .out <- do.call(...future.f, c(list(...), ...future.dots))
+          if(.progress) update_progress(temp_file_con)
+          .out
+        }
+
+        ...future.map(...future.lst_ii, ...future.f_wrapper)
 
       }, envir = envir, lazy = .options$lazy, globals = globals_ii, packages = packages)
     } else {
@@ -164,13 +179,28 @@ future_pmap_template <- function(.map, .type, .l, .f, ..., .progress, .options) 
           }
         }
 
-        user_dots <- list(...)
-        ...future.map(seq_along(...future.lst_ii), .f = function(jj) {
-          assign(".Random.seed", ...future.seeds_ii[[jj]], envir = globalenv(), inherits = FALSE)
-          out <- do.call(...future.f, c(...future.lst_ii[[jj]], user_dots))
-          if(.progress) update_progress(temp_file)
-          out
-        })
+        # Attach the current seeds to the lst as a named element, these will be iterated over
+        ...future.lst_ii$...future.seeds_ii <- ...future.seeds_ii
+
+        # Attach the dots as a named element, these will be recycled
+        # double list to keep the names once passed to ...future.f
+        ...future.lst_ii$...future.dots <- list(list(...))
+
+        # Make persistent file connection
+        if(.progress) {
+          temp_file_con <- file(temp_file, "a")
+          on.exit(close(temp_file_con))
+        }
+
+        # In the wrapper, refer to the random seeds by name to match them in pmap
+        ...future.f_wrapper <- function(..., ...future.dots, ...future.seeds_ii) { # ...future.seed_ii will be a single element of that object
+          assign(".Random.seed", ...future.seeds_ii, envir = globalenv(), inherits = FALSE)
+          .out <- do.call(...future.f, c(list(...), ...future.dots))
+          if(.progress) update_progress(temp_file_con)
+          .out
+        }
+
+        ...future.map(...future.lst_ii, ...future.f_wrapper)
 
       }, envir = envir, lazy = .options$lazy, globals = globals_ii, packages = packages)
     }

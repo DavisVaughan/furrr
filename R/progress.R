@@ -10,7 +10,9 @@ poll_progress <- function(fs, temp_file, rule_max_width) {
 
     # -1 because of empty tick needed to init file.
     # Otherwise if we get here too quickly it gives error
-    n_ticks <- length(readLines(temp_file)) - 1
+    temp_file_con <- file(temp_file, "r")
+    n_ticks <- length(readLines(temp_file_con)) - 1
+    close(temp_file_con)
 
     max_width <- console_width()
     progress_width <- 10

@@ -4,7 +4,7 @@ future_pmap <- function(.l, .f, ..., .progress = FALSE, .options = future_option
   if (is.data.frame(.l)) {
     .l <- as.list(.l)
   }
-  future_pmap_template(purrr::map, "list", .l, .f, ..., .progress = .progress, .options = .options)
+  future_pmap_template(purrr::pmap, "list", .l, .f, ..., .progress = .progress, .options = .options)
 }
 
 #' @rdname future_map2
@@ -13,7 +13,7 @@ future_pmap_chr <- function(.l, .f, ..., .progress = FALSE, .options = future_op
   if (is.data.frame(.l)) {
     .l <- as.list(.l)
   }
-  future_pmap_template(purrr::map_chr, "character", .l, .f, ..., .progress = .progress, .options = .options)
+  future_pmap_template(purrr::pmap_chr, "character", .l, .f, ..., .progress = .progress, .options = .options)
 }
 
 #' @rdname future_map2
@@ -22,7 +22,7 @@ future_pmap_dbl <- function(.l, .f, ..., .progress = FALSE, .options = future_op
   if (is.data.frame(.l)) {
     .l <- as.list(.l)
   }
-  future_pmap_template(purrr::map_dbl, "double", .l, .f, ..., .progress = .progress, .options = .options)
+  future_pmap_template(purrr::pmap_dbl, "double", .l, .f, ..., .progress = .progress, .options = .options)
 }
 
 #' @rdname future_map2
@@ -31,7 +31,7 @@ future_pmap_int <- function(.l, .f, ..., .progress = FALSE, .options = future_op
   if (is.data.frame(.l)) {
     .l <- as.list(.l)
   }
-  future_pmap_template(purrr::map_int, "integer", .l, .f, ..., .progress = .progress, .options = .options)
+  future_pmap_template(purrr::pmap_int, "integer", .l, .f, ..., .progress = .progress, .options = .options)
 }
 
 #' @rdname future_map2
@@ -40,7 +40,7 @@ future_pmap_lgl <- function(.l, .f, ..., .progress = FALSE, .options = future_op
   if (is.data.frame(.l)) {
     .l <- as.list(.l)
   }
-  future_pmap_template(purrr::map_lgl, "logical", .l, .f, ..., .progress = .progress, .options = .options)
+  future_pmap_template(purrr::pmap_lgl, "logical", .l, .f, ..., .progress = .progress, .options = .options)
 }
 
 #' @rdname future_map2
