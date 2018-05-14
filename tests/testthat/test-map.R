@@ -71,7 +71,7 @@ for(.e in .th$executors) {
         .x = deep_nest,
         .f = ~{
           x <- .x
-          purrr::map(.x, ~.x)
+          purrr::map(x, ~.x)
         })
     )
 
