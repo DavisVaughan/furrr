@@ -56,6 +56,7 @@ for(.e in .th$executors) {
 
   # See issue #7
   test_that(test_msg(.e, "Working mutate+map double nest with ~"), {
+    skip_on_cran()
     deep_list <- dplyr::tibble(
       deep_nest = list(
         list(
