@@ -194,14 +194,14 @@ future_pmap_template <- function(.map, .type, .l, .f, ..., .progress, .options) 
         }
 
         # In the wrapper, refer to the random seeds by name to match them in pmap
-        ...future.f_wrapper <- function(..., ...future.dots, ...future.seeds_ii) { # ...future.seed_ii will be a single element of that object
+        ...future.f_wrapper_seed <- function(..., ...future.dots, ...future.seeds_ii) { # ...future.seed_ii will be a single element of that object
           assign(".Random.seed", ...future.seeds_ii, envir = globalenv(), inherits = FALSE)
           .out <- do.call(...future.f, c(list(...), ...future.dots))
           if(.progress) update_progress(temp_file_con)
           .out
         }
 
-        ...future.map(...future.lst_ii, ...future.f_wrapper)
+        ...future.map(...future.lst_ii, ...future.f_wrapper_seed)
 
       }, envir = envir, lazy = .options$lazy, globals = globals_ii, packages = packages)
     }
