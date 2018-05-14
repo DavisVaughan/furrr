@@ -155,7 +155,8 @@ future_pmap_template <- function(.map, .type, .l, .f, ..., .progress, .options) 
           on.exit(close(temp_file_con))
         }
 
-        # In the wrapper, refer to the random seeds by name to match them in pmap
+        # The ... of pmap are passed in ...future.dots
+        # The current elements of the list are passed in ...
         ...future.f_wrapper <- function(..., ...future.dots) {
           .out <- do.call(...future.f, c(list(...), ...future.dots))
           if(.progress) update_progress(temp_file_con)
