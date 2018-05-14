@@ -245,7 +245,9 @@ feature, which carried over nicely into `furrr` and efficiently breaks
 up the list of splits into 4 equal subsets. Each is passed to 1 core of
 my machine.
 
-## A note on performance
+## A few notes on performance
+
+### Data transfer
 
 It’s important to remember that data has to be passed back and forth
 between the cores. This means that whatever performance gain you might
@@ -281,6 +283,16 @@ performance.
 This performance drop can especially be prominent if using
 `future_pmap()` to iterate over rows and return large objects at each
 iteration.
+
+### Progress bars
+
+Progress bars are best used when iterating over relatively few long
+running tasks. For instance, they are great when training over
+hyperparameters of a deep learning model, but I would not suggest them
+when iterating over the rows of a 100k row data frame. I’ve used every
+trick that I know to make them have minimal performance impact, but you
+will see degredation when using them with *lots* of elements to iterate
+over.
 
 ## What has not been implemented (yet)?
 
