@@ -4,3 +4,4 @@
 ^docs$
 ^\.travis\.yml$
 ^cran-comments\.md$
+^appveyor\.yml$

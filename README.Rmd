@@ -25,6 +25,7 @@ library(broom)
 
 [![Travis build status](https://travis-ci.org/DavisVaughan/furrr.svg?branch=master)](https://travis-ci.org/DavisVaughan/furrr)
 [![CRAN status](https://www.r-pkg.org/badges/version/furrr)](https://cran.r-project.org/package=furrr)
+[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/DavisVaughan/furrr?branch=master&svg=true)](https://ci.appveyor.com/project/DavisVaughan/furrr)
 
 # furrr
 
