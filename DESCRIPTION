@@ -14,8 +14,6 @@ Suggests:
     testthat
 Authors@R: c(
     person("Davis", "Vaughan", email = "dvaughan@business-science.io", role = c("aut", "cre")),
-    person("Henrik", "Bengtsson", role=c("aut", "cph"),
-                                          email = "henrikb@braju.com"),
     person("Matt", "Dancho", email = "mdancho@business-science.io", role = c("aut"))
   )
 Maintainer: Davis Vaughan <dvaughan@business-science.io>
