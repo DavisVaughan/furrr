@@ -112,7 +112,9 @@ them all in parallel as well.
 \examples{
 
 library(furrr)
+\donttest{
 plan(multiprocess)
+}
 
 x <- list(1, 10, 100)
 y <- list(1, 2, 3)

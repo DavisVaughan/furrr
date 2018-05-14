@@ -14,7 +14,9 @@
 #'
 #' @examples
 #'
+#' \donttest{
 #' plan(multiprocess)
+#' }
 #'
 #' df <- dplyr::tibble(
 #'   f = c("runif", "rpois", "rnorm"),

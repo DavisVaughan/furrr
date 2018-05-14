@@ -75,7 +75,9 @@ length of the input.
 library(furrr)
 library(dplyr) # for the pipe
 
+\donttest{
 plan(multiprocess)
+}
 
 # Convert each col to character, in parallel
 future_modify(mtcars, as.character)

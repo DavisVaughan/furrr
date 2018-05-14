@@ -12,7 +12,9 @@
 #' @examples
 #'
 #' library(furrr)
+#' \donttest{
 #' plan(multiprocess)
+#' }
 #'
 #' future_imap_chr(sample(10), ~ paste0(.y, ": ", .x))
 #'

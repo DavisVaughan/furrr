@@ -99,7 +99,9 @@ so look there for more details.
 library(furrr)
 library(dplyr) # for the pipe
 
+\donttest{
 plan(multiprocess)
+}
 
 1:10 \%>\%
   future_map(rnorm, n = 10) \%>\%
@@ -116,7 +118,9 @@ mtcars \%>\%
 
 # To see this, use multisession (NOT multicore if on a Mac as the forked workers
 # still have access to this environment)
+\donttest{
 plan(multisession)
+}
 x <- 1
 y <- 2
 
