@@ -1,12 +1,17 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+[![Travis build
+status](https://travis-ci.org/DavisVaughan/furrr.svg?branch=master)](https://travis-ci.org/DavisVaughan/furrr)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/furrr)](https://cran.r-project.org/package=furrr)
+
 # furrr
 
 The goal of furrr is to simplify the combination of `purrr`’s family of
 mapping functions and `future`’s parallel processing capabilities. A new
 set of `future_map_*()` functions have been defined, and can be used as
-(hopefully) drop in replacements for the corresponding `map*()`
+(hopefully) drop in replacements for the corresponding `map_*()`
 function.
 
 The code draws *heavily* from the implementations of `purrr` and
@@ -28,7 +33,6 @@ You can install the released version of furrr from
 [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
-# NO YOU CANNOT
 install.packages("furrr")
 ```
 
@@ -274,6 +278,10 @@ performance metric you are looking for. This might mean a little bit
 more work on your side, but it results in smaller objects, and faster
 performance.
 
+This performance drop can especially be prominent if using
+`future_pmap()` to iterate over rows and return large objects at each
+iteration.
+
 ## What has not been implemented (yet)?
 
   - `walk()` - This will likely not be implemented as it is used for
@@ -283,5 +291,5 @@ performance.
 
 ## Found a bug?
 
-This package likely has a few bugs, so if you find one, feel free to
-open an issue.
+Feel free to open an issue, and I will do my best to work through it
+with you\!

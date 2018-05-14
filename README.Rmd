@@ -23,12 +23,15 @@ library(rsample)
 library(broom)
 ```
 
+[![Travis build status](https://travis-ci.org/DavisVaughan/furrr.svg?branch=master)](https://travis-ci.org/DavisVaughan/furrr)
+[![CRAN status](https://www.r-pkg.org/badges/version/furrr)](https://cran.r-project.org/package=furrr)
+
 # furrr
 
 The goal of furrr is to simplify the combination of `purrr`'s family of mapping functions and
 `future`'s parallel processing capabilities. A new set of `future_map_*()` functions
 have been defined, and can be used as (hopefully) drop in replacements for 
-the corresponding `map*()` function.
+the corresponding `map_*()` function.
 
 The code draws _heavily_ from the implementations of `purrr` and `future.apply`
 and this package would not be possible without either of them.
@@ -45,7 +48,6 @@ versions like `map_at()` through `future_map_at()`.
 You can install the released version of furrr from [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
-# NO YOU CANNOT
 install.packages("furrr")
 ```
 
@@ -232,6 +234,9 @@ toc()
 Luckily, the `glm` model is relatively small, so we don't experience much loss,
 but there are model objects out there that can be 10's of MBs in size. For models like those, I would advise wrapping up the work you want each core to do into a function, and only returning the actual performance metric you are looking for. This might mean a little bit more work on your side, but it results in smaller objects, and faster performance.
 
+This performance drop can especially be prominent if using `future_pmap()` to iterate
+over rows and return large objects at each iteration.
+
 ## What has not been implemented (yet)?
 
 * `walk()` - This will likely not be implemented as it is used for side effects
@@ -241,4 +246,4 @@ which would not be seen on the parallel workers.
 
 ## Found a bug?
 
-This package likely has a few bugs, so if you find one, feel free to open an issue.
+Feel free to open an issue, and I will do my best to work through it with you!
