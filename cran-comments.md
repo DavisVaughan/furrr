@@ -1,3 +1,9 @@
+## Resubmission
+
+This resubmission wraps `plan(multisession)` and `plan(multiprocess)` in `\donttest{}`
+for examples that use them. This results in the examples still running correctly,
+just sequentially and not in parallel. The `future` package does a similar thing.
+
 ## Comments
 
 This is the first release of `furrr`, a package aimed at running the `purrr` 
