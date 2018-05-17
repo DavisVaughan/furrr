@@ -39,7 +39,7 @@ and this package would not be possible without either of them.
 
 ## What has been implemented?
 
-The full range of `map()`, `map2()`, `pmap()`, `imap()`, `modify()`, and `invoke_map()` functions have been implemented. 
+The full range of `map()`, `map2()`, `pmap()`, `walk()`, `imap()`, `modify()`, and `invoke_map()` functions have been implemented. 
 
 This includes strict versions like `map_dbl()` through `future_map_dbl()` and predicate
 versions like `map_at()` through `future_map_at()`.
@@ -249,9 +249,6 @@ I've used every trick that I know to make them have minimal performance impact,
 but you will see degredation when using them with _lots_ of elements to iterate over.
 
 ## What has not been implemented (yet)?
-
-* `walk()` - This will likely not be implemented as it is used for side effects
-which would not be seen on the parallel workers.
 
 * `lmap()`
 
