@@ -5,6 +5,8 @@
 status](https://travis-ci.org/DavisVaughan/furrr.svg?branch=master)](https://travis-ci.org/DavisVaughan/furrr)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/furrr)](https://cran.r-project.org/package=furrr)
+[![AppVeyor build
+status](https://ci.appveyor.com/api/projects/status/github/DavisVaughan/furrr?branch=master&svg=true)](https://ci.appveyor.com/project/DavisVaughan/furrr)
 
 # furrr
 
@@ -20,8 +22,8 @@ them.
 
 ## What has been implemented?
 
-The full range of `map()`, `map2()`, `pmap()`, `imap()`, `modify()`, and
-`invoke_map()` functions have been implemented.
+The full range of `map()`, `map2()`, `pmap()`, `walk()`, `imap()`,
+`modify()`, and `invoke_map()` functions have been implemented.
 
 This includes strict versions like `map_dbl()` through
 `future_map_dbl()` and predicate versions like `map_at()` through
@@ -295,9 +297,6 @@ will see degredation when using them with *lots* of elements to iterate
 over.
 
 ## What has not been implemented (yet)?
-
-  - `walk()` - This will likely not be implemented as it is used for
-    side effects which would not be seen on the parallel workers.
 
   - `lmap()`
 

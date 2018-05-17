@@ -43,6 +43,16 @@ as_invoke_function <- function(f) {
   }
 }
 
+# For pwalk()
+recycle_args <- function (args) {
+  lengths <- purrr::map_int(args, length)
+  n <- max(lengths)
+  stopifnot(all(lengths == 1L | lengths == n))
+  to_recycle <- lengths == 1L
+  args[to_recycle] <- lapply(args[to_recycle], function(x) rep.int(x, n))
+  args
+}
+
 # ------------------------------------------------------------------------------
 # util
 

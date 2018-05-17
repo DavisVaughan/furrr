@@ -1,5 +1,9 @@
 # furrr 0.1.0.9000
 
+Features:
+
+  * `future_walk()` functions have been added to mirror `walk()`.
+
 # furrr 0.1.0
 
 Features:
