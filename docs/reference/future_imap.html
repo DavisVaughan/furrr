@@ -59,7 +59,7 @@ you to map in parallel." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">furrr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0.9000</span>
       </span>
     </div>
 
@@ -99,7 +99,7 @@ you to map in parallel." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Apply a function to each element of a vector, and its index via futures</h1>
-    <small class="dont-index">Source: <a href='https://github.com/DavisVaughan/furrr/blob/master/R/future_imap.R'><code>R/future_imap.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/DavisVaughan/furrr/blob/master/R/future_imap.R'><code>R/future_imap.R</code></a>, <a href='https://github.com/DavisVaughan/furrr/blob/master/R/future_walk.R'><code>R/future_walk.R</code></a></small>
     <div class="hidden name"><code>future_imap.Rd</code></div>
     </div>
 
@@ -123,7 +123,9 @@ you to map in parallel.</p>
 <span class='fu'>future_imap_dfr</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>())
 
-<span class='fu'>future_imap_dfc</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>())</pre>
+<span class='fu'>future_imap_dfc</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>())
+
+<span class='fu'>future_iwalk</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>())</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -179,9 +181,7 @@ giving either the name or the index of the data frame.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'>library</span>(<span class='no'>furrr</span>)
-<span class='fu'>plan</span>(<span class='no'>multiprocess</span>)
-
+<span class='fu'>library</span>(<span class='no'>furrr</span>)</div><div class='input'><span class='fu'>plan</span>(<span class='no'>multiprocess</span>)</div><div class='input'>
 <span class='fu'>future_imap_chr</span>(<span class='fu'>sample</span>(<span class='fl'>10</span>), ~ <span class='fu'>paste0</span>(<span class='no'>.y</span>, <span class='st'>": "</span>, <span class='no'>.x</span>))</div><div class='output co'>#&gt;  [1] "1: 1"  "2: 8"  "3: 5"  "4: 2"  "5: 10" "6: 3"  "7: 7"  "8: 6"  "9: 4" 
 #&gt; [10] "10: 9"</div><div class='input'>
 </div></pre>
@@ -201,7 +201,7 @@ giving either the name or the index of the data frame.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Davis Vaughan, Henrik Bengtsson, Matt Dancho.</p>
+  <p>Developed by Davis Vaughan, Matt Dancho.</p>
 </div>
 
 <div class="pkgdown">

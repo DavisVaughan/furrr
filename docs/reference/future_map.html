@@ -61,7 +61,7 @@ so look there for more details." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">furrr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0.9000</span>
       </span>
     </div>
 
@@ -101,7 +101,7 @@ so look there for more details." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Apply a function to each element of a vector via futures</h1>
-    <small class="dont-index">Source: <a href='https://github.com/DavisVaughan/furrr/blob/master/R/future_map.R'><code>R/future_map.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/DavisVaughan/furrr/blob/master/R/future_map.R'><code>R/future_map.R</code></a>, <a href='https://github.com/DavisVaughan/furrr/blob/master/R/future_walk.R'><code>R/future_walk.R</code></a></small>
     <div class="hidden name"><code>future_map.Rd</code></div>
     </div>
 
@@ -133,7 +133,9 @@ so look there for more details.</p>
   <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>())
 
 <span class='fu'>future_map_at</span>(<span class='no'>.x</span>, <span class='no'>.at</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>())</pre>
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>())
+
+<span class='fu'>future_walk</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>())</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -210,14 +212,17 @@ e.g. logical -&gt; integer -&gt; double -&gt; character.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='fu'>library</span>(<span class='no'>furrr</span>)
-<span class='fu'>library</span>(<span class='no'>dplyr</span>) <span class='co'># for the pipe</span>
-
-<span class='fu'>plan</span>(<span class='no'>multiprocess</span>)
-
+<span class='fu'>library</span>(<span class='no'>dplyr</span>) <span class='co'># for the pipe</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'>
+</div><div class='input'><span class='fu'>plan</span>(<span class='no'>multiprocess</span>)</div><div class='input'>
 <span class='fl'>1</span>:<span class='fl'>10</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>future_map</span>(<span class='no'>rnorm</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>10</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>future_map_dbl</span>(<span class='no'>mean</span>)</div><div class='output co'>#&gt;  [1] 0.669622 1.912702 2.786240 3.710700 4.587927 6.066271 7.333928 8.238807
-#&gt;  [9] 9.119548 9.636555</div><div class='input'>
+  <span class='fu'>future_map_dbl</span>(<span class='no'>mean</span>)</div><div class='output co'>#&gt;  [1]  0.9502206  2.3871229  3.3975830  4.0537398  4.9262214  5.9840371
+#&gt;  [7]  6.6245566  7.9583369  8.6726238 10.1789754</div><div class='input'>
 <span class='co'># If each element of the output is a data frame, use</span>
 <span class='co'># future_map_dfr to row-bind them together:</span>
 <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span>
@@ -227,12 +232,11 @@ e.g. logical -&gt; integer -&gt; double -&gt; character.</p>
 #&gt; 1    39.57120 -5.647025
 #&gt; 2    28.40884 -2.780106
 #&gt; 3    23.86803 -2.192438</div><div class='input'>
-<span class='co'># You can be explicit about what gets exported to the workers</span>
+# You can be explicit about what gets exported to the workers
 
-<span class='co'># To see this, use multisession (NOT multicore if on a Mac as the forked workers</span>
-<span class='co'># still have access to this environment)</span>
-<span class='fu'>plan</span>(<span class='no'>multisession</span>)
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>
+# To see this, use multisession (NOT multicore if on a Mac as the forked workers
+# still have access to this environment)
+</div><div class='input'><span class='fu'>plan</span>(<span class='no'>multisession</span>)</div><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>2</span>
 
 <span class='co'># This will fail, y is not exported (no black magic occurs)</span>
@@ -260,7 +264,7 @@ e.g. logical -&gt; integer -&gt; double -&gt; character.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Davis Vaughan, Henrik Bengtsson, Matt Dancho.</p>
+  <p>Developed by Davis Vaughan, Matt Dancho.</p>
 </div>
 
 <div class="pkgdown">

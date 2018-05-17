@@ -10,7 +10,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><meta property="og:title" content="Apply Mapping Functions in Parallel using Futures">
-<meta property="og:description" content="Implementations of the family of map() functions that can be resolved using any future-supported backend, e.g. parallel on the local machine or distributed on a compute cluster.">
+<meta property="og:description" content="Implementations of the family of map() functions from 'purrr' that can be resolved using any 'future'-supported backend, e.g. parallel on the local machine or distributed on a compute cluster.">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -29,7 +29,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">furrr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0.9000</span>
       </span>
     </div>
 
@@ -71,23 +71,23 @@
     
     
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
 <div id="furrr" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#furrr" class="anchor"></a>furrr</h1></div>
-<p>The goal of furrr is to simplify the combination of <code>purrr</code>’s family of mapping functions and <code>future</code>’s parallel processing capabilities. A new set of <code>future_map_*()</code> functions have been defined, and can be used as (hopefully) drop in replacements for the corresponding <code>map*()</code> function.</p>
+<p>The goal of furrr is to simplify the combination of <code>purrr</code>’s family of mapping functions and <code>future</code>’s parallel processing capabilities. A new set of <code>future_map_*()</code> functions have been defined, and can be used as (hopefully) drop in replacements for the corresponding <code>map_*()</code> function.</p>
 <p>The code draws <em>heavily</em> from the implementations of <code>purrr</code> and <code>future.apply</code> and this package would not be possible without either of them.</p>
 <div id="what-has-been-implemented" class="section level2">
 <h2 class="hasAnchor">
 <a href="#what-has-been-implemented" class="anchor"></a>What has been implemented?</h2>
-<p>The full range of <code><a href="http://www.rdocumentation.org/packages/purrr/topics/map">map()</a></code>, <code><a href="http://www.rdocumentation.org/packages/purrr/topics/map2">map2()</a></code>, <code><a href="http://www.rdocumentation.org/packages/purrr/topics/map2">pmap()</a></code>, <code><a href="http://www.rdocumentation.org/packages/purrr/topics/imap">imap()</a></code>, <code><a href="http://www.rdocumentation.org/packages/purrr/topics/modify">modify()</a></code>, and <code><a href="http://www.rdocumentation.org/packages/purrr/topics/invoke">invoke_map()</a></code> functions have been implemented.</p>
+<p>The full range of <code><a href="http://www.rdocumentation.org/packages/purrr/topics/map">map()</a></code>, <code><a href="http://www.rdocumentation.org/packages/purrr/topics/map2">map2()</a></code>, <code><a href="http://www.rdocumentation.org/packages/purrr/topics/map2">pmap()</a></code>, <code><a href="http://www.rdocumentation.org/packages/purrr/topics/map">walk()</a></code>, <code><a href="http://www.rdocumentation.org/packages/purrr/topics/imap">imap()</a></code>, <code><a href="http://www.rdocumentation.org/packages/purrr/topics/modify">modify()</a></code>, and <code><a href="http://www.rdocumentation.org/packages/purrr/topics/invoke">invoke_map()</a></code> functions have been implemented.</p>
 <p>This includes strict versions like <code><a href="http://www.rdocumentation.org/packages/purrr/topics/map">map_dbl()</a></code> through <code><a href="reference/future_map.html">future_map_dbl()</a></code> and predicate versions like <code><a href="http://www.rdocumentation.org/packages/purrr/topics/map">map_at()</a></code> through <code><a href="reference/future_map.html">future_map_at()</a></code>.</p>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install the released version of furrr from <a href="https://CRAN.R-project.org">CRAN</a> with:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># NO YOU CANNOT</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">install.packages</span>(<span class="st">"furrr"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">"furrr"</span>)</a></code></pre></div>
 <p>And the development version from <a href="https://github.com/">GitHub</a> with:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># install.packages("devtools")</span></a>
 <a class="sourceLine" id="cb2-2" data-line-number="2">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"DavisVaughan/furrr"</span>)</a></code></pre></div>
@@ -229,9 +229,12 @@
 <a class="sourceLine" id="cb12-7" data-line-number="7"><span class="co">#&gt; 14.211 sec elapsed</span></a></code></pre></div>
 <p>We don’t get a 4x improvement on my 4 core Mac, but we do get a nice 2x speed up without doing any hard work. The reason we don’t get a 4x improvement is likely because of time spent transfering data to each R process, so this penalty will be minimized with longer running tasks and you might see better performance (for example, 100 fold CV with 100 repeats gave <code>122</code> seconds sequentially and <code>48</code> seconds in parallel). The implementation of <code>future_lapply()</code> does include a scheduling feature, which carried over nicely into <code>furrr</code> and efficiently breaks up the list of splits into 4 equal subsets. Each is passed to 1 core of my machine.</p>
 </div>
-<div id="a-note-on-performance" class="section level2">
+<div id="a-few-notes-on-performance" class="section level2">
 <h2 class="hasAnchor">
-<a href="#a-note-on-performance" class="anchor"></a>A note on performance</h2>
+<a href="#a-few-notes-on-performance" class="anchor"></a>A few notes on performance</h2>
+<div id="data-transfer" class="section level3">
+<h3 class="hasAnchor">
+<a href="#data-transfer" class="anchor"></a>Data transfer</h3>
 <p>It’s important to remember that data has to be passed back and forth between the cores. This means that whatever performance gain you might have gotten from your parallelization can be crushed by moving large amounts of data around. For example, if instead of returning a results data frame in the above example, we returned the larger <code>glm</code> model object for each split, our performance drops a bit.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">model_only &lt;-<span class="st"> </span><span class="cf">function</span>(splits, ...) {</a>
 <a class="sourceLine" id="cb13-2" data-line-number="2">  <span class="co"># Fit the model to the 90%</span></a>
@@ -247,19 +250,25 @@
 <a class="sourceLine" id="cb13-12" data-line-number="12"><span class="kw"><a href="http://www.rdocumentation.org/packages/tictoc/topics/tic">toc</a></span>()</a>
 <a class="sourceLine" id="cb13-13" data-line-number="13"><span class="co">#&gt; 20.807 sec elapsed</span></a></code></pre></div>
 <p>Luckily, the <code>glm</code> model is relatively small, so we don’t experience much loss, but there are model objects out there that can be 10’s of MBs in size. For models like those, I would advise wrapping up the work you want each core to do into a function, and only returning the actual performance metric you are looking for. This might mean a little bit more work on your side, but it results in smaller objects, and faster performance.</p>
+<p>This performance drop can especially be prominent if using <code><a href="reference/future_map2.html">future_pmap()</a></code> to iterate over rows and return large objects at each iteration.</p>
+</div>
+<div id="progress-bars-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#progress-bars-1" class="anchor"></a>Progress bars</h3>
+<p>Progress bars are best used when iterating over relatively few long running tasks. For instance, they are great when training over hyperparameters of a deep learning model, but I would not suggest them when iterating over the rows of a 100k row data frame. I’ve used every trick that I know to make them have minimal performance impact, but you will see degredation when using them with <em>lots</em> of elements to iterate over.</p>
+</div>
 </div>
 <div id="what-has-not-been-implemented-yet" class="section level2">
 <h2 class="hasAnchor">
 <a href="#what-has-not-been-implemented-yet" class="anchor"></a>What has not been implemented (yet)?</h2>
 <ul>
-<li><p><code><a href="http://www.rdocumentation.org/packages/purrr/topics/map">walk()</a></code> - This will likely not be implemented as it is used for side effects which would not be seen on the parallel workers.</p></li>
-<li><p><code><a href="http://www.rdocumentation.org/packages/purrr/topics/lmap">lmap()</a></code></p></li>
+<li><code><a href="http://www.rdocumentation.org/packages/purrr/topics/lmap">lmap()</a></code></li>
 </ul>
 </div>
 <div id="found-a-bug" class="section level2">
 <h2 class="hasAnchor">
 <a href="#found-a-bug" class="anchor"></a>Found a bug?</h2>
-<p>This package likely has a few bugs, so if you find one, feel free to open an issue.</p>
+<p>Feel free to open an issue, and I will do my best to work through it with you!</p>
 </div>
 </div>
   </div>
@@ -268,6 +277,8 @@
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
+<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=furrr">https://​cloud.r-project.org/​package=furrr</a>
+</li>
 <li>Browse source code at <br><a href="https://github.com/DavisVaughan/furrr">https://​github.com/​DavisVaughan/​furrr</a>
 </li>
 <li>Report a bug at <br><a href="https://github.com/DavisVaughan/furrr/issues">https://​github.com/​DavisVaughan/​furrr/​issues</a>
@@ -284,18 +295,25 @@
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>Davis Vaughan <br><small class="roles"> Author, maintainer </small>  </li>
-<li>Henrik Bengtsson <br><small class="roles"> Author, copyright holder </small>  </li>
 <li>Matt Dancho <br><small class="roles"> Author </small>  </li>
 </ul>
 </div>
 
-      </div>
+      <div class="dev-status">
+<h2>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://travis-ci.org/DavisVaughan/furrr"><img src="https://travis-ci.org/DavisVaughan/furrr.svg?branch=master" alt="Travis build status"></a></li>
+<li><a href="https://cran.r-project.org/package=furrr"><img src="https://www.r-pkg.org/badges/version/furrr" alt="CRAN status"></a></li>
+<li><a href="https://ci.appveyor.com/project/DavisVaughan/furrr"><img src="https://ci.appveyor.com/api/projects/status/github/DavisVaughan/furrr?branch=master&amp;svg=true" alt="AppVeyor build status"></a></li>
+</ul>
+</div>
+</div>
 
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Davis Vaughan, Henrik Bengtsson, Matt Dancho.</p>
+  <p>Developed by Davis Vaughan, Matt Dancho.</p>
 </div>
 
 <div class="pkgdown">
