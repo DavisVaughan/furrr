@@ -83,4 +83,19 @@ for(.e in .th$executors) {
     expect_equal(.purrr, .furrr)
   })
 
+  # See issue #16
+  test_that(test_msg(.e, "Globals in .l are found (.l could be a fn)"), {
+
+    my_robust_sum <- function(x) sum(x, na.rm = TRUE)  # Can you find me?
+    my_robust_sum2 <- function(x) sum(x, na.rm = TRUE) # Can you find me?
+    multi_x <- list(c(1, 2, NA), c(2, 3, 4))
+    Xs <- purrr::map(multi_x, ~ purrr::partial(my_robust_sum, .x))
+    Ys <- purrr::map(multi_x, ~ purrr::partial(my_robust_sum2, .x))
+
+    .purrr <- purrr::pmap(.l = list(Xs, Ys), .f = ~c(.x(), .y()))
+    .furrr <- future_pmap(.l = list(Xs, Ys), .f = ~c(.x(), .y()))
+
+    expect_equal(.purrr, .furrr)
+  })
+
 }

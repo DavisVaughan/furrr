@@ -79,4 +79,17 @@ for(.e in .th$executors) {
     expect_equal(rlang::squash_dbl(res$mod_nest), c(a = 4, b = 6))
   })
 
+  # See issue #16
+  test_that(test_msg(.e, "Globals in .x are found (.x could be a fn)"), {
+
+    my_robust_sum <- function(x) sum(x, na.rm = TRUE) # Can you find me?
+    multi_x <- list(c(1, 2, NA), c(2, 3, 4))
+    Xs <- purrr::map(multi_x, ~ purrr::partial(my_robust_sum, .x))
+
+    .purrr <- purrr::map(.x = Xs, .f = ~.x())
+    .furrr <- future_map(.x = Xs, .f = ~.x())
+
+    expect_equal(.purrr, .furrr)
+  })
+
 }
