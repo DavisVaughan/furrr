@@ -35,7 +35,7 @@ future_map_template <- function(.map, .type, .x, .f, ..., .progress, .options) {
   ## 2. Packages
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  .options <- gather_globals_and_packages(.options, .map, .f, .progress, envir, ...)
+  .options <- gather_globals_and_packages(.options, .map, .x, .f, .progress, envir, ...)
 
   globals <- .options$globals
   packages <- .options$packages

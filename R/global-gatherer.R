@@ -1,4 +1,4 @@
-gather_globals_and_packages <- function(.options, .map, .f, .progress, envir, ...) {
+gather_globals_and_packages <- function(.options, .map, .x, .f, .progress, envir, ...) {
 
   debug <- getOption("future.debug", FALSE)
   objectSize <- import_future("objectSize")
@@ -20,11 +20,14 @@ gather_globals_and_packages <- function(.options, .map, .f, .progress, envir, ..
 
       if (debug) mdebug("Finding globals ...")
 
+      # Find the globals / packages for both .f and .x
       expr <- do.call(call, args = c(list(".f"), list(...)))
-      gp <- getGlobalsAndPackages(expr, envir = envir, globals = TRUE)
-      globals <- gp$globals
-      packages <- gp$packages
-      gp <- NULL
+      gp_f <- getGlobalsAndPackages(expr, envir = envir, globals = TRUE)
+      gp_x <- getGlobalsAndPackages(.x,   envir = envir, globals = TRUE)
+      globals <-  c(gp_f$globals,  gp_x$globals)
+      packages <- c(gp_f$packages, gp_x$packages)
+      gp_f <- NULL
+      gp_x <- NULL
 
       if (debug) {
         mdebug(" - globals found: [%d] %s", length(globals), hpaste(sQuote(names(globals))))

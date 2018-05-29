@@ -1,8 +1,12 @@
-# furrr 0.1.0.9000
+# furrr 0.1.0.9001
 
 Features:
 
   * `future_walk()` functions have been added to mirror `walk()`.
+
+Bug Fixes:
+
+  * `.x` is now searched for globals as well.
 
 # furrr 0.1.0
 
