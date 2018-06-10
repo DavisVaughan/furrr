@@ -59,7 +59,7 @@ you to invoke in parallel." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">furrr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0.9001</span>
       </span>
     </div>
 
@@ -73,6 +73,18 @@ you to invoke in parallel." />
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/advanced-furrr-remote-connections.html">Advanced furrr: Remote connections</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -182,15 +194,15 @@ be the result from a call to <code><a href='future_options.html'>future_options(
 )
 
 <span class='fu'>future_invoke_map</span>(<span class='no'>df</span>$<span class='no'>f</span>, <span class='no'>df</span>$<span class='no'>params</span>)</div><div class='output co'>#&gt; [[1]]
-#&gt;  [1] 0.2968664 0.9457050 0.5871778 0.8689715 0.9913339 0.6983800 0.3768067
-#&gt;  [8] 0.0312325 0.5718600 0.9883411
+#&gt;  [1] 0.6469660 0.8189031 0.5291378 0.5638748 0.5826972 0.3469740 0.6735466
+#&gt;  [8] 0.5960351 0.2112316 0.7649430
 #&gt; 
 #&gt; [[2]]
-#&gt; [1] 14  8 13  6  6
+#&gt; [1]  6  9  7 15  7
 #&gt; 
 #&gt; [[3]]
-#&gt;  [1]  17.8416560  -0.1764928  -1.8810035  -3.7619310  13.2482141 -10.5594249
-#&gt;  [7]   6.5772674  -2.9630400 -10.7822967  -1.7988138
+#&gt;  [1]  1.029931 -8.641060 -3.064238  5.937873 -4.612644 -1.283399 -8.144498
+#&gt;  [8] -5.059286  3.583414 -3.116282
 #&gt; </div><div class='input'>
 
 </div></pre>
