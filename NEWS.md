@@ -2,6 +2,8 @@
 
 Features:
 
+  * Added advanced `furrr` vignette.
+
   * `future_walk()` functions have been added to mirror `walk()`.
 
 Bug Fixes:

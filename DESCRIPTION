@@ -11,7 +11,9 @@ Imports:
 Suggests:
     listenv (>= 0.6.0),
     dplyr (>= 0.7.4),
-    testthat
+    testthat,
+    knitr,
+    rmarkdown
 Authors@R: c(
     person("Davis", "Vaughan", email = "dvaughan@business-science.io", role = c("aut", "cre")),
     person("Matt", "Dancho", email = "mdancho@business-science.io", role = c("aut"))
@@ -24,3 +26,4 @@ URL: https://github.com/DavisVaughan/furrr
 BugReports: https://github.com/DavisVaughan/furrr/issues
 RoxygenNote: 6.0.1
 Roxygen: list(markdown = TRUE)
+VignetteBuilder: knitr
