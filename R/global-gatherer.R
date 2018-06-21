@@ -1,4 +1,4 @@
-gather_globals_and_packages <- function(.options, .map, .x, .f, .progress, envir, ...) {
+gather_globals_and_packages <- function(.options, .map, .f, .progress, envir, ...) {
 
   debug <- getOption("future.debug", FALSE)
   objectSize <- import_future("objectSize")
@@ -12,6 +12,7 @@ gather_globals_and_packages <- function(.options, .map, .x, .f, .progress, envir
 
   packages <- NULL
   globals <- .options$globals
+  .options$scan_for_x_globals <- FALSE
 
   if (is.logical(globals)) {
 
@@ -20,14 +21,14 @@ gather_globals_and_packages <- function(.options, .map, .x, .f, .progress, envir
 
       if (debug) mdebug("Finding globals ...")
 
+      .options$scan_for_x_globals <- TRUE
+
       # Find the globals / packages for both .f and .x
       expr <- do.call(call, args = c(list(".f"), list(...)))
       gp_f <- getGlobalsAndPackages(expr, envir = envir, globals = TRUE)
-      gp_x <- getGlobalsAndPackages(.x,   envir = envir, globals = TRUE)
-      globals <-  c(gp_f$globals,  gp_x$globals)
-      packages <- c(gp_f$packages, gp_x$packages)
+      globals <-  gp_f$globals
+      packages <- gp_f$packages
       gp_f <- NULL
-      gp_x <- NULL
 
       if (debug) {
         mdebug(" - globals found: [%d] %s", length(globals), hpaste(sQuote(names(globals))))
@@ -136,4 +137,49 @@ gather_globals_and_packages <- function(.options, .map, .x, .f, .progress, envir
   .options$globals  <- globals
 
   .options
+}
+
+
+gather_globals_and_packages_.x_ii <- function(globals, packages, .x_ii, envir) {
+
+  debug <- getOption("future.debug", FALSE)
+
+  globals_ii <- globals
+  packages_ii <- packages
+
+  # Search for .x_ii specific globals and packages
+  gp <- getGlobalsAndPackages(.x_ii, envir = envir, globals = TRUE)
+  globals_.x_ii <- gp$globals
+  packages_.x_ii <- gp$packages
+  gp <- NULL
+
+  if (debug) {
+    mdebug(" - globals found in '.x' for chunk #%d: [%d] %s", chunk, length(globals_.x_ii), hpaste(sQuote(names(globals_.x_ii))))
+    mdebug(" - needed namespaces for '.x' for chunk #%d: [%d] %s", chunk, length(packages_.x_ii), hpaste(sQuote(packages_.x_ii)))
+  }
+
+  # Export them
+  if (length(globals_.x_ii) > 0L) {
+
+    reserved <- intersect(
+      c("...future.FUN", "...future.x_ii", "...future.seeds_ii"),
+      names(globals_.x_ii)
+    )
+
+    if (length(reserved) > 0) {
+      stop("Detected globals using reserved variables names: ",
+           paste(sQuote(reserved), collapse = ", "))
+    }
+
+    globals_.x_ii <- as.FutureGlobals(globals_.x_ii)
+    globals_ii <- unique(c(globals_ii, globals_.x_ii))
+
+  }
+
+  ## Packages needed due to globals in '.x_ii'?
+  if (length(packages_.x_ii) > 0L) {
+    packages_ii <- unique(c(packages_ii, packages_.x_ii))
+  }
+
+  list(globals = globals_ii, packages = packages_ii)
 }

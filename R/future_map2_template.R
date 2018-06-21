@@ -42,7 +42,7 @@ future_map2_template <- function(.map, .type, .x, .y, .f, ..., .progress, .optio
   ## 2. Packages
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  .options <- gather_globals_and_packages(.options, .map, list(.x, .y), .f, .progress, envir, ...)
+  .options <- gather_globals_and_packages(.options, .map, .f, .progress, envir, ...)
 
   globals <- .options$globals
   packages <- .options$packages
@@ -110,10 +110,25 @@ future_map2_template <- function(.map, .type, .x, .y, .f, ..., .progress, .optio
     if (debug) mdebug("Chunk #%d of %d ...", ii, length(chunks))
 
     ## Subsetting outside future is more efficient
+    .x_ii <- .x[chunk]
+    .y_ii <- .y[chunk]
+
     globals_ii <- globals
-    globals_ii[["...future.x_ii"]] <- .x[chunk]
-    globals_ii[["...future.y_ii"]] <- .y[chunk]
-    ##    stopifnot(attr(globals_ii, "resolved"))
+    globals_ii[["...future.x_ii"]] <- .x_ii
+    globals_ii[["...future.y_ii"]] <- .y_ii
+    packages_ii <- packages
+
+    # Should we search for .x_ii / .y_ii specific globals and packages?
+    if(.options$scan_for_x_globals) {
+      gp <- gather_globals_and_packages_.x_ii(globals_ii, packages_ii, .x_ii, envir)
+      gp <- gather_globals_and_packages_.x_ii(gp$globals, gp$packages, .y_ii, envir)
+      globals_ii <- gp$globals
+      packages_ii <- gp$packages
+      gp <- NULL
+    }
+
+    .x_ii <- NULL
+    .y_ii <- NULL
 
     ## Using RNG seeds or not?
     if (is.null(seeds)) {
@@ -143,7 +158,7 @@ future_map2_template <- function(.map, .type, .x, .y, .f, ..., .progress, .optio
           .out
         })
 
-      }, envir = envir, lazy = .options$lazy, globals = globals_ii, packages = packages)
+      }, envir = envir, lazy = .options$lazy, globals = globals_ii, packages = packages_ii)
     } else {
       if (debug) mdebug(" - seeds: [%d] <seeds>", length(chunk))
       globals_ii[["...future.seeds_ii"]] <- seeds[chunk]
@@ -173,7 +188,7 @@ future_map2_template <- function(.map, .type, .x, .y, .f, ..., .progress, .optio
           .out
         })
 
-      }, envir = envir, lazy = .options$lazy, globals = globals_ii, packages = packages)
+      }, envir = envir, lazy = .options$lazy, globals = globals_ii, packages = packages_ii)
     }
 
     ## Not needed anymore
