@@ -34,7 +34,8 @@ poll_progress <- function(fs, temp_file, rule_max_width) {
     etastr <- ""
     if (n_ticks > 0) {
     	progress <- paste0(rep("\u2500", times = rule_width), collapse = "")
-    	etastr <- sprintf(" ETA %s", Sys.time() + mean(as.double(temp_tick_lines)) * (rule_max_width - n_ticks))
+    	activeworkers <- length(fs) - sum(vapply(futures, future::resolved, FALSE))
+    	etastr <- sprintf(" ETA %s", Sys.time() + (mean(as.double(temp_tick_lines)) * (rule_max_width - n_ticks)) / activeworkers)
     }
     all_text <- paste0("Progress: ", progress, spaces, " 100%", etastr)
 
