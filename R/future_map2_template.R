@@ -138,8 +138,13 @@ future_map2_template <- function(.map, .type, .x, .y, .f, ..., .progress, .optio
         ...future.map(seq_along(...future.x_ii), .f = function(jj) {
           ...future.x_jj <- ...future.x_ii[[jj]]
           ...future.y_jj <- ...future.y_ii[[jj]]
+
+	  startt <- Sys.time()
           .out <- ...future.f(...future.x_jj, ...future.y_jj, ...)
-          if(.progress) update_progress(temp_file_con)
+	  stopt <- Sys.time()
+	  etime <- as.double(difftime(stopt, startt, units = 'secs'))
+
+          if(.progress) update_progress(temp_file_con, etime)
           .out
         })
 
@@ -168,8 +173,13 @@ future_map2_template <- function(.map, .type, .x, .y, .f, ..., .progress, .optio
           ...future.x_jj <- ...future.x_ii[[jj]]
           ...future.y_jj <- ...future.y_ii[[jj]]
           assign(".Random.seed", ...future.seeds_ii[[jj]], envir = globalenv(), inherits = FALSE)
+
+	  startt <- Sys.time()
           .out <- ...future.f(...future.x_jj, ...future.y_jj, ...)
-          if(.progress) update_progress(temp_file_con)
+	  stopt <- Sys.time()
+	  etime <- as.double(difftime(stopt, startt, units = 'secs'))
+
+          if(.progress) update_progress(temp_file_con, etime)
           .out
         })
 

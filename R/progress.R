@@ -8,13 +8,17 @@ poll_progress <- function(fs, temp_file, rule_max_width) {
   # Poll the files until all the jobs are complete
   while (!all_resolved(fs)) {
 
-    # -1 because of empty tick needed to init file.
-    # Otherwise if we get here too quickly it gives error
     temp_file_con <- file(temp_file, "r")
-    n_ticks <- length(readLines(temp_file_con)) - 1
+    temp_file_lines <- readLines(temp_file_con)
+
+    temp_tick_lines <- temp_file_lines[grepl("tick:", temp_file_lines)]
+    temp_tick_lines <- gsub("tick:", "", temp_tick_lines)
+
+    n_ticks <- length(temp_tick_lines)
+
     close(temp_file_con)
 
-    max_width <- console_width()
+    max_width <- console_width() - 24 # ETA string has length 24
     progress_width <- 10
     finish_width <- 5
     carriage_width <- 1
@@ -26,10 +30,16 @@ poll_progress <- function(fs, temp_file, rule_max_width) {
     spaces <- paste0(rep(" ", times = space_width), collapse = "")
 
     # The one line - symbol came from cli::symbols$line
-    progress <- paste0(rep("\u2500", times = rule_width), collapse = "")
-    all_text <- paste0("Progress: ", progress, spaces, " 100%")
+    progress <- ""
+    etastr <- ""
+    if (n_ticks > 0) {
+    	progress <- paste0(rep("\u2500", times = rule_width), collapse = "")
+    	etastr <- sprintf(" ETA %s", Sys.time() + mean(as.double(temp_tick_lines)) * (rule_max_width - n_ticks))
+    }
+    all_text <- paste0("Progress: ", progress, spaces, " 100%", etastr)
 
     cat("\r", all_text)
+
     utils::flush.console()
   }
 
@@ -52,8 +62,8 @@ poll_progress <- function(fs, temp_file, rule_max_width) {
 
 
 # Needed for progress updates
-update_progress <- function (file) {
-  progress_text <- sprintf("tick\n")
+update_progress <- function (file, etime) {
+  progress_text <- sprintf("tick:%.0f\n", etime)
   cat(progress_text, file = file, append = TRUE)
 }
 

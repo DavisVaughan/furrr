@@ -158,8 +158,13 @@ future_pmap_template <- function(.map, .type, .l, .f, ..., .progress, .options) 
         # The ... of pmap are passed in ...future.dots
         # The current elements of the list are passed in ...
         ...future.f_wrapper <- function(..., ...future.dots) {
+
+	  startt <- Sys.time()
           .out <- do.call(...future.f, c(list(...), ...future.dots))
-          if(.progress) update_progress(temp_file_con)
+	  stopt <- Sys.time()
+	  etime <- as.double(difftime(stopt, startt, units = 'secs'))
+
+          if(.progress) update_progress(temp_file_con, etime)
           .out
         }
 
@@ -196,8 +201,13 @@ future_pmap_template <- function(.map, .type, .l, .f, ..., .progress, .options) 
         # In the wrapper, refer to the random seeds by name to match them in pmap
         ...future.f_wrapper_seed <- function(..., ...future.dots, ...future.seeds_ii) { # ...future.seed_ii will be a single element of that object
           assign(".Random.seed", ...future.seeds_ii, envir = globalenv(), inherits = FALSE)
+
+	  startt <- Sys.time()
           .out <- do.call(...future.f, c(list(...), ...future.dots))
-          if(.progress) update_progress(temp_file_con)
+	  stopt <- Sys.time()
+	  etime <- as.double(difftime(stopt, startt, units = 'secs'))
+
+          if(.progress) update_progress(temp_file_con, etime)
           .out
         }
 
