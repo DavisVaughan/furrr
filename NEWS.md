@@ -8,7 +8,10 @@ Features:
 
 Bug Fixes:
 
-  * `.x` is now searched for globals as well.
+  * `.x` is now searched for globals as well. Only globals found in the slice
+  of `.x` that corresponds to worker X are exported to worker X. This is relevant
+  if `.x` is, say, a list of functions where each has their own set of globals.
+  
 
 # furrr 0.1.0
 
