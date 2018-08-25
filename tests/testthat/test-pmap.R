@@ -98,4 +98,23 @@ for(.e in .th$executors) {
     expect_equal(.purrr, .furrr)
   })
 
+  test_that(test_msg(.e, "Globals in .l are only exported to workers that use them"), {
+
+    # This test is difficult to check without manually inspecting what gets exported
+
+    my_mean  <- function(x) { mean(x, na.rm = TRUE) } # Exported to worker 1
+    my_mean2 <- function(x) { mean(x, na.rm = TRUE) } # Exported to worker 2
+
+    my_wrapper  <- function(x) { my_mean(x)  }
+    my_wrapper2 <- function(x) { my_mean2(x) }
+
+    .l <- list(my_wrapper, my_wrapper2)
+    .l2 <- list(1, 2)
+
+    .purrr <- future_pmap(list(.l, .l2), ~.x(.y))
+    .furrr <- purrr::pmap(list(.l, .l2), ~.x(.y))
+
+    expect_equal(.purrr, .furrr)
+  })
+
 }
