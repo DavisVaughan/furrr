@@ -147,6 +147,8 @@ gather_globals_and_packages_.x_ii <- function(globals, packages, .x_ii, envir) {
   globals_ii <- globals
   packages_ii <- packages
 
+  rm(globals, packages)
+
   # Search for .x_ii specific globals and packages
   gp <- getGlobalsAndPackages(.x_ii, envir = envir, globals = TRUE)
   globals_.x_ii <- gp$globals

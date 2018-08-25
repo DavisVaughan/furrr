@@ -128,18 +128,18 @@ future_pmap_template <- function(.map, .type, .l, .f, ..., .progress, .options) 
     globals_ii <- globals
     packages_ii <- packages
 
+    # Slice each element of .l to construct proper .l subsets
     for(.l_i in seq_along(.l)) {
       .l_ii <- .l[[.l_i]][chunk]
       globals_ii[["...future.lst_ii"]][[.l_i]] <- .l_ii
+    }
 
-      # Should we search for .l_ii specific globals and packages?
-      if(.options$scan_for_x_globals) {
-        gp <- gather_globals_and_packages_.x_ii(globals_ii, packages_ii, .l_ii, envir)
-        globals_ii <- gp$globals
-        packages_ii <- gp$packages
-        gp <- NULL
-      }
-
+    # Should we search for globals and packages specific to this slice of .l?
+    if(.options$scan_for_x_globals) {
+      gp <- gather_globals_and_packages_.x_ii(globals_ii, packages_ii, globals_ii[["...future.lst_ii"]], envir)
+      globals_ii <- gp$globals
+      packages_ii <- gp$packages
+      gp <- NULL
     }
 
     .l_ii <- NULL
