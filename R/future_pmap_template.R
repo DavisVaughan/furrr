@@ -57,7 +57,7 @@ future_pmap_template <- function(.map, .type, .l, .f, ..., .progress, .options) 
   ## 2. Packages
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  .options <- gather_globals_and_packages(.options, .map, .l, .f, .progress, envir, ...)
+  .options <- gather_globals_and_packages(.options, .map, .f, .progress, envir, ...)
 
   globals <- .options$globals
   packages <- .options$packages
@@ -126,10 +126,23 @@ future_pmap_template <- function(.map, .type, .l, .f, ..., .progress, .options) 
 
     ## Subsetting outside future is more efficient
     globals_ii <- globals
+    packages_ii <- packages
 
+    # Slice each element of .l to construct proper .l subsets
     for(.l_i in seq_along(.l)) {
-      globals_ii[["...future.lst_ii"]][[.l_i]] <- .l[[.l_i]][chunk]
+      .l_ii <- .l[[.l_i]][chunk]
+      globals_ii[["...future.lst_ii"]][[.l_i]] <- .l_ii
     }
+
+    # Should we search for globals and packages specific to this slice of .l?
+    if(.options$scan_for_x_globals) {
+      gp <- gather_globals_and_packages_.x_ii(globals_ii, packages_ii, globals_ii[["...future.lst_ii"]], envir)
+      globals_ii <- gp$globals
+      packages_ii <- gp$packages
+      gp <- NULL
+    }
+
+    .l_ii <- NULL
 
     ## Using RNG seeds or not?
     if (is.null(seeds)) {
@@ -165,7 +178,7 @@ future_pmap_template <- function(.map, .type, .l, .f, ..., .progress, .options) 
 
         ...future.map(...future.lst_ii, ...future.f_wrapper)
 
-      }, envir = envir, lazy = .options$lazy, globals = globals_ii, packages = packages)
+      }, envir = envir, lazy = .options$lazy, globals = globals_ii, packages = packages_ii)
     } else {
       if (debug) mdebug(" - seeds: [%d] <seeds>", length(chunk))
       globals_ii[["...future.seeds_ii"]] <- seeds[chunk]
@@ -203,7 +216,7 @@ future_pmap_template <- function(.map, .type, .l, .f, ..., .progress, .options) 
 
         ...future.map(...future.lst_ii, ...future.f_wrapper_seed)
 
-      }, envir = envir, lazy = .options$lazy, globals = globals_ii, packages = packages)
+      }, envir = envir, lazy = .options$lazy, globals = globals_ii, packages = packages_ii)
     }
 
     ## Not needed anymore
