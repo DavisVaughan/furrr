@@ -12,6 +12,8 @@ Bug Fixes:
   of `.x` that corresponds to worker X are exported to worker X. This is relevant
   if `.x` is, say, a list of functions where each has their own set of globals.
   
+  * `globals (>= 0.12.1)` is now required because of substantial new speed boosts there related to 
+  searching for global variables.
 
 # furrr 0.1.0
 

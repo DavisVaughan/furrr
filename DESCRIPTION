@@ -5,7 +5,7 @@ Depends:
     R (>= 3.2.0),
     future (>= 1.6.2)
 Imports:
-    globals (>= 0.10.3),
+    globals (>= 0.12.1),
     rlang (>= 0.2.0),
     purrr (>= 0.2.4)
 Suggests:
