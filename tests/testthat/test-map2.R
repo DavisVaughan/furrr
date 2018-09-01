@@ -56,4 +56,12 @@ for(.e in .th$executors) {
     expect_equal(.purrr, .furrr)
   })
 
+  # See issue #30
+  test_that(test_msg(.e, "chunk balancing is correct after a .x recycle"), {
+    .f <- ~c(.x, .y)
+    .purrr <- purrr::map2(1, test_dat, .f)
+    .furrr <- future_map2(1, test_dat, .f)
+    expect_equal(.purrr, .furrr)
+  })
+
 }

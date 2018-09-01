@@ -27,6 +27,10 @@ future_map2_template <- function(.map, .type, .x, .y, .f, ..., .progress, .optio
   if(n.x > n.y) .y <- rep(.y, times = n.x)
   if(n.y > n.x) .x <- rep(.x, times = n.y)
 
+  ## n.x is used further on when generating chunks,
+  ## ensure it is the correct length post recycling. See #30
+  n.x <- length(.x)
+
   if (debug) mdebug("future_map_*() ...")
 
   ## NOTE TO SELF: We'd ideally have a 'future.envir' argument also for
