@@ -26,7 +26,7 @@ poll_progress <- function(fs, temp_file, rule_max_width) {
     spaces <- paste0(rep(" ", times = space_width), collapse = "")
 
     # The one line - symbol came from cli::symbols$line
-    progress <- paste0(rep("\u2500", times = rule_width), collapse = "")
+    progress <- paste0(rep(get_progress_symbol(), times = rule_width), collapse = "")
     all_text <- paste0("Progress: ", progress, spaces, " 100%")
 
     cat("\r", all_text)
@@ -40,7 +40,7 @@ poll_progress <- function(fs, temp_file, rule_max_width) {
     finish_width <- 5
     carriage_width <- 1
     filler_width <- max_width - progress_width - finish_width - carriage_width
-    progress <- paste0(rep("\u2500", times = filler_width), collapse = "")
+    progress <- paste0(rep(get_progress_symbol(), times = filler_width), collapse = "")
     all_text <- paste0("Progress: ", progress, " 100%")
     cat("\r", all_text)
     cat("\n\n")
@@ -66,4 +66,24 @@ all_resolved <- function (futures) {
 console_width <- function() {
   width <- Sys.getenv("RSTUDIO_CONSOLE_WIDTH", getOption("width", 80))
   as.integer(width)
+}
+
+
+# Adapted from cli's onload properties
+# to dynamically switch depending on utf8 availability
+get_progress_symbol <- function() {
+  if (is_utf8_output())
+    "\u2500"
+  else
+    "-"
+}
+
+is_utf8_output <- function() {
+  l10n_info()$`UTF-8` && !is_latex_output()
+}
+
+is_latex_output <- function () {
+  if (!("knitr" %in% loadedNamespaces()))
+    return(FALSE)
+  get("is_latex_output", asNamespace("knitr"))()
 }
