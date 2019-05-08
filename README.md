@@ -190,11 +190,11 @@ what we need from each split.
 
 ``` r
 library(broom)
-## splits will be the `rsplit` object with the 90/10 partition
+## splits will be the `rsplit` object with the 95/5 partition
 holdout_results <- function(splits, ...) {
-  # Fit the model to the 90%
+  # Fit the model to the 95%
   mod <- glm(..., data = analysis(splits), family = binomial)
-  # Save the 10%
+  # Save the 5%
   holdout <- assessment(splits)
   # `augment` will save the predictions with the holdout data set
   res <- broom::augment(mod, newdata = holdout)
@@ -260,7 +260,7 @@ object for each split, our performance drops a bit.
 
 ``` r
 model_only <- function(splits, ...) {
-  # Fit the model to the 90%
+  # Fit the model to the 95%
   mod <- glm(..., data = analysis(splits), family = binomial)
   
   mod
