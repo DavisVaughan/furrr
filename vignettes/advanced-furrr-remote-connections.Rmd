@@ -96,6 +96,10 @@ of the EC2 console. Specifically it is the IPv4 Public IP of your instance.
 - Find the path to your `.pem` file that is used to connect to the EC2 instance. This
 was created when you created the EC2 instance, and hopefully you know where you saved it!
 
+- Note that, by default, the password associated with the `rstudio` user in
+Louis Aslett's AMI is the EC2 Instance ID. You can find this ID in the AWS
+console.
+
 ```{r}
 # A t2.micro AWS instance
 # Created from http://www.louisaslett.com/RStudio_AMI/
@@ -118,8 +122,8 @@ cl <- makeClusterPSOCK(
   # Public IP number of EC2 instance
   workers = public_ip,
   
-  # User name (always 'ubuntu')
-  user = "ubuntu",
+  # User name (always 'rstudio')
+  user = "rstudio",
   
   # Use private SSH key registered with AWS
   rshopts = c(
@@ -128,7 +132,7 @@ cl <- makeClusterPSOCK(
     "-i", ssh_private_key_file
   ),
   
-  # Set up .libPaths() for the 'ubuntu' user and
+  # Set up .libPaths() for the 'rstudio' user and
   # install furrr
   rscript_args = c(
     "-e", shQuote("local({p <- Sys.getenv('R_LIBS_USER'); dir.create(p, recursive = TRUE, showWarnings = FALSE); .libPaths(p)})"),
@@ -152,7 +156,7 @@ Let's step through this a little.
 - `workers` - The public ip addresses of the workers you want to connect to.
 If you have multiple, you can list them here.
 
-- `user` - Because we used the RStudio AMI, this is always `"ubuntu"`.
+- `user` - Because we used the RStudio AMI, this is always `"rstudio"`.
 
 - `rshopts` - These are options that are run on the command line of your _local_
 computer when connecting to the instance by ssh.
@@ -167,7 +171,7 @@ computer when connecting to the instance by ssh.
 - `rscript_args` - This very helpful argument allows you to specify R code to run
 when the command line executable `Rscript` is called on your _worker_. Essentially,
 it allows you to run "start up code" on each worker. In this case, it is used
-to create package paths for the `ubuntu` user and to install a few packages 
+to create package paths for the `rstudio` user and to install a few packages 
 that are required to work with `furrr`. 
 
 - `dryrun` - This is already set to `FALSE` by default, but it's useful to point
@@ -243,8 +247,8 @@ cl_multi <- makeClusterPSOCK(
   # Public IP number of EC2 instance
   workers = public_ip,
   
-  # User name (always 'ubuntu')
-  user = "ubuntu",
+  # User name (always 'rstudio')
+  user = "rstudio",
   
   # Use private SSH key registered with AWS
   rshopts = c(
@@ -253,7 +257,7 @@ cl_multi <- makeClusterPSOCK(
     "-i", ssh_private_key_file
   ),
   
-  # Set up .libPaths() for the 'ubuntu' user and
+  # Set up .libPaths() for the 'rstudio' user and
   # install furrr
   rscript_args = c(
     "-e", shQuote("local({p <- Sys.getenv('R_LIBS_USER'); dir.create(p, recursive = TRUE, showWarnings = FALSE); .libPaths(p)})"),
