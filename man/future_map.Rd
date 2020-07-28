@@ -77,6 +77,19 @@ the index (if \code{.x} is unnamed) of the input. If \code{NULL}, the default, n
 variable will be created.
 
 Only applies to \verb{_dfr} variant.}
+
+\item{.p}{A single predicate function, a formula describing such a
+predicate function, or a logical vector of the same length as \code{.x}.
+Alternatively, if the elements of \code{.x} are themselves lists of
+objects, a string indicating the name of a logical element in the
+inner lists. Only those elements where \code{.p} evaluates to
+\code{TRUE} will be modified.}
+
+\item{.at}{A character vector of names, positive numeric vector of
+positions to include, or a negative numeric vector of positions to
+exlude. Only those elements corresponding to \code{.at} will be modified.
+If the \code{tidyselect} package is installed, you can use \code{vars()} and
+the \code{tidyselect} helpers to select elements.}
 }
 \value{
 All functions return a vector the same length as \code{.x}.
