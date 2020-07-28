@@ -5,12 +5,13 @@ Authors@R:
     c(person(given = "Davis",
              family = "Vaughan",
              role = c("aut", "cre"),
-             email = "dvaughan@business-science.io"),
+             email = "davis@rstudio.com"),
       person(given = "Matt",
              family = "Dancho",
              role = "aut",
-             email = "mdancho@business-science.io"))
-Maintainer: Davis Vaughan <dvaughan@business-science.io>
+             email = "mdancho@business-science.io"),
+      person(given = "RStudio",
+             role = "cph"))
 Description: Implementations of the family of map() functions
     from 'purrr' that can be resolved using any 'future'-supported
     backend, e.g. parallel on the local machine or distributed on a
@@ -26,12 +27,12 @@ Imports:
     purrr (>= 0.2.4),
     rlang (>= 0.2.0)
 Suggests:
+    covr,
     dplyr (>= 0.7.4),
     knitr,
     listenv (>= 0.6.0),
     rmarkdown,
-    testthat,
-    covr
+    testthat
 VignetteBuilder: 
     knitr
 ByteCompile: TRUE
