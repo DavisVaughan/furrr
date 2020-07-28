@@ -140,7 +140,7 @@ gather_globals_and_packages <- function(.options, .map, .f, .progress, envir, ..
 }
 
 
-gather_globals_and_packages_.x_ii <- function(globals, packages, .x_ii, envir) {
+gather_globals_and_packages_.x_ii <- function(globals, packages, .x_ii, chunk, envir) {
 
   debug <- getOption("future.debug", FALSE)
 

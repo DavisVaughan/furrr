@@ -136,7 +136,7 @@ future_pmap_template <- function(.map, .type, .l, .f, ..., .progress, .options) 
 
     # Should we search for globals and packages specific to this slice of .l?
     if(.options$scan_for_x_globals) {
-      gp <- gather_globals_and_packages_.x_ii(globals_ii, packages_ii, globals_ii[["...future.lst_ii"]], envir)
+      gp <- gather_globals_and_packages_.x_ii(globals_ii, packages_ii, globals_ii[["...future.lst_ii"]], chunk, envir)
       globals_ii <- gp$globals
       packages_ii <- gp$packages
       gp <- NULL
