@@ -7,3 +7,5 @@
 ^appveyor\.yml$
 ^\.github$
 ^codecov\.yml$
+^_pkgdown\.yml$
+^pkgdown$
