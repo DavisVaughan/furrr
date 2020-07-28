@@ -1,31 +1,40 @@
 Package: furrr
-Version: 0.1.0.9002
 Title: Apply Mapping Functions in Parallel using Futures
-Depends:
-    R (>= 3.2.0),
-    future (>= 1.6.2)
-Imports:
-    globals (>= 0.12.2),
-    rlang (>= 0.2.0),
-    purrr (>= 0.2.4)
-Suggests:
-    listenv (>= 0.6.0),
-    dplyr (>= 0.7.4),
-    testthat,
-    knitr,
-    rmarkdown
-Authors@R: c(
-    person("Davis", "Vaughan", email = "dvaughan@business-science.io", role = c("aut", "cre")),
-    person("Matt", "Dancho", email = "mdancho@business-science.io", role = c("aut"))
-  )
+Version: 0.1.0.9002
+Authors@R: 
+    c(person(given = "Davis",
+             family = "Vaughan",
+             role = c("aut", "cre"),
+             email = "dvaughan@business-science.io"),
+      person(given = "Matt",
+             family = "Dancho",
+             role = "aut",
+             email = "mdancho@business-science.io"))
 Maintainer: Davis Vaughan <dvaughan@business-science.io>
-Description: Implementations of the family of map() functions from 'purrr' that can be resolved using any 'future'-supported backend, e.g. parallel on the local machine or distributed on a compute cluster.
+Description: Implementations of the family of map() functions
+    from 'purrr' that can be resolved using any 'future'-supported
+    backend, e.g. parallel on the local machine or distributed on a
+    compute cluster.
 License: LGPL (>= 2.1)
-LazyLoad: TRUE
 URL: https://github.com/DavisVaughan/furrr
 BugReports: https://github.com/DavisVaughan/furrr/issues
-RoxygenNote: 7.1.1
-Roxygen: list(markdown = TRUE)
-VignetteBuilder: knitr
+Depends:
+    future (>= 1.6.2),
+    R (>= 3.2.0)
+Imports:
+    globals (>= 0.12.2),
+    purrr (>= 0.2.4),
+    rlang (>= 0.2.0)
+Suggests:
+    dplyr (>= 0.7.4),
+    knitr,
+    listenv (>= 0.6.0),
+    rmarkdown,
+    testthat
+VignetteBuilder: 
+    knitr
 ByteCompile: TRUE
 Encoding: UTF-8
+LazyLoad: TRUE
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
