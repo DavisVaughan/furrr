@@ -285,7 +285,10 @@ length of the input.</p>
 #&gt;  $ am  : num  1 1 1 0 0 0 0 0 0 0 ...
 #&gt;  $ gear: num  4 4 4 3 3 3 3 4 4 4 ...
 #&gt;  $ carb: num  4 4 1 1 2 1 4 2 2 4 ...</div><div class='input'>
-</div></pre>
+<span class='co'># \dontshow{</span>
+<span class='co'># Close open connections for R CMD Check</span>
+<span class='kw'>if</span> (!<span class='fu'><a href='https://rdrr.io/r/base/class.html'>inherits</a></span>(<span class='fu'>plan</span>(), <span class='st'>"sequential"</span>)) <span class='fu'>plan</span>(<span class='no'>sequential</span>)
+<span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

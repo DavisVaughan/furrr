@@ -219,7 +219,10 @@ variable will be created.</p>
 
 <span class='fu'>future_imap_chr</span>(<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fl'>10</span>), ~ <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='no'>.y</span>, <span class='st'>": "</span>, <span class='no'>.x</span>))</div><div class='output co'>#&gt;  [1] "1: 7"  "2: 5"  "3: 6"  "4: 10" "5: 4"  "6: 1"  "7: 9"  "8: 8"  "9: 3" 
 #&gt; [10] "10: 2"</div><div class='input'>
-</div></pre>
+<span class='co'># \dontshow{</span>
+<span class='co'># Close open connections for R CMD Check</span>
+<span class='kw'>if</span> (!<span class='fu'><a href='https://rdrr.io/r/base/class.html'>inherits</a></span>(<span class='fu'>plan</span>(), <span class='st'>"sequential"</span>)) <span class='fu'>plan</span>(<span class='no'>sequential</span>)
+<span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

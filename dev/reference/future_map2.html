@@ -372,7 +372,10 @@ If any input is length 1, it will be recycled to the length of the longest.</p>
 #&gt; [[3]]
 #&gt; [1] "cqerry"
 #&gt; </div><div class='input'><span class='fu'>future_pmap_chr</span>(<span class='no'>df</span>, <span class='no'>gsub</span>)</div><div class='output co'>#&gt; [1] "axxle"  "bafafa" "cqerry"</div><div class='input'>
-</div></pre>
+<span class='co'># \dontshow{</span>
+<span class='co'># Close open connections for R CMD Check</span>
+<span class='kw'>if</span> (!<span class='fu'><a href='https://rdrr.io/r/base/class.html'>inherits</a></span>(<span class='fu'>plan</span>(), <span class='st'>"sequential"</span>)) <span class='fu'>plan</span>(<span class='no'>sequential</span>)
+<span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

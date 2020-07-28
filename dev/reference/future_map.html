@@ -255,8 +255,8 @@ e.g. logical -&gt; integer -&gt; double -&gt; character.</p>
 
 <span class='fl'>1</span>:<span class='fl'>10</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>future_map</span>(<span class='no'>rnorm</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>10</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>future_map_dbl</span>(<span class='no'>mean</span>)</div><div class='output co'>#&gt;  [1]  0.9158893  2.4075575  3.3768217  3.6358130  5.2555934  6.0458597
-#&gt;  [7]  6.4617483  8.3413522  8.9515138 10.2836985</div><div class='input'>
+  <span class='fu'>future_map_dbl</span>(<span class='no'>mean</span>)</div><div class='output co'>#&gt;  [1] 0.7249374 2.0391470 3.0500628 3.8738449 5.1095296 6.2606519 7.0200360
+#&gt;  [8] 8.2376784 9.1244095 9.8669716</div><div class='input'>
 <span class='co'># If each element of the output is a data frame, use</span>
 <span class='co'># future_map_dfr to row-bind them together:</span>
 <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span>
@@ -283,8 +283,10 @@ e.g. logical -&gt; integer -&gt; double -&gt; character.</p>
 <span class='fu'>future_map</span>(<span class='fl'>1</span>, ~<span class='no'>y</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>(<span class='kw'>globals</span> <span class='kw'>=</span> <span class='st'>"y"</span>))</div><div class='output co'>#&gt; [[1]]
 #&gt; [1] 2
 #&gt; </div><div class='input'>
-
-</div></pre>
+<span class='co'># \dontshow{</span>
+<span class='co'># Close open connections for R CMD Check</span>
+<span class='kw'>if</span> (!<span class='fu'><a href='https://rdrr.io/r/base/class.html'>inherits</a></span>(<span class='fu'>plan</span>(), <span class='st'>"sequential"</span>)) <span class='fu'>plan</span>(<span class='no'>sequential</span>)
+<span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
