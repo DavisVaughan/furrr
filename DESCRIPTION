@@ -35,7 +35,6 @@ Suggests:
     testthat
 VignetteBuilder: 
     knitr
-ByteCompile: TRUE
 LazyData: true
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
