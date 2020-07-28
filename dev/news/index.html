@@ -131,16 +131,10 @@
 <a href="#furrr-0109002" class="anchor"></a>furrr 0.1.0.9002<small> Unreleased </small>
 </h1>
 <ul>
-<li>A MIT license is now used.</li>
-</ul>
-<p>Features:</p>
-<ul>
-<li><p>Added advanced <code>furrr</code> vignette.</p></li>
-<li><p><code><a href="../reference/future_map.html">future_walk()</a></code> functions have been added to mirror <code>walk()</code>.</p></li>
-</ul>
-<p>Bug Fixes:</p>
-<ul>
-<li><p><code>.x</code> is now searched for globals as well. Only globals found in the slice of <code>.x</code> that corresponds to worker X are exported to worker X. This is relevant if <code>.x</code> is, say, a list of functions where each has their own set of globals.</p></li>
+<li><p>A MIT license is now used.</p></li>
+<li><p>Added an advanced furrr vignette detailing how to use furrr with remote connections.</p></li>
+<li><p><code><a href="../reference/future_map.html">future_walk()</a></code> and friends have been added to mirror <code><a href="https://purrr.tidyverse.org/reference/map.html">purrr::walk()</a></code>.</p></li>
+<li><p><code>.x</code> is now searched for globals. Only globals found in the slice of <code>.x</code> that corresponds to worker X are exported to worker X. This is relevant if <code>.x</code> is, say, a list of functions where each has their own set of globals (<a href='https://github.com/DavisVaughan/furrr/issues/16'>#16</a>).</p></li>
 <li><p><code>globals (&gt;= 0.12.1)</code> is now required because of substantial new speed boosts there related to searching for global variables.</p></li>
 </ul>
 </div>
