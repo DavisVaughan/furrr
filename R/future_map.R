@@ -59,7 +59,10 @@
 #' # y is exported
 #' future_map(1, ~y, .options = future_options(globals = "y"))
 #'
-#'
+#' \dontshow{
+#' # Close open connections for R CMD Check
+#' if (!inherits(plan(), "sequential")) plan(sequential)
+#' }
 #' @export
 future_map <- function(.x, .f, ..., .progress = FALSE, .options = future_options()) {
   future_map_template(purrr::map, "list", .x, .f, ..., .progress = .progress, .options = .options)

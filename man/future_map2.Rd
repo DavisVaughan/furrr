@@ -194,4 +194,8 @@ df <- data.frame(
 future_pmap(df, gsub)
 future_pmap_chr(df, gsub)
 
+\dontshow{
+# Close open connections for R CMD Check
+if (!inherits(plan(), "sequential")) plan(sequential)
+}
 }

@@ -18,6 +18,10 @@
 #'
 #' future_imap_chr(sample(10), ~ paste0(.y, ": ", .x))
 #'
+#' \dontshow{
+#' # Close open connections for R CMD Check
+#' if (!inherits(plan(), "sequential")) plan(sequential)
+#' }
 #' @export
 future_imap <- function(.x, .f, ..., .progress = FALSE, .options = future_options()) {
   future_map2(.x, vec_index(.x), .f, ..., .progress = .progress, .options = .options)

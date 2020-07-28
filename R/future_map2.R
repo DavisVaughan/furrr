@@ -50,6 +50,10 @@
 #' future_pmap(df, gsub)
 #' future_pmap_chr(df, gsub)
 #'
+#' \dontshow{
+#' # Close open connections for R CMD Check
+#' if (!inherits(plan(), "sequential")) plan(sequential)
+#' }
 #' @export
 future_map2 <- function(.x, .y, .f, ..., .progress = FALSE, .options = future_options()) {
   future_map2_template(purrr::map, "list", .x, .y, .f, ..., .progress = .progress, .options = .options)

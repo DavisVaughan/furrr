@@ -88,4 +88,8 @@ plan(multiprocess)
 
 future_imap_chr(sample(10), ~ paste0(.y, ": ", .x))
 
+\dontshow{
+# Close open connections for R CMD Check
+if (!inherits(plan(), "sequential")) plan(sequential)
+}
 }

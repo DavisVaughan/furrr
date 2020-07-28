@@ -142,5 +142,8 @@ y <- 2
 # y is exported
 future_map(1, ~y, .options = future_options(globals = "y"))
 
-
+\dontshow{
+# Close open connections for R CMD Check
+if (!inherits(plan(), "sequential")) plan(sequential)
+}
 }

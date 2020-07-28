@@ -101,4 +101,8 @@ iris \%>\%
 
 mtcars \%>\% future_modify_at(c(1, 4, 5), as.character) \%>\% str()
 
+\dontshow{
+# Close open connections for R CMD Check
+if (!inherits(plan(), "sequential")) plan(sequential)
+}
 }

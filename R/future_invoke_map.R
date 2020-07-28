@@ -29,7 +29,10 @@
 #'
 #' future_invoke_map(df$f, df$params)
 #'
-#'
+#' \dontshow{
+#' # Close open connections for R CMD Check
+#' if (!inherits(plan(), "sequential")) plan(sequential)
+#' }
 #' @export
 #'
 future_invoke_map <- function(.f, .x = list(NULL), ..., .env = NULL, .progress = FALSE, .options = future_options()) {
