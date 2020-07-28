@@ -10,26 +10,68 @@
 \alias{future_invoke_map_dfc}
 \title{Invoke functions via futures}
 \usage{
-future_invoke_map(.f, .x = list(NULL), ..., .env = NULL,
-  .progress = FALSE, .options = future_options())
+future_invoke_map(
+  .f,
+  .x = list(NULL),
+  ...,
+  .env = NULL,
+  .progress = FALSE,
+  .options = future_options()
+)
 
-future_invoke_map_chr(.f, .x = list(NULL), ..., .env = NULL,
-  .progress = FALSE, .options = future_options())
+future_invoke_map_chr(
+  .f,
+  .x = list(NULL),
+  ...,
+  .env = NULL,
+  .progress = FALSE,
+  .options = future_options()
+)
 
-future_invoke_map_dbl(.f, .x = list(NULL), ..., .env = NULL,
-  .progress = FALSE, .options = future_options())
+future_invoke_map_dbl(
+  .f,
+  .x = list(NULL),
+  ...,
+  .env = NULL,
+  .progress = FALSE,
+  .options = future_options()
+)
 
-future_invoke_map_int(.f, .x = list(NULL), ..., .env = NULL,
-  .progress = FALSE, .options = future_options())
+future_invoke_map_int(
+  .f,
+  .x = list(NULL),
+  ...,
+  .env = NULL,
+  .progress = FALSE,
+  .options = future_options()
+)
 
-future_invoke_map_lgl(.f, .x = list(NULL), ..., .env = NULL,
-  .progress = FALSE, .options = future_options())
+future_invoke_map_lgl(
+  .f,
+  .x = list(NULL),
+  ...,
+  .env = NULL,
+  .progress = FALSE,
+  .options = future_options()
+)
 
-future_invoke_map_dfr(.f, .x = list(NULL), ..., .env = NULL,
-  .progress = FALSE, .options = future_options())
+future_invoke_map_dfr(
+  .f,
+  .x = list(NULL),
+  ...,
+  .env = NULL,
+  .progress = FALSE,
+  .options = future_options()
+)
 
-future_invoke_map_dfc(.f, .x = list(NULL), ..., .env = NULL,
-  .progress = FALSE, .options = future_options())
+future_invoke_map_dfc(
+  .f,
+  .x = list(NULL),
+  ...,
+  .env = NULL,
+  .progress = FALSE,
+  .options = future_options()
+)
 }
 \arguments{
 \item{.f}{A list of functions.}
@@ -53,7 +95,7 @@ multiprocess, multisession, and multicore plans.}
 be the result from a call to \code{\link[=future_options]{future_options()}}.}
 }
 \description{
-These functions work exactly the same as \code{\link[purrr:invoke_map]{purrr::invoke_map()}} functions, but allow
+These functions work exactly the same as \code{\link[purrr:invoke]{purrr::invoke_map()}} functions, but allow
 you to invoke in parallel.
 }
 \examples{

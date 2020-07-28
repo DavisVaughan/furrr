@@ -21,23 +21,60 @@
 \usage{
 future_map2(.x, .y, .f, ..., .progress = FALSE, .options = future_options())
 
-future_map2_chr(.x, .y, .f, ..., .progress = FALSE,
-  .options = future_options())
+future_map2_chr(
+  .x,
+  .y,
+  .f,
+  ...,
+  .progress = FALSE,
+  .options = future_options()
+)
 
-future_map2_dbl(.x, .y, .f, ..., .progress = FALSE,
-  .options = future_options())
+future_map2_dbl(
+  .x,
+  .y,
+  .f,
+  ...,
+  .progress = FALSE,
+  .options = future_options()
+)
 
-future_map2_int(.x, .y, .f, ..., .progress = FALSE,
-  .options = future_options())
+future_map2_int(
+  .x,
+  .y,
+  .f,
+  ...,
+  .progress = FALSE,
+  .options = future_options()
+)
 
-future_map2_lgl(.x, .y, .f, ..., .progress = FALSE,
-  .options = future_options())
+future_map2_lgl(
+  .x,
+  .y,
+  .f,
+  ...,
+  .progress = FALSE,
+  .options = future_options()
+)
 
-future_map2_dfr(.x, .y, .f, ..., .id = NULL, .progress = FALSE,
-  .options = future_options())
+future_map2_dfr(
+  .x,
+  .y,
+  .f,
+  ...,
+  .id = NULL,
+  .progress = FALSE,
+  .options = future_options()
+)
 
-future_map2_dfc(.x, .y, .f, ..., .progress = FALSE,
-  .options = future_options())
+future_map2_dfc(
+  .x,
+  .y,
+  .f,
+  ...,
+  .progress = FALSE,
+  .options = future_options()
+)
 
 future_pmap(.l, .f, ..., .progress = FALSE, .options = future_options())
 
@@ -49,13 +86,18 @@ future_pmap_int(.l, .f, ..., .progress = FALSE, .options = future_options())
 
 future_pmap_lgl(.l, .f, ..., .progress = FALSE, .options = future_options())
 
-future_pmap_dfr(.l, .f, ..., .id = NULL, .progress = FALSE,
-  .options = future_options())
+future_pmap_dfr(
+  .l,
+  .f,
+  ...,
+  .id = NULL,
+  .progress = FALSE,
+  .options = future_options()
+)
 
 future_pmap_dfc(.l, .f, ..., .progress = FALSE, .options = future_options())
 
-future_walk2(.x, .y, .f, ..., .progress = FALSE,
-  .options = future_options())
+future_walk2(.x, .y, .f, ..., .progress = FALSE, .options = future_options())
 
 future_pwalk(.l, .f, ..., .progress = FALSE, .options = future_options())
 }
@@ -66,7 +108,7 @@ be recycled.}
 \item{.y}{Vectors of the same length. A vector of length 1 will
 be recycled.}
 
-\item{.f}{A function, formula, or atomic vector.
+\item{.f}{A function, formula, or vector (not necessarily atomic).
 
 If a \strong{function}, it is used as is.
 
@@ -80,14 +122,13 @@ are three ways to refer to the arguments:
 
 This syntax allows you to create very compact anonymous functions.
 
-If \strong{character vector}, \strong{numeric vector}, or \strong{list}, it
-is converted to an extractor function. Character vectors index by name
-and numeric vectors index by position; use a list to index by position
-and name at different levels. Within a list, wrap strings in \code{\link[=get-attr]{get-attr()}}
-to extract named attributes. If a component is not present, the value of
-\code{.default} will be returned.}
+If \strong{character vector}, \strong{numeric vector}, or \strong{list}, it is
+converted to an extractor function. Character vectors index by
+name and numeric vectors index by position; use a list to index
+by position and name at different levels. If a component is not
+present, the value of \code{.default} will be returned.}
 
-\item{...}{Additional arguments passed on to \code{.f}.}
+\item{...}{Additional arguments passed on to the mapped function.}
 
 \item{.progress}{A logical, for whether or not to print a progress bar for
 multiprocess, multisession, and multicore plans.}
@@ -95,11 +136,15 @@ multiprocess, multisession, and multicore plans.}
 \item{.options}{The \code{future} specific options to use with the workers. This must
 be the result from a call to \code{\link[=future_options]{future_options()}}.}
 
-\item{.id}{If not \code{NULL} a variable with this name will be created
-giving either the name or the index of the data frame.}
+\item{.id}{Either a string or \code{NULL}. If a string, the output will contain
+a variable with that name, storing either the name (if \code{.x} is named) or
+the index (if \code{.x} is unnamed) of the input. If \code{NULL}, the default, no
+variable will be created.
 
-\item{.l}{A list of lists. The length of \code{.l} determines the
-number of arguments that \code{.f} will be called with. List
+Only applies to \verb{_dfr} variant.}
+
+\item{.l}{A list of vectors, such as a data frame. The length of \code{.l}
+determines the number of arguments that \code{.f} will be called with. List
 names will be used if present.}
 }
 \value{

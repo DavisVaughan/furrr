@@ -4,12 +4,17 @@
 \alias{future_options}
 \title{\code{future} specific options}
 \usage{
-future_options(globals = TRUE, packages = NULL, seed = FALSE,
-  lazy = FALSE, scheduling = 1)
+future_options(
+  globals = TRUE,
+  packages = NULL,
+  seed = FALSE,
+  lazy = FALSE,
+  scheduling = 1
+)
 }
 \arguments{
 \item{globals}{A logical, a character vector, or a named list for
-controlling how globals are handled. For details, see \code{Global variables and packages}.}
+controlling how globals are handled. For details, see \verb{Global variables and packages}.}
 
 \item{packages}{(optional) a character vector specifying packages
 to be attached in the R environment evaluating the future.}

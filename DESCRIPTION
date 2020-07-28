@@ -24,7 +24,7 @@ License: LGPL (>= 2.1)
 LazyLoad: TRUE
 URL: https://github.com/DavisVaughan/furrr
 BugReports: https://github.com/DavisVaughan/furrr/issues
-RoxygenNote: 6.0.1
+RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
 ByteCompile: TRUE

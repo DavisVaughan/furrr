@@ -15,10 +15,7 @@ fold(x, f, left = TRUE, unname = TRUE, threshold = 1000L)
 otherwise the right (the last element).}
 
 \item{unname}{If \code{TRUE}, function \code{f} is called as \code{f(unname(y), x[[ii]])},
-otherwise as \code{f(y, x[[ii]])}, which may introduce name \code{"y"}.
-
-[[ii]: R:[ii
-[[ii]: R:[ii}
+otherwise as \code{f(y, x[[ii]])}, which may introduce name \code{"y"}.}
 
 \item{threshold}{An integer (>= 2) specifying the length where the
 recursive divide'and'conquer call will stop and incremental building of
@@ -37,14 +34,6 @@ folding, binary function \code{f} must be \emph{associative} with itself, i.e.
 \code{f(f(x[[1]], x[[2]]), x[[3]])} equals \code{f(x[[1]], f(x[[2]]), x[[3]])}.
 
 This function is a more efficient (memory and speed) of
-[\code{base::Reduce(f, x, right = !left, accumulate = FALSE)}][base::Reduce],
+\code{\link[base:funprog]{base::Reduce(f, x, right = !left, accumulate = FALSE)}},
 especially when \code{x} is long.
-
-[[1]: R:[1
-[[2]: R:[2
-[[3]: R:[3
-[[1]: R:[1
-[[2]: R:[2
-[[3]: R:[3
-[base::Reduce]: R:base::Reduce
 }

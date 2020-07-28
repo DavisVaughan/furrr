@@ -8,16 +8,28 @@
 \usage{
 future_modify(.x, .f, ..., .progress = FALSE, .options = future_options())
 
-future_modify_at(.x, .at, .f, ..., .progress = FALSE,
-  .options = future_options())
+future_modify_at(
+  .x,
+  .at,
+  .f,
+  ...,
+  .progress = FALSE,
+  .options = future_options()
+)
 
-future_modify_if(.x, .p, .f, ..., .progress = FALSE,
-  .options = future_options())
+future_modify_if(
+  .x,
+  .p,
+  .f,
+  ...,
+  .progress = FALSE,
+  .options = future_options()
+)
 }
 \arguments{
 \item{.x}{A list or atomic vector.}
 
-\item{.f}{A function, formula, or atomic vector.
+\item{.f}{A function, formula, or vector (not necessarily atomic).
 
 If a \strong{function}, it is used as is.
 
@@ -31,14 +43,13 @@ are three ways to refer to the arguments:
 
 This syntax allows you to create very compact anonymous functions.
 
-If \strong{character vector}, \strong{numeric vector}, or \strong{list}, it
-is converted to an extractor function. Character vectors index by name
-and numeric vectors index by position; use a list to index by position
-and name at different levels. Within a list, wrap strings in \code{\link[=get-attr]{get-attr()}}
-to extract named attributes. If a component is not present, the value of
-\code{.default} will be returned.}
+If \strong{character vector}, \strong{numeric vector}, or \strong{list}, it is
+converted to an extractor function. Character vectors index by
+name and numeric vectors index by position; use a list to index
+by position and name at different levels. If a component is not
+present, the value of \code{.default} will be returned.}
 
-\item{...}{Additional arguments passed on to \code{.f}.}
+\item{...}{Additional arguments passed on to the mapped function.}
 
 \item{.progress}{A logical, for whether or not to print a progress bar for
 multiprocess, multisession, and multicore plans.}
@@ -46,9 +57,11 @@ multiprocess, multisession, and multicore plans.}
 \item{.options}{The \code{future} specific options to use with the workers. This must
 be the result from a call to \code{\link[=future_options]{future_options()}}.}
 
-\item{.at}{A character vector of names or a numeric vector of
-positions. Only those elements corresponding to \code{.at} will be
-modified.}
+\item{.at}{A character vector of names, positive numeric vector of
+positions to include, or a negative numeric vector of positions to
+exlude. Only those elements corresponding to \code{.at} will be modified.
+If the \code{tidyselect} package is installed, you can use \code{vars()} and
+the \code{tidyselect} helpers to select elements.}
 
 \item{.p}{A single predicate function, a formula describing such a
 predicate function, or a logical vector of the same length as \code{.x}.
