@@ -11,6 +11,27 @@ editor_options:
   chunk_output_type: console
 ---
 
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r, include = FALSE}
+# NOTE:
+# This vignette doesn't evaluate any chunks for two reasons:
+# 1) It would need access to an AWS EC2 cluster
+# 2) R CMD Check does a temp install of `furrr` in a place where it can't be
+#    found by workers when `future_map()` is run, resulting in errors when
+#    trying to build the vignette. pkgdown doesn't error, so this could be
+#    worked around in general by making furrr vignettes into "articles" that
+#    are only run by pkgdown.
+knitr::opts_chunk$set(
+  eval = FALSE
+)
+```
+
 ## Introduction
 
 At some point, you might need to go beyond your local computer for increased
