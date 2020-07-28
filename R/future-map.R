@@ -120,11 +120,10 @@ future_map_dfc <- function(.x, .f, ..., .progress = FALSE, .options = future_opt
 
 #' @rdname future_map
 #' @export
-#' @importFrom purrr list_along set_names
 #' @inheritParams purrr::map_if
 future_map_if <- function(.x, .p, .f, ..., .progress = FALSE, .options = future_options()) {
   sel <- probe(.x, .p)
-  out <- list_along(.x)
+  out <- purrr::list_along(.x)
   out[sel] <- future_map(.x[sel], .f, ..., .progress = .progress, .options = .options)
   out[!sel] <- .x[!sel]
   set_names(out, names(.x))
@@ -132,11 +131,10 @@ future_map_if <- function(.x, .p, .f, ..., .progress = FALSE, .options = future_
 
 #' @rdname future_map
 #' @export
-#' @importFrom purrr list_along set_names
 #' @inheritParams purrr::map_at
 future_map_at <- function(.x, .at, .f, ..., .progress = FALSE, .options = future_options()) {
   sel <- inv_which(.x, .at)
-  out <- list_along(.x)
+  out <- purrr::list_along(.x)
   out[sel] <- future_map(.x[sel], .f, ..., .progress = .progress, .options = .options)
   out[!sel] <- .x[!sel]
   set_names(out, names(.x))

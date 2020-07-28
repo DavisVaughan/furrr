@@ -25,7 +25,7 @@ gather_globals_and_packages <- function(.options, .map, .f, .progress, envir, ..
 
       # Find the globals / packages for both .f and .x
       expr <- do.call(call, args = c(list(".f"), list(...)))
-      gp_f <- getGlobalsAndPackages(expr, envir = envir, globals = TRUE)
+      gp_f <- future::getGlobalsAndPackages(expr, envir = envir, globals = TRUE)
       globals <-  gp_f$globals
       packages <- gp_f$packages
       gp_f <- NULL
@@ -39,11 +39,11 @@ gather_globals_and_packages <- function(.options, .map, .f, .progress, envir, ..
     } else {
       ## globals = FALSE
       globals <- c(".f", names(list(...)), "...")
-      globals <- globalsByName(globals, envir = envir, mustExist = FALSE)
+      globals <- globals::globalsByName(globals, envir = envir, mustExist = FALSE)
     }
   } else if (is.character(globals)) {
     globals <- unique(c(globals, ".f", names(list(...)), "..."))
-    globals <- globalsByName(globals, envir = envir, mustExist = FALSE)
+    globals <- globals::globalsByName(globals, envir = envir, mustExist = FALSE)
   } else if (is.list(globals)) {
     names <- names(globals)
     if (length(globals) > 0 && is.null(names)) {
@@ -52,7 +52,7 @@ gather_globals_and_packages <- function(.options, .map, .f, .progress, envir, ..
   } else {
     stop("Invalid argument '.options$globals': ", mode(globals))
   }
-  globals <- as.FutureGlobals(globals)
+  globals <- future::as.FutureGlobals(globals)
   stopifnot(inherits(globals, "FutureGlobals"))
 
   names <- names(globals)
@@ -68,9 +68,9 @@ gather_globals_and_packages <- function(.options, .map, .f, .progress, envir, ..
 
   if (!is.element("...", names)) {
     if (debug) mdebug("Getting '...' globals ...")
-    dotdotdot <- globalsByName("...", envir = envir, mustExist = TRUE)
-    dotdotdot <- as.FutureGlobals(dotdotdot)
-    dotdotdot <- resolve(dotdotdot)
+    dotdotdot <- globals::globalsByName("...", envir = envir, mustExist = TRUE)
+    dotdotdot <- future::as.FutureGlobals(dotdotdot)
+    dotdotdot <- future::resolve(dotdotdot)
     attr(dotdotdot, "total_size") <- objectSize(dotdotdot)
     if (debug) mdebug("Getting '...' globals ... DONE")
     globals <- c(globals, dotdotdot)
@@ -92,7 +92,7 @@ gather_globals_and_packages <- function(.options, .map, .f, .progress, envir, ..
 
   if (debug) {
     mdebug("Globals to be used in all futures:")
-    mdebug(paste(capture.output(str(globals)), collapse = "\n"))
+    mdebug(paste(utils::capture.output(utils::str(globals)), collapse = "\n"))
   }
 
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -110,7 +110,7 @@ gather_globals_and_packages <- function(.options, .map, .f, .progress, envir, ..
 
   if (debug) {
     mdebug("Packages to be attached in all futures:")
-    mdebug(paste(capture.output(str(packages)), collapse = "\n"))
+    mdebug(paste(utils::capture.output(utils::str(packages)), collapse = "\n"))
   }
 
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -150,7 +150,7 @@ gather_globals_and_packages_.x_ii <- function(globals, packages, .x_ii, chunk, e
   rm(globals, packages)
 
   # Search for .x_ii specific globals and packages
-  gp <- getGlobalsAndPackages(.x_ii, envir = envir, globals = TRUE)
+  gp <- future::getGlobalsAndPackages(.x_ii, envir = envir, globals = TRUE)
   globals_.x_ii <- gp$globals
   packages_.x_ii <- gp$packages
   gp <- NULL
@@ -173,7 +173,7 @@ gather_globals_and_packages_.x_ii <- function(globals, packages, .x_ii, chunk, e
            paste(sQuote(reserved), collapse = ", "))
     }
 
-    globals_.x_ii <- as.FutureGlobals(globals_.x_ii)
+    globals_.x_ii <- future::as.FutureGlobals(globals_.x_ii)
     globals_ii <- unique(c(globals_ii, globals_.x_ii))
 
   }

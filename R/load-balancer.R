@@ -5,7 +5,7 @@ generate_balanced_chunks <- function(scheduling, n.x) {
   if (is.logical(scheduling)) {
 
     if (scheduling) {
-      nbr_of_futures <- nbrOfWorkers()
+      nbr_of_futures <- future::nbrOfWorkers()
       if (nbr_of_futures > n.x) nbr_of_futures <- n.x
     } else {
       nbr_of_futures <- n.x
@@ -14,7 +14,7 @@ generate_balanced_chunks <- function(scheduling, n.x) {
   } else {
     ## Treat 'scheduling' as the number of futures per worker.
     stopifnot(scheduling >= 0)
-    nbr_of_workers <- nbrOfWorkers()
+    nbr_of_workers <- future::nbrOfWorkers()
     if (nbr_of_workers > n.x) nbr_of_workers <- n.x
     nbr_of_futures <- scheduling * nbr_of_workers
     if (nbr_of_futures < 1) {
@@ -24,7 +24,7 @@ generate_balanced_chunks <- function(scheduling, n.x) {
     }
   }
 
-  chunks <- splitIndices(n.x, ncl = nbr_of_futures)
+  chunks <- parallel::splitIndices(n.x, ncl = nbr_of_futures)
   if (debug) mdebug("Number of chunks: %d", length(chunks))
 
   chunks

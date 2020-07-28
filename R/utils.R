@@ -1,5 +1,3 @@
-#' @importFrom rlang %||%
-
 # ------------------------------------------------------------------------------
 # Unexported functions from purrr
 
@@ -184,7 +182,6 @@ is_lecyer_cmrg_seed <- function(seed) {
     all(is.finite(seed)) && seed[1] == 407L
 }
 
-# @importFrom utils capture.output
 as_lecyer_cmrg_seed <- function(seed) {
   ## Generate a L'Ecuyer-CMRG seed (existing or random)?
   if (is.logical(seed)) {
@@ -212,7 +209,7 @@ as_lecyer_cmrg_seed <- function(seed) {
   ## Already a L'Ecuyer-CMRG seed?
   if (length(seed) == 7L) {
     if (seed[1] != 407L) {
-      stop("Argument 'seed' must be L'Ecuyer-CMRG RNG seed as returned by parallel::nextRNGStream() or an single integer: ", capture.output(str(seed)))
+      stop("Argument 'seed' must be L'Ecuyer-CMRG RNG seed as returned by parallel::nextRNGStream() or an single integer: ", utils::capture.output(utils::str(seed)))
     }
     return(seed)
   }
@@ -226,7 +223,7 @@ as_lecyer_cmrg_seed <- function(seed) {
     return(get_random_seed())
   }
 
-  stop("Argument 'seed' must be of length 1 or 7 (= 1+6):", capture.output(str(seed)))
+  stop("Argument 'seed' must be of length 1 or 7 (= 1+6):", utils::capture.output(utils::str(seed)))
 }
 
 

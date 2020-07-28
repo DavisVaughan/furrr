@@ -31,7 +31,7 @@ generate_seed_streams <- function(seed, n_seeds) {
     ## Check if valid random seeds are specified.
     ## For efficiency, only look at the first one.
     if (!is_valid_random_seed(seed[[1]])) {
-      stop("The list in argument 'seed' does not seem to hold elements that are valid .Random.seed values: ", capture.output(str(seeds[[1]])))
+      stop("The list in argument 'seed' does not seem to hold elements that are valid .Random.seed values: ", utils::capture.output(utils::str(seeds[[1]])))
     }
 
     seeds <- seed
@@ -53,10 +53,10 @@ generate_seed_streams <- function(seed, n_seeds) {
       ## recursively, with minimal risk of generating the same seeds as
       ## another future. This should make it safe to recursively call
       ## future_lapply(). /HB 2017-01-11
-      seeds[[ii]] <- nextRNGSubStream(.seed)
+      seeds[[ii]] <- parallel::nextRNGSubStream(.seed)
 
       ## Main random seed for next iteration (= ii + 1)
-      .seed <- nextRNGStream(.seed)
+      .seed <- parallel::nextRNGStream(.seed)
     }
 
     if (debug) mdebug("Generating random seed streams for %d elements ... DONE", n_seeds)

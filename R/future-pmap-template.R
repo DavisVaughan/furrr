@@ -104,7 +104,7 @@ future_pmap_template <- function(.map, .type, .l, .f, ..., .progress, .options) 
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   ## Add argument placeholders
-  globals_extra <- as.FutureGlobals(list(...future.lst_ii = rlang::new_list(n.l, names = names(.l)), ...future.seeds_ii = NULL))
+  globals_extra <- future::as.FutureGlobals(list(...future.lst_ii = rlang::new_list(n.l, names = names(.l)), ...future.seeds_ii = NULL))
   attr(globals_extra, "resolved") <- TRUE
   attr(globals_extra, "total_size") <- 0
   globals <- c(globals, globals_extra)
@@ -147,7 +147,7 @@ future_pmap_template <- function(.map, .type, .l, .f, ..., .progress, .options) 
     ## Using RNG seeds or not?
     if (is.null(seeds)) {
       if (debug) mdebug(" - seeds: <none>")
-      fs[[ii]] <- future({
+      fs[[ii]] <- future::future({
 
         # rlang tilde - when serializing with multisession, the pointer becomes 0x0
         # Temp solution is to readd base::`~` into the .f environment if necessary
@@ -182,7 +182,7 @@ future_pmap_template <- function(.map, .type, .l, .f, ..., .progress, .options) 
     } else {
       if (debug) mdebug(" - seeds: [%d] <seeds>", length(chunk))
       globals_ii[["...future.seeds_ii"]] <- seeds[chunk]
-      fs[[ii]] <- future({
+      fs[[ii]] <- future::future({
 
         # rlang tilde - when serializing with multisession, the pointer becomes 0x0
         # Temp solution is to readd base::`~` into the .f environment if necessary
