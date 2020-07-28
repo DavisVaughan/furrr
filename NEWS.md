@@ -2,20 +2,18 @@
 
 * A MIT license is now used.
 
-Features:
+* Added an advanced furrr vignette detailing how to use furrr with
+  remote connections.
 
-  * Added advanced `furrr` vignette.
+* `future_walk()` and friends have been added to mirror `purrr::walk()`.
 
-  * `future_walk()` functions have been added to mirror `walk()`.
+* `.x` is now searched for globals. Only globals found in the slice of `.x`
+  that corresponds to worker X are exported to worker X. This is relevant if
+  `.x` is, say, a list of functions where each has their own set of globals
+  (#16).
 
-Bug Fixes:
-
-  * `.x` is now searched for globals as well. Only globals found in the slice
-  of `.x` that corresponds to worker X are exported to worker X. This is relevant
-  if `.x` is, say, a list of functions where each has their own set of globals.
-  
-  * `globals (>= 0.12.1)` is now required because of substantial new speed boosts there related to 
-  searching for global variables.
+* `globals (>= 0.12.1)` is now required because of substantial new speed boosts
+  there related to searching for global variables.
 
 # furrr 0.1.0
 
