@@ -1,12 +1,15 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-[![Travis build
-status](https://travis-ci.org/DavisVaughan/furrr.svg?branch=master)](https://travis-ci.org/DavisVaughan/furrr)
+<!-- badges: start -->
+
 [![CRAN
 status](https://www.r-pkg.org/badges/version/furrr)](https://cran.r-project.org/package=furrr)
-[![AppVeyor build
-status](https://ci.appveyor.com/api/projects/status/github/DavisVaughan/furrr?branch=master&svg=true)](https://ci.appveyor.com/project/DavisVaughan/furrr)
+[![R build
+status](https://github.com/DavisVaughan/furrr/workflows/R-CMD-check/badge.svg)](https://github.com/DavisVaughan/furrr/actions)
+[![Codecov test
+coverage](https://codecov.io/gh/DavisVaughan/furrr/branch/master/graph/badge.svg)](https://codecov.io/gh/DavisVaughan/furrr?branch=master)
+<!-- badges: end -->
 
 # furrr
 
@@ -72,13 +75,19 @@ future_map(c("hello", "world"), ~.x)
 The default backend for `future` is a sequential one. This means that
 the code will run out of the box, but it will *not* be in parallel. The
 design of `future` makes this incredibly easy to change so that your
-code does run in
-parallel.
+code does run in parallel.
 
 ``` r
 # You set a "plan" for how the code should run. The easiest is `multiprocess`
 # On Mac this picks plan(multicore) and on Windows this picks plan(multisession)
 plan(multiprocess)
+#> Warning: [ONE-TIME WARNING] Forked processing ('multicore') is disabled
+#> in future (>= 1.13.0) when running R from RStudio, because it is
+#> considered unstable. Because of this, plan("multicore") will fall
+#> back to plan("sequential"), and plan("multiprocess") will fall back to
+#> plan("multisession") - not plan("multicore") as in the past. For more details,
+#> how to control forked processing or not, and how to silence this warning in
+#> future R sessions, see ?future::supportsMulticore
 
 # This DOES run in parallel!
 future_map(c("hello", "world"), ~.x)
@@ -134,6 +143,7 @@ more…interesting we are going to use 20 fold CV with 100 repeats.
 
 ``` r
 library(rsample)
+library(modeldata)
 data("attrition")
 names(attrition)
 #>  [1] "Age"                      "Attrition"               
@@ -162,23 +172,22 @@ rs_obj <- vfold_cv(attrition, v = 20, repeats = 100)
 rs_obj
 #> #  20-fold cross-validation repeated 100 times 
 #> # A tibble: 2,000 x 3
-#>    splits       id        id2   
-#>    <list>       <chr>     <chr> 
-#>  1 <S3: rsplit> Repeat001 Fold01
-#>  2 <S3: rsplit> Repeat001 Fold02
-#>  3 <S3: rsplit> Repeat001 Fold03
-#>  4 <S3: rsplit> Repeat001 Fold04
-#>  5 <S3: rsplit> Repeat001 Fold05
-#>  6 <S3: rsplit> Repeat001 Fold06
-#>  7 <S3: rsplit> Repeat001 Fold07
-#>  8 <S3: rsplit> Repeat001 Fold08
-#>  9 <S3: rsplit> Repeat001 Fold09
-#> 10 <S3: rsplit> Repeat001 Fold10
-#> # ... with 1,990 more rows
+#>    splits            id        id2   
+#>    <list>            <chr>     <chr> 
+#>  1 <split [1.4K/74]> Repeat001 Fold01
+#>  2 <split [1.4K/74]> Repeat001 Fold02
+#>  3 <split [1.4K/74]> Repeat001 Fold03
+#>  4 <split [1.4K/74]> Repeat001 Fold04
+#>  5 <split [1.4K/74]> Repeat001 Fold05
+#>  6 <split [1.4K/74]> Repeat001 Fold06
+#>  7 <split [1.4K/74]> Repeat001 Fold07
+#>  8 <split [1.4K/74]> Repeat001 Fold08
+#>  9 <split [1.4K/74]> Repeat001 Fold09
+#> 10 <split [1.4K/74]> Repeat001 Fold10
+#> # … with 1,990 more rows
 ```
 
-The model formula below is going to be used in the
-GLM.
+The model formula below is going to be used in the GLM.
 
 ``` r
 mod_form <- as.formula(Attrition ~ JobSatisfaction + Gender + MonthlyIncome)

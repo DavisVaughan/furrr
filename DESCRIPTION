@@ -30,7 +30,8 @@ Suggests:
     knitr,
     listenv (>= 0.6.0),
     rmarkdown,
-    testthat
+    testthat,
+    covr
 VignetteBuilder: 
     knitr
 ByteCompile: TRUE

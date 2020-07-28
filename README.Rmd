@@ -23,9 +23,11 @@ library(rsample)
 library(broom)
 ```
 
-[![Travis build status](https://travis-ci.org/DavisVaughan/furrr.svg?branch=master)](https://travis-ci.org/DavisVaughan/furrr)
+<!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/furrr)](https://cran.r-project.org/package=furrr)
-[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/DavisVaughan/furrr?branch=master&svg=true)](https://ci.appveyor.com/project/DavisVaughan/furrr)
+[![R build status](https://github.com/DavisVaughan/furrr/workflows/R-CMD-check/badge.svg)](https://github.com/DavisVaughan/furrr/actions)
+[![Codecov test coverage](https://codecov.io/gh/DavisVaughan/furrr/branch/master/graph/badge.svg)](https://codecov.io/gh/DavisVaughan/furrr?branch=master)
+<!-- badges: end -->
 
 # furrr
 
@@ -128,6 +130,7 @@ more...interesting we are going to use 20 fold CV with 100 repeats.
 
 ```{r}
 library(rsample)
+library(modeldata)
 data("attrition")
 names(attrition)
 ```
