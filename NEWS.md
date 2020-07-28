@@ -1,5 +1,7 @@
 # furrr 0.1.0.9002
 
+* A MIT license is now used.
+
 Features:
 
   * Added advanced `furrr` vignette.
