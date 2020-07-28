@@ -1,6 +1,0 @@
-pandoc: 2.2.1
-pkgdown: 1.0.0
-pkgdown_sha: ~
-articles:
-  advanced-furrr-remote-connections: advanced-furrr-remote-connections.html
-
