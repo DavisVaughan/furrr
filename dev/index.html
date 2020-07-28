@@ -90,13 +90,22 @@
 <div id="furrr" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#furrr" class="anchor"></a>furrr</h1></div>
-<p>The goal of furrr is to simplify the combination of <code>purrr</code>’s family of mapping functions and <code>future</code>’s parallel processing capabilities. A new set of <code>future_map_*()</code> functions have been defined, and can be used as (hopefully) drop in replacements for the corresponding <code>map_*()</code> function.</p>
-<p>The code draws <em>heavily</em> from the implementations of <code>purrr</code> and <code>future.apply</code> and this package would not be possible without either of them.</p>
+<p>The goal of furrr is to combine purrr’s family of mapping functions with future’s parallel processing capabilities. The result is near drop in replacements for purrr functions such as <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> and <code><a href="https://purrr.tidyverse.org/reference/map2.html">map2_dbl()</a></code>, which can be replaced with their furrr equivalents of <code><a href="reference/future_map.html">future_map()</a></code> and <code><a href="reference/future_map2.html">future_map2_dbl()</a></code> to map in parallel.</p>
+<p>The code draws heavily from the implementations of purrr and future.apply and this package would not be possible without either of them.</p>
 <div id="what-has-been-implemented" class="section level2">
 <h2 class="hasAnchor">
 <a href="#what-has-been-implemented" class="anchor"></a>What has been implemented?</h2>
-<p>The full range of <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code>, <code><a href="https://purrr.tidyverse.org/reference/map2.html">map2()</a></code>, <code><a href="https://purrr.tidyverse.org/reference/map2.html">pmap()</a></code>, <code><a href="https://purrr.tidyverse.org/reference/map.html">walk()</a></code>, <code><a href="https://purrr.tidyverse.org/reference/imap.html">imap()</a></code>, <code><a href="https://purrr.tidyverse.org/reference/modify.html">modify()</a></code>, and <code><a href="https://purrr.tidyverse.org/reference/invoke.html">invoke_map()</a></code> functions have been implemented.</p>
-<p>This includes strict versions like <code><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl()</a></code> through <code><a href="reference/future_map.html">future_map_dbl()</a></code> and predicate versions like <code><a href="https://purrr.tidyverse.org/reference/map_if.html">map_at()</a></code> through <code><a href="reference/future_map.html">future_map_at()</a></code>.</p>
+<p>Every variant of the following functions have been implemented:</p>
+<ul>
+<li><code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code></li>
+<li><code><a href="https://purrr.tidyverse.org/reference/map2.html">map2()</a></code></li>
+<li><code><a href="https://purrr.tidyverse.org/reference/map2.html">pmap()</a></code></li>
+<li><code><a href="https://purrr.tidyverse.org/reference/map.html">walk()</a></code></li>
+<li><code><a href="https://purrr.tidyverse.org/reference/imap.html">imap()</a></code></li>
+<li><code><a href="https://purrr.tidyverse.org/reference/modify.html">modify()</a></code></li>
+<li><code><a href="https://purrr.tidyverse.org/reference/invoke.html">invoke_map()</a></code></li>
+</ul>
+<p>This includes atomic variants like <code><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl()</a></code> through <code><a href="reference/future_map.html">future_map_dbl()</a></code> and predicate variants like <code><a href="https://purrr.tidyverse.org/reference/map_if.html">map_at()</a></code> through <code><a href="reference/future_map.html">future_map_at()</a></code>.</p>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
@@ -104,13 +113,13 @@
 <p>You can install the released version of furrr from <a href="https://CRAN.R-project.org">CRAN</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"furrr"</span>)</pre></div>
 <p>And the development version from <a href="https://github.com/">GitHub</a> with:</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="co"># install.packages("devtools")</span>
-<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu">install_github</span>(<span class="st">"DavisVaughan/furrr"</span>)</pre></div>
+<div class="sourceCode" id="cb2"><pre class="r"><span class="co"># install.packages("remotes")</span>
+<span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"DavisVaughan/furrr"</span>)</pre></div>
 </div>
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
-<p><code>furrr</code> has been designed to function identically to <code>purrr</code>, so that you can immediately have familiarity with it.</p>
+<p>furrr has been designed to function identically to purrr, so that you can immediately have familiarity with it.</p>
 <div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">furrr</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">purrr</span>)
 
@@ -127,17 +136,10 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[2]]</span>
 <span class="co">#&gt; [1] "world"</span></pre></div>
-<p>The default backend for <code>future</code> is a sequential one. This means that the code will run out of the box, but it will <em>not</em> be in parallel. The design of <code>future</code> makes this incredibly easy to change so that your code does run in parallel.</p>
-<div class="sourceCode" id="cb4"><pre class="r"><span class="co"># You set a "plan" for how the code should run. The easiest is `multiprocess`</span>
-<span class="co"># On Mac this picks plan(multicore) and on Windows this picks plan(multisession)</span>
+<p>The default backend for future is a sequential one. This means that the above code will run out of the box, but it will <em>not</em> be in parallel. The design of future makes it incredibly easy to change this so that your code will run in parallel.</p>
+<div class="sourceCode" id="cb4"><pre class="r"><span class="co"># Set a "plan" for how the code should run.</span>
+<span class="co"># The easiest is `plan(multiprocess)`.</span>
 <span class="fu">plan</span>(<span class="no">multiprocess</span>)
-<span class="co">#&gt; Warning: [ONE-TIME WARNING] Forked processing ('multicore') is disabled</span>
-<span class="co">#&gt; in future (&gt;= 1.13.0) when running R from RStudio, because it is</span>
-<span class="co">#&gt; considered unstable. Because of this, plan("multicore") will fall</span>
-<span class="co">#&gt; back to plan("sequential"), and plan("multiprocess") will fall back to</span>
-<span class="co">#&gt; plan("multisession") - not plan("multicore") as in the past. For more details,</span>
-<span class="co">#&gt; how to control forked processing or not, and how to silence this warning in</span>
-<span class="co">#&gt; future R sessions, see ?future::supportsMulticore</span>
 
 <span class="co"># This DOES run in parallel!</span>
 <span class="fu"><a href="reference/future_map.html">future_map</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"hello"</span>, <span class="st">"world"</span>), ~<span class="no">.x</span>)
@@ -151,52 +153,35 @@
 
 <span class="co"># This should take 6 seconds in total running sequentially</span>
 <span class="fu">plan</span>(<span class="no">sequential</span>)
+
 <span class="fu">tic</span>()
 <span class="no">nothingness</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/future_map.html">future_map</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>), ~<span class="fu"><a href="https://rdrr.io/r/base/Sys.sleep.html">Sys.sleep</a></span>(<span class="no">.x</span>))
 <span class="fu">toc</span>()
 <span class="co">#&gt; 6.08 sec elapsed</span></pre></div>
 <div class="sourceCode" id="cb6"><pre class="r"><span class="co"># This should take ~2 seconds running in parallel, with a little overhead</span>
+<span class="co"># in `future_map()` from sending data to the workers. There is generally also</span>
+<span class="co"># a one time cost from `plan(multiprocess)` setting up the workers.</span>
 <span class="fu">plan</span>(<span class="no">multiprocess</span>)
+
 <span class="fu">tic</span>()
 <span class="no">nothingness</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/future_map.html">future_map</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>), ~<span class="fu"><a href="https://rdrr.io/r/base/Sys.sleep.html">Sys.sleep</a></span>(<span class="no">.x</span>))
 <span class="fu">toc</span>()
 <span class="co">#&gt; 2.212 sec elapsed</span></pre></div>
 </div>
-<div id="progress-bars" class="section level2">
-<h2 class="hasAnchor">
-<a href="#progress-bars" class="anchor"></a>Progress bars</h2>
-<p>Who doesn’t love progress bars? For <code>multiprocess</code>, <code>multicore</code>, and <code>multisession</code> plans, you can activate a progress bar for your long running task with <code>.progress = TRUE</code>. Note that these are still a bit experimental so feedback is welcome. You should get a nice progress bar that looks like this:</p>
-<p><img src="reference/figures/progress.gif" width="100%"></p>
-</div>
 <div id="a-more-compelling-use-case" class="section level2">
 <h2 class="hasAnchor">
 <a href="#a-more-compelling-use-case" class="anchor"></a>A more compelling use case</h2>
-<p>This example comes from a Vignette from <code>rsample</code>. The vignette performs a 10 fold cross validation with 10 repeats of a GLM on the attrition data set. If you want all the details with explanation, see <a href="https://cran.r-project.org/web/packages/rsample/vignettes/Working_with_rsets.html">the vignette</a>.</p>
+<p>This example comes from a vignette from rsample. The vignette performs a 10-fold cross validation with 10 repeats of a GLM on the attrition data set. If you want all the details with explanation, see <a href="https://cran.r-project.org/web/packages/rsample/vignettes/Working_with_rsets.html">the vignette</a>.</p>
 <p>The vignette example runs pretty quickly on its own, so to make things more…interesting we are going to use 20 fold CV with 100 repeats.</p>
 <div class="sourceCode" id="cb7"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">rsample</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">modeldata</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"attrition"</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">attrition</span>)
-<span class="co">#&gt;  [1] "Age"                      "Attrition"               </span>
-<span class="co">#&gt;  [3] "BusinessTravel"           "DailyRate"               </span>
-<span class="co">#&gt;  [5] "Department"               "DistanceFromHome"        </span>
-<span class="co">#&gt;  [7] "Education"                "EducationField"          </span>
-<span class="co">#&gt;  [9] "EnvironmentSatisfaction"  "Gender"                  </span>
-<span class="co">#&gt; [11] "HourlyRate"               "JobInvolvement"          </span>
-<span class="co">#&gt; [13] "JobLevel"                 "JobRole"                 </span>
-<span class="co">#&gt; [15] "JobSatisfaction"          "MaritalStatus"           </span>
-<span class="co">#&gt; [17] "MonthlyIncome"            "MonthlyRate"             </span>
-<span class="co">#&gt; [19] "NumCompaniesWorked"       "OverTime"                </span>
-<span class="co">#&gt; [21] "PercentSalaryHike"        "PerformanceRating"       </span>
-<span class="co">#&gt; [23] "RelationshipSatisfaction" "StockOptionLevel"        </span>
-<span class="co">#&gt; [25] "TotalWorkingYears"        "TrainingTimesLastYear"   </span>
-<span class="co">#&gt; [27] "WorkLifeBalance"          "YearsAtCompany"          </span>
-<span class="co">#&gt; [29] "YearsInCurrentRole"       "YearsSinceLastPromotion" </span>
-<span class="co">#&gt; [31] "YearsWithCurrManager"</span></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"attrition"</span>)</pre></div>
 <p>Set up an rsample split tibble of 20 fold CV with 100 repeats.</p>
 <div class="sourceCode" id="cb8"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">4622</span>)
-<span class="no">rs_obj</span> <span class="kw">&lt;-</span> <span class="fu">vfold_cv</span>(<span class="no">attrition</span>, <span class="kw">v</span> <span class="kw">=</span> <span class="fl">20</span>, <span class="kw">repeats</span> <span class="kw">=</span> <span class="fl">100</span>)
-<span class="no">rs_obj</span>
+
+<span class="no">folds</span> <span class="kw">&lt;-</span> <span class="fu">vfold_cv</span>(<span class="no">attrition</span>, <span class="kw">v</span> <span class="kw">=</span> <span class="fl">20</span>, <span class="kw">repeats</span> <span class="kw">=</span> <span class="fl">100</span>)
+
+<span class="no">folds</span>
 <span class="co">#&gt; #  20-fold cross-validation repeated 100 times </span>
 <span class="co">#&gt; # A tibble: 2,000 x 3</span>
 <span class="co">#&gt;    splits            id        id2   </span>
@@ -214,43 +199,48 @@
 <span class="co">#&gt; # … with 1,990 more rows</span></pre></div>
 <p>The model formula below is going to be used in the GLM.</p>
 <div class="sourceCode" id="cb9"><pre class="r"><span class="no">mod_form</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/formula.html">as.formula</a></span>(<span class="no">Attrition</span> ~ <span class="no">JobSatisfaction</span> + <span class="no">Gender</span> + <span class="no">MonthlyIncome</span>)</pre></div>
-<p>For each split, we want to calculate assessments on the holdout data, so a function was created to allow us to apply the model and easily extract what we need from each split.</p>
-<div class="sourceCode" id="cb10"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">broom</span>)
-<span class="co">## splits will be the `rsplit` object with the 95/5 partition</span>
-<span class="no">holdout_results</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">splits</span>, <span class="no">...</span>) {
-  <span class="co"># Fit the model to the 95%</span>
-  <span class="no">mod</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span>(<span class="no">...</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="fu">analysis</span>(<span class="no">splits</span>), <span class="kw">family</span> <span class="kw">=</span> <span class="no">binomial</span>)
-  <span class="co"># Save the 5%</span>
+<p>For each split, we want to analyze predictions on the holdout data, so a function is created to allow us to apply the model and easily extract what we need from each split.</p>
+<div class="sourceCode" id="cb10"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">yardstick</span>)
+<span class="co">#&gt; For binary classification, the first factor level is assumed to be the event.</span>
+<span class="co">#&gt; Use the argument `event_level = "second"` to alter this as needed.</span>
+
+<span class="co"># `splits` will be the `rsplit` object with the 95/5 partition</span>
+
+<span class="no">compute_holdout_results</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">splits</span>, <span class="no">...</span>) {
+  <span class="no">data</span> <span class="kw">&lt;-</span> <span class="fu">analysis</span>(<span class="no">splits</span>)
   <span class="no">holdout</span> <span class="kw">&lt;-</span> <span class="fu">assessment</span>(<span class="no">splits</span>)
-  <span class="co"># `augment` will save the predictions with the holdout data set</span>
-  <span class="no">res</span> <span class="kw">&lt;-</span> <span class="kw pkg">broom</span><span class="kw ns">::</span><span class="fu">augment</span>(<span class="no">mod</span>, <span class="kw">newdata</span> <span class="kw">=</span> <span class="no">holdout</span>)
-  <span class="co"># Class predictions on the assessment set from class probs</span>
+
+  <span class="co"># Fit the model to the 95%</span>
+  <span class="no">model</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span>(<span class="no">...</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">data</span>, <span class="kw">family</span> <span class="kw">=</span> <span class="no">binomial</span>)
+
+  <span class="no">predictions</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span>(<span class="no">model</span>, <span class="kw">newdata</span> <span class="kw">=</span> <span class="no">holdout</span>)
+
   <span class="no">lvls</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span>(<span class="no">holdout</span>$<span class="no">Attrition</span>)
-  <span class="no">predictions</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span>(<span class="no">res</span>$<span class="no">.fitted</span> <span class="kw">&gt;</span> <span class="fl">0</span>, <span class="no">lvls</span>[<span class="fl">2</span>], <span class="no">lvls</span>[<span class="fl">1</span>]),
-                        <span class="kw">levels</span> <span class="kw">=</span> <span class="no">lvls</span>)
-  <span class="co"># Calculate whether the prediction was correct</span>
-  <span class="no">res</span>$<span class="no">correct</span> <span class="kw">&lt;-</span> <span class="no">predictions</span> <span class="kw">==</span> <span class="no">holdout</span>$<span class="no">Attrition</span>
-  <span class="co"># Return the assessment data set with the additional columns</span>
-  <span class="no">res</span>
+
+  <span class="co"># Transform probability prediction to class prediction</span>
+  <span class="no">hard_prediction</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(
+    <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span>(<span class="no">predictions</span> <span class="kw">&gt;</span> <span class="fl">0</span>, <span class="no">lvls</span>[<span class="fl">2</span>], <span class="no">lvls</span>[<span class="fl">1</span>]),
+    <span class="kw">levels</span> <span class="kw">=</span> <span class="no">lvls</span>
+  )
+
+  <span class="fu">accuracy_vec</span>(<span class="no">holdout</span>$<span class="no">Attrition</span>, <span class="no">hard_prediction</span>)
 }</pre></div>
-<p>Finally, <code>purrr</code> was used to map over all of the splits, apply the model to each, and extract the results.</p>
-<p>First in sequential order…</p>
+<p>Traditionally we would now map over the splits, applying <code>compute_holdout_results()</code> to each split. Here we’ll show it in sequential order and in parallel.</p>
 <div class="sourceCode" id="cb11"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">purrr</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tictoc</span>)
 
 <span class="fu">tic</span>()
-<span class="no">rs_obj</span>$<span class="no">results</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(<span class="no">rs_obj</span>$<span class="no">splits</span>, <span class="no">holdout_results</span>, <span class="no">mod_form</span>)
+<span class="no">folds</span>$<span class="no">results</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl</a></span>(<span class="no">folds</span>$<span class="no">splits</span>, <span class="no">compute_holdout_results</span>, <span class="no">mod_form</span>)
 <span class="fu">toc</span>()
 <span class="co">#&gt; 30.095 sec elapsed</span></pre></div>
-<p>Then in parallel…</p>
 <div class="sourceCode" id="cb12"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">furrr</span>)
 <span class="fu">plan</span>(<span class="no">multiprocess</span>)
 
 <span class="fu">tic</span>()
-<span class="no">rs_obj</span>$<span class="no">results</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/future_map.html">future_map</a></span>(<span class="no">rs_obj</span>$<span class="no">splits</span>, <span class="no">holdout_results</span>, <span class="no">mod_form</span>)
+<span class="no">folds</span>$<span class="no">results</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/future_map.html">future_map_dbl</a></span>(<span class="no">folds</span>$<span class="no">splits</span>, <span class="no">compute_holdout_results</span>, <span class="no">mod_form</span>)
 <span class="fu">toc</span>()
 <span class="co">#&gt; 14.211 sec elapsed</span></pre></div>
-<p>We don’t get a 4x improvement on my 4 core Mac, but we do get a nice 2x speed up without doing any hard work. The reason we don’t get a 4x improvement is likely because of time spent transfering data to each R process, so this penalty will be minimized with longer running tasks and you might see better performance (for example, 100 fold CV with 100 repeats gave <code>122</code> seconds sequentially and <code>48</code> seconds in parallel). The implementation of <code>future_lapply()</code> does include a scheduling feature, which carried over nicely into <code>furrr</code> and efficiently breaks up the list of splits into 4 equal subsets. Each is passed to 1 core of my machine.</p>
+<p>We don’t get a 4x improvement on my 4 core Mac, but we do get a nice 2x speed up without doing any hard work. The reason we don’t get a 4x improvement is likely because of time spent transferring data to each R process, so this penalty will be minimized with longer running tasks and you might see better performance (for example, 100 fold CV with 100 repeats gave 122 seconds sequentially and 48 seconds in parallel).</p>
 </div>
 <div id="a-few-notes-on-performance" class="section level2">
 <h2 class="hasAnchor">
@@ -258,7 +248,7 @@
 <div id="data-transfer" class="section level3">
 <h3 class="hasAnchor">
 <a href="#data-transfer" class="anchor"></a>Data transfer</h3>
-<p>It’s important to remember that data has to be passed back and forth between the cores. This means that whatever performance gain you might have gotten from your parallelization can be crushed by moving large amounts of data around. For example, if instead of returning a results data frame in the above example, we returned the larger <code>glm</code> model object for each split, our performance drops a bit.</p>
+<p>It’s important to remember that data has to be passed back and forth between the cores. This means that whatever performance gain you might have gotten from your parallelization can be crushed by moving large amounts of data around. For example, if instead of returning a results data frame in the above example, we returned the larger glm model object for each split, our performance drops a bit.</p>
 <div class="sourceCode" id="cb13"><pre class="r"><span class="no">model_only</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">splits</span>, <span class="no">...</span>) {
   <span class="co"># Fit the model to the 95%</span>
   <span class="no">mod</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span>(<span class="no">...</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="fu">analysis</span>(<span class="no">splits</span>), <span class="kw">family</span> <span class="kw">=</span> <span class="no">binomial</span>)
@@ -269,29 +259,12 @@
 <span class="fu">plan</span>(<span class="no">multiprocess</span>)
 
 <span class="fu">tic</span>()
-<span class="no">rs_obj</span>$<span class="no">results2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/future_map.html">future_map</a></span>(<span class="no">rs_obj</span>$<span class="no">splits</span>, <span class="no">model_only</span>, <span class="no">mod_form</span>)
+<span class="no">folds</span>$<span class="no">results2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/future_map.html">future_map</a></span>(<span class="no">folds</span>$<span class="no">splits</span>, <span class="no">model_only</span>, <span class="no">mod_form</span>)
 <span class="fu">toc</span>()
 <span class="co">#&gt; 20.807 sec elapsed</span></pre></div>
-<p>Luckily, the <code>glm</code> model is relatively small, so we don’t experience much loss, but there are model objects out there that can be 10’s of MBs in size. For models like those, I would advise wrapping up the work you want each core to do into a function, and only returning the actual performance metric you are looking for. This might mean a little bit more work on your side, but it results in smaller objects, and faster performance.</p>
+<p>Luckily, the glm model is relatively small, so we don’t experience much loss, but there are model objects out there that can be 10’s of MBs in size. For models like those, I would advise wrapping up the work you want each core to do into a function, and only returning the actual performance metric you are looking for. This might mean a little bit more work on your side, but it results in smaller objects, and faster performance.</p>
 <p>This performance drop can especially be prominent if using <code><a href="reference/future_map2.html">future_pmap()</a></code> to iterate over rows and return large objects at each iteration.</p>
 </div>
-<div id="progress-bars-1" class="section level3">
-<h3 class="hasAnchor">
-<a href="#progress-bars-1" class="anchor"></a>Progress bars</h3>
-<p>Progress bars are best used when iterating over relatively few long running tasks. For instance, they are great when training over hyperparameters of a deep learning model, but I would not suggest them when iterating over the rows of a 100k row data frame. I’ve used every trick that I know to make them have minimal performance impact, but you will see degredation when using them with <em>lots</em> of elements to iterate over.</p>
-</div>
-</div>
-<div id="what-has-not-been-implemented-yet" class="section level2">
-<h2 class="hasAnchor">
-<a href="#what-has-not-been-implemented-yet" class="anchor"></a>What has not been implemented (yet)?</h2>
-<ul>
-<li><code><a href="https://purrr.tidyverse.org/reference/lmap.html">lmap()</a></code></li>
-</ul>
-</div>
-<div id="found-a-bug" class="section level2">
-<h2 class="hasAnchor">
-<a href="#found-a-bug" class="anchor"></a>Found a bug?</h2>
-<p>Feel free to open an issue, and I will do my best to work through it with you!</p>
 </div>
 </div>
 
