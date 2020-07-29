@@ -5,7 +5,7 @@ multi_resolve <- function(fs, nms = NULL) {
 
   ## Resolving futures
   if (debug) mdebug("Resolving %d futures (chunks) ...", nchunks)
-  values <- future::values(fs)
+  values <- future::value(fs)
   if (debug) mdebug("Resolving %d futures (chunks) ... DONE", nchunks)
 
   ## Not needed anymore

@@ -1,5 +1,8 @@
 # furrr 0.1.0.9002
 
+* future >= 1.17.0 is now required to be able to use `future::value()` instead
+  of the soon to be deprecated `future::values()` (#108).
+
 * A MIT license is now used.
 
 * Added an advanced furrr vignette detailing how to use furrr with
