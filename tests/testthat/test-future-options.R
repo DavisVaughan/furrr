@@ -1,57 +1,43 @@
-# ------------------------------------------------------------------------------
-# Setup
+test_that("can selectively export globals on multisession", {
+  local_multisession()
 
-.th <- retrieve_test_helpers()
-test_msg <- .th$test_msg
-test_dat <- .th$test_dat
-
-# ------------------------------------------------------------------------------
-# Testing
-
-for(.e in .th$executors) {
-
-  # Don't test multicore on non-Mac
-  if(.e == "multicore" && .th$system.os != "Darwin") {
-    next
+  fn <- function(x) {
+    exists("y")
   }
 
-  plan(.e, substitute = FALSE)
-
-  # Selective variable/package exports only works on multisession
-  # On multicore, it sees the variables by forked process shared memory
-  if(.e == "multisession") {
-
-    # Init x/y outside the test environment, otherwise seen by multisession
-    x <- 1
+  wrapper <- function(options = future_options()) {
     y <- 1
 
-    test_that(test_msg(.e, "selective exporting of variables works"), {
-
-      # This should result in an error, export y not x
-      #expect_error(future_map(1, ~x, .options = future_options(globals = "y")))
-
-      # This works, export x, need x
-      expect_equal(future_map(1, ~x, .options = future_options(globals = "x")), list(1))
-    })
-
-    test_that(test_msg(.e, "selective exporting of packages works"), {
-
-      # This should result in an error, export purrr not dplyr
-      expect_error(future_map(1, ~tibble(x = 1), .options = future_options(packages = "purrr")))
-
-      # This works, export dplyr, need dplyr
-      expect_equal(future_map(1, ~tibble(x = 1), .options = future_options(packages = "dplyr")),
-                   list(dplyr::tibble(x = 1)))
-    })
-
+    future_map_lgl(1, fn, .options = options)
   }
 
-  test_that(test_msg(.e, "setting seed keeps reproducible numbers"), {
+  expect_identical(wrapper(), FALSE)
 
-    opts <- future_options(seed = 1L)
+  skip("Until future.apply#62 is resolved")
+  options <- future_options(globals = "y")
+  expect_identical(wrapper(options), TRUE)
+})
 
-    expect_equal(future_map(1, runif, .options = opts),
-                 future_map(1, runif, .options = opts))
-  })
+test_that("can selectively export packages on multisession", {
+  local_multisession()
 
-}
+  opts <- future_options(packages = "dplyr")
+
+  expect_error(
+    future_map(1:2, ~tibble(x = .x))
+  )
+
+  expect_identical(
+    future_map(1:2, ~tibble(x = .x), .options = opts),
+    list(dplyr::tibble(x = 1L), dplyr::tibble(x = 2L))
+  )
+})
+
+furrr_test_that("setting seed keeps reproducible numbers", {
+  opts <- future_options(seed = 1L)
+
+  expect_identical(
+    future_map(5, runif, .options = opts),
+    future_map(5, runif, .options = opts)
+  )
+})
