@@ -2,7 +2,15 @@
 # map()
 
 furrr_test_that("future_map() matches map() for simple cases", {
-  expect_identical(future_map(1:3, ~.x), map(1:3, ~.x))
+  expect_identical(
+    future_map(1:3, ~.x),
+    map(1:3, ~.x)
+  )
+})
+
+furrr_test_that("names of `.x` are retained", {
+  x <- c(a = 1, b = 2)
+  expect_named(future_map(x, ~1), c("a", "b"))
 })
 
 # ------------------------------------------------------------------------------
@@ -44,6 +52,11 @@ furrr_test_that("future_map_chr() works", {
   )
 })
 
+furrr_test_that("names of `.x` are retained", {
+  x <- c(a = 1, b = 2)
+  expect_named(future_map_dbl(x, ~1), c("a", "b"))
+})
+
 # ------------------------------------------------------------------------------
 # data frame variants
 
@@ -77,6 +90,11 @@ furrr_test_that("future_map_at() works", {
   )
 })
 
+furrr_test_that("names of `.x` are retained", {
+  x <- list(a = "a", b = "b", c = "c")
+  expect_named(future_map_at(x, 2, ~3), c("a", "b", "c"))
+})
+
 furrr_test_that("future_map_if() works", {
   x <- list("a", "b", "c")
 
@@ -84,6 +102,11 @@ furrr_test_that("future_map_if() works", {
     future_map_if(x, ~.x %in% c("a", "c"), ~3),
     map_if(x, ~.x %in% c("a", "c"), ~3)
   )
+})
+
+furrr_test_that("names of `.x` are retained", {
+  x <- list(a = "a", b = "b", c = "c")
+  expect_named(future_map_if(x, ~.x %in% c("a", "c"), ~3), c("a", "b", "c"))
 })
 
 # ------------------------------------------------------------------------------
