@@ -25,7 +25,7 @@ Depends:
 Imports:
     globals (>= 0.12.2),
     purrr (>= 0.2.4),
-    rlang (>= 0.2.0)
+    rlang (>= 0.3.0)
 Suggests:
     covr,
     dplyr (>= 0.7.4),
