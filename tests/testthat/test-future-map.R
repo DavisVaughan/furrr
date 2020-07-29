@@ -1,111 +1,157 @@
 # ------------------------------------------------------------------------------
-# Setup
+# map()
 
-.th <- retrieve_test_helpers()
-test_msg <- .th$test_msg
-test_dat <- .th$test_dat
+furrr_test_that("future_map() matches map() for simple cases", {
+  expect_identical(future_map(1:3, ~.x), map(1:3, ~.x))
+})
 
 # ------------------------------------------------------------------------------
-# Testing
+# atomic variants
 
-for(.e in .th$executors) {
+furrr_test_that("future_map_dbl() works", {
+  x <- c(1, 2, 3)
 
-  # Don't test multicore on non-Mac
-  if(.e == "multicore" && .th$system.os != "Darwin") {
-    next
-  }
+  expect_identical(
+    future_map_dbl(x, ~.x),
+    map_dbl(x, ~.x)
+  )
+})
 
-  plan(.e, substitute = FALSE)
+furrr_test_that("future_map_int() works", {
+  x <- c(1L, 2L, 3L)
 
-  test_that(test_msg(.e, "equivalence with map()"), {
-    .f <- class
-    .purrr <- purrr::map(test_dat, .f)
-    .furrr <- furrr::future_map(test_dat, .f)
-    expect_equal(.purrr, .furrr)
+  expect_identical(
+    future_map_int(x, ~.x),
+    map_int(x, ~.x)
+  )
+})
+
+furrr_test_that("future_map_lgl() works", {
+  x <- c(TRUE, FALSE, TRUE)
+
+  expect_identical(
+    future_map_lgl(x, ~.x),
+    map_lgl(x, ~.x)
+  )
+})
+
+furrr_test_that("future_map_chr() works", {
+  x <- c("a", "b", "c")
+
+  expect_identical(
+    future_map_chr(x, ~.x),
+    map_chr(x, ~.x)
+  )
+})
+
+# ------------------------------------------------------------------------------
+# data frame variants
+
+furrr_test_that("future_map_dfr() works", {
+  x <- c("a", "b", "c")
+
+  expect_identical(
+    future_map_dfr(x, ~data.frame(x = .x)),
+    map_dfr(x, ~data.frame(x = .x))
+  )
+})
+
+furrr_test_that("future_map_dfc() works", {
+  x <- c("a", "b", "c")
+
+  expect_identical(
+    future_map_dfc(x, ~as.data.frame(set_names(list(1), .x))),
+    map_dfc(x, ~as.data.frame(set_names(list(1), .x)))
+  )
+})
+
+# ------------------------------------------------------------------------------
+# at / if variants
+
+furrr_test_that("future_map_at() works", {
+  x <- list("a", "b", "c")
+
+  expect_identical(
+    future_map_at(x, 2, ~3),
+    map_at(x, 2, ~3)
+  )
+})
+
+furrr_test_that("future_map_if() works", {
+  x <- list("a", "b", "c")
+
+  expect_identical(
+    future_map_if(x, ~.x %in% c("a", "c"), ~3),
+    map_if(x, ~.x %in% c("a", "c"), ~3)
+  )
+})
+
+# ------------------------------------------------------------------------------
+# Miscellaneous
+
+furrr_test_that("Calling `~` from within `.f` works", {
+  x <- list(
+    list(a = 4, b = 6),
+    list(c = 5, d = 7)
+  )
+
+  expect_identical(future_map(x, ~map(.x, ~.x)), x)
+})
+
+furrr_test_that("Calling `~` from within `.f` inside a `mutate()` works (#7, #123)", {
+  x <- list(
+    list(a = 4, b = 6),
+    list(c = 5, d = 7)
+  )
+
+  df <- dplyr::tibble(x = x)
+
+  expect_identical(
+    dplyr::mutate(df, x = future_map(x, ~map(.x, ~.x))),
+    df
+  )
+})
+
+furrr_test_that("globals in `.x` are found (#16)", {
+  fn <- function(x) sum(x, na.rm = TRUE)
+
+  x <- list(c(1, 2, NA), c(2, 3, 4))
+
+  fns1 <- map(x, ~ purrr::partial(fn, x = .x))
+  fns2 <- map(x, ~ function() fn(.x))
+
+  expect_identical(future_map_dbl(fns1, ~.x()), c(3, 9))
+  expect_identical(future_map_dbl(fns2, ~.x()), c(3, 9))
+})
+
+
+test_that("globals in `.x` are only exported to workers that use them", {
+  local_multisession()
+
+  # Use `local()` to ensure that the wrapper functions and the anonymous
+  # functions created with `~` don't pick up extra globals
+  my_wrapper1 <- local({
+    my_mean1 <- function(x) mean(x, na.rm = TRUE)
+
+    function(x) {
+      my_mean1(x)
+      exists("my_mean1")
+    }
   })
 
-  test_that(test_msg(.e, "equivalence with vector map()s"), {
-    .f <- class
-    .purrr <- purrr::map_chr(test_dat, .f)
-    .furrr <- furrr::future_map_chr(test_dat, .f)
-    expect_equal(.purrr, .furrr)
+  my_wrapper2 <- local({
+    my_mean2 <- function(x) mean(x, na.rm = FALSE)
+
+    function(x) {
+      my_mean2(x)
+      exists("my_mean1")
+    }
   })
 
-  test_that(test_msg(.e, "equivalence with df map()s"), {
-    .f <- ~data.frame(x = class(.x))
-    .purrr <- purrr::map_dfr(test_dat, .f)
-    .furrr <- furrr::future_map_dfr(test_dat, .f)
-    expect_equal(.purrr, .furrr)
-  })
+  x <- list(my_wrapper1, my_wrapper2)
 
-  test_that(test_msg(.e, "equivalence with map_at()"), {
-    .f <- class
-    .purrr <- purrr::map_at(test_dat, 1, .f)
-    .furrr <- furrr::future_map_at(test_dat, 1, .f)
-    expect_equal(.purrr, .furrr)
-  })
-
-  test_that(test_msg(.e, "equivalence with map_if()"), {
-    .f <- class
-    .purrr <- purrr::map_if(test_dat, ~.x == 1, .f)
-    .furrr <- furrr::future_map_if(test_dat, ~.x == 1, .f)
-    expect_equal(.purrr, .furrr)
-  })
-
-  # See issue #7
-  test_that(test_msg(.e, "Working mutate+map double nest with ~"), {
-    skip_on_cran()
-    deep_list <- dplyr::tibble(
-      deep_nest = list(
-        list(
-          list(a = 4),
-          list(b = 6)
-        )
-      )
-    )
-
-    res <- dplyr::mutate(
-      .data = deep_list,
-      mod_nest = future_map(
-        .x = deep_nest,
-        .f = ~{
-          x <- .x
-          purrr::map(x, ~.x)
-        })
-    )
-
-    expect_equal(rlang::squash_dbl(res$mod_nest), c(a = 4, b = 6))
-  })
-
-  # See issue #16
-  test_that(test_msg(.e, "Globals in .x are found (.x could be a fn)"), {
-
-    my_robust_sum <- function(x) sum(x, na.rm = TRUE) # Can you find me?
-    multi_x <- list(c(1, 2, NA), c(2, 3, 4))
-    Xs <- purrr::map(multi_x, ~ purrr::partial(my_robust_sum, .x))
-
-    .purrr <- purrr::map(.x = Xs, .f = ~.x())
-    .furrr <- future_map(.x = Xs, .f = ~.x())
-
-    expect_equal(.purrr, .furrr)
-  })
-
-  test_that(test_msg(.e, "Globals in .x are only exported to workers that use them"), {
-
-    # This test is difficult to check without manually inspecting what gets exported
-
-    my_mean  <- function(x) { mean(x, na.rm = TRUE) } # Exported to worker 1
-    my_mean2 <- function(x) { mean(x, na.rm = TRUE) } # Exported to worker 2
-
-    my_wrapper  <- function(x) { my_mean(x)  }
-    my_wrapper2 <- function(x) { my_mean2(x) }
-
-    .l <- list(my_wrapper, my_wrapper2)
-
-    .purrr <- purrr::map(.x = .l, .f = ~.x(1))
-    .furrr <- future_map(.x = .l, .f = ~.x(1))
-
-    expect_equal(.purrr, .furrr)
-  })
-
-}
+  expect_identical(
+    future_map_lgl(.x = x, .f = ~.x(c(1, NA))),
+    c(TRUE, FALSE)
+  )
+})
