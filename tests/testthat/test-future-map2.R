@@ -1,65 +1,112 @@
 # ------------------------------------------------------------------------------
-# Setup
+# map2()
 
-.th <- retrieve_test_helpers()
-test_msg <- .th$test_msg
-test_dat <- .th$test_dat
-test_dat2 <- test_dat
+furrr_test_that("future_map2() matches map2() for simple cases", {
+  expect_identical(
+    future_map2(1:3, 4:6, ~.x + .y),
+    map2(1:3, 4:6, ~.x + .y)
+  )
+})
+
+furrr_test_that("names of `.x` are retained", {
+  x <- c(a = 1, b = 2)
+  y <- c(c = 1, d = 2)
+  expect_named(future_map2(x, y, ~1), c("a", "b"))
+})
 
 # ------------------------------------------------------------------------------
-# Testing
+# atomic variants
 
-for(.e in .th$executors) {
+furrr_test_that("future_map2_dbl() works", {
+  x <- c(1, 2, 3)
+  y <- c(4, 5, 6)
 
-  # Don't test multicore on non-Mac
-  if(.e == "multicore" && .th$system.os != "Darwin") {
-    next
-  }
+  expect_identical(
+    future_map2_dbl(x, y, ~.x + .y),
+    map2_dbl(x, y, ~.x + .y)
+  )
+})
 
-  plan(.e, substitute = FALSE)
+furrr_test_that("future_map2_int() works", {
+  x <- c(1L, 2L, 3L)
+  y <- c(4L, 5L, 6L)
 
-  test_that(test_msg(.e, "equivalence with map2()"), {
-    .f <- identical
-    .purrr <- purrr::map2(test_dat, test_dat2, .f)
-    .furrr <- furrr::future_map2(test_dat, test_dat2, .f)
-    expect_equal(.purrr, .furrr)
-  })
+  expect_identical(
+    future_map2_int(x, y, ~.x + .y),
+    map2_int(x, y, ~.x + .y)
+  )
+})
 
-  test_that(test_msg(.e, "equivalence with vector map2()s"), {
-    .f <- ~as.character(sum(.x, .y))
-    .purrr <- purrr::map2_chr(test_dat, test_dat2, .f)
-    .furrr <- furrr::future_map2_chr(test_dat, test_dat2, .f)
-    expect_equal(.purrr, .furrr)
-  })
+furrr_test_that("future_map2_lgl() works", {
+  x <- c(TRUE, FALSE, TRUE)
+  y <- c(FALSE, TRUE, TRUE)
 
-  test_that(test_msg(.e, "equivalence with df map2()s"), {
-    .f <- ~data.frame(x = sum(.x, .y))
-    .purrr <- purrr::map2_dfr(test_dat, test_dat2, .f)
-    .furrr <- furrr::future_map2_dfr(test_dat, test_dat2, .f)
-    expect_equal(.purrr, .furrr)
-  })
+  expect_identical(
+    future_map2_lgl(x, y, ~.x || .y),
+    map2_lgl(x, y, ~.x || .y)
+  )
+})
 
-  # See issue #16
-  test_that(test_msg(.e, "Globals in .x and .y are found (.y could be a fn)"), {
+furrr_test_that("future_map2_chr() works", {
+  x <- c("a", "b", "c")
+  y <- c("d", "e", "f")
 
-    my_robust_sum <- function(x) sum(x, na.rm = TRUE)  # Can you find me?
-    my_robust_sum2 <- function(x) sum(x, na.rm = TRUE) # Can you find me?
-    multi_x <- list(c(1, 2, NA), c(2, 3, 4))
-    Xs <- purrr::map(multi_x, ~ purrr::partial(my_robust_sum, .x))
-    Ys <- purrr::map(multi_x, ~ purrr::partial(my_robust_sum2, .x))
+  expect_identical(
+    future_map2_chr(x, y, ~.y),
+    map2_chr(x, y, ~.y)
+  )
+})
 
-    .purrr <- purrr::map2(.x = Xs, .y = Ys, .f = ~c(.x(), .y()))
-    .furrr <- future_map2(.x = Xs, .y = Ys, .f = ~c(.x(), .y()))
+furrr_test_that("names of `.x` are retained", {
+  x <- c(a = 1, b = 2)
+  y <- c(c = 1, d = 2)
+  expect_named(future_map2_dbl(x, y, ~1), c("a", "b"))
+})
 
-    expect_equal(.purrr, .furrr)
-  })
+# ------------------------------------------------------------------------------
+# data frame variants
 
-  # See issue #30
-  test_that(test_msg(.e, "chunk balancing is correct after a .x recycle"), {
-    .f <- ~c(.x, .y)
-    .purrr <- purrr::map2(1, test_dat, .f)
-    .furrr <- future_map2(1, test_dat, .f)
-    expect_equal(.purrr, .furrr)
-  })
+furrr_test_that("future_map2_dfr() works", {
+  x <- c("a", "b", "c")
+  y <- c("d", "e", "f")
 
-}
+  expect_identical(
+    future_map2_dfr(x, y, ~data.frame(x = .x, y = .y)),
+    map2_dfr(x, y, ~data.frame(x = .x, y = .y))
+  )
+})
+
+furrr_test_that("future_map2_dfc() works", {
+  x <- c("a", "b", "c")
+  y <- c("d", "e", "f")
+
+  expect_identical(
+    future_map2_dfc(x, y, ~as.data.frame(set_names(list(.x), .y))),
+    map2_dfc(x, y, ~as.data.frame(set_names(list(.x), .y)))
+  )
+})
+
+# ------------------------------------------------------------------------------
+# Miscellaneous
+
+furrr_test_that("globals in `.x` and `.y` are found (#16)", {
+  fn1 <- function(x) sum(x, na.rm = TRUE)
+  fn2 <- function(x) sum(x, na.rm = FALSE)
+
+  x <- list(c(1, 2, NA), c(2, 3, 4))
+
+  fns1 <- map(x, ~ purrr::partial(fn1, x = .x))
+  fns2 <- map(x, ~ purrr::partial(fn2, x = .x))
+
+  expect_identical(
+    future_map2(fns1, fns2, ~c(.x(), .y())),
+    list(c(3, NA), c(9, 9))
+  )
+})
+
+furrr_test_that("chunk balancing is correct after a recycle (#30)", {
+  expect_identical(
+    future_map2(1, 1:4, ~c(.x, .y)),
+    list(c(1, 1), c(1, 2), c(1, 3), c(1, 4))
+  )
+})
