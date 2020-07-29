@@ -255,8 +255,8 @@ e.g. logical -&gt; integer -&gt; double -&gt; character.</p>
 
 <span class='fl'>1</span>:<span class='fl'>10</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>future_map</span>(<span class='no'>rnorm</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>10</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>future_map_dbl</span>(<span class='no'>mean</span>)</div><div class='output co'>#&gt;  [1] 1.162889 1.668536 3.454579 3.822479 5.039679 6.062331 6.848606 8.092343
-#&gt;  [9] 9.025848 9.667077</div><div class='input'>
+  <span class='fu'>future_map_dbl</span>(<span class='no'>mean</span>)</div><div class='output co'>#&gt;  [1]  0.1625586  1.5510850  3.7796861  4.0153023  5.2634372  5.7995739
+#&gt;  [7]  6.6370791  7.8776688  8.7337429 10.5064581</div><div class='input'>
 <span class='co'># If each element of the output is a data frame, use</span>
 <span class='co'># future_map_dfr to row-bind them together:</span>
 <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span>
