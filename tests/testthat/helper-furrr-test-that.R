@@ -37,6 +37,6 @@ supported_max_cores <- function(strategy) {
   if (identical(strategy, "sequential")) {
     1L
   } else {
-    min(2L, availableCores())
+    min(2L, future::availableCores())
   }
 }
