@@ -131,6 +131,7 @@
 <a href="#furrr-0109002" class="anchor"></a>furrr 0.1.0.9002<small> Unreleased </small>
 </h1>
 <ul>
+<li><p>rlang &gt;= 0.3.0 is now required to ensure that the rlang <code>~</code> is serializable. The hacks in furrr that tried to work around this have been removed (<a href='https://github.com/DavisVaughan/furrr/issues/123'>#123</a>).</p></li>
 <li><p>future &gt;= 1.17.0 is now required to be able to use <code><a href="https://rdrr.io/pkg/future/man/value.html">future::value()</a></code> instead of the soon to be deprecated <code><a href="https://rdrr.io/pkg/future/man/values.html">future::values()</a></code> (<a href='https://github.com/DavisVaughan/furrr/issues/108'>#108</a>).</p></li>
 <li><p>A MIT license is now used.</p></li>
 <li><p>Added an advanced furrr vignette detailing how to use furrr with remote connections.</p></li>
