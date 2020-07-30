@@ -23,6 +23,7 @@ Depends:
     future (>= 1.17.0),
     R (>= 3.2.0)
 Imports:
+    lifecycle (>= 0.2.0),
     globals (>= 0.12.2),
     purrr (>= 0.2.4),
     rlang (>= 0.3.0)

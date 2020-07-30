@@ -6,15 +6,21 @@
 \alias{future_modify_if}
 \title{Modify elements selectively via futures}
 \usage{
-future_modify(.x, .f, ..., .progress = FALSE, .options = future_options())
+future_modify(
+  .x,
+  .f,
+  ...,
+  .options = future_options(),
+  .progress = deprecated()
+)
 
 future_modify_at(
   .x,
   .at,
   .f,
   ...,
-  .progress = FALSE,
-  .options = future_options()
+  .options = future_options(),
+  .progress = deprecated()
 )
 
 future_modify_if(
@@ -22,8 +28,8 @@ future_modify_if(
   .p,
   .f,
   ...,
-  .progress = FALSE,
-  .options = future_options()
+  .options = future_options(),
+  .progress = deprecated()
 )
 }
 \arguments{
@@ -51,11 +57,13 @@ present, the value of \code{.default} will be returned.}
 
 \item{...}{Additional arguments passed on to the mapped function.}
 
-\item{.progress}{A logical, for whether or not to print a progress bar for
-multiprocess, multisession, and multicore plans.}
-
 \item{.options}{The \code{future} specific options to use with the workers. This must
 be the result from a call to \code{\link[=future_options]{future_options()}}.}
+
+\item{.progress}{\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}}:
+No longer has any effect. Use the
+\href{https://cran.r-project.org/web/packages/progressr/index.html}{progressr}
+package instead.}
 
 \item{.at}{A character vector of names, positive numeric vector of
 positions to include, or a negative numeric vector of positions to

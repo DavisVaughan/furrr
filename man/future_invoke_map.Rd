@@ -15,8 +15,8 @@ future_invoke_map(
   .x = list(NULL),
   ...,
   .env = NULL,
-  .progress = FALSE,
-  .options = future_options()
+  .options = future_options(),
+  .progress = deprecated()
 )
 
 future_invoke_map_chr(
@@ -24,8 +24,8 @@ future_invoke_map_chr(
   .x = list(NULL),
   ...,
   .env = NULL,
-  .progress = FALSE,
-  .options = future_options()
+  .options = future_options(),
+  .progress = deprecated()
 )
 
 future_invoke_map_dbl(
@@ -33,8 +33,8 @@ future_invoke_map_dbl(
   .x = list(NULL),
   ...,
   .env = NULL,
-  .progress = FALSE,
-  .options = future_options()
+  .options = future_options(),
+  .progress = deprecated()
 )
 
 future_invoke_map_int(
@@ -42,8 +42,8 @@ future_invoke_map_int(
   .x = list(NULL),
   ...,
   .env = NULL,
-  .progress = FALSE,
-  .options = future_options()
+  .options = future_options(),
+  .progress = deprecated()
 )
 
 future_invoke_map_lgl(
@@ -51,8 +51,8 @@ future_invoke_map_lgl(
   .x = list(NULL),
   ...,
   .env = NULL,
-  .progress = FALSE,
-  .options = future_options()
+  .options = future_options(),
+  .progress = deprecated()
 )
 
 future_invoke_map_dfr(
@@ -60,8 +60,8 @@ future_invoke_map_dfr(
   .x = list(NULL),
   ...,
   .env = NULL,
-  .progress = FALSE,
-  .options = future_options()
+  .options = future_options(),
+  .progress = deprecated()
 )
 
 future_invoke_map_dfc(
@@ -69,8 +69,8 @@ future_invoke_map_dfc(
   .x = list(NULL),
   ...,
   .env = NULL,
-  .progress = FALSE,
-  .options = future_options()
+  .options = future_options(),
+  .progress = deprecated()
 )
 }
 \arguments{
@@ -88,11 +88,13 @@ evaluate a constructed expression. This only matters if you pass
 as \code{.f} the name of a function rather than its value, or as
 \code{.x} symbols of objects rather than their values.}
 
-\item{.progress}{A logical, for whether or not to print a progress bar for
-multiprocess, multisession, and multicore plans.}
-
 \item{.options}{The \code{future} specific options to use with the workers. This must
 be the result from a call to \code{\link[=future_options]{future_options()}}.}
+
+\item{.progress}{\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}}:
+No longer has any effect. Use the
+\href{https://cran.r-project.org/web/packages/progressr/index.html}{progressr}
+package instead.}
 }
 \description{
 These functions work exactly the same as \code{\link[purrr:invoke]{purrr::invoke_map()}} functions, but allow

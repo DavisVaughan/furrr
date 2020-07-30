@@ -1,4 +1,4 @@
-future_map2_template <- function(.map, .type, .x, .y, .f, ..., .progress, .options) {
+future_map2_template <- function(.map, .type, .x, .y, .f, ..., .options) {
 
   # Assert future options
   assert_future_options(.options)
@@ -46,7 +46,7 @@ future_map2_template <- function(.map, .type, .x, .y, .f, ..., .progress, .optio
   ## 2. Packages
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  .options <- gather_globals_and_packages(.options, .map, .f, .progress, envir, ...)
+  .options <- gather_globals_and_packages(.options, .map, .f, envir, ...)
 
   globals <- .options$globals
   packages <- .options$packages
@@ -137,18 +137,10 @@ future_map2_template <- function(.map, .type, .x, .y, .f, ..., .progress, .optio
     if (is.null(seeds)) {
       if (debug) mdebug(" - seeds: <none>")
       fs[[ii]] <- future::future({
-        # Make persistent file connection
-        if(.progress) {
-          temp_file_con <- file(temp_file, "a")
-          on.exit(close(temp_file_con))
-        }
-
         ...future.map(seq_along(...future.x_ii), .f = function(jj) {
           ...future.x_jj <- ...future.x_ii[[jj]]
           ...future.y_jj <- ...future.y_ii[[jj]]
-          .out <- ...future.f(...future.x_jj, ...future.y_jj, ...)
-          if(.progress) update_progress(temp_file_con)
-          .out
+          ...future.f(...future.x_jj, ...future.y_jj, ...)
         })
 
       }, envir = envir, lazy = .options$lazy, globals = globals_ii, packages = packages_ii)
@@ -156,19 +148,11 @@ future_map2_template <- function(.map, .type, .x, .y, .f, ..., .progress, .optio
       if (debug) mdebug(" - seeds: [%d] <seeds>", length(chunk))
       globals_ii[["...future.seeds_ii"]] <- seeds[chunk]
       fs[[ii]] <- future::future({
-        # Make persistent file connection
-        if(.progress) {
-          temp_file_con <- file(temp_file, "a")
-          on.exit(close(temp_file_con))
-        }
-
         ...future.map(seq_along(...future.x_ii), .f = function(jj) {
           ...future.x_jj <- ...future.x_ii[[jj]]
           ...future.y_jj <- ...future.y_ii[[jj]]
           assign(".Random.seed", ...future.seeds_ii[[jj]], envir = globalenv(), inherits = FALSE)
-          .out <- ...future.f(...future.x_jj, ...future.y_jj, ...)
-          if(.progress) update_progress(temp_file_con)
-          .out
+          ...future.f(...future.x_jj, ...future.y_jj, ...)
         })
 
       }, envir = envir, lazy = .options$lazy, globals = globals_ii, packages = packages_ii)
@@ -180,13 +164,6 @@ future_map2_template <- function(.map, .type, .x, .y, .f, ..., .progress, .optio
     if (debug) mdebug("Chunk #%d of %d ... DONE", ii, nchunks)
   } ## for (ii ...)
   if (debug) mdebug("Launching %d futures (chunks) ... DONE", nchunks)
-
-  ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  ## 6. Print progress
-  ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  if(.progress) {
-    poll_progress(fs, globals$temp_file, n.x)
-  }
 
   ## FINISHED - Not needed anymore
   rm(list = c("chunks", "globals", "envir"))

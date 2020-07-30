@@ -1,4 +1,4 @@
-gather_globals_and_packages <- function(.options, .map, .f, .progress, envir, ...) {
+gather_globals_and_packages <- function(.options, .map, .f, envir, ...) {
 
   debug <- getOption("future.debug", FALSE)
   objectSize <- import_future("objectSize")
@@ -111,20 +111,6 @@ gather_globals_and_packages <- function(.options, .map, .f, .progress, envir, ..
   if (debug) {
     mdebug("Packages to be attached in all futures:")
     mdebug(paste(utils::capture.output(utils::str(packages)), collapse = "\n"))
-  }
-
-  ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  ## 3. Progress
-  ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-  # .progress always needs to be on the workers for the if statement...
-  globals <- c(globals, .progress = .progress)
-
-  # ...but we add the tempfile and the function if .progress = TRUE
-  if(.progress) {
-    temp_file <- tempfile(fileext = ".txt")
-    writeLines("falsetick", temp_file)
-    globals <- c(globals, update_progress = update_progress, temp_file = temp_file)
   }
 
   .options$packages <- packages

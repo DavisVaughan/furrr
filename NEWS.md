@@ -1,5 +1,16 @@
 # furrr 0.1.0.9002
 
+* The `.progress` argument has been deprecated. While useful, it was built using
+  a hack that I deeply regret. There were performance issues, it didn't
+  work on all future backends, and could even cause errors on some. Using
+  the `.progress` argument will now trigger a once per session warning, and
+  will no longer generate a progress bar. Instead, please use the
+  [progressr](https://cran.r-project.org/web/packages/progressr/index.html)
+  package. It uses a much more robust idea, and has been integrated with future
+  in such a way that it can relay near real-time progress updates, even from
+  remote connections. That said, be aware that it is a relatively new package
+  and the API is still stabilizing.
+
 * rlang >= 0.3.0 is now required to ensure that the rlang `~` is serializable.
   The hacks in furrr that tried to work around this have been removed (#123).
 
