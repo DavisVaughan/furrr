@@ -138,32 +138,76 @@ adapted from both <code><a href='https://purrr.tidyverse.org/reference/map.html'
 so look there for more details.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>future_map</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>())
+    <pre class="usage"><span class='fu'>future_map</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>(), <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>())
 
-<span class='fu'>future_map_chr</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>())
+<span class='fu'>future_map_chr</span>(
+  <span class='no'>.x</span>,
+  <span class='no'>.f</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>(),
+  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>()
+)
 
-<span class='fu'>future_map_dbl</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>())
+<span class='fu'>future_map_dbl</span>(
+  <span class='no'>.x</span>,
+  <span class='no'>.f</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>(),
+  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>()
+)
 
-<span class='fu'>future_map_int</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>())
+<span class='fu'>future_map_int</span>(
+  <span class='no'>.x</span>,
+  <span class='no'>.f</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>(),
+  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>()
+)
 
-<span class='fu'>future_map_lgl</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>())
+<span class='fu'>future_map_lgl</span>(
+  <span class='no'>.x</span>,
+  <span class='no'>.f</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>(),
+  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>()
+)
 
 <span class='fu'>future_map_dfr</span>(
   <span class='no'>.x</span>,
   <span class='no'>.f</span>,
   <span class='no'>...</span>,
   <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>()
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>(),
+  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>()
 )
 
-<span class='fu'>future_map_dfc</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>())
+<span class='fu'>future_map_dfc</span>(
+  <span class='no'>.x</span>,
+  <span class='no'>.f</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>(),
+  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>()
+)
 
-<span class='fu'>future_map_if</span>(<span class='no'>.x</span>, <span class='no'>.p</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>())
+<span class='fu'>future_map_if</span>(
+  <span class='no'>.x</span>,
+  <span class='no'>.p</span>,
+  <span class='no'>.f</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>(),
+  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>()
+)
 
-<span class='fu'>future_map_at</span>(<span class='no'>.x</span>, <span class='no'>.at</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>())
+<span class='fu'>future_map_at</span>(
+  <span class='no'>.x</span>,
+  <span class='no'>.at</span>,
+  <span class='no'>.f</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>(),
+  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>()
+)
 
-<span class='fu'>future_walk</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>())</pre>
+<span class='fu'>future_walk</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>())</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -195,14 +239,16 @@ present, the value of <code>.default</code> will be returned.</p></td>
       <td><p>Additional arguments passed on to the mapped function.</p></td>
     </tr>
     <tr>
-      <th>.progress</th>
-      <td><p>A logical, for whether or not to print a progress bar for
-multiprocess, multisession, and multicore plans.</p></td>
-    </tr>
-    <tr>
       <th>.options</th>
       <td><p>The <code>future</code> specific options to use with the workers. This must
 be the result from a call to <code><a href='future_options.html'>future_options()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>.progress</th>
+      <td><p><img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' />:
+No longer has any effect. Use the
+<a href='https://cran.r-project.org/web/packages/progressr/index.html'>progressr</a>
+package instead.</p></td>
     </tr>
     <tr>
       <th>.id</th>
@@ -255,8 +301,8 @@ e.g. logical -&gt; integer -&gt; double -&gt; character.</p>
 
 <span class='fl'>1</span>:<span class='fl'>10</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>future_map</span>(<span class='no'>rnorm</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>10</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>future_map_dbl</span>(<span class='no'>mean</span>)</div><div class='output co'>#&gt;  [1]  0.8301689  1.7951347  3.4094075  4.2446464  4.9375944  5.8422125
-#&gt;  [7]  6.7449718  8.2208967  8.6236342 10.0619398</div><div class='input'>
+  <span class='fu'>future_map_dbl</span>(<span class='no'>mean</span>)</div><div class='output co'>#&gt;  [1]  1.245161  2.119907  3.328149  3.629935  4.824969  6.583845  6.849823
+#&gt;  [8]  7.593139  8.481830 10.268107</div><div class='input'>
 <span class='co'># If each element of the output is a data frame, use</span>
 <span class='co'># future_map_dfr to row-bind them together:</span>
 <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span>

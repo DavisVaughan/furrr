@@ -131,6 +131,7 @@
 <a href="#furrr-0109002" class="anchor"></a>furrr 0.1.0.9002<small> Unreleased </small>
 </h1>
 <ul>
+<li><p>The <code>.progress</code> argument has been deprecated. While useful, it was built using a hack that I deeply regret. There were performance issues, it didn’t work on all future backends, and could even cause errors on some. Using the <code>.progress</code> argument will now trigger a once per session warning, and will no longer generate a progress bar. Instead, please use the <a href="https://cran.r-project.org/web/packages/progressr/index.html">progressr</a> package. It uses a much more robust idea, and has been integrated with future in such a way that it can relay near real-time progress updates, even from remote connections. That said, be aware that it is a relatively new package and the API is still stabilizing.</p></li>
 <li><p>rlang &gt;= 0.3.0 is now required to ensure that the rlang <code>~</code> is serializable. The hacks in furrr that tried to work around this have been removed (<a href='https://github.com/DavisVaughan/furrr/issues/123'>#123</a>).</p></li>
 <li><p>future &gt;= 1.17.0 is now required to be able to use <code><a href="https://rdrr.io/pkg/future/man/value.html">future::value()</a></code> instead of the soon to be deprecated <code><a href="https://rdrr.io/pkg/future/man/values.html">future::values()</a></code> (<a href='https://github.com/DavisVaughan/furrr/issues/108'>#108</a>).</p></li>
 <li><p>A MIT license is now used.</p></li>

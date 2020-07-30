@@ -134,15 +134,21 @@ you to modify in parallel." />
 you to modify in parallel.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>future_modify</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>())
+    <pre class="usage"><span class='fu'>future_modify</span>(
+  <span class='no'>.x</span>,
+  <span class='no'>.f</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>(),
+  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>()
+)
 
 <span class='fu'>future_modify_at</span>(
   <span class='no'>.x</span>,
   <span class='no'>.at</span>,
   <span class='no'>.f</span>,
   <span class='no'>...</span>,
-  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>()
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>(),
+  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>()
 )
 
 <span class='fu'>future_modify_if</span>(
@@ -150,8 +156,8 @@ you to modify in parallel.</p>
   <span class='no'>.p</span>,
   <span class='no'>.f</span>,
   <span class='no'>...</span>,
-  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>()
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>(),
+  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>()
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -184,14 +190,16 @@ present, the value of <code>.default</code> will be returned.</p></td>
       <td><p>Additional arguments passed on to the mapped function.</p></td>
     </tr>
     <tr>
-      <th>.progress</th>
-      <td><p>A logical, for whether or not to print a progress bar for
-multiprocess, multisession, and multicore plans.</p></td>
-    </tr>
-    <tr>
       <th>.options</th>
       <td><p>The <code>future</code> specific options to use with the workers. This must
 be the result from a call to <code><a href='future_options.html'>future_options()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>.progress</th>
+      <td><p><img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' />:
+No longer has any effect. Use the
+<a href='https://cran.r-project.org/web/packages/progressr/index.html'>progressr</a>
+package instead.</p></td>
     </tr>
     <tr>
       <th>.at</th>
