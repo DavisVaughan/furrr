@@ -148,16 +148,6 @@ future_pmap_template <- function(.map, .type, .l, .f, ..., .progress, .options) 
     if (is.null(seeds)) {
       if (debug) mdebug(" - seeds: <none>")
       fs[[ii]] <- future::future({
-
-        # rlang tilde - when serializing with multisession, the pointer becomes 0x0
-        # Temp solution is to readd base::`~` into the .f environment if necessary
-        ...future.f.env <- environment(...future.f)
-        if(!is.null(...future.f.env$`~`)) {
-          if(is_bad_rlang_tilde(...future.f.env$`~`)) {
-            ...future.f.env$`~` <- base::`~`
-          }
-        }
-
         # Attach the dots as a named element, these will be recycled
         # double list to keep the names once passed to ...future.f
         ...future.lst_ii$...future.dots <- list(list(...))
@@ -183,16 +173,6 @@ future_pmap_template <- function(.map, .type, .l, .f, ..., .progress, .options) 
       if (debug) mdebug(" - seeds: [%d] <seeds>", length(chunk))
       globals_ii[["...future.seeds_ii"]] <- seeds[chunk]
       fs[[ii]] <- future::future({
-
-        # rlang tilde - when serializing with multisession, the pointer becomes 0x0
-        # Temp solution is to readd base::`~` into the .f environment if necessary
-        ...future.f.env <- environment(...future.f)
-        if(!is.null(...future.f.env$`~`)) {
-          if(is_bad_rlang_tilde(...future.f.env$`~`)) {
-            ...future.f.env$`~` <- base::`~`
-          }
-        }
-
         # Attach the current seeds to the lst as a named element, these will be iterated over
         ...future.lst_ii$...future.seeds_ii <- ...future.seeds_ii
 

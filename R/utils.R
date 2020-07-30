@@ -68,30 +68,6 @@ get_zero_length_type <- function(.type) {
   )
 }
 
-# Catch a NULL pointer that can result from serialization of the rlang::`~`
-is_bad_rlang_tilde <- function(tilde) {
-
-  # Attempt to call the tilde.
-  # If bad, get a "NULL value passed as symbol address" error
-  tilde_msg <- tryCatch(
-    expr = {
-      tilde()
-      "no issues"
-    },
-    error = function(e) {
-      e
-    }
-  )
-
-  if(tilde_msg != "no issues") {
-    is_bad <- TRUE
-  } else {
-    is_bad <- FALSE
-  }
-
-  is_bad
-}
-
 # ------------------------------------------------------------------------------
 # from future.apply
 
