@@ -140,7 +140,8 @@ furrr_test_that("globals in `.x` and `.y` are found (#16)", {
 })
 
 test_that("globals in `.l` are only exported to workers that use them", {
-  local_multisession()
+  plan(multisession, workers = 2)
+  on.exit(plan(sequential), add = TRUE)
 
   # Use `local()` to ensure that the wrapper functions and the anonymous
   # functions created with `~` don't pick up extra globals

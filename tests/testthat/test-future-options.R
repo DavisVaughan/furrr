@@ -1,5 +1,6 @@
 test_that("can selectively export globals on multisession", {
-  local_multisession()
+  plan(multisession, workers = 2)
+  on.exit(plan(sequential), add = TRUE)
 
   fn <- function(x) {
     exists("y")
@@ -19,7 +20,8 @@ test_that("can selectively export globals on multisession", {
 })
 
 test_that("can selectively export packages on multisession", {
-  local_multisession()
+  plan(multisession, workers = 2)
+  on.exit(plan(sequential), add = TRUE)
 
   opts <- future_options(packages = "dplyr")
 
