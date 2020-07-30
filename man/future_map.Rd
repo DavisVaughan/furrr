@@ -11,13 +11,13 @@
 \alias{future_walk}
 \title{Apply a function to each element of a vector via futures}
 \usage{
-future_map(.x, .f, ..., .options = future_options(), .progress = deprecated())
+future_map(.x, .f, ..., .options = furrr_options(), .progress = deprecated())
 
 future_map_chr(
   .x,
   .f,
   ...,
-  .options = future_options(),
+  .options = furrr_options(),
   .progress = deprecated()
 )
 
@@ -25,7 +25,7 @@ future_map_dbl(
   .x,
   .f,
   ...,
-  .options = future_options(),
+  .options = furrr_options(),
   .progress = deprecated()
 )
 
@@ -33,7 +33,7 @@ future_map_int(
   .x,
   .f,
   ...,
-  .options = future_options(),
+  .options = furrr_options(),
   .progress = deprecated()
 )
 
@@ -41,7 +41,7 @@ future_map_lgl(
   .x,
   .f,
   ...,
-  .options = future_options(),
+  .options = furrr_options(),
   .progress = deprecated()
 )
 
@@ -50,7 +50,7 @@ future_map_dfr(
   .f,
   ...,
   .id = NULL,
-  .options = future_options(),
+  .options = furrr_options(),
   .progress = deprecated()
 )
 
@@ -58,11 +58,11 @@ future_map_dfc(
   .x,
   .f,
   ...,
-  .options = future_options(),
+  .options = furrr_options(),
   .progress = deprecated()
 )
 
-future_walk(.x, .f, ..., .options = future_options())
+future_walk(.x, .f, ..., .options = furrr_options())
 }
 \arguments{
 \item{.x}{A list or atomic vector.}
@@ -90,7 +90,7 @@ present, the value of \code{.default} will be returned.}
 \item{...}{Additional arguments passed on to the mapped function.}
 
 \item{.options}{The \code{future} specific options to use with the workers. This must
-be the result from a call to \code{\link[=future_options]{future_options()}}.}
+be the result from a call to \code{\link[=furrr_options]{furrr_options()}}.}
 
 \item{.progress}{\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}}:
 No longer has any effect. Use the
@@ -150,10 +150,10 @@ x <- 1
 y <- 2
 
 # This will fail, y is not exported (no black magic occurs)
-# future_map(1, ~y, .options = future_options(globals = "x"))
+# future_map(1, ~y, .options = furrr_options(globals = "x"))
 
 # y is exported
-future_map(1, ~y, .options = future_options(globals = "y"))
+future_map(1, ~y, .options = furrr_options(globals = "y"))
 
 \dontshow{
 # Close open connections for R CMD Check

@@ -35,7 +35,7 @@
 #' }
 #' @export
 #'
-future_invoke_map <- function(.f, .x = list(NULL), ..., .env = NULL, .options = future_options(), .progress = deprecated()) {
+future_invoke_map <- function(.f, .x = list(NULL), ..., .env = NULL, .options = furrr_options(), .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_invoke_map")
   .env <- .env %||% parent.frame()
   .f <- as_invoke_function(.f)
@@ -44,7 +44,7 @@ future_invoke_map <- function(.f, .x = list(NULL), ..., .env = NULL, .options = 
 
 #' @rdname future_invoke_map
 #' @export
-future_invoke_map_chr <- function(.f, .x = list(NULL), ..., .env = NULL, .options = future_options(), .progress = deprecated()) {
+future_invoke_map_chr <- function(.f, .x = list(NULL), ..., .env = NULL, .options = furrr_options(), .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_invoke_map_chr")
   .env <- .env %||% parent.frame()
   .f <- as_invoke_function(.f)
@@ -53,7 +53,7 @@ future_invoke_map_chr <- function(.f, .x = list(NULL), ..., .env = NULL, .option
 
 #' @rdname future_invoke_map
 #' @export
-future_invoke_map_dbl <- function(.f, .x = list(NULL), ..., .env = NULL, .options = future_options(), .progress = deprecated()) {
+future_invoke_map_dbl <- function(.f, .x = list(NULL), ..., .env = NULL, .options = furrr_options(), .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_invoke_map_dbl")
   .env <- .env %||% parent.frame()
   .f <- as_invoke_function(.f)
@@ -62,7 +62,7 @@ future_invoke_map_dbl <- function(.f, .x = list(NULL), ..., .env = NULL, .option
 
 #' @rdname future_invoke_map
 #' @export
-future_invoke_map_int <- function(.f, .x = list(NULL), ..., .env = NULL, .options = future_options(), .progress = deprecated()) {
+future_invoke_map_int <- function(.f, .x = list(NULL), ..., .env = NULL, .options = furrr_options(), .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_invoke_map_int")
   .env <- .env %||% parent.frame()
   .f <- as_invoke_function(.f)
@@ -71,7 +71,7 @@ future_invoke_map_int <- function(.f, .x = list(NULL), ..., .env = NULL, .option
 
 #' @rdname future_invoke_map
 #' @export
-future_invoke_map_lgl <- function(.f, .x = list(NULL), ..., .env = NULL, .options = future_options(), .progress = deprecated()) {
+future_invoke_map_lgl <- function(.f, .x = list(NULL), ..., .env = NULL, .options = furrr_options(), .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_invoke_map_lgl")
   .env <- .env %||% parent.frame()
   .f <- as_invoke_function(.f)
@@ -80,7 +80,7 @@ future_invoke_map_lgl <- function(.f, .x = list(NULL), ..., .env = NULL, .option
 
 #' @rdname future_invoke_map
 #' @export
-future_invoke_map_dfr <- function(.f, .x = list(NULL), ..., .env = NULL, .options = future_options(), .progress = deprecated()) {
+future_invoke_map_dfr <- function(.f, .x = list(NULL), ..., .env = NULL, .options = furrr_options(), .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_invoke_map_dfr")
   .env <- .env %||% parent.frame()
   .f <- as_invoke_function(.f)
@@ -89,7 +89,7 @@ future_invoke_map_dfr <- function(.f, .x = list(NULL), ..., .env = NULL, .option
 
 #' @rdname future_invoke_map
 #' @export
-future_invoke_map_dfc <- function(.f, .x = list(NULL), ..., .env = NULL, .options = future_options(), .progress = deprecated()) {
+future_invoke_map_dfc <- function(.f, .x = list(NULL), ..., .env = NULL, .options = furrr_options(), .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_invoke_map_dfc")
   .env <- .env %||% parent.frame()
   .f <- as_invoke_function(.f)

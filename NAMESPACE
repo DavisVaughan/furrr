@@ -3,6 +3,8 @@
 S3method(future_modify,default)
 S3method(future_modify_at,default)
 S3method(future_modify_if,default)
+S3method(print,furrr_options)
+export(furrr_options)
 export(future_imap)
 export(future_imap_chr)
 export(future_imap_dbl)

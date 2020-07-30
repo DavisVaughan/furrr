@@ -15,7 +15,7 @@ future_invoke_map(
   .x = list(NULL),
   ...,
   .env = NULL,
-  .options = future_options(),
+  .options = furrr_options(),
   .progress = deprecated()
 )
 
@@ -24,7 +24,7 @@ future_invoke_map_chr(
   .x = list(NULL),
   ...,
   .env = NULL,
-  .options = future_options(),
+  .options = furrr_options(),
   .progress = deprecated()
 )
 
@@ -33,7 +33,7 @@ future_invoke_map_dbl(
   .x = list(NULL),
   ...,
   .env = NULL,
-  .options = future_options(),
+  .options = furrr_options(),
   .progress = deprecated()
 )
 
@@ -42,7 +42,7 @@ future_invoke_map_int(
   .x = list(NULL),
   ...,
   .env = NULL,
-  .options = future_options(),
+  .options = furrr_options(),
   .progress = deprecated()
 )
 
@@ -51,7 +51,7 @@ future_invoke_map_lgl(
   .x = list(NULL),
   ...,
   .env = NULL,
-  .options = future_options(),
+  .options = furrr_options(),
   .progress = deprecated()
 )
 
@@ -60,7 +60,7 @@ future_invoke_map_dfr(
   .x = list(NULL),
   ...,
   .env = NULL,
-  .options = future_options(),
+  .options = furrr_options(),
   .progress = deprecated()
 )
 
@@ -69,7 +69,7 @@ future_invoke_map_dfc(
   .x = list(NULL),
   ...,
   .env = NULL,
-  .options = future_options(),
+  .options = furrr_options(),
   .progress = deprecated()
 )
 }
@@ -89,7 +89,7 @@ as \code{.f} the name of a function rather than its value, or as
 \code{.x} symbols of objects rather than their values.}
 
 \item{.options}{The \code{future} specific options to use with the workers. This must
-be the result from a call to \code{\link[=future_options]{future_options()}}.}
+be the result from a call to \code{\link[=furrr_options]{furrr_options()}}.}
 
 \item{.progress}{\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}}:
 No longer has any effect. Use the

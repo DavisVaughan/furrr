@@ -1,5 +1,10 @@
 # furrr 0.1.0.9002
 
+* `future_options()` has been deprecated in favor of `furrr_options()`.
+  Calling `future_options()` will still work, but will trigger a once per
+  session warning and will eventually be removed. This change was made to
+  free up this function name in case the future package ever wants to use it.
+
 * purrr >= 0.3.0 is now required to gain access to various new features and
   breaking changes. For example, `map_if()` gained an `.else` argument, which
   has been added to `future_map_if()`.

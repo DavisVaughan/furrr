@@ -26,7 +26,9 @@ Imports:
     lifecycle (>= 0.2.0),
     globals (>= 0.12.2),
     purrr (>= 0.3.0),
-    rlang (>= 0.3.0)
+    rlang (>= 0.3.0),
+    ellipsis,
+    vctrs
 Suggests:
     covr,
     dplyr (>= 0.7.4),

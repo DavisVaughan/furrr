@@ -10,7 +10,7 @@ future_modify(
   .x,
   .f,
   ...,
-  .options = future_options(),
+  .options = furrr_options(),
   .progress = deprecated()
 )
 
@@ -19,7 +19,7 @@ future_modify_at(
   .at,
   .f,
   ...,
-  .options = future_options(),
+  .options = furrr_options(),
   .progress = deprecated()
 )
 
@@ -28,7 +28,7 @@ future_modify_if(
   .p,
   .f,
   ...,
-  .options = future_options(),
+  .options = furrr_options(),
   .progress = deprecated()
 )
 }
@@ -58,7 +58,7 @@ present, the value of \code{.default} will be returned.}
 \item{...}{Additional arguments passed on to the mapped function.}
 
 \item{.options}{The \code{future} specific options to use with the workers. This must
-be the result from a call to \code{\link[=future_options]{future_options()}}.}
+be the result from a call to \code{\link[=furrr_options]{furrr_options()}}.}
 
 \item{.progress}{\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}}:
 No longer has any effect. Use the
