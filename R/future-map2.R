@@ -55,56 +55,65 @@
 #' if (!inherits(plan(), "sequential")) plan(sequential)
 #' }
 #' @export
-future_map2 <- function(.x, .y, .f, ..., .progress = FALSE, .options = future_options()) {
-  future_map2_template(purrr::map, "list", .x, .y, .f, ..., .progress = .progress, .options = .options)
+future_map2 <- function(.x, .y, .f, ..., .options = future_options(), .progress = deprecated()) {
+  maybe_warn_deprecated_progress(is_present(.progress), what = "future_map2")
+  future_map2_template(purrr::map, "list", .x, .y, .f, ..., .options = .options)
 }
 
 #' @rdname future_map2
 #' @export
-future_map2_chr <- function(.x, .y, .f, ..., .progress = FALSE, .options = future_options()) {
-  future_map2_template(purrr::map_chr, "character", .x, .y, .f, ..., .progress = .progress, .options = .options)
+future_map2_chr <- function(.x, .y, .f, ..., .options = future_options(), .progress = deprecated()) {
+  maybe_warn_deprecated_progress(is_present(.progress), what = "future_map2_chr")
+  future_map2_template(purrr::map_chr, "character", .x, .y, .f, ..., .options = .options)
 }
 
 #' @rdname future_map2
 #' @export
-future_map2_dbl <- function(.x, .y, .f, ..., .progress = FALSE, .options = future_options()) {
-  future_map2_template(purrr::map_dbl, "double", .x, .y, .f, ..., .progress = .progress, .options = .options)
+future_map2_dbl <- function(.x, .y, .f, ..., .options = future_options(), .progress = deprecated()) {
+  maybe_warn_deprecated_progress(is_present(.progress), what = "future_map2_dbl")
+  future_map2_template(purrr::map_dbl, "double", .x, .y, .f, ..., .options = .options)
 }
 
 #' @rdname future_map2
 #' @export
-future_map2_int <- function(.x, .y, .f, ..., .progress = FALSE, .options = future_options()) {
-  future_map2_template(purrr::map_int, "integer", .x, .y, .f, ..., .progress = .progress, .options = .options)
+future_map2_int <- function(.x, .y, .f, ..., .options = future_options(), .progress = deprecated()) {
+  maybe_warn_deprecated_progress(is_present(.progress), what = "future_map2_int")
+  future_map2_template(purrr::map_int, "integer", .x, .y, .f, ..., .options = .options)
 }
 
 #' @rdname future_map2
 #' @export
-future_map2_lgl <- function(.x, .y, .f, ..., .progress = FALSE, .options = future_options()) {
-  future_map2_template(purrr::map_lgl, "logical", .x, .y, .f, ..., .progress = .progress, .options = .options)
+future_map2_lgl <- function(.x, .y, .f, ..., .options = future_options(), .progress = deprecated()) {
+  maybe_warn_deprecated_progress(is_present(.progress), what = "future_map2_lgl")
+  future_map2_template(purrr::map_lgl, "logical", .x, .y, .f, ..., .options = .options)
 }
 
 #' @rdname future_map2
 #' @export
-future_map2_dfr <- function(.x, .y, .f, ..., .id = NULL, .progress = FALSE, .options = future_options()) {
+future_map2_dfr <- function(.x, .y, .f, ..., .id = NULL, .options = future_options(), .progress = deprecated()) {
+  maybe_warn_deprecated_progress(is_present(.progress), what = "future_map2_dfr")
+
   # Passing through the template doesn't work because of the way fold() works.
   # Could parameterize around fold(res, ___), but this is easier
   if (!rlang::is_installed("dplyr")) {
     rlang::abort("`future_map2_dfr()` requires dplyr")
   }
 
-  res <- future_map2(.x, .y, .f, ..., .progress = .progress, .options = .options)
+  res <- future_map2(.x, .y, .f, ..., .options = .options)
   dplyr::bind_rows(res, .id = .id)
 }
 
 #' @rdname future_map2
 #' @export
-future_map2_dfc <- function(.x, .y, .f, ..., .progress = FALSE, .options = future_options()) {
+future_map2_dfc <- function(.x, .y, .f, ..., .options = future_options(), .progress = deprecated()) {
+  maybe_warn_deprecated_progress(is_present(.progress), what = "future_map2_dfc")
+
   # Passing through the template doesn't work because of the way fold() works.
   # Could parameterize around fold(res, ___), but this is easier
   if (!rlang::is_installed("dplyr")) {
     rlang::abort("`future_map2_dfc()` requires dplyr")
   }
 
-  res <- future_map2(.x, .y, .f, ..., .progress = .progress, .options = .options)
+  res <- future_map2(.x, .y, .f, ..., .options = .options)
   dplyr::bind_cols(res)
 }

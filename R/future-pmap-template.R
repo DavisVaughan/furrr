@@ -1,4 +1,4 @@
-future_pmap_template <- function(.map, .type, .l, .f, ..., .progress, .options) {
+future_pmap_template <- function(.map, .type, .l, .f, ..., .options) {
 
   # Assert future options
   assert_future_options(.options)
@@ -57,7 +57,7 @@ future_pmap_template <- function(.map, .type, .l, .f, ..., .progress, .options) 
   ## 2. Packages
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  .options <- gather_globals_and_packages(.options, .map, .f, .progress, envir, ...)
+  .options <- gather_globals_and_packages(.options, .map, .f, envir, ...)
 
   globals <- .options$globals
   packages <- .options$packages
@@ -152,18 +152,10 @@ future_pmap_template <- function(.map, .type, .l, .f, ..., .progress, .options) 
         # double list to keep the names once passed to ...future.f
         ...future.lst_ii$...future.dots <- list(list(...))
 
-        # Make persistent file connection
-        if(.progress) {
-          temp_file_con <- file(temp_file, "a")
-          on.exit(close(temp_file_con))
-        }
-
         # The ... of pmap are passed in ...future.dots
         # The current elements of the list are passed in ...
         ...future.f_wrapper <- function(..., ...future.dots) {
-          .out <- do.call(...future.f, c(list(...), ...future.dots))
-          if(.progress) update_progress(temp_file_con)
-          .out
+          do.call(...future.f, c(list(...), ...future.dots))
         }
 
         ...future.map(...future.lst_ii, ...future.f_wrapper)
@@ -180,18 +172,10 @@ future_pmap_template <- function(.map, .type, .l, .f, ..., .progress, .options) 
         # double list to keep the names once passed to ...future.f
         ...future.lst_ii$...future.dots <- list(list(...))
 
-        # Make persistent file connection
-        if(.progress) {
-          temp_file_con <- file(temp_file, "a")
-          on.exit(close(temp_file_con))
-        }
-
         # In the wrapper, refer to the random seeds by name to match them in pmap
         ...future.f_wrapper_seed <- function(..., ...future.dots, ...future.seeds_ii) { # ...future.seed_ii will be a single element of that object
           assign(".Random.seed", ...future.seeds_ii, envir = globalenv(), inherits = FALSE)
-          .out <- do.call(...future.f, c(list(...), ...future.dots))
-          if(.progress) update_progress(temp_file_con)
-          .out
+          do.call(...future.f, c(list(...), ...future.dots))
         }
 
         ...future.map(...future.lst_ii, ...future.f_wrapper_seed)
@@ -205,13 +189,6 @@ future_pmap_template <- function(.map, .type, .l, .f, ..., .progress, .options) 
     if (debug) mdebug("Chunk #%d of %d ... DONE", ii, nchunks)
   } ## for (ii ...)
   if (debug) mdebug("Launching %d futures (chunks) ... DONE", nchunks)
-
-  ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  ## 6. Print progress
-  ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  if(.progress) {
-    poll_progress(fs, globals$temp_file, n.l_elems)
-  }
 
   ## FINISHED - Not needed anymore
   rm(list = c("chunks", "globals", "envir"))

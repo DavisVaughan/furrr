@@ -39,38 +39,41 @@
 #' if (!inherits(plan(), "sequential")) plan(sequential)
 #' }
 #' @export
-future_modify <- function(.x, .f, ..., .progress = FALSE, .options = future_options()) {
+future_modify <- function(.x, .f, ..., .options = future_options(), .progress = deprecated()) {
+  maybe_warn_deprecated_progress(is_present(.progress), what = "future_modify")
   UseMethod("future_modify")
 }
 
 #' @export
-future_modify.default <- function(.x, .f, ..., .progress = FALSE, .options = future_options()) {
-  .x[] <- future_map(.x, .f, ..., .progress = .progress, .options = .options)
+future_modify.default <- function(.x, .f, ..., .options = future_options(), .progress = deprecated()) {
+  .x[] <- future_map(.x, .f, ..., .options = .options)
   .x
 }
 
 #' @rdname future_modify
 #' @export
-future_modify_at <- function(.x, .at, .f, ..., .progress = FALSE, .options = future_options()) {
+future_modify_at <- function(.x, .at, .f, ..., .options = future_options(), .progress = deprecated()) {
+  maybe_warn_deprecated_progress(is_present(.progress), what = "future_modify_at")
   UseMethod("future_modify_at")
 }
 
 #' @export
-future_modify_at.default <- function(.x, .at, .f, ..., .progress = FALSE, .options = future_options()) {
+future_modify_at.default <- function(.x, .at, .f, ..., .options = future_options(), .progress = deprecated()) {
   sel <- inv_which(.x, .at)
-  .x[sel] <- future_map(.x[sel], .f, ..., .progress = .progress, .options = .options)
+  .x[sel] <- future_map(.x[sel], .f, ..., .options = .options)
   .x
 }
 
 #' @rdname future_modify
 #' @export
-future_modify_if <- function(.x, .p, .f, ..., .progress = FALSE, .options = future_options()) {
+future_modify_if <- function(.x, .p, .f, ..., .options = future_options(), .progress = deprecated()) {
+  maybe_warn_deprecated_progress(is_present(.progress), what = "future_modify_if")
   UseMethod("future_modify_if")
 }
 
 #' @export
-future_modify_if.default <- function(.x, .p, .f, ..., .progress = FALSE, .options = future_options()) {
+future_modify_if.default <- function(.x, .p, .f, ..., .options = future_options(), .progress = deprecated()) {
   sel <- probe(.x, .p)
-  .x[sel] <- future_map(.x[sel], .f, ..., .progress = .progress, .options = .options)
+  .x[sel] <- future_map(.x[sel], .f, ..., .options = .options)
   .x
 }

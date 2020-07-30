@@ -7,5 +7,7 @@
 #' @import rlang
 #' @importFrom future future
 #' @importFrom purrr map
+#' @importFrom lifecycle deprecated
+#' @importFrom lifecycle is_present
 ## usethis namespace: end
 NULL

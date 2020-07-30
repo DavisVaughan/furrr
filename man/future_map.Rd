@@ -13,32 +13,76 @@
 \alias{future_walk}
 \title{Apply a function to each element of a vector via futures}
 \usage{
-future_map(.x, .f, ..., .progress = FALSE, .options = future_options())
+future_map(.x, .f, ..., .options = future_options(), .progress = deprecated())
 
-future_map_chr(.x, .f, ..., .progress = FALSE, .options = future_options())
+future_map_chr(
+  .x,
+  .f,
+  ...,
+  .options = future_options(),
+  .progress = deprecated()
+)
 
-future_map_dbl(.x, .f, ..., .progress = FALSE, .options = future_options())
+future_map_dbl(
+  .x,
+  .f,
+  ...,
+  .options = future_options(),
+  .progress = deprecated()
+)
 
-future_map_int(.x, .f, ..., .progress = FALSE, .options = future_options())
+future_map_int(
+  .x,
+  .f,
+  ...,
+  .options = future_options(),
+  .progress = deprecated()
+)
 
-future_map_lgl(.x, .f, ..., .progress = FALSE, .options = future_options())
+future_map_lgl(
+  .x,
+  .f,
+  ...,
+  .options = future_options(),
+  .progress = deprecated()
+)
 
 future_map_dfr(
   .x,
   .f,
   ...,
   .id = NULL,
-  .progress = FALSE,
-  .options = future_options()
+  .options = future_options(),
+  .progress = deprecated()
 )
 
-future_map_dfc(.x, .f, ..., .progress = FALSE, .options = future_options())
+future_map_dfc(
+  .x,
+  .f,
+  ...,
+  .options = future_options(),
+  .progress = deprecated()
+)
 
-future_map_if(.x, .p, .f, ..., .progress = FALSE, .options = future_options())
+future_map_if(
+  .x,
+  .p,
+  .f,
+  ...,
+  .options = future_options(),
+  .progress = deprecated()
+)
 
-future_map_at(.x, .at, .f, ..., .progress = FALSE, .options = future_options())
+future_map_at(
+  .x,
+  .at,
+  .f,
+  ...,
+  .options = future_options(),
+  .progress = deprecated()
+)
 
-future_walk(.x, .f, ..., .progress = FALSE, .options = future_options())
+future_walk(.x, .f, ..., .options = future_options())
 }
 \arguments{
 \item{.x}{A list or atomic vector.}
@@ -65,11 +109,13 @@ present, the value of \code{.default} will be returned.}
 
 \item{...}{Additional arguments passed on to the mapped function.}
 
-\item{.progress}{A logical, for whether or not to print a progress bar for
-multiprocess, multisession, and multicore plans.}
-
 \item{.options}{The \code{future} specific options to use with the workers. This must
 be the result from a call to \code{\link[=future_options]{future_options()}}.}
+
+\item{.progress}{\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}}:
+No longer has any effect. Use the
+\href{https://cran.r-project.org/web/packages/progressr/index.html}{progressr}
+package instead.}
 
 \item{.id}{Either a string or \code{NULL}. If a string, the output will contain
 a variable with that name, storing either the name (if \code{.x} is named) or
