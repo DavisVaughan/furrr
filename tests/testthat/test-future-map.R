@@ -178,3 +178,13 @@ test_that("globals in `.x` are only exported to workers that use them", {
     c(TRUE, FALSE)
   )
 })
+
+test_that("furrr is not loaded on the workers", {
+  plan(multisession, workers = 2)
+  on.exit(plan(sequential), add = TRUE)
+
+  expect_identical(
+    future_map_lgl(1:2, ~isNamespaceLoaded("furrr")),
+    c(FALSE, FALSE)
+  )
+})
