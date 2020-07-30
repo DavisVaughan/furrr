@@ -137,16 +137,6 @@ future_map2_template <- function(.map, .type, .x, .y, .f, ..., .progress, .optio
     if (is.null(seeds)) {
       if (debug) mdebug(" - seeds: <none>")
       fs[[ii]] <- future::future({
-
-        # rlang tilde - when serializing with multisession, the pointer becomes 0x0
-        # Temp solution is to readd base::`~` into the .f environment if necessary
-        ...future.f.env <- environment(...future.f)
-        if(!is.null(...future.f.env$`~`)) {
-          if(is_bad_rlang_tilde(...future.f.env$`~`)) {
-            ...future.f.env$`~` <- base::`~`
-          }
-        }
-
         # Make persistent file connection
         if(.progress) {
           temp_file_con <- file(temp_file, "a")
@@ -166,16 +156,6 @@ future_map2_template <- function(.map, .type, .x, .y, .f, ..., .progress, .optio
       if (debug) mdebug(" - seeds: [%d] <seeds>", length(chunk))
       globals_ii[["...future.seeds_ii"]] <- seeds[chunk]
       fs[[ii]] <- future::future({
-
-        # rlang tilde - when serializing with multisession, the pointer becomes 0x0
-        # Temp solution is to readd base::`~` into the .f environment if necessary
-        ...future.f.env <- environment(...future.f)
-        if(!is.null(...future.f.env$`~`)) {
-          if(is_bad_rlang_tilde(...future.f.env$`~`)) {
-            ...future.f.env$`~` <- base::`~`
-          }
-        }
-
         # Make persistent file connection
         if(.progress) {
           temp_file_con <- file(temp_file, "a")
