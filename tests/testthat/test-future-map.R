@@ -184,8 +184,14 @@ test_that("furrr is not loaded on the workers", {
   plan(multisession, workers = 2)
   on.exit(plan(sequential), add = TRUE)
 
+  # Evaluate in the global env to avoid furrr being
+  # in the parent envs of this fn
+  fn <- globally(function(x) {
+    isNamespaceLoaded("furrr")
+  })
+
   expect_identical(
-    future_map_lgl(1:2, ~isNamespaceLoaded("furrr")),
+    future_map_lgl(1:2, fn),
     c(FALSE, FALSE)
   )
 })
