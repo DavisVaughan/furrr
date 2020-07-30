@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Apply a function to each element of a vector via futures — future_map • furrr</title>
+<title>Apply a function to each element of a vector conditionally via futures — future_map_if • furrr</title>
 
 
 <!-- jquery -->
@@ -39,11 +39,9 @@
 
 
 
-<meta property="og:title" content="Apply a function to each element of a vector via futures — future_map" />
-<meta property="og:description" content="These functions work exactly the same as purrr::map() functions, but allow
-you to run the map in parallel. The documentation is
-adapted from both purrr::map(), and future.apply::future_lapply(),
-so look there for more details." />
+<meta property="og:title" content="Apply a function to each element of a vector conditionally via futures — future_map_if" />
+<meta property="og:description" content="These functions work exactly the same as purrr::map_if() and
+purrr::map_at(), but allow you to run them in parallel." />
 
 
 <meta name="robots" content="noindex">
@@ -126,70 +124,33 @@ so look there for more details." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Apply a function to each element of a vector via futures</h1>
-    <small class="dont-index">Source: <a href='https://github.com/DavisVaughan/furrr/blob/master/R/future-map.R'><code>R/future-map.R</code></a>, <a href='https://github.com/DavisVaughan/furrr/blob/master/R/future-walk.R'><code>R/future-walk.R</code></a></small>
-    <div class="hidden name"><code>future_map.Rd</code></div>
+    <h1>Apply a function to each element of a vector conditionally via futures</h1>
+    <small class="dont-index">Source: <a href='https://github.com/DavisVaughan/furrr/blob/master/R/future-map.R'><code>R/future-map.R</code></a></small>
+    <div class="hidden name"><code>future_map_if.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>These functions work exactly the same as <code><a href='https://purrr.tidyverse.org/reference/map.html'>purrr::map()</a></code> functions, but allow
-you to run the map in parallel. The documentation is
-adapted from both <code><a href='https://purrr.tidyverse.org/reference/map.html'>purrr::map()</a></code>, and <code>future.apply::future_lapply()</code>,
-so look there for more details.</p>
+    <p>These functions work exactly the same as <code><a href='https://purrr.tidyverse.org/reference/map_if.html'>purrr::map_if()</a></code> and
+<code><a href='https://purrr.tidyverse.org/reference/map_if.html'>purrr::map_at()</a></code>, but allow you to run them in parallel.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>future_map</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>(), <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>())
-
-<span class='fu'>future_map_chr</span>(
+    <pre class="usage"><span class='fu'>future_map_if</span>(
   <span class='no'>.x</span>,
+  <span class='no'>.p</span>,
   <span class='no'>.f</span>,
   <span class='no'>...</span>,
   <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>(),
   <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>()
 )
 
-<span class='fu'>future_map_dbl</span>(
+<span class='fu'>future_map_at</span>(
   <span class='no'>.x</span>,
+  <span class='no'>.at</span>,
   <span class='no'>.f</span>,
   <span class='no'>...</span>,
   <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>(),
   <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>()
-)
-
-<span class='fu'>future_map_int</span>(
-  <span class='no'>.x</span>,
-  <span class='no'>.f</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>(),
-  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>()
-)
-
-<span class='fu'>future_map_lgl</span>(
-  <span class='no'>.x</span>,
-  <span class='no'>.f</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>(),
-  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>()
-)
-
-<span class='fu'>future_map_dfr</span>(
-  <span class='no'>.x</span>,
-  <span class='no'>.f</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>(),
-  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>()
-)
-
-<span class='fu'>future_map_dfc</span>(
-  <span class='no'>.x</span>,
-  <span class='no'>.f</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>(),
-  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>()
-)
-
-<span class='fu'>future_walk</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>())</pre>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -197,6 +158,15 @@ so look there for more details.</p>
     <tr>
       <th>.x</th>
       <td><p>A list or atomic vector.</p></td>
+    </tr>
+    <tr>
+      <th>.p</th>
+      <td><p>A single predicate function, a formula describing such a
+predicate function, or a logical vector of the same length as <code>.x</code>.
+Alternatively, if the elements of <code>.x</code> are themselves lists of
+objects, a string indicating the name of a logical element in the
+inner lists. Only those elements where <code>.p</code> evaluates to
+<code>TRUE</code> will be modified.</p></td>
     </tr>
     <tr>
       <th>.f</th>
@@ -233,68 +203,55 @@ No longer has any effect. Use the
 package instead.</p></td>
     </tr>
     <tr>
-      <th>.id</th>
-      <td><p>Either a string or <code>NULL</code>. If a string, the output will contain
-a variable with that name, storing either the name (if <code>.x</code> is named) or
-the index (if <code>.x</code> is unnamed) of the input. If <code>NULL</code>, the default, no
-variable will be created.</p>
-<p>Only applies to <code>_dfr</code> variant.</p></td>
+      <th>.at</th>
+      <td><p>A character vector of names, positive numeric vector of
+positions to include, or a negative numeric vector of positions to
+exlude. Only those elements corresponding to <code>.at</code> will be modified.
+If the <code>tidyselect</code> package is installed, you can use <code>vars()</code> and
+the <code>tidyselect</code> helpers to select elements.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>All functions return a vector the same length as <code>.x</code>.</p>
-<p><code>future_map()</code> returns a list, <code>future_map_lgl()</code> a logical vector,
-<code>future_map_int()</code> an integer vector, <code>future_map_dbl()</code> a double vector,
-and <code>future_map_chr()</code> a character vector.
-The output of <code>.f</code> will be automatically typed upwards,
-e.g. logical -&gt; integer -&gt; double -&gt; character.</p>
+    <p>Both functions return a list the same length as <code>.x</code> with the elements
+conditionally transformed.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>furrr</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>) <span class='co'># for the pipe</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'>
-<span class='co'># \donttest{</span>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>furrr</span>)
 <span class='fu'>plan</span>(<span class='no'>multiprocess</span>)
-<span class='co'># }</span>
 
-<span class='fl'>1</span>:<span class='fl'>10</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>future_map</span>(<span class='no'>rnorm</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>10</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>future_map_dbl</span>(<span class='no'>mean</span>)</div><div class='output co'>#&gt;  [1]  1.239970  1.734193  2.881720  3.491405  4.518682  6.103810  7.199774
-#&gt;  [8]  7.486096  9.547241 10.307290</div><div class='input'>
-<span class='co'># If each element of the output is a data frame, use</span>
-<span class='co'># future_map_dfr to row-bind them together:</span>
-<span class='no'>mtcars</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/split.html'>split</a></span>(<span class='no'>.</span>$<span class='no'>cyl</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>future_map</span>(~ <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>mpg</span> ~ <span class='no'>wt</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>.x</span>)) <span class='kw'>%&gt;%</span>
-  <span class='fu'>future_map_dfr</span>(~ <span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span>(<span class='no'>.</span>)))))</div><div class='output co'>#&gt;   (Intercept)        wt
-#&gt; 1    39.57120 -5.647025
-#&gt; 2    28.40884 -2.780106
-#&gt; 3    23.86803 -2.192438</div><div class='input'>
-<span class='co'># You can be explicit about what gets exported to the workers</span>
-
-<span class='co'># To see this, use multisession (NOT multicore if on a Mac as the forked workers</span>
-<span class='co'># still have access to this environment)</span>
-<span class='co'># \donttest{</span>
-<span class='fu'>plan</span>(<span class='no'>multisession</span>)
-<span class='co'># }</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>2</span>
-
-<span class='co'># This will fail, y is not exported (no black magic occurs)</span>
-<span class='co'># future_map(1, ~y, .options = future_options(globals = "x"))</span>
-
-<span class='co'># y is exported</span>
-<span class='fu'>future_map</span>(<span class='fl'>1</span>, ~<span class='no'>y</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>(<span class='kw'>globals</span> <span class='kw'>=</span> <span class='st'>"y"</span>))</div><div class='output co'>#&gt; [[1]]
-#&gt; [1] 2
+<span class='co'># Modify the even elements</span>
+<span class='fu'>future_map_if</span>(<span class='fl'>1</span>:<span class='fl'>5</span>, ~<span class='no'>.x</span> <span class='kw'>%%</span> <span class='fl'>2</span> <span class='kw'>==</span> <span class='fl'>0L</span>, ~ -<span class='fl'>1</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] 1
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] -1
+#&gt; 
+#&gt; [[3]]
+#&gt; [1] 3
+#&gt; 
+#&gt; [[4]]
+#&gt; [1] -1
+#&gt; 
+#&gt; [[5]]
+#&gt; [1] 5
 #&gt; </div><div class='input'>
-<span class='co'># \dontshow{</span>
+<span class='fu'>future_map_at</span>(<span class='fl'>1</span>:<span class='fl'>5</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>5</span>), ~ -<span class='fl'>1</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] -1
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] 2
+#&gt; 
+#&gt; [[3]]
+#&gt; [1] 3
+#&gt; 
+#&gt; [[4]]
+#&gt; [1] 4
+#&gt; 
+#&gt; [[5]]
+#&gt; [1] -1
+#&gt; </div><div class='input'><span class='co'># \dontshow{</span>
 <span class='co'># Close open connections for R CMD Check</span>
 <span class='kw'>if</span> (!<span class='fu'><a href='https://rdrr.io/r/base/class.html'>inherits</a></span>(<span class='fu'>plan</span>(), <span class='st'>"sequential"</span>)) <span class='fu'>plan</span>(<span class='no'>sequential</span>)
 <span class='co'># }</span></div></pre>
