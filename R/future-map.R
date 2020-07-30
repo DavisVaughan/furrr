@@ -129,7 +129,32 @@ future_map_dfc <- function(.x, .f, ..., .options = future_options(), .progress =
   dplyr::bind_cols(res)
 }
 
-#' @rdname future_map
+# ------------------------------------------------------------------------------
+
+#' Apply a function to each element of a vector conditionally via futures
+#'
+#' These functions work exactly the same as [purrr::map_if()] and
+#' [purrr::map_at()], but allow you to run them in parallel.
+#'
+#' @inheritParams purrr::map_if
+#' @inheritParams future_map
+#'
+#' @return
+#' Both functions return a list the same length as `.x` with the elements
+#' conditionally transformed.
+#'
+#' @examples
+#' library(furrr)
+#' \donttest{plan(multiprocess)}
+#'
+#' # Modify the even elements
+#' future_map_if(1:5, ~.x %% 2 == 0L, ~ -1)
+#'
+#' future_map_at(1:5, c(1, 5), ~ -1)
+#' \dontshow{
+#' # Close open connections for R CMD Check
+#' if (!inherits(plan(), "sequential")) plan(sequential)
+#' }
 #' @export
 #' @inheritParams purrr::map_if
 future_map_if <- function(.x, .p, .f, ..., .options = future_options(), .progress = deprecated()) {
@@ -142,7 +167,7 @@ future_map_if <- function(.x, .p, .f, ..., .options = future_options(), .progres
   set_names(out, names(.x))
 }
 
-#' @rdname future_map
+#' @rdname future_map_if
 #' @export
 #' @inheritParams purrr::map_at
 future_map_at <- function(.x, .at, .f, ..., .options = future_options(), .progress = deprecated()) {
