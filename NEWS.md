@@ -1,5 +1,9 @@
 # furrr 0.1.0.9002
 
+* purrr >= 0.3.0 is now required to gain access to various new features and
+  breaking changes. For example, `map_if()` gained an `.else` argument, which
+  has been added to `future_map_if()`.
+
 * The `.progress` argument has been deprecated. While useful, it was built using
   a hack that I deeply regret. There were performance issues, it didn't
   work on all future backends, and could even cause errors on some. Using

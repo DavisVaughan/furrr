@@ -25,7 +25,7 @@ Depends:
 Imports:
     lifecycle (>= 0.2.0),
     globals (>= 0.12.2),
-    purrr (>= 0.2.4),
+    purrr (>= 0.3.0),
     rlang (>= 0.3.0)
 Suggests:
     covr,
