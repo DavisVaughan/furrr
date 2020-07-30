@@ -1,5 +1,8 @@
 # furrr 0.1.0.9002
 
+* rlang >= 0.3.0 is now required to ensure that the rlang `~` is serializable.
+  The hacks in furrr that tried to work around this have been removed (#123).
+
 * future >= 1.17.0 is now required to be able to use `future::value()` instead
   of the soon to be deprecated `future::values()` (#108).
 
