@@ -87,6 +87,54 @@ furrr_test_that("future_map2_dfc() works", {
 })
 
 # ------------------------------------------------------------------------------
+# size
+
+furrr_test_that("future_map2() works with size zero input", {
+  expect_identical(future_map2(list(), list(), identity), list())
+})
+
+furrr_test_that("atomic variants work with size zero input", {
+  expect_identical(future_map2_chr(list(), list(), identity), character())
+  expect_identical(future_map2_dbl(list(), list(), identity), double())
+  expect_identical(future_map2_int(list(), list(), identity), integer())
+  expect_identical(future_map2_lgl(list(), list(), identity), logical())
+})
+
+furrr_test_that("size one recycling works", {
+  expect_identical(
+    future_map2(1, 1:2, ~c(.x, .y)),
+    list(c(1, 1), c(1, 2))
+  )
+
+  expect_identical(
+    future_map2(1:2, 1, ~c(.x, .y)),
+    list(c(1, 1), c(2, 1))
+  )
+
+  expect_identical(
+    future_map2(integer(), 1, ~c(.x, .y)),
+    list()
+  )
+
+  expect_identical(
+    future_map2(1, integer(), ~c(.x, .y)),
+    list()
+  )
+})
+
+furrr_test_that("generally can't recycle to size zero", {
+  skip("until #134 is fixed")
+
+  expect_error(
+    future_map2(1:2, integer(), ~c(.x, .y)),
+  )
+
+  expect_error(
+    future_map2(integer(), 1:2, ~c(.x, .y))
+  )
+})
+
+# ------------------------------------------------------------------------------
 # Miscellaneous
 
 furrr_test_that("globals in `.x` and `.y` are found (#16)", {

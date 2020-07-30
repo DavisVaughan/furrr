@@ -79,6 +79,20 @@ furrr_test_that("future_map_dfc() works", {
 })
 
 # ------------------------------------------------------------------------------
+# size
+
+furrr_test_that("future_map() works with size zero input", {
+  expect_identical(future_map(list(), identity), list())
+})
+
+furrr_test_that("atomic variants work with size zero input", {
+  expect_identical(future_map_chr(list(), identity), character())
+  expect_identical(future_map_dbl(list(), identity), double())
+  expect_identical(future_map_int(list(), identity), integer())
+  expect_identical(future_map_lgl(list(), identity), logical())
+})
+
+# ------------------------------------------------------------------------------
 # at / if variants
 
 furrr_test_that("future_map_at() works", {

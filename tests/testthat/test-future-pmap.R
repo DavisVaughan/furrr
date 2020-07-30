@@ -91,6 +91,59 @@ furrr_test_that("future_pmap_dfc() works", {
 })
 
 # ------------------------------------------------------------------------------
+# size
+
+furrr_test_that("future_pmap() works with completely empty list", {
+  skip("until #135 is fixed")
+  expect_identical(future_pmap(list(), identity), list())
+})
+
+furrr_test_that("future_pmap() works with size zero input", {
+  expect_identical(future_pmap(list(list(), list()), identity), list())
+})
+
+furrr_test_that("atomic variants work with size zero input", {
+  expect_identical(future_pmap_chr(list(list(), list()), identity), character())
+  expect_identical(future_pmap_dbl(list(list(), list()), identity), double())
+  expect_identical(future_pmap_int(list(list(), list()), identity), integer())
+  expect_identical(future_pmap_lgl(list(list(), list()), identity), logical())
+})
+
+furrr_test_that("size one recycling works", {
+  expect_identical(
+    future_pmap(list(1, 1:2), ~c(.x, .y)),
+    list(c(1, 1), c(1, 2))
+  )
+
+  expect_identical(
+    future_pmap(list(1:2, 1), ~c(.x, .y)),
+    list(c(1, 1), c(2, 1))
+  )
+
+  expect_identical(
+    future_pmap(list(integer(), 1), ~c(.x, .y)),
+    list()
+  )
+
+  expect_identical(
+    future_pmap(list(1, integer()), ~c(.x, .y)),
+    list()
+  )
+})
+
+furrr_test_that("generally can't recycle to size zero", {
+  skip("until #134 is fixed")
+
+  expect_error(
+    future_pmap(list(1:2, integer()), ~c(.x, .y)),
+  )
+
+  expect_error(
+    future_pmap(list(integer(), 1:2), ~c(.x, .y))
+  )
+})
+
+# ------------------------------------------------------------------------------
 # Miscellaneous
 
 furrr_test_that("named arguments can be passed through", {
