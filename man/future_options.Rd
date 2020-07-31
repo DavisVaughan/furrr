@@ -14,15 +14,16 @@ future_options(
 }
 \arguments{
 \item{globals}{A logical, a character vector, a named list, or \code{NULL} for
-controlling how globals are handled. For details, see \verb{Global variables}.}
+controlling how globals are handled. For details, see the
+\verb{Global variables} section below.}
 
-\item{packages}{A character vector, or \code{NULL}. If supplied, packages that
-are guaranteed to be attached in the R environment where the future
-is evaluated.}
+\item{packages}{A character vector, or \code{NULL}. If supplied, this specifies
+packages that are guaranteed to be attached in the R environment where the
+future is evaluated.}
 
 \item{seed}{A logical, an integer of length \code{1} or \code{7}, or a list of
 \code{length(.x)} with pre-generated random seeds. For details, see the
-\verb{Reproducible random number generation (RNG)} section.}
+\verb{Reproducible random number generation (RNG)} section below.}
 
 \item{lazy}{A logical. Specifies whether futures should be resolved
 lazily or eagerly.}
@@ -37,7 +38,7 @@ are enough elements in \code{.x}).
 \item If \code{Inf} or \code{FALSE}, then one future per element of \code{.x} is used.
 }
 
-Only used if \code{chunk_size} is \code{NULL}.}
+This argument is only used if \code{chunk_size} is \code{NULL}.}
 }
 \description{
 \ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}}

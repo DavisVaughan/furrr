@@ -35,18 +35,19 @@ and relayed. The default is the same as the condition argument of
 \code{conditions = character(0L)}. Errors are always relayed.}
 
 \item{globals}{A logical, a character vector, a named list, or \code{NULL} for
-controlling how globals are handled. For details, see \verb{Global variables}.}
+controlling how globals are handled. For details, see the
+\verb{Global variables} section below.}
 
-\item{packages}{A character vector, or \code{NULL}. If supplied, packages that
-are guaranteed to be attached in the R environment where the future
-is evaluated.}
+\item{packages}{A character vector, or \code{NULL}. If supplied, this specifies
+packages that are guaranteed to be attached in the R environment where the
+future is evaluated.}
 
 \item{lazy}{A logical. Specifies whether futures should be resolved
 lazily or eagerly.}
 
 \item{seed}{A logical, an integer of length \code{1} or \code{7}, or a list of
 \code{length(.x)} with pre-generated random seeds. For details, see the
-\verb{Reproducible random number generation (RNG)} section.}
+\verb{Reproducible random number generation (RNG)} section below.}
 
 \item{scheduling}{A single integer, logical, or \code{Inf}. This argument
 controls the average number of futures ("chunks") per worker.
@@ -58,7 +59,7 @@ are enough elements in \code{.x}).
 \item If \code{Inf} or \code{FALSE}, then one future per element of \code{.x} is used.
 }
 
-Only used if \code{chunk_size} is \code{NULL}.}
+This argument is only used if \code{chunk_size} is \code{NULL}.}
 
 \item{chunk_size}{A single integer, \code{Inf}, or \code{NULL}. This argument
 controls the average number of elements per future (\code{"chunk"}). If \code{Inf},
@@ -119,8 +120,8 @@ generation, then \code{seed = FALSE} may be used.
 In addition to the above, it is possible to specify a pre-generated
 sequence of RNG seeds as a list such that \code{length(seed) == length(.x)} and
 where each element is an integer seed that can be assigned to \code{.Random.seed}.
-Use this alternative with caution. \strong{Note that \code{as.list(seq_along(.x))} is
-\emph{not} a valid set of such \code{.Random.seed} values.}
+Use this alternative with caution. \emph{Note that \code{as.list(seq_along(.x))} is
+not a valid set of such \code{.Random.seed} values.}
 
 In all cases but \code{seed = FALSE}, after a furrr function returns, the RNG
 state of the calling R process is guaranteed to be "forwarded one step" from

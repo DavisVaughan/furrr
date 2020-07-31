@@ -21,18 +21,19 @@
 #'   `conditions = character(0L)`. Errors are always relayed.
 #'
 #' @param globals A logical, a character vector, a named list, or `NULL` for
-#'   controlling how globals are handled. For details, see `Global variables`.
+#'   controlling how globals are handled. For details, see the
+#'   `Global variables` section below.
 #'
-#' @param packages A character vector, or `NULL`. If supplied, packages that
-#'   are guaranteed to be attached in the R environment where the future
-#'   is evaluated.
+#' @param packages A character vector, or `NULL`. If supplied, this specifies
+#'   packages that are guaranteed to be attached in the R environment where the
+#'   future is evaluated.
 #'
 #' @param lazy A logical. Specifies whether futures should be resolved
 #'   lazily or eagerly.
 #'
 #' @param seed A logical, an integer of length `1` or `7`, or a list of
 #'   `length(.x)` with pre-generated random seeds. For details, see the
-#'   `Reproducible random number generation (RNG)` section.
+#'   `Reproducible random number generation (RNG)` section below.
 #'
 #' @param scheduling A single integer, logical, or `Inf`. This argument
 #'   controls the average number of futures ("chunks") per worker.
@@ -46,7 +47,7 @@
 #'
 #'   - If `Inf` or `FALSE`, then one future per element of `.x` is used.
 #'
-#'   Only used if `chunk_size` is `NULL`.
+#'   This argument is only used if `chunk_size` is `NULL`.
 #'
 #' @param chunk_size A single integer, `Inf`, or `NULL`. This argument
 #'   controls the average number of elements per future (`"chunk"`). If `Inf`,
@@ -103,8 +104,8 @@
 #' In addition to the above, it is possible to specify a pre-generated
 #' sequence of RNG seeds as a list such that `length(seed) == length(.x)` and
 #' where each element is an integer seed that can be assigned to `.Random.seed`.
-#' Use this alternative with caution. **Note that `as.list(seq_along(.x))` is
-#' _not_ a valid set of such `.Random.seed` values.**
+#' Use this alternative with caution. _Note that `as.list(seq_along(.x))` is
+#' not a valid set of such `.Random.seed` values._
 #'
 #' In all cases but `seed = FALSE`, after a furrr function returns, the RNG
 #' state of the calling R process is guaranteed to be "forwarded one step" from
