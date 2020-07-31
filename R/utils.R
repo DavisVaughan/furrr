@@ -68,6 +68,10 @@ get_zero_length_type <- function(.type) {
   )
 }
 
+cat_line <- function(...) {
+  cat(paste0(..., "\n", collapse = ""))
+}
+
 # ------------------------------------------------------------------------------
 # from future.apply
 

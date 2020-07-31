@@ -24,7 +24,7 @@ future_map2(
   .y,
   .f,
   ...,
-  .options = future_options(),
+  .options = furrr_options(),
   .progress = deprecated()
 )
 
@@ -33,7 +33,7 @@ future_map2_chr(
   .y,
   .f,
   ...,
-  .options = future_options(),
+  .options = furrr_options(),
   .progress = deprecated()
 )
 
@@ -42,7 +42,7 @@ future_map2_dbl(
   .y,
   .f,
   ...,
-  .options = future_options(),
+  .options = furrr_options(),
   .progress = deprecated()
 )
 
@@ -51,7 +51,7 @@ future_map2_int(
   .y,
   .f,
   ...,
-  .options = future_options(),
+  .options = furrr_options(),
   .progress = deprecated()
 )
 
@@ -60,7 +60,7 @@ future_map2_lgl(
   .y,
   .f,
   ...,
-  .options = future_options(),
+  .options = furrr_options(),
   .progress = deprecated()
 )
 
@@ -70,7 +70,7 @@ future_map2_dfr(
   .f,
   ...,
   .id = NULL,
-  .options = future_options(),
+  .options = furrr_options(),
   .progress = deprecated()
 )
 
@@ -79,17 +79,17 @@ future_map2_dfc(
   .y,
   .f,
   ...,
-  .options = future_options(),
+  .options = furrr_options(),
   .progress = deprecated()
 )
 
-future_pmap(.l, .f, ..., .options = future_options(), .progress = deprecated())
+future_pmap(.l, .f, ..., .options = furrr_options(), .progress = deprecated())
 
 future_pmap_chr(
   .l,
   .f,
   ...,
-  .options = future_options(),
+  .options = furrr_options(),
   .progress = deprecated()
 )
 
@@ -97,7 +97,7 @@ future_pmap_dbl(
   .l,
   .f,
   ...,
-  .options = future_options(),
+  .options = furrr_options(),
   .progress = deprecated()
 )
 
@@ -105,7 +105,7 @@ future_pmap_int(
   .l,
   .f,
   ...,
-  .options = future_options(),
+  .options = furrr_options(),
   .progress = deprecated()
 )
 
@@ -113,7 +113,7 @@ future_pmap_lgl(
   .l,
   .f,
   ...,
-  .options = future_options(),
+  .options = furrr_options(),
   .progress = deprecated()
 )
 
@@ -122,7 +122,7 @@ future_pmap_dfr(
   .f,
   ...,
   .id = NULL,
-  .options = future_options(),
+  .options = furrr_options(),
   .progress = deprecated()
 )
 
@@ -130,13 +130,13 @@ future_pmap_dfc(
   .l,
   .f,
   ...,
-  .options = future_options(),
+  .options = furrr_options(),
   .progress = deprecated()
 )
 
-future_walk2(.x, .y, .f, ..., .options = future_options())
+future_walk2(.x, .y, .f, ..., .options = furrr_options())
 
-future_pwalk(.l, .f, ..., .options = future_options())
+future_pwalk(.l, .f, ..., .options = furrr_options())
 }
 \arguments{
 \item{.x}{Vectors of the same length. A vector of length 1 will
@@ -168,7 +168,7 @@ present, the value of \code{.default} will be returned.}
 \item{...}{Additional arguments passed on to the mapped function.}
 
 \item{.options}{The \code{future} specific options to use with the workers. This must
-be the result from a call to \code{\link[=future_options]{future_options()}}.}
+be the result from a call to \code{\link[=furrr_options]{furrr_options()}}.}
 
 \item{.progress}{\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}}:
 No longer has any effect. Use the

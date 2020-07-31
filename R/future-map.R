@@ -8,7 +8,7 @@
 #' @inheritParams purrr::map
 #'
 #' @param .options The `future` specific options to use with the workers. This must
-#' be the result from a call to [future_options()].
+#' be the result from a call to [furrr_options()].
 #'
 #' @param .progress `r lifecycle::badge("deprecated")`:
 #'   No longer has any effect. Use the
@@ -56,52 +56,52 @@
 #' y <- 2
 #'
 #' # This will fail, y is not exported (no black magic occurs)
-#' # future_map(1, ~y, .options = future_options(globals = "x"))
+#' # future_map(1, ~y, .options = furrr_options(globals = "x"))
 #'
 #' # y is exported
-#' future_map(1, ~y, .options = future_options(globals = "y"))
+#' future_map(1, ~y, .options = furrr_options(globals = "y"))
 #'
 #' \dontshow{
 #' # Close open connections for R CMD Check
 #' if (!inherits(plan(), "sequential")) plan(sequential)
 #' }
 #' @export
-future_map <- function(.x, .f, ..., .options = future_options(), .progress = deprecated()) {
+future_map <- function(.x, .f, ..., .options = furrr_options(), .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_map")
   future_map_template(purrr::map, "list", .x, .f, ..., .options = .options)
 }
 
 #' @rdname future_map
 #' @export
-future_map_chr <- function(.x, .f, ..., .options = future_options(), .progress = deprecated()) {
+future_map_chr <- function(.x, .f, ..., .options = furrr_options(), .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_map_chr")
   future_map_template(purrr::map_chr, "character", .x, .f, ..., .options = .options)
 }
 
 #' @rdname future_map
 #' @export
-future_map_dbl <- function(.x, .f, ..., .options = future_options(), .progress = deprecated()) {
+future_map_dbl <- function(.x, .f, ..., .options = furrr_options(), .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_map_dbl")
   future_map_template(purrr::map_dbl, "double", .x, .f, ..., .options = .options)
 }
 
 #' @rdname future_map
 #' @export
-future_map_int <- function(.x, .f, ..., .options = future_options(), .progress = deprecated()) {
+future_map_int <- function(.x, .f, ..., .options = furrr_options(), .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_map_int")
   future_map_template(purrr::map_int, "integer", .x, .f, ..., .options = .options)
 }
 
 #' @rdname future_map
 #' @export
-future_map_lgl <- function(.x, .f, ..., .options = future_options(), .progress = deprecated()) {
+future_map_lgl <- function(.x, .f, ..., .options = furrr_options(), .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_map_lgl")
   future_map_template(purrr::map_lgl, "logical", .x, .f, ..., .options = .options)
 }
 
 #' @rdname future_map
 #' @export
-future_map_dfr <- function(.x, .f, ..., .id = NULL, .options = future_options(), .progress = deprecated()) {
+future_map_dfr <- function(.x, .f, ..., .id = NULL, .options = furrr_options(), .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_map_dfr")
 
   # Passing through the template doesn't work because of the way fold() works.
@@ -116,7 +116,7 @@ future_map_dfr <- function(.x, .f, ..., .id = NULL, .options = future_options(),
 
 #' @rdname future_map
 #' @export
-future_map_dfc <- function(.x, .f, ..., .options = future_options(), .progress = deprecated()) {
+future_map_dfc <- function(.x, .f, ..., .options = furrr_options(), .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_map_dfc")
 
   # Passing through the template doesn't work because of the way fold() works.
@@ -157,7 +157,7 @@ future_map_dfc <- function(.x, .f, ..., .options = future_options(), .progress =
 #' }
 #' @export
 #' @inheritParams purrr::map_if
-future_map_if <- function(.x, .p, .f, ..., .options = future_options(), .progress = deprecated()) {
+future_map_if <- function(.x, .p, .f, ..., .options = furrr_options(), .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_map_if")
 
   sel <- probe(.x, .p)
@@ -170,7 +170,7 @@ future_map_if <- function(.x, .p, .f, ..., .options = future_options(), .progres
 #' @rdname future_map_if
 #' @export
 #' @inheritParams purrr::map_at
-future_map_at <- function(.x, .at, .f, ..., .options = future_options(), .progress = deprecated()) {
+future_map_at <- function(.x, .at, .f, ..., .options = furrr_options(), .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_map_at")
 
   sel <- inv_which(.x, .at)

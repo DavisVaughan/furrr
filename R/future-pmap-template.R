@@ -1,7 +1,7 @@
 future_pmap_template <- function(.map, .type, .l, .f, ..., .options) {
 
   # Assert future options
-  assert_future_options(.options)
+  .options <- assert_furrr_options(.options)
 
   # Create function from .f
   .f <- purrr::as_mapper(.f, ...) # ... required in case you pass .null / .default through for purrr::as_mapper.numeric
