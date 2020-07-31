@@ -221,6 +221,10 @@ validate_globals <- function(x) {
   }
 
   if (is.logical(x)) {
+    if (length(x) != 1L) {
+      abort("A logical `globals` must have length 1.")
+    }
+
     return(x)
   }
 
@@ -317,7 +321,13 @@ validate_chunk_size <- function(x) {
   }
 
   vctrs::vec_assert(x, size = 1L, arg = "chunk_size")
-  vctrs::vec_cast(x, integer(), arg = "chunk_size")
+  x <- vctrs::vec_cast(x, integer(), arg = "chunk_size")
+
+  if (is.na(x)) {
+    abort("`chunk_size` can't be `NA`.")
+  }
+
+  x
 }
 
 validate_prefix <- function(x) {
