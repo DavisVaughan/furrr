@@ -156,7 +156,7 @@ furrr_options <- function(...,
 
 #' @export
 print.furrr_options <- function(x, ...) {
-  cat("<furrr_options>")
+  cat_line("<furrr_options>")
 }
 
 # ------------------------------------------------------------------------------
