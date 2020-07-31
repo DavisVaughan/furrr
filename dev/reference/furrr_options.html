@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Deprecated furrr options — future_options • furrr</title>
+<title>Options to fine tune furrr — furrr_options • furrr</title>
 
 
 <!-- jquery -->
@@ -39,10 +39,9 @@
 
 
 
-<meta property="og:title" content="Deprecated furrr options — future_options" />
-<meta property="og:description" content="
-future_options() has been deprecated in favor of furrr_options() as
-of furrr 0.2.0." />
+<meta property="og:title" content="Options to fine tune furrr — furrr_options" />
+<meta property="og:description" content="These options fine tune furrr functions, such as future_map(). They
+are either used by furrr directly, or are passed on to future::future()." />
 
 
 <meta name="robots" content="noindex">
@@ -128,28 +127,53 @@ of furrr 0.2.0." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Deprecated furrr options</h1>
+    <h1>Options to fine tune furrr</h1>
     <small class="dont-index">Source: <a href='https://github.com/DavisVaughan/furrr/blob/master/R/furrr-options.R'><code>R/furrr-options.R</code></a></small>
-    <div class="hidden name"><code>future_options.Rd</code></div>
+    <div class="hidden name"><code>furrr_options.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' /></p>
-<p><code>future_options()</code> has been deprecated in favor of <code><a href='furrr_options.html'>furrr_options()</a></code> as
-of furrr 0.2.0.</p>
+    <p>These options fine tune furrr functions, such as <code><a href='future_map.html'>future_map()</a></code>. They
+are either used by furrr directly, or are passed on to <code><a href='https://rdrr.io/pkg/future/man/future.html'>future::future()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>future_options</span>(
+    <pre class="usage"><span class='fu'>furrr_options</span>(
+  <span class='no'>...</span>,
+  <span class='kw'>stdout</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>conditions</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>globals</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>packages</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>scheduling</span> <span class='kw'>=</span> <span class='fl'>1</span>
+  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>scheduling</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>chunk_size</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>prefix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>...</th>
+      <td><p>These dots are reserved for future extensibility and must
+be empty.</p></td>
+    </tr>
+    <tr>
+      <th>stdout</th>
+      <td><p>A logical.</p><ul>
+<li><p>If <code>TRUE</code>, standard output of the underlying futures is captured and
+relayed as soon as possible.</p></li>
+<li><p>If <code>FALSE</code>, output is silenced by sinking it to the null device.</p></li>
+<li><p>If <code>NA</code>, output is not intercepted. This is not recommended.</p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>conditions</th>
+      <td><p>A character string of conditions classes to be captured
+and relayed. The default is the same as the condition argument of
+<code><a href='https://rdrr.io/pkg/future/man/Future-class.html'>future::Future()</a></code>. To not intercept conditions, use
+<code>conditions = character(0L)</code>. Errors are always relayed.</p></td>
+    </tr>
     <tr>
       <th>globals</th>
       <td><p>A logical, a character vector, a named list, or <code>NULL</code> for
@@ -163,15 +187,15 @@ packages that are guaranteed to be attached in the R environment where the
 future is evaluated.</p></td>
     </tr>
     <tr>
+      <th>lazy</th>
+      <td><p>A logical. Specifies whether futures should be resolved
+lazily or eagerly.</p></td>
+    </tr>
+    <tr>
       <th>seed</th>
       <td><p>A logical, an integer of length <code>1</code> or <code>7</code>, or a list of
 <code><a href='https://rdrr.io/r/base/length.html'>length(.x)</a></code> with pre-generated random seeds. For details, see the
 <code>Reproducible random number generation (RNG)</code> section below.</p></td>
-    </tr>
-    <tr>
-      <th>lazy</th>
-      <td><p>A logical. Specifies whether futures should be resolved
-lazily or eagerly.</p></td>
     </tr>
     <tr>
       <th>scheduling</th>
@@ -186,14 +210,74 @@ are enough elements in <code>.x</code>).</p></li>
 
 <p>This argument is only used if <code>chunk_size</code> is <code>NULL</code>.</p></td>
     </tr>
+    <tr>
+      <th>chunk_size</th>
+      <td><p>A single integer, <code>Inf</code>, or <code>NULL</code>. This argument
+controls the average number of elements per future (<code>"chunk"</code>). If <code>Inf</code>,
+then all elements are processed in a single future. If <code>NULL</code>, then
+<code>scheduling</code> is used instead to determine how <code>.x</code> is chunked.</p></td>
+    </tr>
+    <tr>
+      <th>prefix</th>
+      <td><p>A single character string, or <code>NULL</code>. If a character string,
+then each future is assigned a label as <code>{prefix}-{chunk-id}</code>. If <code>NULL</code>,
+no labels are used.</p></td>
+    </tr>
     </table>
 
+    <h2 class="hasAnchor" id="global-variables"><a class="anchor" href="#global-variables"></a>Global variables</h2>
+
+    
+
+
+<p><code>globals</code> controls how globals are identified, similar to the <code>globals</code>
+argument of <code><a href='https://rdrr.io/pkg/future/man/future.html'>future::future()</a></code>. Since all function calls use the same set of
+globals, furrr gathers globals upfront (once), which is more efficient than
+if it was done for each future independently.</p><ul>
+<li><p>If <code>TRUE</code> or <code>NULL</code>, then globals are automatically identified and
+gathered.</p></li>
+<li><p>If a character vector of names is specified, then those globals are
+gathered.</p></li>
+<li><p>If a named list, then those globals are used as is.</p></li>
+<li><p>In all cases, <code>.f</code> and any <code>...</code> arguments are automatically passed as
+globals to each future created, as they are always needed.</p></li>
+</ul>
+
+    <h2 class="hasAnchor" id="reproducible-random-number-generation-rng-"><a class="anchor" href="#reproducible-random-number-generation-rng-"></a>Reproducible random number generation (RNG)</h2>
+
+    
+
+
+<p>Unless <code>seed = FALSE</code>, furrr functions are guaranteed to generate
+the exact same sequence of random numbers <em>given the same initial
+seed / RNG state</em> regardless of the type of futures and scheduling
+("chunking") strategy.</p>
+<p>RNG reproducibility is achieved by pre-generating the random seeds for all
+iterations (over <code>.x</code>) by using L'Ecuyer-CMRG RNG streams. In each
+iteration, these seeds are set before calling <code>.f(.x[[i]], ...)</code>.
+<em>Note, for large <code><a href='https://rdrr.io/r/base/length.html'>length(.x)</a></code> this may introduce a large overhead.</em></p>
+<p>A fixed <code>seed</code> may be given as an integer vector, either as a full
+L'Ecuyer-CMRG RNG seed of length <code>7</code>, or as a seed of length <code>1</code> that
+will be used to generate a full L'Ecuyer-CMRG seed.</p>
+<p>If <code>seed = TRUE</code>, then <code>.Random.seed</code> is returned if it holds a
+L'Ecuyer-CMRG RNG seed, otherwise one is created randomly.</p>
+<p>If <code>seed = NA</code>, a L'Ecuyer-CMRG RNG seed is randomly created.</p>
+<p>If none of the function calls <code>.f(.x[[i]], ...)</code> use random number
+generation, then <code>seed = FALSE</code> may be used.</p>
+<p>In addition to the above, it is possible to specify a pre-generated
+sequence of RNG seeds as a list such that <code>length(seed) == length(.x)</code> and
+where each element is an integer seed that can be assigned to <code>.Random.seed</code>.
+Use this alternative with caution. <em>Note that <code><a href='https://rdrr.io/r/base/list.html'>as.list(seq_along(.x))</a></code> is
+not a valid set of such <code>.Random.seed</code> values.</em></p>
+<p>In all cases but <code>seed = FALSE</code>, after a furrr function returns, the RNG
+state of the calling R process is guaranteed to be "forwarded one step" from
+the RNG state before the call. This is true regardless of the future
+strategy / scheduling used. This is done in order to guarantee that an R
+script calling <code><a href='future_map.html'>future_map()</a></code> multiple times should be numerically
+reproducible given the same initial seed.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>future_options</span>()</div><div class='output co'>#&gt; <span class='warning'>Warning: `future_options()` is deprecated as of furrr 0.2.0.</span>
-#&gt; <span class='warning'>Please use `furrr_options()` instead.</span>
-#&gt; <span class='warning'><span style='color: #555555;'>This warning is displayed once every 8 hours.</span><span></span>
-#&gt; <span class='warning'></span><span style='color: #555555;'>Call `lifecycle::last_warnings()` to see where this warning was generated.</span><span></span></div><div class='output co'>#&gt; &lt;furrr_options&gt;</div></span></pre>
+    <pre class="examples"><div class='input'><span class='fu'>furrr_options</span>()</div><div class='output co'>#&gt; &lt;furrr_options&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

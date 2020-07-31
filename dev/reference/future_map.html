@@ -141,13 +141,13 @@ adapted from both <code><a href='https://purrr.tidyverse.org/reference/map.html'
 so look there for more details.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>future_map</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>(), <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>())
+    <pre class="usage"><span class='fu'>future_map</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(), <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>())
 
 <span class='fu'>future_map_chr</span>(
   <span class='no'>.x</span>,
   <span class='no'>.f</span>,
   <span class='no'>...</span>,
-  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>(),
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
   <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>()
 )
 
@@ -155,7 +155,7 @@ so look there for more details.</p>
   <span class='no'>.x</span>,
   <span class='no'>.f</span>,
   <span class='no'>...</span>,
-  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>(),
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
   <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>()
 )
 
@@ -163,7 +163,7 @@ so look there for more details.</p>
   <span class='no'>.x</span>,
   <span class='no'>.f</span>,
   <span class='no'>...</span>,
-  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>(),
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
   <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>()
 )
 
@@ -171,7 +171,7 @@ so look there for more details.</p>
   <span class='no'>.x</span>,
   <span class='no'>.f</span>,
   <span class='no'>...</span>,
-  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>(),
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
   <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>()
 )
 
@@ -180,7 +180,7 @@ so look there for more details.</p>
   <span class='no'>.f</span>,
   <span class='no'>...</span>,
   <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>(),
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
   <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>()
 )
 
@@ -188,11 +188,11 @@ so look there for more details.</p>
   <span class='no'>.x</span>,
   <span class='no'>.f</span>,
   <span class='no'>...</span>,
-  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>(),
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
   <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>()
 )
 
-<span class='fu'>future_walk</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>())</pre>
+<span class='fu'>future_walk</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>())</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -226,7 +226,7 @@ present, the value of <code>.default</code> will be returned.</p></td>
     <tr>
       <th>.options</th>
       <td><p>The <code>future</code> specific options to use with the workers. This must
-be the result from a call to <code><a href='future_options.html'>future_options()</a></code>.</p></td>
+be the result from a call to <code><a href='furrr_options.html'>furrr_options()</a></code>.</p></td>
     </tr>
     <tr>
       <th>.progress</th>
@@ -269,8 +269,8 @@ e.g. logical -&gt; integer -&gt; double -&gt; character.</p>
 
 <span class='fl'>1</span>:<span class='fl'>10</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>future_map</span>(<span class='no'>rnorm</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>10</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>future_map_dbl</span>(<span class='no'>mean</span>)</div><div class='output co'>#&gt;  [1] 0.7176488 1.8624316 2.9536297 3.7841539 4.4839195 6.1232329 7.1926071
-#&gt;  [8] 7.9118392 9.3974187 9.9087706</div><div class='input'>
+  <span class='fu'>future_map_dbl</span>(<span class='no'>mean</span>)</div><div class='output co'>#&gt;  [1]  1.139415  1.846501  3.487488  3.415873  4.925889  6.029335  7.305350
+#&gt;  [8]  8.195502  9.289112 10.230063</div><div class='input'>
 <span class='co'># If each element of the output is a data frame, use</span>
 <span class='co'># future_map_dfr to row-bind them together:</span>
 <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span>
@@ -291,10 +291,10 @@ e.g. logical -&gt; integer -&gt; double -&gt; character.</p>
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>2</span>
 
 <span class='co'># This will fail, y is not exported (no black magic occurs)</span>
-<span class='co'># future_map(1, ~y, .options = future_options(globals = "x"))</span>
+<span class='co'># future_map(1, ~y, .options = furrr_options(globals = "x"))</span>
 
 <span class='co'># y is exported</span>
-<span class='fu'>future_map</span>(<span class='fl'>1</span>, ~<span class='no'>y</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>(<span class='kw'>globals</span> <span class='kw'>=</span> <span class='st'>"y"</span>))</div><div class='output co'>#&gt; [[1]]
+<span class='fu'>future_map</span>(<span class='fl'>1</span>, ~<span class='no'>y</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(<span class='kw'>globals</span> <span class='kw'>=</span> <span class='st'>"y"</span>))</div><div class='output co'>#&gt; [[1]]
 #&gt; [1] 2
 #&gt; </div><div class='input'>
 <span class='co'># \dontshow{</span>
