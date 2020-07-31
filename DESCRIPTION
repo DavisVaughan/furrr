@@ -23,11 +23,11 @@ Depends:
     future (>= 1.17.0),
     R (>= 3.2.0)
 Imports:
-    lifecycle (>= 0.2.0),
+    ellipsis,
     globals (>= 0.12.2),
+    lifecycle (>= 0.2.0),
     purrr (>= 0.3.0),
     rlang (>= 0.3.0),
-    ellipsis,
     vctrs
 Suggests:
     covr,
@@ -39,7 +39,7 @@ Suggests:
     withr
 VignetteBuilder: 
     knitr
-LazyData: true
 Encoding: UTF-8
+LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
