@@ -31,9 +31,9 @@
 #' @param lazy A logical. Specifies whether futures should be resolved
 #'   lazily or eagerly.
 #'
-#' @param seed A logical, an integer of length `1` or `7`, or a list of
-#'   `length(.x)` with pre-generated random seeds. For details, see the
-#'   `Reproducible random number generation (RNG)` section below.
+#' @param seed A logical, an integer of length `1` or `7`, a list of
+#'   `length(.x)` with pre-generated random seeds, or `NULL`. For details, see
+#'   the `Reproducible random number generation (RNG)` section below.
 #'
 #' @param scheduling A single integer, logical, or `Inf`. This argument
 #'   controls the average number of futures ("chunks") per worker.
@@ -83,6 +83,11 @@
 #' the exact same sequence of random numbers _given the same initial
 #' seed / RNG state_ regardless of the type of futures and scheduling
 #' ("chunking") strategy.
+#'
+#' Setting `seed = NULL` is equivalent to `seed = FALSE`, except that the
+#' `future.rng.onMisuse` option is not consulted to potentially monitor the
+#' future for faulty random number usage. See the `seed` argument of
+#' [future::future()] for more details.
 #'
 #' RNG reproducibility is achieved by pre-generating the random seeds for all
 #' iterations (over `.x`) by using L'Ecuyer-CMRG RNG streams. In each
@@ -222,8 +227,8 @@ validate_globals <- function(x) {
   }
 
   if (is.logical(x)) {
-    if (length(x) != 1L) {
-      abort("A logical `globals` must have length 1.")
+    if (!is_bool(x)) {
+      abort("A logical `globals` must be length 1 and can't be `NA`.")
     }
 
     return(x)
@@ -245,7 +250,13 @@ validate_globals <- function(x) {
 }
 
 validate_packages <- function(x) {
-  vctrs::vec_cast(x, character(), x_arg = "packages")
+  x <- vctrs::vec_cast(x, character(), x_arg = "packages")
+
+  if (any(is.na(x))) {
+    abort("`packages` can't be `NA`.")
+  }
+
+  x
 }
 
 validate_lazy <- function(x) {
@@ -260,8 +271,13 @@ validate_lazy <- function(x) {
 }
 
 validate_seed <- function(x) {
+  if (is.null(x)) {
+    return(x)
+  }
+
   # Size is validated when we have `.x`
   if (is.list(x)) {
+    x <- validate_seed_list(x)
     return(x)
   }
 
@@ -292,6 +308,37 @@ validate_seed <- function(x) {
   abort("`seed` must be a logical, integer, or list.")
 }
 
+validate_seed_list <- function(x) {
+  seeds_are_integers <- map_lgl(x, ~typeof(.x) == "integer")
+  if (!all(seeds_are_integers)) {
+    abort("All elements of a list `seed` must be integers.")
+  }
+
+  unique_lengths <- unique(lengths(x))
+  if (length(unique_lengths) != 1L) {
+    abort("All elements of a list `seed` must have the same length.")
+  }
+
+  if (identical(unique_lengths, 1L)) {
+    abort(paste0(
+      "All pre-generated random seed elements of a list `seed` ",
+      "must be valid `.Random.seed` seeds, which means they should be all ",
+      "integers and consists of two or more elements, not just one."
+    ))
+  }
+
+  # For efficiency, just check the first seed for validity
+  seed <- x[[1]]
+  if (!is_valid_random_seed(seed)) {
+    abort(paste0(
+      "All pre-generated random seed elements of a list `seed` ",
+      "must be valid `.Random.seed` seeds, but the first does not seem to be."
+    ))
+  }
+
+  x
+}
+
 validate_scheduling <- function(x) {
   if (length(x) != 1L) {
     abort("`scheduling` must be length 1.")
@@ -309,7 +356,13 @@ validate_scheduling <- function(x) {
     return(x)
   }
 
-  vctrs::vec_cast(x, integer(), x_arg = "scheduling")
+  x <- vctrs::vec_cast(x, integer(), x_arg = "scheduling")
+
+  if (x < 0L) {
+    abort("`scheduling` must be greater than or equal to zero.")
+  }
+
+  x
 }
 
 validate_chunk_size <- function(x) {
@@ -326,6 +379,10 @@ validate_chunk_size <- function(x) {
 
   if (is.na(x)) {
     abort("`chunk_size` can't be `NA`.")
+  }
+
+  if (x <= 0L) {
+    abort("`chunk_size` must be greater than zero.")
   }
 
   x

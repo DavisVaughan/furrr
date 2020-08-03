@@ -21,9 +21,9 @@ controlling how globals are handled. For details, see the
 packages that are guaranteed to be attached in the R environment where the
 future is evaluated.}
 
-\item{seed}{A logical, an integer of length \code{1} or \code{7}, or a list of
-\code{length(.x)} with pre-generated random seeds. For details, see the
-\verb{Reproducible random number generation (RNG)} section below.}
+\item{seed}{A logical, an integer of length \code{1} or \code{7}, a list of
+\code{length(.x)} with pre-generated random seeds, or \code{NULL}. For details, see
+the \verb{Reproducible random number generation (RNG)} section below.}
 
 \item{lazy}{A logical. Specifies whether futures should be resolved
 lazily or eagerly.}

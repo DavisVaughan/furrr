@@ -68,7 +68,8 @@
 #' @export
 future_map <- function(.x, .f, ..., .options = furrr_options(), .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_map")
-  future_map_template(purrr::map, "list", .x, .f, ..., .options = .options)
+  #future_map_template(purrr::map, "list", .x, .f, ..., .options = .options)
+  furrr_map_template(.x, .f, ..., .options = .options, .type = "list", .map_fn = purrr::map)
 }
 
 #' @rdname future_map
