@@ -1,73 +1,77 @@
-get_globals_and_packages_fn_and_dots <- function(globals,
-                                                 fn,
-                                                 dots,
-                                                 env) {
-  if (is.logical(globals)) {
-    gp <- get_globals_and_packages_logical(globals, fn, dots, env)
-  } else if (is.character(globals)) {
-    gp <- get_globals_and_packages_character(globals, env)
-  } else if (is.list(globals)) {
-    gp <- get_globals_and_packages_list(globals)
-  } else {
-    abort("Internal error: Unknown type of `globals`.")
-  }
+get_globals_and_packages <- function(globals, packages, map_fn, fn, env, env_dots) {
+  objectSize <- import_future("objectSize")
 
-  globals <- gp$globals
+  packages_out <- "purrr"
 
-  # Require `fn` to be exported
-  if (!is.element(".f", names(globals))) {
-    globals <- c(globals, ...future_fn = fn)
-  }
+  # Always get `.f`
+  globals_fn <- list(...future_fn = fn)
+  globals_fn <- future::as.FutureGlobals(globals_fn)
+  globals_fn <- future::resolve(globals_fn)
+  attr(globals_fn, "total_size") <- objectSize(globals_fn)
 
-  # Require `...` to be exported
-  if (!is.element("...", names(globals))) {
-    objectSize <- import_future("objectSize")
+  # Always get `...`. Use `globalsByName()` to have them classed correctly
+  globals_dots <- globals::globalsByName("...", env_dots, mustExist = TRUE)
+  globals_dots <- future::as.FutureGlobals(globals_dots)
+  globals_dots <- future::resolve(globals_dots)
+  attr(globals_dots, "total_size") <- objectSize(globals_dots)
 
-    dotdotdot <- globals::globalsByName("...", envir = env, mustExist = TRUE)
-    dotdotdot <- future::as.FutureGlobals(dotdotdot)
-    dotdotdot <- future::resolve(dotdotdot)
+  # Always get `map_fn`
+  globals_map_fn <- list(...future_map_fn = map_fn)
+  globals_map_fn <- future::as.FutureGlobals(globals_map_fn)
+  globals_map_fn <- future::resolve(globals_map_fn)
+  attr(globals_map_fn, "total_size") <- objectSize(globals_map_fn)
 
-    attr(dotdotdot, "total_size") <- objectSize(dotdotdot)
-
-    globals <- c(globals, dotdotdot)
-  }
-
-  gp$globals <- globals
-
-  gp
-}
-
-get_globals_and_packages_logical <- function(globals,
-                                             fn,
-                                             dots,
-                                             env) {
-  # Don't collect globals
-  if (is_false(globals)) {
-    return(new_globals_and_packages())
-  }
-
-  # Construct `fn()` expression with dots, but no `.x` args
-  expr_fn <- rlang::call2(fn, !!!dots)
-
-  gp <- getGlobalsAndPackages(expr_fn, envir = env, globals = TRUE)
-
-  new_globals_and_packages(
-    globals = gp$globals,
-    packages = gp$packages
+  # Always get chunk specific placeholders
+  globals_extra <- list(
+    ...future_chunk_args = NULL,
+    ...future_chunk_seeds = NULL,
+    ...future_globals_max_size = NULL
   )
-}
+  globals_extra <- future::as.FutureGlobals(globals_extra)
+  globals_extra <- future::resolve(globals_extra)
+  attr(globals_extra, "total_size") <- objectSize(globals_extra)
 
-get_globals_and_packages_character <- function(globals, env) {
-  globals <- unique(c(globals, ".f", "..."))
-  globals <- globals::globalsByName(globals, envir = env, mustExist = FALSE)
-  new_globals_and_packages(globals = globals)
-}
+  globals_out <- c(
+    globals_fn,
+    globals_dots,
+    globals_map_fn,
+    globals_extra
+  )
 
-get_globals_and_packages_list <- function(globals) {
-  new_globals_and_packages(globals = globals)
-}
+  # Collect all globals recursively
+  # Search in the parent frame of the `future_*()` call for globals
+  if (is_true(globals)) {
+    dots <- globals_dots[["..."]]
 
-new_globals_and_packages <- function(globals = NULL, packages = NULL) {
-  globals <- future::as.FutureGlobals(globals)
-  list(globals = globals, packages = packages)
+    gp_fn <- future::getGlobalsAndPackages(fn, envir = env, globals = TRUE)
+    gp_dots <- future::getGlobalsAndPackages(dots, envir = env, globals = TRUE)
+
+    globals_out <- unique(c(globals_out, gp_fn$globals, gp_dots$globals))
+    packages_out <- unique(c(packages_out, gp_fn$packages, gp_dots$packages))
+  }
+
+  # Collect only explicitly selected globals,
+  # but be lax about it with `mustExist = FALSE`.
+  if (is.character(globals)) {
+    globals_chr <- globals::globalsByName(globals, envir = env, mustExist = FALSE)
+    globals_chr <- future::as.FutureGlobals(globals_chr)
+
+    globals_out <- c(globals_out, globals_chr)
+  }
+
+  # Assume supplied named inputs are the globals.
+  if (is.list(globals)) {
+    globals_lst <- future::as.FutureGlobals(globals)
+
+    globals_out <- c(globals_out, globals_lst)
+  }
+
+  # Add user specified packages
+  if (!is.null(packages)) {
+    packages_out <- unique(c(packages_out, packages))
+  }
+
+  out <- list(globals = globals_out, packages = packages_out)
+
+  out
 }

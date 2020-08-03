@@ -11,12 +11,20 @@
 \alias{future_walk}
 \title{Apply a function to each element of a vector via futures}
 \usage{
-future_map(.x, .f, ..., .options = furrr_options(), .progress = deprecated())
+future_map(
+  .x,
+  .f,
+  ...,
+  .env = parent.frame(),
+  .options = furrr_options(),
+  .progress = deprecated()
+)
 
 future_map_chr(
   .x,
   .f,
   ...,
+  .env = parent.frame(),
   .options = furrr_options(),
   .progress = deprecated()
 )
@@ -25,6 +33,7 @@ future_map_dbl(
   .x,
   .f,
   ...,
+  .env = parent.frame(),
   .options = furrr_options(),
   .progress = deprecated()
 )
@@ -33,6 +42,7 @@ future_map_int(
   .x,
   .f,
   ...,
+  .env = parent.frame(),
   .options = furrr_options(),
   .progress = deprecated()
 )
@@ -41,6 +51,7 @@ future_map_lgl(
   .x,
   .f,
   ...,
+  .env = parent.frame(),
   .options = furrr_options(),
   .progress = deprecated()
 )
@@ -50,6 +61,7 @@ future_map_dfr(
   .f,
   ...,
   .id = NULL,
+  .env = parent.frame(),
   .options = furrr_options(),
   .progress = deprecated()
 )
@@ -58,6 +70,7 @@ future_map_dfc(
   .x,
   .f,
   ...,
+  .env = parent.frame(),
   .options = furrr_options(),
   .progress = deprecated()
 )
@@ -88,6 +101,9 @@ by position and name at different levels. If a component is not
 present, the value of \code{.default} will be returned.}
 
 \item{...}{Additional arguments passed on to the mapped function.}
+
+\item{.env}{The environment to look for globals required by \code{.f}, \code{...}, and
+\code{.x}.}
 
 \item{.options}{The \code{future} specific options to use with the workers. This must
 be the result from a call to \code{\link[=furrr_options]{furrr_options()}}.}

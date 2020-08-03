@@ -9,8 +9,6 @@ furrr_test_that("future_pmap() matches pmap() for simple cases", {
 })
 
 furrr_test_that("names of `.x` are retained", {
-  skip("Until #116 is fixed")
-
   x <- c(a = 1, b = 2)
   y <- c(c = 1, d = 2)
   expect_named(future_pmap(list(x, y), ~1), c("a", "b"))
@@ -60,8 +58,6 @@ furrr_test_that("future_pmap_chr() works", {
 })
 
 furrr_test_that("names of `.x` are retained", {
-  skip("Until #116 is fixed")
-
   x <- c(a = 1, b = 2)
   y <- c(c = 1, d = 2)
   expect_named(future_pmap_dbl(list(x, y), ~1), c("a", "b"))
@@ -94,7 +90,6 @@ furrr_test_that("future_pmap_dfc() works", {
 # size
 
 furrr_test_that("future_pmap() works with completely empty list", {
-  skip("until #135 is fixed")
   expect_identical(future_pmap(list(), identity), list())
 })
 
@@ -132,14 +127,14 @@ furrr_test_that("size one recycling works", {
 })
 
 furrr_test_that("generally can't recycle to size zero", {
-  skip("until #134 is fixed")
-
   expect_error(
     future_pmap(list(1:2, integer()), ~c(.x, .y)),
+    "Can't recycle"
   )
 
   expect_error(
-    future_pmap(list(integer(), 1:2), ~c(.x, .y))
+    future_pmap(list(integer(), 1:2), ~c(.x, .y)),
+    "Can't recycle"
   )
 })
 

@@ -1,16 +1,12 @@
-furrr_map_template <- function(.x, .f, ..., .options, .type, .map_fn) {
-  dots <- list(...)
-
+furrr_map_template <- function(.x,
+                               .f,
+                               .options,
+                               .type,
+                               .map_fn,
+                               .env,
+                               .env_dots) {
   n <- length(.x)
   names <- names(.x)
-
-  # TODO: Can we handle this more elegantly?
-  # Size zero handling up front
-  if (n == 0L) {
-    out <- vector(.type)
-    names(out) <- names
-    return(out)
-  }
 
   expr_seed <- make_expr_seed(.options$seed)
 
@@ -33,21 +29,16 @@ furrr_map_template <- function(.x, .f, ..., .options, .type, .map_fn) {
     )
   })
 
-  # TODO: Should this be `parent.env()` of the `future_map()` call?
-  # We'd pass through to here as an `.env` argument.
-  # See future.apply#62 for details.
-  env <- environment()
-
   furrr_template(
     args = .x,
     fn = .f,
-    dots = dots,
     n = n,
     options = .options,
     type = .type,
     map_fn = .map_fn,
     names = names,
-    env = env,
+    env = .env,
+    env_dots = .env_dots,
     expr = expr,
     extract = furrr_map_extract
   )
@@ -59,23 +50,21 @@ furrr_map_extract <- function(x, i) {
 
 # ------------------------------------------------------------------------------
 
-furrr_map2_template <- function(.x, .y, .f, ..., .options, .type, .map_fn) {
+furrr_map2_template <- function(.x,
+                                .y,
+                                .f,
+                                .options,
+                                .type,
+                                .map_fn,
+                                .env,
+                                .env_dots) {
   args <- list(.x, .y)
-  dots <- list(...)
 
   n <- furrr_length_common(args)
   args <- furrr_recycle_common(args, n)
 
   # Get names after possible recycling
   names <- names(args[[1]])
-
-  # TODO: Can we handle this more elegantly?
-  # Size zero handling up front
-  if (n == 0L) {
-    out <- vector(.type)
-    names(out) <- names
-    return(out)
-  }
 
   expr_seed <- make_expr_seed(.options$seed)
 
@@ -100,21 +89,16 @@ furrr_map2_template <- function(.x, .y, .f, ..., .options, .type, .map_fn) {
     )
   })
 
-  # TODO: Should this be `parent.env()` of the `future_map()` call?
-  # We'd pass through to here as an `.env` argument.
-  # See future.apply#62 for details.
-  env <- environment()
-
   furrr_template(
     args = args,
     fn = .f,
-    dots = dots,
     n = n,
     options = .options,
     type = .type,
     map_fn = .map_fn,
     names = names,
-    env = env,
+    env = .env,
+    env_dots = .env_dots,
     expr = expr,
     extract = furrr_map2_extract
   )
@@ -126,27 +110,26 @@ furrr_map2_extract <- function(x, i) {
 
 # ------------------------------------------------------------------------------
 
-furrr_pmap_template <- function(.l, .f, ..., .options, .type, .map_fn) {
-  dots <- list(...)
-
-  # Special case for `future_pmap(list())`
-  if (length(.l) == 0L) {
-    out <- vector(.type)
-    return(out)
+furrr_pmap_template <- function(.l,
+                                .f,
+                                .options,
+                                .type,
+                                .map_fn,
+                                .env,
+                                .env_dots) {
+  if (is.data.frame(.l)) {
+    .l <- as.list(.l)
   }
 
   n <- furrr_length_common(.l)
   args <- furrr_recycle_common(.l, n)
 
-  # Get names after possible recycling
-  names <- names(args[[1]])
-
-  # TODO: Can we handle this more elegantly?
-  # Size zero handling up front
   if (n == 0L) {
-    out <- vector(.type)
-    names(out) <- names
-    return(out)
+    # Special case handling of empty `.l` like `future_pmap(list())`
+    names <- NULL
+  } else {
+    # Get names after possible recycling
+    names <- names(args[[1]])
   }
 
   expr_seed <- make_expr_seed(.options$seed)
@@ -170,21 +153,16 @@ furrr_pmap_template <- function(.l, .f, ..., .options, .type, .map_fn) {
     )
   })
 
-  # TODO: Should this be `parent.env()` of the `future_map()` call?
-  # We'd pass through to here as an `.env` argument.
-  # See future.apply#62 for details.
-  env <- environment()
-
   furrr_template(
     args = args,
     fn = .f,
-    dots = dots,
     n = n,
     options = .options,
     type = .type,
     map_fn = .map_fn,
     names = names,
-    env = env,
+    env = .env,
+    env_dots = .env_dots,
     expr = expr,
     extract = furrr_pmap_extract
   )
@@ -198,13 +176,13 @@ furrr_pmap_extract <- function(x, i) {
 
 furrr_template <- function(args,
                            fn,
-                           dots,
                            n,
                            options,
                            type,
                            map_fn,
                            names,
                            env,
+                           env_dots,
                            expr,
                            extract) {
   fn <- purrr::as_mapper(fn)
@@ -240,39 +218,17 @@ furrr_template <- function(args,
     chunks <- map(chunks, FUN = function(chunk) .subset(order, chunk))
   }
 
-  gp <- get_globals_and_packages_fn_and_dots(
+  gp <- get_globals_and_packages(
     options$globals,
+    options$packages,
+    map_fn,
     fn,
-    dots,
-    env
+    env,
+    env_dots
   )
 
   globals <- gp$globals
   packages <- gp$packages
-
-  # Add user specified packages
-  if (!is.null(options$packages)) {
-    packages <- unique(c(packages, options$packages))
-  }
-
-  # Require `purrr`
-  if (!is.element("purrr", packages)) {
-    packages <- c(packages, "purrr")
-  }
-
-  # Require `purrr::map*()`
-  globals <- c(globals, ...future_map_fn = map_fn)
-
-  # Add per chunk argument placeholders
-  globals_extra <- list(
-    ...future_chunk_args = NULL,
-    ...future_chunk_seeds = NULL,
-    ...future_globals_max_size = NULL
-  )
-  globals_extra <- future::as.FutureGlobals(globals_extra)
-  attr(globals_extra, "resolved") <- TRUE
-  attr(globals_extra, "total_size") <- 0
-  globals <- c(globals, globals_extra)
 
   future_globals_max_size <- getOption("future.globals.maxSize")
   future_globals_max_size_default <- future_globals_max_size
@@ -335,7 +291,7 @@ furrr_template <- function(args,
 
     if (!is.null(seeds)) {
       chunk_seeds <- seeds[chunk]
-      chunk_globals[["..future_chunk_seeds"]] <- chunk_seeds
+      chunk_globals[["...future_chunk_seeds"]] <- chunk_seeds
     }
 
     futures[[i]] <- future(
@@ -370,79 +326,6 @@ furrr_template <- function(args,
   names(out) <- names
 
   out
-}
-
-# ------------------------------------------------------------------------------
-
-furrr_recycle_common <- function(x, n) {
-  n_x <- length(x)
-  lengths <- lengths(x)
-  idx <- rep_len(1L, n)
-
-  for (i in seq_len(n_x)) {
-    elt <- x[[i]]
-
-    # Don't recycle `NULL` elements, they can be indexed fine by `[` and `[[`
-    # and are considered like missing arguments
-    if (is.null(elt)) {
-      next
-    }
-
-    length_elt <- lengths[[i]]
-
-    if (length_elt == n) {
-      next
-    }
-
-    if (length_elt == 1L) {
-      x[[i]] <- elt[idx]
-      next
-    }
-
-    abort(paste0("Internal error: Incompatible lengths at location ", i, "."))
-  }
-
-  x
-}
-
-# Can't use `vec_size_common()` because we extract elements with `[[` and
-# respect length invariants, not size invariants
-furrr_length_common <- function(x) {
-  # Don't consider `NULL` elements in common size
-  x <- compact_null(x)
-
-  # Handle empty pmap input
-  if (length(x) == 0L) {
-    return(0L)
-  }
-
-  lengths <- lengths(x)
-  indices <- seq_along(lengths)
-
-  purrr::reduce2(lengths, indices, furrr_length2, .init = 1L)
-}
-
-furrr_length2 <- function(x, y, i) {
-  if (x == 1L) {
-    y
-  } else if (y == 1L) {
-    x
-  } else if (x == y) {
-    x
-  } else {
-    msg <- paste0("Can't recycle length ", x, " and length ", y, " at location ", i, ".")
-    abort(msg)
-  }
-}
-
-compact_null <- function(x) {
-  null <- purrr::map_lgl(x, is.null)
-
-  if (any(null)) {
-    x[!null]
-  } else {
-    x
-  }
 }
 
 # ------------------------------------------------------------------------------

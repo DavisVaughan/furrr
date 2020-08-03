@@ -24,6 +24,7 @@ future_map2(
   .y,
   .f,
   ...,
+  .env = parent.frame(),
   .options = furrr_options(),
   .progress = deprecated()
 )
@@ -33,6 +34,7 @@ future_map2_chr(
   .y,
   .f,
   ...,
+  .env = parent.frame(),
   .options = furrr_options(),
   .progress = deprecated()
 )
@@ -42,6 +44,7 @@ future_map2_dbl(
   .y,
   .f,
   ...,
+  .env = parent.frame(),
   .options = furrr_options(),
   .progress = deprecated()
 )
@@ -51,6 +54,7 @@ future_map2_int(
   .y,
   .f,
   ...,
+  .env = parent.frame(),
   .options = furrr_options(),
   .progress = deprecated()
 )
@@ -60,6 +64,7 @@ future_map2_lgl(
   .y,
   .f,
   ...,
+  .env = parent.frame(),
   .options = furrr_options(),
   .progress = deprecated()
 )
@@ -70,6 +75,7 @@ future_map2_dfr(
   .f,
   ...,
   .id = NULL,
+  .env = parent.frame(),
   .options = furrr_options(),
   .progress = deprecated()
 )
@@ -79,16 +85,25 @@ future_map2_dfc(
   .y,
   .f,
   ...,
+  .env = parent.frame(),
   .options = furrr_options(),
   .progress = deprecated()
 )
 
-future_pmap(.l, .f, ..., .options = furrr_options(), .progress = deprecated())
+future_pmap(
+  .l,
+  .f,
+  ...,
+  .env = parent.frame(),
+  .options = furrr_options(),
+  .progress = deprecated()
+)
 
 future_pmap_chr(
   .l,
   .f,
   ...,
+  .env = parent.frame(),
   .options = furrr_options(),
   .progress = deprecated()
 )
@@ -97,6 +112,7 @@ future_pmap_dbl(
   .l,
   .f,
   ...,
+  .env = parent.frame(),
   .options = furrr_options(),
   .progress = deprecated()
 )
@@ -105,6 +121,7 @@ future_pmap_int(
   .l,
   .f,
   ...,
+  .env = parent.frame(),
   .options = furrr_options(),
   .progress = deprecated()
 )
@@ -113,6 +130,7 @@ future_pmap_lgl(
   .l,
   .f,
   ...,
+  .env = parent.frame(),
   .options = furrr_options(),
   .progress = deprecated()
 )
@@ -122,6 +140,7 @@ future_pmap_dfr(
   .f,
   ...,
   .id = NULL,
+  .env = parent.frame(),
   .options = furrr_options(),
   .progress = deprecated()
 )
@@ -130,6 +149,7 @@ future_pmap_dfc(
   .l,
   .f,
   ...,
+  .env = parent.frame(),
   .options = furrr_options(),
   .progress = deprecated()
 )
@@ -166,6 +186,9 @@ by position and name at different levels. If a component is not
 present, the value of \code{.default} will be returned.}
 
 \item{...}{Additional arguments passed on to the mapped function.}
+
+\item{.env}{The environment to look for globals required by \code{.f}, \code{...}, and
+\code{.x}.}
 
 \item{.options}{The \code{future} specific options to use with the workers. This must
 be the result from a call to \code{\link[=furrr_options]{furrr_options()}}.}

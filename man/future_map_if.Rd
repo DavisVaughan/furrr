@@ -10,6 +10,7 @@ future_map_if(
   .p,
   .f,
   ...,
+  .env = parent.frame(),
   .options = furrr_options(),
   .progress = deprecated()
 )
@@ -19,6 +20,7 @@ future_map_at(
   .at,
   .f,
   ...,
+  .env = parent.frame(),
   .options = furrr_options(),
   .progress = deprecated()
 )
@@ -54,6 +56,9 @@ by position and name at different levels. If a component is not
 present, the value of \code{.default} will be returned.}
 
 \item{...}{Additional arguments passed on to the mapped function.}
+
+\item{.env}{The environment to look for globals required by \code{.f}, \code{...}, and
+\code{.x}.}
 
 \item{.options}{The \code{future} specific options to use with the workers. This must
 be the result from a call to \code{\link[=furrr_options]{furrr_options()}}.}
