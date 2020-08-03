@@ -3,7 +3,7 @@ furrr_map_template <- function(.x,
                                .options,
                                .type,
                                .map_fn,
-                               .env,
+                               .env_globals,
                                .env_dots) {
   n <- length(.x)
   names <- names(.x)
@@ -37,7 +37,7 @@ furrr_map_template <- function(.x,
     type = .type,
     map_fn = .map_fn,
     names = names,
-    env = .env,
+    env_globals = .env_globals,
     env_dots = .env_dots,
     expr = expr,
     extract = furrr_map_extract
@@ -56,7 +56,7 @@ furrr_map2_template <- function(.x,
                                 .options,
                                 .type,
                                 .map_fn,
-                                .env,
+                                .env_globals,
                                 .env_dots) {
   args <- list(.x, .y)
 
@@ -97,7 +97,7 @@ furrr_map2_template <- function(.x,
     type = .type,
     map_fn = .map_fn,
     names = names,
-    env = .env,
+    env_globals = .env_globals,
     env_dots = .env_dots,
     expr = expr,
     extract = furrr_map2_extract
@@ -115,7 +115,7 @@ furrr_pmap_template <- function(.l,
                                 .options,
                                 .type,
                                 .map_fn,
-                                .env,
+                                .env_globals,
                                 .env_dots) {
   if (is.data.frame(.l)) {
     .l <- as.list(.l)
@@ -161,7 +161,7 @@ furrr_pmap_template <- function(.l,
     type = .type,
     map_fn = .map_fn,
     names = names,
-    env = .env,
+    env_globals = .env_globals,
     env_dots = .env_dots,
     expr = expr,
     extract = furrr_pmap_extract
@@ -181,7 +181,7 @@ furrr_template <- function(args,
                            type,
                            map_fn,
                            names,
-                           env,
+                           env_globals,
                            env_dots,
                            expr,
                            extract) {
@@ -223,7 +223,7 @@ furrr_template <- function(args,
     options$packages,
     map_fn,
     fn,
-    env,
+    env_globals,
     env_dots
   )
 
@@ -271,7 +271,7 @@ furrr_template <- function(args,
     chunk_packages <- packages
 
     if (scan_chunk_args_for_globals) {
-      chunk_args_gp <- getGlobalsAndPackages(chunk_args, envir = env, globals = TRUE)
+      chunk_args_gp <- getGlobalsAndPackages(chunk_args, envir = env_globals, globals = TRUE)
 
       chunk_globals <- c(chunk_globals, chunk_args_gp$globals)
       chunk_globals <- unique(chunk_globals)
@@ -297,7 +297,7 @@ furrr_template <- function(args,
     futures[[i]] <- future(
       expr,
       substitute = FALSE,
-      envir = env,
+      envir = env_globals,
       stdout = options$stdout,
       conditions = options$conditions,
       globals = chunk_globals,

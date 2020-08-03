@@ -35,63 +35,175 @@
 #' }
 #' @export
 #'
-future_invoke_map <- function(.f, .x = list(NULL), ..., .env = NULL, .options = furrr_options(), .progress = deprecated()) {
+future_invoke_map <- function(.f,
+                              .x = list(NULL),
+                              ...,
+                              .env = NULL,
+                              .options = furrr_options(),
+                              .env_globals = parent.frame(),
+                              .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_invoke_map")
+
   .env <- .env %||% parent.frame()
   .f <- as_invoke_function(.f)
-  future_map2(.f, .x, purrr::invoke, ..., .env = .env, .options = .options)
+
+  future_map2(
+    .x = .f,
+    .y = .x,
+    .f = purrr::invoke,
+    ...,
+    .env = .env,
+    .options = .options,
+    .env_globals = .env_globals
+  )
 }
 
 #' @rdname future_invoke_map
 #' @export
-future_invoke_map_chr <- function(.f, .x = list(NULL), ..., .env = NULL, .options = furrr_options(), .progress = deprecated()) {
+future_invoke_map_chr <- function(.f,
+                                  .x = list(NULL),
+                                  ...,
+                                  .env = NULL,
+                                  .options = furrr_options(),
+                                  .env_globals = parent.frame(),
+                                  .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_invoke_map_chr")
+
   .env <- .env %||% parent.frame()
   .f <- as_invoke_function(.f)
-  future_map2_chr(.f, .x, purrr::invoke, ..., .env = .env, .options = .options)
+
+  future_map2_chr(
+    .x = .f,
+    .y = .x,
+    .f = purrr::invoke,
+    ...,
+    .env = .env,
+    .options = .options,
+    .env_globals = .env_globals
+  )
 }
 
 #' @rdname future_invoke_map
 #' @export
-future_invoke_map_dbl <- function(.f, .x = list(NULL), ..., .env = NULL, .options = furrr_options(), .progress = deprecated()) {
+future_invoke_map_dbl <- function(.f,
+                                  .x = list(NULL),
+                                  ...,
+                                  .env = NULL,
+                                  .options = furrr_options(),
+                                  .env_globals = parent.frame(),
+                                  .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_invoke_map_dbl")
+
   .env <- .env %||% parent.frame()
   .f <- as_invoke_function(.f)
-  future_map2_dbl(.f, .x, purrr::invoke, ..., .env = .env, .options = .options)
+
+  future_map2_dbl(
+    .x = .f,
+    .y = .x,
+    .f = purrr::invoke,
+    ...,
+    .env = .env,
+    .options = .options,
+    .env_globals = .env_globals
+  )
 }
 
 #' @rdname future_invoke_map
 #' @export
-future_invoke_map_int <- function(.f, .x = list(NULL), ..., .env = NULL, .options = furrr_options(), .progress = deprecated()) {
+future_invoke_map_int <- function(.f,
+                                  .x = list(NULL),
+                                  ...,
+                                  .env = NULL,
+                                  .options = furrr_options(),
+                                  .env_globals = parent.frame(),
+                                  .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_invoke_map_int")
+
   .env <- .env %||% parent.frame()
   .f <- as_invoke_function(.f)
-  future_map2_int(.f, .x, purrr::invoke, ..., .env = .env, .options = .options)
+
+  future_map2_int(
+    .x = .f,
+    .y = .x,
+    .f = purrr::invoke,
+    ...,
+    .env = .env,
+    .options = .options,
+    .env_globals = .env_globals
+  )
 }
 
 #' @rdname future_invoke_map
 #' @export
-future_invoke_map_lgl <- function(.f, .x = list(NULL), ..., .env = NULL, .options = furrr_options(), .progress = deprecated()) {
+future_invoke_map_lgl <- function(.f,
+                                  .x = list(NULL),
+                                  ...,
+                                  .env = NULL,
+                                  .options = furrr_options(),
+                                  .env_globals = parent.frame(),
+                                  .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_invoke_map_lgl")
+
   .env <- .env %||% parent.frame()
   .f <- as_invoke_function(.f)
-  future_map2_lgl(.f, .x, purrr::invoke, ..., .env = .env, .options = .options)
+
+  future_map2_lgl(
+    .x = .f,
+    .y = .x,
+    .f = purrr::invoke,
+    ...,
+    .env = .env,
+    .options = .options,
+    .env_globals = .env_globals
+  )
 }
 
 #' @rdname future_invoke_map
 #' @export
-future_invoke_map_dfr <- function(.f, .x = list(NULL), ..., .env = NULL, .options = furrr_options(), .progress = deprecated()) {
+future_invoke_map_dfr <- function(.f,
+                                  .x = list(NULL),
+                                  ...,
+                                  .env = NULL,
+                                  .options = furrr_options(),
+                                  .env_globals = parent.frame(),
+                                  .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_invoke_map_dfr")
+
   .env <- .env %||% parent.frame()
   .f <- as_invoke_function(.f)
-  future_map2_dfr(.f, .x, purrr::invoke, ..., .env = .env, .options = .options)
+
+  future_map2_dfr(
+    .x = .f,
+    .y = .x,
+    .f = purrr::invoke,
+    ...,
+    .env = .env,
+    .options = .options,
+    .env_globals = .env_globals
+  )
 }
 
 #' @rdname future_invoke_map
 #' @export
-future_invoke_map_dfc <- function(.f, .x = list(NULL), ..., .env = NULL, .options = furrr_options(), .progress = deprecated()) {
+future_invoke_map_dfc <- function(.f,
+                                  .x = list(NULL),
+                                  ...,
+                                  .env = NULL,
+                                  .options = furrr_options(),
+                                  .env_globals = parent.frame(),
+                                  .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_invoke_map_dfc")
+
   .env <- .env %||% parent.frame()
   .f <- as_invoke_function(.f)
-  future_map2_dfc(.f, .x, purrr::invoke, ..., .env = .env, .options = .options)
+
+  future_map2_dfc(
+    .x = .f,
+    .y = .x,
+    .f = purrr::invoke,
+    ...,
+    .env = .env,
+    .options = .options,
+    .env_globals = .env_globals
+  )
 }

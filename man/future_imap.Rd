@@ -11,13 +11,21 @@
 \alias{future_iwalk}
 \title{Apply a function to each element of a vector, and its index via futures}
 \usage{
-future_imap(.x, .f, ..., .options = furrr_options(), .progress = deprecated())
+future_imap(
+  .x,
+  .f,
+  ...,
+  .options = furrr_options(),
+  .env_globals = parent.frame(),
+  .progress = deprecated()
+)
 
 future_imap_chr(
   .x,
   .f,
   ...,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -26,6 +34,7 @@ future_imap_dbl(
   .f,
   ...,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -34,6 +43,7 @@ future_imap_int(
   .f,
   ...,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -42,6 +52,7 @@ future_imap_lgl(
   .f,
   ...,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -51,6 +62,7 @@ future_imap_dfr(
   ...,
   .id = NULL,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -59,10 +71,17 @@ future_imap_dfc(
   .f,
   ...,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
-future_iwalk(.x, .f, ..., .env = parent.frame(), .options = furrr_options())
+future_iwalk(
+  .x,
+  .f,
+  ...,
+  .options = furrr_options(),
+  .env_globals = parent.frame()
+)
 }
 \arguments{
 \item{.x}{A list or atomic vector.}
@@ -103,9 +122,6 @@ the index (if \code{.x} is unnamed) of the input. If \code{NULL}, the default, n
 variable will be created.
 
 Only applies to \verb{_dfr} variant.}
-
-\item{.env}{The environment to look for globals required by \code{.f}, \code{...}, and
-\code{.x}.}
 }
 \value{
 A vector the same length as .x.

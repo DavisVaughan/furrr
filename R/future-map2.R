@@ -59,8 +59,8 @@ future_map2 <- function(.x,
                         .y,
                         .f,
                         ...,
-                        .env = parent.frame(),
                         .options = furrr_options(),
+                        .env_globals = parent.frame(),
                         .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_map2")
 
@@ -71,7 +71,7 @@ future_map2 <- function(.x,
     .options = .options,
     .type = "list",
     .map_fn = purrr::map2,
-    .env = .env,
+    .env_globals = .env_globals,
     .env_dots = environment()
   )
 }
@@ -82,8 +82,8 @@ future_map2_chr <- function(.x,
                             .y,
                             .f,
                             ...,
-                            .env = parent.frame(),
                             .options = furrr_options(),
+                            .env_globals = parent.frame(),
                             .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_map2_chr")
 
@@ -94,7 +94,7 @@ future_map2_chr <- function(.x,
     .options = .options,
     .type = "character",
     .map_fn = purrr::map2_chr,
-    .env = .env,
+    .env_globals = .env_globals,
     .env_dots = environment()
   )
 }
@@ -105,8 +105,8 @@ future_map2_dbl <- function(.x,
                             .y,
                             .f,
                             ...,
-                            .env = parent.frame(),
                             .options = furrr_options(),
+                            .env_globals = parent.frame(),
                             .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_map2_dbl")
 
@@ -117,7 +117,7 @@ future_map2_dbl <- function(.x,
     .options = .options,
     .type = "double",
     .map_fn = purrr::map2_dbl,
-    .env = .env,
+    .env_globals = .env_globals,
     .env_dots = environment()
   )
 }
@@ -128,8 +128,8 @@ future_map2_int <- function(.x,
                             .y,
                             .f,
                             ...,
-                            .env = parent.frame(),
                             .options = furrr_options(),
+                            .env_globals = parent.frame(),
                             .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_map2_int")
 
@@ -140,7 +140,7 @@ future_map2_int <- function(.x,
     .options = .options,
     .type = "integer",
     .map_fn = purrr::map2_int,
-    .env = .env,
+    .env_globals = .env_globals,
     .env_dots = environment()
   )
 }
@@ -151,8 +151,8 @@ future_map2_lgl <- function(.x,
                             .y,
                             .f,
                             ...,
-                            .env = parent.frame(),
                             .options = furrr_options(),
+                            .env_globals = parent.frame(),
                             .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_map2_lgl")
 
@@ -163,7 +163,7 @@ future_map2_lgl <- function(.x,
     .options = .options,
     .type = "logical",
     .map_fn = purrr::map2_lgl,
-    .env = .env,
+    .env_globals = .env_globals,
     .env_dots = environment()
   )
 }
@@ -175,8 +175,8 @@ future_map2_dfr <- function(.x,
                             .f,
                             ...,
                             .id = NULL,
-                            .env = parent.frame(),
                             .options = furrr_options(),
+                            .env_globals = parent.frame(),
                             .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_map2_dfr")
 
@@ -184,7 +184,7 @@ future_map2_dfr <- function(.x,
     rlang::abort("`future_map2_dfr()` requires dplyr")
   }
 
-  res <- future_map2(.x, .y, .f, ..., .env = .env, .options = .options)
+  res <- future_map2(.x, .y, .f, ..., .options = .options, .env_globals = .env_globals)
   dplyr::bind_rows(res, .id = .id)
 }
 
@@ -194,8 +194,8 @@ future_map2_dfc <- function(.x,
                             .y,
                             .f,
                             ...,
-                            .env = parent.frame(),
                             .options = furrr_options(),
+                            .env_globals = parent.frame(),
                             .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_map2_dfc")
 
@@ -203,6 +203,6 @@ future_map2_dfc <- function(.x,
     rlang::abort("`future_map2_dfc()` requires dplyr")
   }
 
-  res <- future_map2(.x, .y, .f, ..., .env = .env, .options = .options)
+  res <- future_map2(.x, .y, .f, ..., .options = .options, .env_globals = .env_globals)
   dplyr::bind_cols(res)
 }

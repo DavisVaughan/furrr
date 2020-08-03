@@ -72,8 +72,8 @@
 future_map <- function(.x,
                        .f,
                        ...,
-                       .env = parent.frame(),
                        .options = furrr_options(),
+                       .env_globals = parent.frame(),
                        .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_map")
 
@@ -83,7 +83,7 @@ future_map <- function(.x,
     .options = .options,
     .type = "list",
     .map_fn = purrr::map,
-    .env = .env,
+    .env_globals = .env_globals,
     .env_dots = environment()
   )
 }
@@ -93,8 +93,8 @@ future_map <- function(.x,
 future_map_chr <- function(.x,
                            .f,
                            ...,
-                           .env = parent.frame(),
                            .options = furrr_options(),
+                           .env_globals = parent.frame(),
                            .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_map_chr")
 
@@ -104,7 +104,7 @@ future_map_chr <- function(.x,
     .options = .options,
     .type = "character",
     .map_fn = purrr::map_chr,
-    .env = .env,
+    .env_globals = .env_globals,
     .env_dots = environment()
   )
 }
@@ -114,8 +114,8 @@ future_map_chr <- function(.x,
 future_map_dbl <- function(.x,
                            .f,
                            ...,
-                           .env = parent.frame(),
                            .options = furrr_options(),
+                           .env_globals = parent.frame(),
                            .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_map_dbl")
 
@@ -125,7 +125,7 @@ future_map_dbl <- function(.x,
     .options = .options,
     .type = "double",
     .map_fn = purrr::map_dbl,
-    .env = .env,
+    .env_globals = .env_globals,
     .env_dots = environment()
   )
 }
@@ -135,8 +135,8 @@ future_map_dbl <- function(.x,
 future_map_int <- function(.x,
                            .f,
                            ...,
-                           .env = parent.frame(),
                            .options = furrr_options(),
+                           .env_globals = parent.frame(),
                            .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_map_int")
 
@@ -146,7 +146,7 @@ future_map_int <- function(.x,
     .options = .options,
     .type = "integer",
     .map_fn = purrr::map_int,
-    .env = .env,
+    .env_globals = .env_globals,
     .env_dots = environment()
   )
 }
@@ -156,8 +156,8 @@ future_map_int <- function(.x,
 future_map_lgl <- function(.x,
                            .f,
                            ...,
-                           .env = parent.frame(),
                            .options = furrr_options(),
+                           .env_globals = parent.frame(),
                            .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_map_lgl")
 
@@ -167,7 +167,7 @@ future_map_lgl <- function(.x,
     .options = .options,
     .type = "logical",
     .map_fn = purrr::map_lgl,
-    .env = .env,
+    .env_globals = .env_globals,
     .env_dots = environment()
   )
 }
@@ -178,8 +178,8 @@ future_map_dfr <- function(.x,
                            .f,
                            ...,
                            .id = NULL,
-                           .env = parent.frame(),
                            .options = furrr_options(),
+                           .env_globals = parent.frame(),
                            .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_map_dfr")
 
@@ -187,7 +187,7 @@ future_map_dfr <- function(.x,
     rlang::abort("`future_map_dfr()` requires dplyr")
   }
 
-  res <- future_map(.x, .f, ..., .env = .env, .options = .options)
+  res <- future_map(.x, .f, ..., .options = .options, .env_globals = .env_globals)
   dplyr::bind_rows(res, .id = .id)
 }
 
@@ -196,8 +196,8 @@ future_map_dfr <- function(.x,
 future_map_dfc <- function(.x,
                            .f,
                            ...,
-                           .env = parent.frame(),
                            .options = furrr_options(),
+                           .env_globals = parent.frame(),
                            .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_map_dfc")
 
@@ -205,7 +205,7 @@ future_map_dfc <- function(.x,
     rlang::abort("`future_map_dfc()` requires dplyr")
   }
 
-  res <- future_map(.x, .f, ..., .env = .env, .options = .options)
+  res <- future_map(.x, .f, ..., .options = .options, .env_globals = .env_globals)
   dplyr::bind_cols(res)
 }
 
@@ -241,14 +241,14 @@ future_map_if <- function(.x,
                           .p,
                           .f,
                           ...,
-                          .env = parent.frame(),
                           .options = furrr_options(),
+                          .env_globals = parent.frame(),
                           .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_map_if")
 
   sel <- probe(.x, .p)
   out <- purrr::list_along(.x)
-  out[sel] <- future_map(.x[sel], .f, ..., .env = .env, .options = .options)
+  out[sel] <- future_map(.x[sel], .f, ..., .options = .options, .env_globals = .env_globals)
   out[!sel] <- .x[!sel]
   set_names(out, names(.x))
 }
@@ -260,14 +260,14 @@ future_map_at <- function(.x,
                           .at,
                           .f,
                           ...,
-                          .env = parent.frame(),
                           .options = furrr_options(),
+                          .env_globals = parent.frame(),
                           .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_map_at")
 
   sel <- inv_which(.x, .at)
   out <- purrr::list_along(.x)
-  out[sel] <- future_map(.x[sel], .f, ..., .env = .env, .options = .options)
+  out[sel] <- future_map(.x[sel], .f, ..., .options = .options, .env_globals = .env_globals)
   out[!sel] <- .x[!sel]
   set_names(out, names(.x))
 }

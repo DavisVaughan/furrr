@@ -16,6 +16,7 @@ future_invoke_map(
   ...,
   .env = NULL,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -25,6 +26,7 @@ future_invoke_map_chr(
   ...,
   .env = NULL,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -34,6 +36,7 @@ future_invoke_map_dbl(
   ...,
   .env = NULL,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -43,6 +46,7 @@ future_invoke_map_int(
   ...,
   .env = NULL,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -52,6 +56,7 @@ future_invoke_map_lgl(
   ...,
   .env = NULL,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -61,6 +66,7 @@ future_invoke_map_dfr(
   ...,
   .env = NULL,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -70,6 +76,7 @@ future_invoke_map_dfc(
   ...,
   .env = NULL,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 }

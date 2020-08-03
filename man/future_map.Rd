@@ -15,8 +15,8 @@ future_map(
   .x,
   .f,
   ...,
-  .env = parent.frame(),
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -24,8 +24,8 @@ future_map_chr(
   .x,
   .f,
   ...,
-  .env = parent.frame(),
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -33,8 +33,8 @@ future_map_dbl(
   .x,
   .f,
   ...,
-  .env = parent.frame(),
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -42,8 +42,8 @@ future_map_int(
   .x,
   .f,
   ...,
-  .env = parent.frame(),
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -51,8 +51,8 @@ future_map_lgl(
   .x,
   .f,
   ...,
-  .env = parent.frame(),
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -61,8 +61,8 @@ future_map_dfr(
   .f,
   ...,
   .id = NULL,
-  .env = parent.frame(),
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -70,12 +70,18 @@ future_map_dfc(
   .x,
   .f,
   ...,
-  .env = parent.frame(),
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
-future_walk(.x, .f, ..., .env = parent.frame(), .options = furrr_options())
+future_walk(
+  .x,
+  .f,
+  ...,
+  .options = furrr_options(),
+  .env_globals = parent.frame()
+)
 }
 \arguments{
 \item{.x}{A list or atomic vector.}
@@ -102,9 +108,6 @@ present, the value of \code{.default} will be returned.}
 
 \item{...}{Additional arguments passed on to the mapped function.}
 
-\item{.env}{The environment to look for globals required by \code{.f}, \code{...}, and
-\code{.x}.}
-
 \item{.options}{The \code{future} specific options to use with the workers. This must
 be the result from a call to \code{\link[=furrr_options]{furrr_options()}}.}
 
@@ -119,6 +122,9 @@ the index (if \code{.x} is unnamed) of the input. If \code{NULL}, the default, n
 variable will be created.
 
 Only applies to \verb{_dfr} variant.}
+
+\item{.env}{The environment to look for globals required by \code{.f}, \code{...}, and
+\code{.x}.}
 }
 \value{
 All functions return a vector the same length as \code{.x}.

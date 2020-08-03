@@ -3,9 +3,9 @@
 future_walk <- function(.x,
                         .f,
                         ...,
-                        .env = parent.frame(),
-                        .options = furrr_options()) {
-  future_map(.x, .f, ..., .env = .env, .options = .options)
+                        .options = furrr_options(),
+                        .env_globals = parent.frame()) {
+  future_map(.x, .f, ..., .options = .options, .env_globals = .env_globals)
   invisible(.x)
 }
 
@@ -15,9 +15,9 @@ future_walk2 <- function(.x,
                          .y,
                          .f,
                          ...,
-                         .env = parent.frame(),
-                         .options = furrr_options()) {
-  future_map2(.x, .y, .f, ..., .env = .env, .options = .options)
+                         .options = furrr_options(),
+                         .env_globals = parent.frame()) {
+  future_map2(.x, .y, .f, ..., .options = .options, .env_globals = .env_globals)
   invisible(.x)
 }
 
@@ -26,9 +26,9 @@ future_walk2 <- function(.x,
 future_pwalk <- function(.l,
                          .f,
                          ...,
-                         .env = parent.frame(),
-                         .options = furrr_options()) {
-  future_pmap(.l, .f, ..., .env = .env, .options = .options)
+                         .options = furrr_options(),
+                         .env_globals = parent.frame()) {
+  future_pmap(.l, .f, ..., .options = .options, .env_globals = .env_globals)
   invisible(.l)
 }
 
@@ -37,7 +37,7 @@ future_pwalk <- function(.l,
 future_iwalk <- function(.x,
                          .f,
                          ...,
-                         .env = parent.frame(),
-                         .options = furrr_options()) {
-  future_walk2(.x, vec_index(.x), .f, ..., .env = .env, .options = .options)
+                         .options = furrr_options(),
+                         .env_globals = parent.frame()) {
+  future_walk2(.x, vec_index(.x), .f, ..., .options = .options, .env_globals = .env_globals)
 }
