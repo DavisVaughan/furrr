@@ -154,9 +154,16 @@ future_pmap_dfc(
   .progress = deprecated()
 )
 
-future_walk2(.x, .y, .f, ..., .options = furrr_options())
+future_walk2(
+  .x,
+  .y,
+  .f,
+  ...,
+  .env = parent.frame(),
+  .options = furrr_options()
+)
 
-future_pwalk(.l, .f, ..., .options = furrr_options())
+future_pwalk(.l, .f, ..., .env = parent.frame(), .options = furrr_options())
 }
 \arguments{
 \item{.x}{Vectors of the same length. A vector of length 1 will

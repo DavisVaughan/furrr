@@ -75,7 +75,7 @@ future_map_dfc(
   .progress = deprecated()
 )
 
-future_walk(.x, .f, ..., .options = furrr_options())
+future_walk(.x, .f, ..., .env = parent.frame(), .options = furrr_options())
 }
 \arguments{
 \item{.x}{A list or atomic vector.}

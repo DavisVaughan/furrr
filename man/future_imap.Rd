@@ -62,7 +62,7 @@ future_imap_dfc(
   .progress = deprecated()
 )
 
-future_iwalk(.x, .f, ..., .options = furrr_options())
+future_iwalk(.x, .f, ..., .env = parent.frame(), .options = furrr_options())
 }
 \arguments{
 \item{.x}{A list or atomic vector.}
@@ -103,6 +103,9 @@ the index (if \code{.x} is unnamed) of the input. If \code{NULL}, the default, n
 variable will be created.
 
 Only applies to \verb{_dfr} variant.}
+
+\item{.env}{The environment to look for globals required by \code{.f}, \code{...}, and
+\code{.x}.}
 }
 \value{
 A vector the same length as .x.
