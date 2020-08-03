@@ -114,8 +114,6 @@ future_pmap_dfr <- function(.l,
                             .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_pmap_dfr")
 
-  # Passing through the template doesn't work because of the way fold() works.
-  # Could parameterize around fold(res, ___), but this is easier
   if (!rlang::is_installed("dplyr")) {
     rlang::abort("`future_map_dfr()` requires dplyr")
   }
@@ -134,8 +132,6 @@ future_pmap_dfc <- function(.l,
                             .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_pmap_dfc")
 
-  # Passing through the template doesn't work because of the way fold() works.
-  # Could parameterize around fold(res, ___), but this is easier
   if (!rlang::is_installed("dplyr")) {
     rlang::abort("`future_map_dfc()` requires dplyr")
   }
