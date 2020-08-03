@@ -39,41 +39,75 @@
 #' if (!inherits(plan(), "sequential")) plan(sequential)
 #' }
 #' @export
-future_modify <- function(.x, .f, ..., .options = furrr_options(), .progress = deprecated()) {
+future_modify <- function(.x,
+                          .f,
+                          ...,
+                          .options = furrr_options(),
+                          .env_globals = parent.frame(),
+                          .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_modify")
   UseMethod("future_modify")
 }
 
 #' @export
-future_modify.default <- function(.x, .f, ..., .options = furrr_options(), .progress = deprecated()) {
-  .x[] <- future_map(.x, .f, ..., .options = .options)
+future_modify.default <- function(.x,
+                                  .f,
+                                  ...,
+                                  .options = furrr_options(),
+                                  .env_globals = parent.frame(),
+                                  .progress = deprecated()) {
+  .x[] <- future_map(.x, .f, ..., .options = .options, .env_globals = .env_globals)
   .x
 }
 
 #' @rdname future_modify
 #' @export
-future_modify_at <- function(.x, .at, .f, ..., .options = furrr_options(), .progress = deprecated()) {
+future_modify_at <- function(.x,
+                             .at,
+                             .f,
+                             ...,
+                             .options = furrr_options(),
+                             .env_globals = parent.frame(),
+                             .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_modify_at")
   UseMethod("future_modify_at")
 }
 
 #' @export
-future_modify_at.default <- function(.x, .at, .f, ..., .options = furrr_options(), .progress = deprecated()) {
+future_modify_at.default <- function(.x,
+                                     .at,
+                                     .f,
+                                     ...,
+                                     .options = furrr_options(),
+                                     .env_globals = parent.frame(),
+                                     .progress = deprecated()) {
   sel <- inv_which(.x, .at)
-  .x[sel] <- future_map(.x[sel], .f, ..., .options = .options)
+  .x[sel] <- future_map(.x[sel], .f, ..., .options = .options, .env_globals = .env_globals)
   .x
 }
 
 #' @rdname future_modify
 #' @export
-future_modify_if <- function(.x, .p, .f, ..., .options = furrr_options(), .progress = deprecated()) {
+future_modify_if <- function(.x,
+                             .p,
+                             .f,
+                             ...,
+                             .options = furrr_options(),
+                             .env_globals = parent.frame(),
+                             .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_modify_if")
   UseMethod("future_modify_if")
 }
 
 #' @export
-future_modify_if.default <- function(.x, .p, .f, ..., .options = furrr_options(), .progress = deprecated()) {
+future_modify_if.default <- function(.x,
+                                     .p,
+                                     .f,
+                                     ...,
+                                     .options = furrr_options(),
+                                     .env_globals = parent.frame(),
+                                     .progress = deprecated()) {
   sel <- probe(.x, .p)
-  .x[sel] <- future_map(.x[sel], .f, ..., .options = .options)
+  .x[sel] <- future_map(.x[sel], .f, ..., .options = .options, .env_globals = .env_globals)
   .x
 }

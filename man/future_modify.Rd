@@ -11,6 +11,7 @@ future_modify(
   .f,
   ...,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -20,6 +21,7 @@ future_modify_at(
   .f,
   ...,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -29,6 +31,7 @@ future_modify_if(
   .f,
   ...,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 }
