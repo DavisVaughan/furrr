@@ -91,6 +91,7 @@ furrr_test_that("future_pmap_dfc() works", {
 
 furrr_test_that("future_pmap() works with completely empty list", {
   expect_identical(future_pmap(list(), identity), list())
+  expect_identical(future_pmap_dbl(list(), identity), double())
 })
 
 furrr_test_that("future_pmap() works with size zero input", {
