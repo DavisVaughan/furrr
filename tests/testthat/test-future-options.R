@@ -1,4 +1,4 @@
-test_that("can selectively export globals on multisession", {
+test_that("can detect globals from the caller environment (HenrikBengtsson/future.apply#62)", {
   plan(multisession, workers = 2)
   on.exit(plan(sequential), add = TRUE)
 
@@ -8,13 +8,11 @@ test_that("can selectively export globals on multisession", {
 
   wrapper <- function(options = furrr_options()) {
     y <- 1
-
     future_map_lgl(1, fn, .options = options)
   }
 
   expect_identical(wrapper(), FALSE)
 
-  skip("Until future.apply#62 is resolved")
   options <- furrr_options(globals = "y")
   expect_identical(wrapper(options), TRUE)
 })
