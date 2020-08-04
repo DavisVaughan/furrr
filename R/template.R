@@ -11,25 +11,25 @@ furrr_map_template <- function(x,
   expr_seed <- make_expr_seed(options$seed)
 
   expr <- expr({
-    ...future_chunk_seeds_idx <- 1L
-    ...future_chunk_x <- ...future_chunk_args
+    ...furrr_chunk_seeds_idx <- 1L
+    ...furrr_chunk_x <- ...furrr_chunk_args
 
-    ...future_fn_wrapper <- function(...) {
+    ...furrr_fn_wrapper <- function(...) {
       !!expr_seed
 
-      ...future_chunk_seeds_idx <<- ...future_chunk_seeds_idx + 1L
+      ...furrr_chunk_seeds_idx <<- ...furrr_chunk_seeds_idx + 1L
 
-      ...future_fn(...)
+      ...furrr_fn(...)
     }
 
     args <- list(
-      .x = ...future_chunk_x,
-      .f = ...future_fn_wrapper
+      .x = ...furrr_chunk_x,
+      .f = ...furrr_fn_wrapper
     )
 
-    args <- c(args, ...future_dots)
+    args <- c(args, ...furrr_dots)
 
-    do.call(...future_map_fn, args)
+    do.call(...furrr_map_fn, args)
   })
 
   furrr_template(
@@ -72,27 +72,27 @@ furrr_map2_template <- function(x,
   expr_seed <- make_expr_seed(options$seed)
 
   expr <- expr({
-    ...future_chunk_seeds_idx <- 1L
-    ...future_chunk_x <- ...future_chunk_args[[1]]
-    ...future_chunk_y <- ...future_chunk_args[[2]]
+    ...furrr_chunk_seeds_idx <- 1L
+    ...furrr_chunk_x <- ...furrr_chunk_args[[1]]
+    ...furrr_chunk_y <- ...furrr_chunk_args[[2]]
 
-    ...future_fn_wrapper <- function(...) {
+    ...furrr_fn_wrapper <- function(...) {
       !!expr_seed
 
-      ...future_chunk_seeds_idx <<- ...future_chunk_seeds_idx + 1L
+      ...furrr_chunk_seeds_idx <<- ...furrr_chunk_seeds_idx + 1L
 
-      ...future_fn(...)
+      ...furrr_fn(...)
     }
 
     args <- list(
-      .x = ...future_chunk_x,
-      .y = ...future_chunk_y,
-      .f = ...future_fn_wrapper
+      .x = ...furrr_chunk_x,
+      .y = ...furrr_chunk_y,
+      .f = ...furrr_fn_wrapper
     )
 
-    args <- c(args, ...future_dots)
+    args <- c(args, ...furrr_dots)
 
-    do.call(...future_map_fn, args)
+    do.call(...furrr_map_fn, args)
   })
 
   furrr_template(
@@ -141,25 +141,25 @@ furrr_pmap_template <- function(l,
   expr_seed <- make_expr_seed(options$seed)
 
   expr <- expr({
-    ...future_chunk_seeds_idx <- 1L
-    ...future_chunk_l <- ...future_chunk_args
+    ...furrr_chunk_seeds_idx <- 1L
+    ...furrr_chunk_l <- ...furrr_chunk_args
 
-    ...future_fn_wrapper <- function(...) {
+    ...furrr_fn_wrapper <- function(...) {
       !!expr_seed
 
-      ...future_chunk_seeds_idx <<- ...future_chunk_seeds_idx + 1L
+      ...furrr_chunk_seeds_idx <<- ...furrr_chunk_seeds_idx + 1L
 
-      ...future_fn(...)
+      ...furrr_fn(...)
     }
 
     args <- list(
-      .l = ...future_chunk_l,
-      .f = ...future_fn_wrapper
+      .l = ...furrr_chunk_l,
+      .f = ...furrr_fn_wrapper
     )
 
-    args <- c(args, ...future_dots)
+    args <- c(args, ...furrr_dots)
 
-    do.call(...future_map_fn, args)
+    do.call(...furrr_map_fn, args)
   })
 
   furrr_template(
@@ -250,8 +250,8 @@ furrr_template <- function(args,
   expr <- expr({
     future_globals_max_size <- getOption("future.globals.maxSize")
 
-    if (!identical(future_globals_max_size, ...future_globals_max_size)) {
-      options(future.globals.maxSize = ...future_globals_max_size)
+    if (!identical(future_globals_max_size, ...furrr_globals_max_size)) {
+      options(future.globals.maxSize = ...furrr_globals_max_size)
       on.exit(options(future.globals.maxSize = future_globals_max_size), add = TRUE)
     }
 
@@ -275,7 +275,7 @@ furrr_template <- function(args,
     chunk_args <- extract(args, chunk)
 
     chunk_globals <- globals
-    chunk_globals[["...future_chunk_args"]] <- chunk_args
+    chunk_globals[["...furrr_chunk_args"]] <- chunk_args
 
     chunk_packages <- packages
 
@@ -298,13 +298,13 @@ furrr_template <- function(args,
     # scaling up the limit by the number of elements in the current chunk.
     # This is an ad-hoc "good enough" approach, see:
     # https://github.com/HenrikBengtsson/future.apply/issues/8
-    chunk_globals["...future_globals_max_size"] <- list(future_globals_max_size)
+    chunk_globals["...furrr_globals_max_size"] <- list(future_globals_max_size)
     options(future.globals.maxSize = n_chunk * future_globals_max_size_default)
     on.exit(options(future.globals.maxSize = future_globals_max_size), add = TRUE)
 
     if (!is.null(seeds)) {
       chunk_seeds <- seeds[chunk]
-      chunk_globals[["...future_chunk_seeds"]] <- chunk_seeds
+      chunk_globals[["...furrr_chunk_seeds"]] <- chunk_seeds
     }
 
     futures[[i]] <- future(
@@ -351,7 +351,7 @@ make_expr_seed <- function(seed) {
   expr(
     assign(
       x = ".Random.seed",
-      value = ...future_chunk_seeds[[...future_chunk_seeds_idx]],
+      value = ...furrr_chunk_seeds[[...furrr_chunk_seeds_idx]],
       envir = globalenv(),
       inherits = FALSE
     )
@@ -363,11 +363,11 @@ make_expr_seed <- function(seed) {
 # Required global variable hack for variables used in `expr()`.
 # Required to pass R CMD check.
 utils::globalVariables(c(
-  "...future_chunk_args",
-  "...future_fn",
-  "...future_map_fn",
-  "...future_dots",
-  "...future_globals_max_size",
-  "...future_chunk_seeds",
-  "...future_chunk_seeds_idx"
+  "...furrr_chunk_args",
+  "...furrr_fn",
+  "...furrr_map_fn",
+  "...furrr_dots",
+  "...furrr_globals_max_size",
+  "...furrr_chunk_seeds",
+  "...furrr_chunk_seeds_idx"
 ))

@@ -4,28 +4,28 @@ get_globals_and_packages <- function(globals, packages, map_fn, fn, dots, env_gl
   packages_out <- "purrr"
 
   # Always get `.f`
-  globals_fn <- list(...future_fn = fn)
+  globals_fn <- list(...furrr_fn = fn)
   globals_fn <- future::as.FutureGlobals(globals_fn)
   globals_fn <- future::resolve(globals_fn)
   attr(globals_fn, "total_size") <- objectSize(globals_fn)
 
   # Always get `...`.
-  globals_dots <- list(...future_dots = dots)
+  globals_dots <- list(...furrr_dots = dots)
   globals_dots <- future::as.FutureGlobals(globals_dots)
   globals_dots <- future::resolve(globals_dots)
   attr(globals_dots, "total_size") <- objectSize(globals_dots)
 
   # Always get `map_fn`
-  globals_map_fn <- list(...future_map_fn = map_fn)
+  globals_map_fn <- list(...furrr_map_fn = map_fn)
   globals_map_fn <- future::as.FutureGlobals(globals_map_fn)
   globals_map_fn <- future::resolve(globals_map_fn)
   attr(globals_map_fn, "total_size") <- objectSize(globals_map_fn)
 
   # Always get chunk specific placeholders
   globals_extra <- list(
-    ...future_chunk_args = NULL,
-    ...future_chunk_seeds = NULL,
-    ...future_globals_max_size = NULL
+    ...furrr_chunk_args = NULL,
+    ...furrr_chunk_seeds = NULL,
+    ...furrr_globals_max_size = NULL
   )
   globals_extra <- future::as.FutureGlobals(globals_extra)
   globals_extra <- future::resolve(globals_extra)
