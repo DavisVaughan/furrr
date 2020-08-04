@@ -1,4 +1,4 @@
-get_globals_and_packages <- function(globals, packages, map_fn, fn, env_globals, env_dots) {
+get_globals_and_packages <- function(globals, packages, map_fn, fn, dots, env_globals) {
   objectSize <- import_future("objectSize")
 
   packages_out <- "purrr"
@@ -9,8 +9,8 @@ get_globals_and_packages <- function(globals, packages, map_fn, fn, env_globals,
   globals_fn <- future::resolve(globals_fn)
   attr(globals_fn, "total_size") <- objectSize(globals_fn)
 
-  # Always get `...`. Use `globalsByName()` to have them classed correctly
-  globals_dots <- globals::globalsByName("...", env_dots, mustExist = TRUE)
+  # Always get `...`.
+  globals_dots <- list(...future_dots = dots)
   globals_dots <- future::as.FutureGlobals(globals_dots)
   globals_dots <- future::resolve(globals_dots)
   attr(globals_dots, "total_size") <- objectSize(globals_dots)

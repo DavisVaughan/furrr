@@ -68,11 +68,11 @@ future_map2 <- function(.x,
     .x = .x,
     .y = .y,
     .f = .f,
+    .dots = list(...),
     .options = .options,
     .type = "list",
     .map_fn = purrr::map2,
-    .env_globals = .env_globals,
-    .env_dots = environment()
+    .env_globals = .env_globals
   )
 }
 
@@ -91,11 +91,11 @@ future_map2_chr <- function(.x,
     .x = .x,
     .y = .y,
     .f = .f,
+    .dots = list(...),
     .options = .options,
     .type = "character",
     .map_fn = purrr::map2_chr,
-    .env_globals = .env_globals,
-    .env_dots = environment()
+    .env_globals = .env_globals
   )
 }
 
@@ -114,11 +114,11 @@ future_map2_dbl <- function(.x,
     .x = .x,
     .y = .y,
     .f = .f,
+    .dots = list(...),
     .options = .options,
     .type = "double",
     .map_fn = purrr::map2_dbl,
-    .env_globals = .env_globals,
-    .env_dots = environment()
+    .env_globals = .env_globals
   )
 }
 
@@ -137,11 +137,11 @@ future_map2_int <- function(.x,
     .x = .x,
     .y = .y,
     .f = .f,
+    .dots = list(...),
     .options = .options,
     .type = "integer",
     .map_fn = purrr::map2_int,
-    .env_globals = .env_globals,
-    .env_dots = environment()
+    .env_globals = .env_globals
   )
 }
 
@@ -160,11 +160,11 @@ future_map2_lgl <- function(.x,
     .x = .x,
     .y = .y,
     .f = .f,
+    .dots = list(...),
     .options = .options,
     .type = "logical",
     .map_fn = purrr::map2_lgl,
-    .env_globals = .env_globals,
-    .env_dots = environment()
+    .env_globals = .env_globals
   )
 }
 

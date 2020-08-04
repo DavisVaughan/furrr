@@ -1,10 +1,10 @@
 furrr_map_template <- function(.x,
                                .f,
+                               .dots,
                                .options,
                                .type,
                                .map_fn,
-                               .env_globals,
-                               .env_dots) {
+                               .env_globals) {
   n <- length(.x)
   names <- names(.x)
 
@@ -22,23 +22,26 @@ furrr_map_template <- function(.x,
       ...future_fn(...)
     }
 
-    ...future_map_fn(
+    args <- list(
       .x = ...future_chunk_x,
-      .f = ...future_fn_wrapper,
-      ...
+      .f = ...future_fn_wrapper
     )
+
+    args <- c(args, ...future_dots)
+
+    do.call(...future_map_fn, args)
   })
 
   furrr_template(
     args = .x,
     fn = .f,
+    dots = .dots,
     n = n,
     options = .options,
     type = .type,
     map_fn = .map_fn,
     names = names,
     env_globals = .env_globals,
-    env_dots = .env_dots,
     expr = expr,
     extract = furrr_map_extract
   )
@@ -53,11 +56,11 @@ furrr_map_extract <- function(x, i) {
 furrr_map2_template <- function(.x,
                                 .y,
                                 .f,
+                                .dots,
                                 .options,
                                 .type,
                                 .map_fn,
-                                .env_globals,
-                                .env_dots) {
+                                .env_globals) {
   args <- list(.x, .y)
 
   n <- furrr_length_common(args)
@@ -81,24 +84,27 @@ furrr_map2_template <- function(.x,
       ...future_fn(...)
     }
 
-    ...future_map_fn(
+    args <- list(
       .x = ...future_chunk_x,
       .y = ...future_chunk_y,
-      .f = ...future_fn_wrapper,
-      ...
+      .f = ...future_fn_wrapper
     )
+
+    args <- c(args, ...future_dots)
+
+    do.call(...future_map_fn, args)
   })
 
   furrr_template(
     args = args,
     fn = .f,
+    dots = .dots,
     n = n,
     options = .options,
     type = .type,
     map_fn = .map_fn,
     names = names,
     env_globals = .env_globals,
-    env_dots = .env_dots,
     expr = expr,
     extract = furrr_map2_extract
   )
@@ -112,11 +118,11 @@ furrr_map2_extract <- function(x, i) {
 
 furrr_pmap_template <- function(.l,
                                 .f,
+                                .dots,
                                 .options,
                                 .type,
                                 .map_fn,
-                                .env_globals,
-                                .env_dots) {
+                                .env_globals) {
   if (is.data.frame(.l)) {
     .l <- as.list(.l)
   }
@@ -146,23 +152,26 @@ furrr_pmap_template <- function(.l,
       ...future_fn(...)
     }
 
-    ...future_map_fn(
+    args <- list(
       .l = ...future_chunk_l,
-      .f = ...future_fn_wrapper,
-      ...
+      .f = ...future_fn_wrapper
     )
+
+    args <- c(args, ...future_dots)
+
+    do.call(...future_map_fn, args)
   })
 
   furrr_template(
     args = args,
     fn = .f,
+    dots = .dots,
     n = n,
     options = .options,
     type = .type,
     map_fn = .map_fn,
     names = names,
     env_globals = .env_globals,
-    env_dots = .env_dots,
     expr = expr,
     extract = furrr_pmap_extract
   )
@@ -176,13 +185,13 @@ furrr_pmap_extract <- function(x, i) {
 
 furrr_template <- function(args,
                            fn,
+                           dots,
                            n,
                            options,
                            type,
                            map_fn,
                            names,
                            env_globals,
-                           env_dots,
                            expr,
                            extract) {
   fn <- purrr::as_mapper(fn)
@@ -223,8 +232,8 @@ furrr_template <- function(args,
     options$packages,
     map_fn,
     fn,
-    env_globals,
-    env_dots
+    dots,
+    env_globals
   )
 
   globals <- gp$globals
@@ -271,7 +280,11 @@ furrr_template <- function(args,
     chunk_packages <- packages
 
     if (scan_chunk_args_for_globals) {
-      chunk_args_gp <- future::getGlobalsAndPackages(chunk_args, envir = env_globals, globals = TRUE)
+      chunk_args_gp <- future::getGlobalsAndPackages(
+        expr = chunk_args,
+        envir = env_globals,
+        globals = TRUE
+      )
 
       chunk_globals <- c(chunk_globals, chunk_args_gp$globals)
       chunk_globals <- unique(chunk_globals)
@@ -344,3 +357,17 @@ make_expr_seed <- function(seed) {
     )
   )
 }
+
+# ------------------------------------------------------------------------------
+
+# Required global variable hack for variables used in `expr()`.
+# Required to pass R CMD check.
+utils::globalVariables(c(
+  "...future_chunk_args",
+  "...future_fn",
+  "...future_map_fn",
+  "...future_dots",
+  "...future_globals_max_size",
+  "...future_chunk_seeds",
+  "...future_chunk_seeds_idx"
+))

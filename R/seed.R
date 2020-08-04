@@ -106,14 +106,7 @@ as_lecyer_cmrg_seed_from_base_r_seed <- function() {
 
 as_lecyer_cmrg_seed_from_integer <- function(seed) {
   # Already a L'Ecuyer-CMRG seed?
-  if (length(seed) == 7L) {
-    if (seed[1] != 407L) {
-      abort(paste0(
-        "Integer `seed` must be L'Ecuyer-CMRG RNG seed as returned by ",
-        "`parallel::nextRNGStream()` or a single integer."
-      ))
-    }
-
+  if (is_lecyer_cmrg_seed(seed)) {
     return(seed)
   }
 
@@ -128,12 +121,15 @@ as_lecyer_cmrg_seed_from_integer <- function(seed) {
     return(get_random_seed())
   }
 
-  abort("Internal error: Unknown length of integer `seed`.")
+  abort(paste0(
+    "Integer `seed` must be L'Ecuyer-CMRG RNG seed as returned by ",
+    "`parallel::nextRNGStream()` or a single integer."
+  ))
 }
 
 is_lecyer_cmrg_seed <- function(seed) {
   is.numeric(seed) &&
     length(seed) == 7L &&
     all(is.finite(seed)) &&
-    seed[1] == 407L
+    (seed[[1]] %% 10000L == 407L)
 }
