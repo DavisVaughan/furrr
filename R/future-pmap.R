@@ -9,13 +9,13 @@ future_pmap <- function(.l,
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_pmap")
 
   furrr_pmap_template(
-    .l = .l,
-    .f = .f,
-    .dots = list(...),
-    .options = .options,
-    .type = "list",
-    .map_fn = purrr::pmap,
-    .env_globals = .env_globals
+    l = .l,
+    f = .f,
+    dots = list(...),
+    options = .options,
+    type = "list",
+    map_fn = purrr::pmap,
+    env_globals = .env_globals
   )
 }
 
@@ -30,13 +30,13 @@ future_pmap_chr <- function(.l,
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_pmap_chr")
 
   furrr_pmap_template(
-    .l = .l,
-    .f = .f,
-    .dots = list(...),
-    .options = .options,
-    .type = "character",
-    .map_fn = purrr::pmap_chr,
-    .env_globals = .env_globals
+    l = .l,
+    f = .f,
+    dots = list(...),
+    options = .options,
+    type = "character",
+    map_fn = purrr::pmap_chr,
+    env_globals = .env_globals
   )
 }
 
@@ -51,13 +51,13 @@ future_pmap_dbl <- function(.l,
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_pmap_dbl")
 
   furrr_pmap_template(
-    .l = .l,
-    .f = .f,
-    .dots = list(...),
-    .options = .options,
-    .type = "double",
-    .map_fn = purrr::pmap_dbl,
-    .env_globals = .env_globals
+    l = .l,
+    f = .f,
+    dots = list(...),
+    options = .options,
+    type = "double",
+    map_fn = purrr::pmap_dbl,
+    env_globals = .env_globals
   )
 }
 
@@ -72,13 +72,13 @@ future_pmap_int <- function(.l,
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_pmap_int")
 
   furrr_pmap_template(
-    .l = .l,
-    .f = .f,
-    .dots = list(...),
-    .options = .options,
-    .type = "integer",
-    .map_fn = purrr::pmap_int,
-    .env_globals = .env_globals
+    l = .l,
+    f = .f,
+    dots = list(...),
+    options = .options,
+    type = "integer",
+    map_fn = purrr::pmap_int,
+    env_globals = .env_globals
   )
 }
 
@@ -93,13 +93,13 @@ future_pmap_lgl <- function(.l,
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_pmap_lgl")
 
   furrr_pmap_template(
-    .l = .l,
-    .f = .f,
-    .dots = list(...),
-    .options = .options,
-    .type = "logical",
-    .map_fn = purrr::pmap_lgl,
-    .env_globals = .env_globals
+    l = .l,
+    f = .f,
+    dots = list(...),
+    options = .options,
+    type = "logical",
+    map_fn = purrr::pmap_lgl,
+    env_globals = .env_globals
   )
 }
 

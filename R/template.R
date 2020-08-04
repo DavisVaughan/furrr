@@ -1,14 +1,14 @@
-furrr_map_template <- function(.x,
-                               .f,
-                               .dots,
-                               .options,
-                               .type,
-                               .map_fn,
-                               .env_globals) {
-  n <- length(.x)
-  names <- names(.x)
+furrr_map_template <- function(x,
+                               f,
+                               dots,
+                               options,
+                               type,
+                               map_fn,
+                               env_globals) {
+  n <- length(x)
+  names <- names(x)
 
-  expr_seed <- make_expr_seed(.options$seed)
+  expr_seed <- make_expr_seed(options$seed)
 
   expr <- expr({
     ...future_chunk_seeds_idx <- 1L
@@ -33,15 +33,15 @@ furrr_map_template <- function(.x,
   })
 
   furrr_template(
-    args = .x,
-    fn = .f,
-    dots = .dots,
+    args = x,
+    fn = f,
+    dots = dots,
     n = n,
-    options = .options,
-    type = .type,
-    map_fn = .map_fn,
+    options = options,
+    type = type,
+    map_fn = map_fn,
     names = names,
-    env_globals = .env_globals,
+    env_globals = env_globals,
     expr = expr,
     extract = furrr_map_extract
   )
@@ -53,15 +53,15 @@ furrr_map_extract <- function(x, i) {
 
 # ------------------------------------------------------------------------------
 
-furrr_map2_template <- function(.x,
-                                .y,
-                                .f,
-                                .dots,
-                                .options,
-                                .type,
-                                .map_fn,
-                                .env_globals) {
-  args <- list(.x, .y)
+furrr_map2_template <- function(x,
+                                y,
+                                f,
+                                dots,
+                                options,
+                                type,
+                                map_fn,
+                                env_globals) {
+  args <- list(x, y)
 
   n <- furrr_length_common(args)
   args <- furrr_recycle_common(args, n)
@@ -69,7 +69,7 @@ furrr_map2_template <- function(.x,
   # Get names after possible recycling
   names <- names(args[[1]])
 
-  expr_seed <- make_expr_seed(.options$seed)
+  expr_seed <- make_expr_seed(options$seed)
 
   expr <- expr({
     ...future_chunk_seeds_idx <- 1L
@@ -97,14 +97,14 @@ furrr_map2_template <- function(.x,
 
   furrr_template(
     args = args,
-    fn = .f,
-    dots = .dots,
+    fn = f,
+    dots = dots,
     n = n,
-    options = .options,
-    type = .type,
-    map_fn = .map_fn,
+    options = options,
+    type = type,
+    map_fn = map_fn,
     names = names,
-    env_globals = .env_globals,
+    env_globals = env_globals,
     expr = expr,
     extract = furrr_map2_extract
   )
@@ -116,29 +116,29 @@ furrr_map2_extract <- function(x, i) {
 
 # ------------------------------------------------------------------------------
 
-furrr_pmap_template <- function(.l,
-                                .f,
-                                .dots,
-                                .options,
-                                .type,
-                                .map_fn,
-                                .env_globals) {
-  if (is.data.frame(.l)) {
-    .l <- as.list(.l)
+furrr_pmap_template <- function(l,
+                                f,
+                                dots,
+                                options,
+                                type,
+                                map_fn,
+                                env_globals) {
+  if (is.data.frame(l)) {
+    l <- as.list(l)
   }
 
-  n <- furrr_length_common(.l)
-  args <- furrr_recycle_common(.l, n)
+  n <- furrr_length_common(l)
+  args <- furrr_recycle_common(l, n)
 
   if (n == 0L) {
-    # Special case handling of empty `.l` like `future_pmap(list())`
+    # Special case handling of empty `l` like `future_pmap(list())`
     names <- NULL
   } else {
     # Get names after possible recycling
     names <- names(args[[1]])
   }
 
-  expr_seed <- make_expr_seed(.options$seed)
+  expr_seed <- make_expr_seed(options$seed)
 
   expr <- expr({
     ...future_chunk_seeds_idx <- 1L
@@ -164,14 +164,14 @@ furrr_pmap_template <- function(.l,
 
   furrr_template(
     args = args,
-    fn = .f,
-    dots = .dots,
+    fn = f,
+    dots = dots,
     n = n,
-    options = .options,
-    type = .type,
-    map_fn = .map_fn,
+    options = options,
+    type = type,
+    map_fn = map_fn,
     names = names,
-    env_globals = .env_globals,
+    env_globals = env_globals,
     expr = expr,
     extract = furrr_pmap_extract
   )

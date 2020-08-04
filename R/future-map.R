@@ -78,13 +78,13 @@ future_map <- function(.x,
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_map")
 
   furrr_map_template(
-    .x = .x,
-    .f = .f,
-    .dots = list(...),
-    .options = .options,
-    .type = "list",
-    .map_fn = purrr::map,
-    .env_globals = .env_globals
+    x = .x,
+    f = .f,
+    dots = list(...),
+    options = .options,
+    type = "list",
+    map_fn = purrr::map,
+    env_globals = .env_globals
   )
 }
 
@@ -99,13 +99,13 @@ future_map_chr <- function(.x,
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_map_chr")
 
   furrr_map_template(
-    .x = .x,
-    .f = .f,
-    .dots = list(...),
-    .options = .options,
-    .type = "character",
-    .map_fn = purrr::map_chr,
-    .env_globals = .env_globals
+    x = .x,
+    f = .f,
+    dots = list(...),
+    options = .options,
+    type = "character",
+    map_fn = purrr::map_chr,
+    env_globals = .env_globals
   )
 }
 
@@ -120,13 +120,13 @@ future_map_dbl <- function(.x,
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_map_dbl")
 
   furrr_map_template(
-    .x = .x,
-    .f = .f,
-    .dots = list(...),
-    .options = .options,
-    .type = "double",
-    .map_fn = purrr::map_dbl,
-    .env_globals = .env_globals
+    x = .x,
+    f = .f,
+    dots = list(...),
+    options = .options,
+    type = "double",
+    map_fn = purrr::map_dbl,
+    env_globals = .env_globals
   )
 }
 
@@ -141,13 +141,13 @@ future_map_int <- function(.x,
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_map_int")
 
   furrr_map_template(
-    .x = .x,
-    .f = .f,
-    .dots = list(...),
-    .options = .options,
-    .type = "integer",
-    .map_fn = purrr::map_int,
-    .env_globals = .env_globals
+    x = .x,
+    f = .f,
+    dots = list(...),
+    options = .options,
+    type = "integer",
+    map_fn = purrr::map_int,
+    env_globals = .env_globals
   )
 }
 
@@ -162,13 +162,13 @@ future_map_lgl <- function(.x,
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_map_lgl")
 
   furrr_map_template(
-    .x = .x,
-    .f = .f,
-    .dots = list(...),
-    .options = .options,
-    .type = "logical",
-    .map_fn = purrr::map_lgl,
-    .env_globals = .env_globals
+    x = .x,
+    f = .f,
+    dots = list(...),
+    options = .options,
+    type = "logical",
+    map_fn = purrr::map_lgl,
+    env_globals = .env_globals
   )
 }
 
