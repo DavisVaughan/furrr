@@ -79,7 +79,7 @@ future_map <- function(.x,
 
   furrr_map_template(
     x = .x,
-    f = .f,
+    fn = .f,
     dots = list(...),
     options = .options,
     type = "list",
@@ -100,7 +100,7 @@ future_map_chr <- function(.x,
 
   furrr_map_template(
     x = .x,
-    f = .f,
+    fn = .f,
     dots = list(...),
     options = .options,
     type = "character",
@@ -121,7 +121,7 @@ future_map_dbl <- function(.x,
 
   furrr_map_template(
     x = .x,
-    f = .f,
+    fn = .f,
     dots = list(...),
     options = .options,
     type = "double",
@@ -142,7 +142,7 @@ future_map_int <- function(.x,
 
   furrr_map_template(
     x = .x,
-    f = .f,
+    fn = .f,
     dots = list(...),
     options = .options,
     type = "integer",
@@ -163,7 +163,7 @@ future_map_lgl <- function(.x,
 
   furrr_map_template(
     x = .x,
-    f = .f,
+    fn = .f,
     dots = list(...),
     options = .options,
     type = "logical",

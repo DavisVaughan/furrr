@@ -10,7 +10,7 @@ future_pmap <- function(.l,
 
   furrr_pmap_template(
     l = .l,
-    f = .f,
+    fn = .f,
     dots = list(...),
     options = .options,
     type = "list",
@@ -31,7 +31,7 @@ future_pmap_chr <- function(.l,
 
   furrr_pmap_template(
     l = .l,
-    f = .f,
+    fn = .f,
     dots = list(...),
     options = .options,
     type = "character",
@@ -52,7 +52,7 @@ future_pmap_dbl <- function(.l,
 
   furrr_pmap_template(
     l = .l,
-    f = .f,
+    fn = .f,
     dots = list(...),
     options = .options,
     type = "double",
@@ -73,7 +73,7 @@ future_pmap_int <- function(.l,
 
   furrr_pmap_template(
     l = .l,
-    f = .f,
+    fn = .f,
     dots = list(...),
     options = .options,
     type = "integer",
@@ -94,7 +94,7 @@ future_pmap_lgl <- function(.l,
 
   furrr_pmap_template(
     l = .l,
-    f = .f,
+    fn = .f,
     dots = list(...),
     options = .options,
     type = "logical",

@@ -1,5 +1,5 @@
 furrr_map_template <- function(x,
-                               f,
+                               fn,
                                dots,
                                options,
                                type,
@@ -34,7 +34,7 @@ furrr_map_template <- function(x,
 
   furrr_template(
     args = x,
-    fn = f,
+    fn = fn,
     dots = dots,
     n = n,
     options = options,
@@ -55,7 +55,7 @@ furrr_map_extract <- function(x, i) {
 
 furrr_map2_template <- function(x,
                                 y,
-                                f,
+                                fn,
                                 dots,
                                 options,
                                 type,
@@ -97,7 +97,7 @@ furrr_map2_template <- function(x,
 
   furrr_template(
     args = args,
-    fn = f,
+    fn = fn,
     dots = dots,
     n = n,
     options = options,
@@ -117,7 +117,7 @@ furrr_map2_extract <- function(x, i) {
 # ------------------------------------------------------------------------------
 
 furrr_pmap_template <- function(l,
-                                f,
+                                fn,
                                 dots,
                                 options,
                                 type,
@@ -164,7 +164,7 @@ furrr_pmap_template <- function(l,
 
   furrr_template(
     args = args,
-    fn = f,
+    fn = fn,
     dots = dots,
     n = n,
     options = options,
