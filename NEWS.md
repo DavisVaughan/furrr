@@ -1,5 +1,38 @@
 # furrr 0.1.0.9002
 
+* `furrr_options()` now has a variety of new arguments for fine tuning furrr.
+  These are based on advancements made in both future and future.apply. The
+  most important is `chunk_size`, which can be used as an alternative
+  to `scheduling` to determine how to break up `.x` into chunks to send off
+  to the workers. See `?furrr_options` for full details.
+
+* All furrr functions gained a new argument, `.env_globals`, which determines
+  the environment in which globals for `.f`, `.x`, and `...` are
+  looked up. It defaults to the caller environment, which is different than
+  what was previously used, but should be more correct in some edge cases.
+  Most of the time, you should not have to touch this argument 
+  (HenrikBengtsson/future.apply#62).
+
+* The internals of furrr have been overhauled to unify the implementations of
+  `future_map()`, `future_map2()`, `future_pmap()` and all of their variants.
+  This should make furrr much easier to maintain going forward (#44).
+
+* The future specific global option `future.globals.maxSize` now scales with
+  the number of elements of `.x` that get exported to each worker. This
+  helps prevent some false positives about exporting objects that are too large,
+  and is the same approach taken in future.apply (#113).
+
+* `future_pmap()` and its variants now propagate the names of the first element
+  of `.l` onto the output (#116).
+
+* All furrr functions now enforce tidyverse recycling rules (for example, 
+  between `.x` and `.y` in `future_map2()`). Previously this was mostly the
+  case, except with size zero input. Recycling between input of size 0 and
+  input of size >1 no longer recycles to size 0, and is instead an error.
+  purrr will begin to do this as well in the next major release (#134).
+
+* `future_pmap()` and its variants now work with empty `list()` input (#135).
+
 * `future_options()` has been deprecated in favor of `furrr_options()`.
   Calling `future_options()` will still work, but will trigger a once per
   session warning and will eventually be removed. This change was made to
