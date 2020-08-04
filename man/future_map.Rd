@@ -111,6 +111,9 @@ present, the value of \code{.default} will be returned.}
 \item{.options}{The \code{future} specific options to use with the workers. This must
 be the result from a call to \code{\link[=furrr_options]{furrr_options()}}.}
 
+\item{.env_globals}{The environment to look for globals required by
+\code{.f}, \code{...}, and \code{.x}.}
+
 \item{.progress}{\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}}:
 No longer has any effect. Use the
 \href{https://cran.r-project.org/web/packages/progressr/index.html}{progressr}
@@ -122,9 +125,6 @@ the index (if \code{.x} is unnamed) of the input. If \code{NULL}, the default, n
 variable will be created.
 
 Only applies to \verb{_dfr} variant.}
-
-\item{.env}{The environment to look for globals required by \code{.f}, \code{...}, and
-\code{.x}.}
 }
 \value{
 All functions return a vector the same length as \code{.x}.
