@@ -317,8 +317,8 @@ furrr_template <- function(args,
   out <- vctrs::vec_c(!!!values, .ptype = vector(type))
 
   if (!is.null(order)) {
-    order_inv <- vector("integer", length = n_x)
-    idx <- seq2(1L, n_x)
+    order_inv <- vector("integer", length = n)
+    idx <- seq2(1L, n)
     order_inv[.subset(order, idx)] <- idx
     out <- out[order_inv]
   }
