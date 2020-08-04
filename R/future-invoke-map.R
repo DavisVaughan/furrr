@@ -1,7 +1,7 @@
 #' Invoke functions via futures
 #'
-#' These functions work exactly the same as [purrr::invoke_map()] functions, but allow
-#' you to invoke in parallel.
+#' These functions work exactly the same as [purrr::invoke_map()] functions,
+#' but allow you to invoke in parallel.
 #'
 #' @inheritParams purrr::invoke_map
 #' @inheritParams future_map

@@ -107,8 +107,8 @@ No longer has any effect. Use the
 package instead.}
 }
 \description{
-These functions work exactly the same as \code{\link[purrr:invoke]{purrr::invoke_map()}} functions, but allow
-you to invoke in parallel.
+These functions work exactly the same as \code{\link[purrr:invoke]{purrr::invoke_map()}} functions,
+but allow you to invoke in parallel.
 }
 \examples{
 
