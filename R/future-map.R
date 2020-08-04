@@ -15,7 +15,7 @@
 #'
 #' @param .progress `r lifecycle::badge("deprecated")`:
 #'   No longer has any effect. Use the
-#'   [progressr](https://cran.r-project.org/web/packages/progressr/index.html)
+#'   [progressr](https://CRAN.R-project.org/package=progressr)
 #'   package instead.
 #'
 #' @return

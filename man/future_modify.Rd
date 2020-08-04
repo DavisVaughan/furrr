@@ -68,7 +68,7 @@ be the result from a call to \code{\link[=furrr_options]{furrr_options()}}.}
 
 \item{.progress}{\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}}:
 No longer has any effect. Use the
-\href{https://cran.r-project.org/web/packages/progressr/index.html}{progressr}
+\href{https://CRAN.R-project.org/package=progressr}{progressr}
 package instead.}
 
 \item{.at}{A character vector of names, positive numeric vector of

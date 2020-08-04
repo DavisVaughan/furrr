@@ -47,7 +47,7 @@
   work on all future backends, and could even cause errors on some. Using
   the `.progress` argument will now trigger a once per session warning, and
   will no longer generate a progress bar. Instead, please use the
-  [progressr](https://cran.r-project.org/web/packages/progressr/index.html)
+  [progressr](https://CRAN.R-project.org/package=progressr)
   package. It uses a much more robust idea, and has been integrated with future
   in such a way that it can relay near real-time progress updates, even from
   remote connections. That said, be aware that it is a relatively new package

@@ -130,7 +130,7 @@ toc()
 This example comes from a vignette from rsample. The vignette performs a
 10-fold cross validation with 10 repeats of a GLM on the attrition data
 set. If you want all the details with explanation, see [the
-vignette](https://cran.r-project.org/web/packages/rsample/vignettes/Working_with_rsets.html).
+vignette](https://rsample.tidymodels.org/articles/Working_with_rsets.html).
 
 The vignette example runs pretty quickly on its own, so to make things
 more…interesting we are going to use 20 fold CV with 100 repeats.
