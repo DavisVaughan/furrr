@@ -271,7 +271,7 @@ furrr_template <- function(args,
     chunk_packages <- packages
 
     if (scan_chunk_args_for_globals) {
-      chunk_args_gp <- getGlobalsAndPackages(chunk_args, envir = env_globals, globals = TRUE)
+      chunk_args_gp <- future::getGlobalsAndPackages(chunk_args, envir = env_globals, globals = TRUE)
 
       chunk_globals <- c(chunk_globals, chunk_args_gp$globals)
       chunk_globals <- unique(chunk_globals)

@@ -309,7 +309,7 @@ validate_seed <- function(x) {
 }
 
 validate_seed_list <- function(x) {
-  seeds_are_integers <- map_lgl(x, ~typeof(.x) == "integer")
+  seeds_are_integers <- purrr::map_lgl(x, ~typeof(.x) == "integer")
   if (!all(seeds_are_integers)) {
     abort("All elements of a list `seed` must be integers.")
   }
