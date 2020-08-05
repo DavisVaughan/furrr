@@ -282,8 +282,8 @@ validate_seed <- function(x) {
   }
 
   if (is.logical(x)) {
-    if (length(x) != 1L) {
-      abort("A logical `seed` must be length 1.")
+    if (!is_bool(x)) {
+      abort("A logical `seed` must be length 1 and must not be `NA`.")
     }
 
     return(x)

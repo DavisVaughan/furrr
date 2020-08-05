@@ -344,7 +344,7 @@ furrr_template <- function(args,
 # ------------------------------------------------------------------------------
 
 make_expr_seed <- function(seed) {
-  if (is_false(seed) || is.na(seed)) {
+  if (is.null(seed) || is_false(seed)) {
     return(NULL)
   }
 
