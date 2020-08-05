@@ -120,12 +120,12 @@ furrr_test_that("named input won't create packed data frames in `future_map_dfc(
 
   expect_identical(
     future_map_dfc(x, make_df),
-    data.frame(...1 = "foo", b = 1, c = 1)
+    data.frame(...1 = "foo", b = 1, c = 1, stringsAsFactors = FALSE)
   )
 
   expect_identical(
     future_map_dfc(y, make_df),
-    data.frame(x = "foo", b = 1, c = 1)
+    data.frame(x = "foo", b = 1, c = 1, stringsAsFactors = FALSE)
   )
 })
 
