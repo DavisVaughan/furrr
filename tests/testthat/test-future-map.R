@@ -83,6 +83,52 @@ furrr_test_that("future_map_dfc() works", {
   )
 })
 
+furrr_test_that(".id works", {
+  x <- 1:3
+
+  out <- future_map_dfr(x, ~data.frame(x = .x), .id = "foo")
+  expect_identical(out$foo, 1:3)
+
+  x <- set_names(x, c("a", "b", "c"))
+
+  out <- future_map_dfr(x, ~data.frame(x = .x), .id = "foo")
+  expect_identical(out$foo, as.character(c("a", "b", "c")))
+})
+
+furrr_test_that("input names are used to name columns from vectors in `future_map_dfc()`", {
+  x <- 1:2
+  x <- rlang::set_names(x, c("x", "y"))
+
+  expect_identical(
+    future_map_dfc(x, ~.x),
+    data.frame(x = 1L, y = 2L)
+  )
+})
+
+furrr_test_that("named input won't create packed data frames in `future_map_dfc()`", {
+  x <- c("a", "b", "c")
+  y <- rlang::set_names(x, c("x", "y", "z"))
+
+  make_df <- function(x) {
+    if (x == "a") {
+      return("foo")
+    }
+
+    out <- rlang::set_names(list(1), x)
+    vctrs::new_data_frame(out)
+  }
+
+  expect_identical(
+    future_map_dfc(x, make_df),
+    data.frame(...1 = "foo", b = 1, c = 1)
+  )
+
+  expect_identical(
+    future_map_dfc(y, make_df),
+    data.frame(x = "foo", b = 1, c = 1)
+  )
+})
+
 # ------------------------------------------------------------------------------
 # size
 

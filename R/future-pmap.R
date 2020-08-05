@@ -114,12 +114,17 @@ future_pmap_dfr <- function(.l,
                             .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_pmap_dfr")
 
-  if (!rlang::is_installed("dplyr")) {
-    rlang::abort("`future_map_dfr()` requires dplyr")
-  }
+  names_to <- compat_id(.id)
 
-  res <- future_pmap(.l, .f, ..., .options = .options, .env_globals = .env_globals)
-  dplyr::bind_rows(res, .id = .id)
+  out <- future_pmap(
+    .l = .l,
+    .f = .f,
+    ...,
+    .options = .options,
+    .env_globals = .env_globals
+  )
+
+  vctrs::vec_rbind(!!!out, .names_to = names_to)
 }
 
 #' @rdname future_map2
@@ -132,10 +137,13 @@ future_pmap_dfc <- function(.l,
                             .progress = deprecated()) {
   maybe_warn_deprecated_progress(is_present(.progress), what = "future_pmap_dfc")
 
-  if (!rlang::is_installed("dplyr")) {
-    rlang::abort("`future_map_dfc()` requires dplyr")
-  }
+  out <- future_pmap(
+    .l = .l,
+    .f = .f,
+    ...,
+    .options = .options,
+    .env_globals = .env_globals
+  )
 
-  res <- future_pmap(.l, .f, ..., .options = .options, .env_globals = .env_globals)
-  dplyr::bind_cols(res)
+  furrr_list_cbind(out)
 }

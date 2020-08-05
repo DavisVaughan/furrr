@@ -91,6 +91,18 @@ furrr_test_that("future_map2_dfc() works", {
   )
 })
 
+furrr_test_that(".id works", {
+  x <- 1:3
+
+  out <- future_map2_dfr(x, x, ~data.frame(x = .x), .id = "foo")
+  expect_identical(out$foo, 1:3)
+
+  x <- set_names(x, c("a", "b", "c"))
+
+  out <- future_map2_dfr(x, x, ~data.frame(x = .x), .id = "foo")
+  expect_identical(out$foo, as.character(c("a", "b", "c")))
+})
+
 # ------------------------------------------------------------------------------
 # size
 

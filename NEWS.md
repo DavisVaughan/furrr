@@ -1,5 +1,8 @@
 # furrr 0.1.0.9002
 
+* `future_map_dfr()`, `future_map_dfc()`, and their variants now use vctrs
+  rather than dplyr to bind the results (#143).
+
 * `furrr_options()` now has a variety of new arguments for fine tuning furrr.
   These are based on advancements made in both future and future.apply. The
   most important is `chunk_size`, which can be used as an alternative
