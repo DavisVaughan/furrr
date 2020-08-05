@@ -8,6 +8,8 @@ furrr_map_template <- function(x,
   n <- length(x)
   names <- names(x)
 
+  assert_furrr_options(options)
+
   expr_seed <- make_expr_seed(options$seed)
 
   expr <- expr({
@@ -68,6 +70,8 @@ furrr_map2_template <- function(x,
 
   # Get names after possible recycling
   names <- names(args[[1]])
+
+  assert_furrr_options(options)
 
   expr_seed <- make_expr_seed(options$seed)
 
@@ -137,6 +141,8 @@ furrr_pmap_template <- function(l,
     # Get names after possible recycling
     names <- names(args[[1]])
   }
+
+  assert_furrr_options(options)
 
   expr_seed <- make_expr_seed(options$seed)
 

@@ -245,3 +245,12 @@ test_that("validates `prefix`", {
   expect_error(furrr_options(prefix = 1))
   expect_error(furrr_options(prefix = c("x", "y")))
 })
+
+# ------------------------------------------------------------------------------
+# validation
+
+test_that("option object is validated", {
+  expect_error(future_map(1:5, ~.x, .options = 1))
+  expect_error(future_map2(1:5, 1:5, ~.x, .options = 1))
+  expect_error(future_pmap(list(1:5), ~.x, .options = 1))
+})
