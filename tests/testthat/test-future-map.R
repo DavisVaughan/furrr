@@ -128,6 +128,15 @@ furrr_test_that("names of `.x` are retained", {
   expect_named(future_map_if(x, ~.x %in% c("a", "c"), ~3), c("a", "b", "c"))
 })
 
+furrr_test_that("`.else` can be used", {
+  x <- list("a", "b", "c")
+
+  expect_identical(
+    future_map_if(x, ~.x %in% c("a", "c"), ~ 3, .else = ~ -1),
+    map_if(x, ~.x %in% c("a", "c"), ~ 3, .else = ~ -1)
+  )
+})
+
 # ------------------------------------------------------------------------------
 # Miscellaneous
 

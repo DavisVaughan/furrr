@@ -10,6 +10,7 @@ future_map_if(
   .p,
   .f,
   ...,
+  .else = NULL,
   .options = furrr_options(),
   .env_globals = parent.frame(),
   .progress = deprecated()
@@ -56,6 +57,9 @@ by position and name at different levels. If a component is not
 present, the value of \code{.default} will be returned.}
 
 \item{...}{Additional arguments passed on to the mapped function.}
+
+\item{.else}{A function applied to elements of \code{.x} for which \code{.p}
+returns \code{FALSE}.}
 
 \item{.options}{The \code{future} specific options to use with the workers. This must
 be the result from a call to \code{\link[=furrr_options]{furrr_options()}}.}

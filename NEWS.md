@@ -1,5 +1,8 @@
 # furrr 0.1.0.9002
 
+* `future_map_if()` has gained the `.else` argument that was added to purrr's
+  `map_if()` in purrr 0.3.0 (#132).
+
 * `furrr_options()` now has a variety of new arguments for fine tuning furrr.
   These are based on advancements made in both future and future.apply. The
   most important is `chunk_size`, which can be used as an alternative

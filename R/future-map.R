@@ -241,6 +241,7 @@ future_map_if <- function(.x,
                           .p,
                           .f,
                           ...,
+                          .else = NULL,
                           .options = furrr_options(),
                           .env_globals = parent.frame(),
                           .progress = deprecated()) {
@@ -248,8 +249,27 @@ future_map_if <- function(.x,
 
   sel <- probe(.x, .p)
   out <- purrr::list_along(.x)
-  out[sel] <- future_map(.x[sel], .f, ..., .options = .options, .env_globals = .env_globals)
-  out[!sel] <- .x[!sel]
+
+  out[sel] <- future_map(
+    .x = .x[sel],
+    .f = .f,
+    ...,
+    .options = .options,
+    .env_globals = .env_globals
+  )
+
+  if (is_null(.else)) {
+    out[!sel] <- .x[!sel]
+  } else {
+    out[!sel] <- future_map(
+      .x = .x[!sel],
+      .f = .else,
+      ...,
+      .options = .options,
+      .env_globals = .env_globals
+    )
+  }
+
   set_names(out, names(.x))
 }
 
