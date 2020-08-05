@@ -16,6 +16,7 @@ future_invoke_map(
   ...,
   .env = NULL,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -25,6 +26,7 @@ future_invoke_map_chr(
   ...,
   .env = NULL,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -34,6 +36,7 @@ future_invoke_map_dbl(
   ...,
   .env = NULL,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -43,6 +46,7 @@ future_invoke_map_int(
   ...,
   .env = NULL,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -52,6 +56,7 @@ future_invoke_map_lgl(
   ...,
   .env = NULL,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -61,6 +66,7 @@ future_invoke_map_dfr(
   ...,
   .env = NULL,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -70,6 +76,7 @@ future_invoke_map_dfc(
   ...,
   .env = NULL,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 }
@@ -91,14 +98,17 @@ as \code{.f} the name of a function rather than its value, or as
 \item{.options}{The \code{future} specific options to use with the workers. This must
 be the result from a call to \code{\link[=furrr_options]{furrr_options()}}.}
 
+\item{.env_globals}{The environment to look for globals required by
+\code{.f}, \code{...}, and \code{.x}.}
+
 \item{.progress}{\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}}:
 No longer has any effect. Use the
-\href{https://cran.r-project.org/web/packages/progressr/index.html}{progressr}
+\href{https://CRAN.R-project.org/package=progressr}{progressr}
 package instead.}
 }
 \description{
-These functions work exactly the same as \code{\link[purrr:invoke]{purrr::invoke_map()}} functions, but allow
-you to invoke in parallel.
+These functions work exactly the same as \code{\link[purrr:invoke]{purrr::invoke_map()}} functions,
+but allow you to invoke in parallel.
 }
 \examples{
 

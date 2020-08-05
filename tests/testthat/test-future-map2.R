@@ -123,14 +123,14 @@ furrr_test_that("size one recycling works", {
 })
 
 furrr_test_that("generally can't recycle to size zero", {
-  skip("until #134 is fixed")
-
   expect_error(
     future_map2(1:2, integer(), ~c(.x, .y)),
+    "Can't recycle"
   )
 
   expect_error(
-    future_map2(integer(), 1:2, ~c(.x, .y))
+    future_map2(integer(), 1:2, ~c(.x, .y)),
+    "Can't recycle"
   )
 })
 

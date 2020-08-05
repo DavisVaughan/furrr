@@ -62,7 +62,7 @@ one that starts with nothing. A kind soul, Louis Aslett, keeps up-to-date RStudi
 
 At this point, I encourage you to look elsewhere for exactly how to set up
 an AWS instance based on this AMI. I have a blog post dedicated to this, located
-at my website [blog.davisvaughan.com](https://blog.davisvaughan.com/post/rstudio-shiny-aws-1/).
+at my website [blog.davisvaughan.com](https://blog.davisvaughan.com/2017/05/15/rstudio-shiny-aws-1/).
 
 ## Running code remotely on a single EC2 instance
 

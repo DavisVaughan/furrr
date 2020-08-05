@@ -11,13 +11,21 @@
 \alias{future_walk}
 \title{Apply a function to each element of a vector via futures}
 \usage{
-future_map(.x, .f, ..., .options = furrr_options(), .progress = deprecated())
+future_map(
+  .x,
+  .f,
+  ...,
+  .options = furrr_options(),
+  .env_globals = parent.frame(),
+  .progress = deprecated()
+)
 
 future_map_chr(
   .x,
   .f,
   ...,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -26,6 +34,7 @@ future_map_dbl(
   .f,
   ...,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -34,6 +43,7 @@ future_map_int(
   .f,
   ...,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -42,6 +52,7 @@ future_map_lgl(
   .f,
   ...,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -51,6 +62,7 @@ future_map_dfr(
   ...,
   .id = NULL,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -59,10 +71,17 @@ future_map_dfc(
   .f,
   ...,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
-future_walk(.x, .f, ..., .options = furrr_options())
+future_walk(
+  .x,
+  .f,
+  ...,
+  .options = furrr_options(),
+  .env_globals = parent.frame()
+)
 }
 \arguments{
 \item{.x}{A list or atomic vector.}
@@ -92,9 +111,12 @@ present, the value of \code{.default} will be returned.}
 \item{.options}{The \code{future} specific options to use with the workers. This must
 be the result from a call to \code{\link[=furrr_options]{furrr_options()}}.}
 
+\item{.env_globals}{The environment to look for globals required by
+\code{.f}, \code{...}, and \code{.x}.}
+
 \item{.progress}{\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}}:
 No longer has any effect. Use the
-\href{https://cran.r-project.org/web/packages/progressr/index.html}{progressr}
+\href{https://CRAN.R-project.org/package=progressr}{progressr}
 package instead.}
 
 \item{.id}{Either a string or \code{NULL}. If a string, the output will contain

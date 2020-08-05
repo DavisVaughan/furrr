@@ -25,6 +25,7 @@ future_map2(
   .f,
   ...,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -34,6 +35,7 @@ future_map2_chr(
   .f,
   ...,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -43,6 +45,7 @@ future_map2_dbl(
   .f,
   ...,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -52,6 +55,7 @@ future_map2_int(
   .f,
   ...,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -61,6 +65,7 @@ future_map2_lgl(
   .f,
   ...,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -71,6 +76,7 @@ future_map2_dfr(
   ...,
   .id = NULL,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -80,16 +86,25 @@ future_map2_dfc(
   .f,
   ...,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
-future_pmap(.l, .f, ..., .options = furrr_options(), .progress = deprecated())
+future_pmap(
+  .l,
+  .f,
+  ...,
+  .options = furrr_options(),
+  .env_globals = parent.frame(),
+  .progress = deprecated()
+)
 
 future_pmap_chr(
   .l,
   .f,
   ...,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -98,6 +113,7 @@ future_pmap_dbl(
   .f,
   ...,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -106,6 +122,7 @@ future_pmap_int(
   .f,
   ...,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -114,6 +131,7 @@ future_pmap_lgl(
   .f,
   ...,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -123,6 +141,7 @@ future_pmap_dfr(
   ...,
   .id = NULL,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
@@ -131,12 +150,26 @@ future_pmap_dfc(
   .f,
   ...,
   .options = furrr_options(),
+  .env_globals = parent.frame(),
   .progress = deprecated()
 )
 
-future_walk2(.x, .y, .f, ..., .options = furrr_options())
+future_walk2(
+  .x,
+  .y,
+  .f,
+  ...,
+  .options = furrr_options(),
+  .env_globals = parent.frame()
+)
 
-future_pwalk(.l, .f, ..., .options = furrr_options())
+future_pwalk(
+  .l,
+  .f,
+  ...,
+  .options = furrr_options(),
+  .env_globals = parent.frame()
+)
 }
 \arguments{
 \item{.x}{Vectors of the same length. A vector of length 1 will
@@ -170,9 +203,12 @@ present, the value of \code{.default} will be returned.}
 \item{.options}{The \code{future} specific options to use with the workers. This must
 be the result from a call to \code{\link[=furrr_options]{furrr_options()}}.}
 
+\item{.env_globals}{The environment to look for globals required by
+\code{.f}, \code{...}, and \code{.x}.}
+
 \item{.progress}{\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}}:
 No longer has any effect. Use the
-\href{https://cran.r-project.org/web/packages/progressr/index.html}{progressr}
+\href{https://CRAN.R-project.org/package=progressr}{progressr}
 package instead.}
 
 \item{.id}{Either a string or \code{NULL}. If a string, the output will contain

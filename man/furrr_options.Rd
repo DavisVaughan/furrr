@@ -45,9 +45,9 @@ future is evaluated.}
 \item{lazy}{A logical. Specifies whether futures should be resolved
 lazily or eagerly.}
 
-\item{seed}{A logical, an integer of length \code{1} or \code{7}, or a list of
-\code{length(.x)} with pre-generated random seeds. For details, see the
-\verb{Reproducible random number generation (RNG)} section below.}
+\item{seed}{A logical, an integer of length \code{1} or \code{7}, a list of
+\code{length(.x)} with pre-generated random seeds, or \code{NULL}. For details, see
+the \verb{Reproducible random number generation (RNG)} section below.}
 
 \item{scheduling}{A single integer, logical, or \code{Inf}. This argument
 controls the average number of futures ("chunks") per worker.
@@ -99,6 +99,11 @@ Unless \code{seed = FALSE}, furrr functions are guaranteed to generate
 the exact same sequence of random numbers \emph{given the same initial
 seed / RNG state} regardless of the type of futures and scheduling
 ("chunking") strategy.
+
+Setting \code{seed = NULL} is equivalent to \code{seed = FALSE}, except that the
+\code{future.rng.onMisuse} option is not consulted to potentially monitor the
+future for faulty random number usage. See the \code{seed} argument of
+\code{\link[future:future]{future::future()}} for more details.
 
 RNG reproducibility is achieved by pre-generating the random seeds for all
 iterations (over \code{.x}) by using L'Ecuyer-CMRG RNG streams. In each

@@ -209,3 +209,8 @@ test_that("furrr is not loaded on the workers", {
     c(FALSE, FALSE)
   )
 })
+
+furrr_test_that("base package functions can be exported to workers (HenrikBengtsson/future#401)", {
+  skip("Until HenrikBengtsson/future#401 is fixed")
+  expect_identical(future_map(1:2, identity), list(1L, 2L))
+})

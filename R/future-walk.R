@@ -1,30 +1,43 @@
 #' @rdname future_map
 #' @export
-future_walk <- function(.x, .f, ..., .options = furrr_options()) {
-  # Can't just capture the invisible() output from walk().
-  # We iterate over seq_along() in the template so the output would not be .x
-  # Instead, just return .x invisibly to mimic behavior
-  future_map_template(purrr::walk, "list", .x, .f, ..., .options = .options)
+future_walk <- function(.x,
+                        .f,
+                        ...,
+                        .options = furrr_options(),
+                        .env_globals = parent.frame()) {
+  future_map(.x, .f, ..., .options = .options, .env_globals = .env_globals)
   invisible(.x)
 }
 
 #' @rdname future_map2
 #' @export
-future_walk2 <- function(.x, .y, .f, ..., .options = furrr_options()) {
-  future_pwalk(list(.x, .y), .f, ..., .options = .options)
+future_walk2 <- function(.x,
+                         .y,
+                         .f,
+                         ...,
+                         .options = furrr_options(),
+                         .env_globals = parent.frame()) {
+  future_map2(.x, .y, .f, ..., .options = .options, .env_globals = .env_globals)
   invisible(.x)
 }
 
 #' @rdname future_map2
 #' @export
-future_pwalk <- function(.l, .f, ..., .options = furrr_options()) {
-  future_pmap_template(purrr::pwalk, "list", .l, .f, ..., .options = .options)
+future_pwalk <- function(.l,
+                         .f,
+                         ...,
+                         .options = furrr_options(),
+                         .env_globals = parent.frame()) {
+  future_pmap(.l, .f, ..., .options = .options, .env_globals = .env_globals)
   invisible(.l)
 }
 
 #' @rdname future_imap
 #' @export
-future_iwalk <- function(.x, .f, ..., .options = furrr_options()) {
-  .f <- purrr::as_mapper(.f, ...)
-  future_walk2(.x, vec_index(.x), .f, ..., .options = .options)
+future_iwalk <- function(.x,
+                         .f,
+                         ...,
+                         .options = furrr_options(),
+                         .env_globals = parent.frame()) {
+  future_walk2(.x, vec_index(.x), .f, ..., .options = .options, .env_globals = .env_globals)
 }
