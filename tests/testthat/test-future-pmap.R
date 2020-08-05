@@ -14,6 +14,11 @@ furrr_test_that("names of `.x` are retained", {
   expect_named(future_pmap(list(x, y), ~1), c("a", "b"))
 })
 
+furrr_test_that("named empty input makes named empty output", {
+  x <- set_names(list(), character())
+  expect_named(future_pmap(list(x, x), ~.x), character())
+})
+
 # ------------------------------------------------------------------------------
 # atomic variants
 

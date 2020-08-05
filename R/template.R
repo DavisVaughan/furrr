@@ -130,7 +130,7 @@ furrr_pmap_template <- function(l,
   n <- furrr_length_common(l)
   args <- furrr_recycle_common(l, n)
 
-  if (n == 0L) {
+  if (length(l) == 0L) {
     # Special case handling of empty `l` like `future_pmap(list())`
     names <- NULL
   } else {
