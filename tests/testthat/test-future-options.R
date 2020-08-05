@@ -1,3 +1,6 @@
+# ------------------------------------------------------------------------------
+# furrr_options(globals =)
+
 test_that("can detect globals from the caller environment (HenrikBengtsson/future.apply#62)", {
   plan(multisession, workers = 2)
   on.exit(plan(sequential), add = TRUE)
@@ -17,6 +20,9 @@ test_that("can detect globals from the caller environment (HenrikBengtsson/futur
   expect_identical(wrapper(options), TRUE)
 })
 
+# ------------------------------------------------------------------------------
+# furrr_options(packages =)
+
 test_that("can selectively export packages on multisession", {
   plan(multisession, workers = 2)
   on.exit(plan(sequential), add = TRUE)
@@ -33,6 +39,9 @@ test_that("can selectively export packages on multisession", {
   )
 })
 
+# ------------------------------------------------------------------------------
+# furrr_options(seed =)
+
 furrr_test_that("setting seed keeps reproducible numbers", {
   skip("Until HenrikBengtsson/future#401 is fixed")
 
@@ -45,6 +54,7 @@ furrr_test_that("setting seed keeps reproducible numbers", {
 })
 
 # ------------------------------------------------------------------------------
+# validation
 
 test_that("validates `stdout`", {
   expect_error(furrr_options(stdout = "x"))
