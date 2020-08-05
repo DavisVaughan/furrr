@@ -141,13 +141,21 @@ adapted from both <code><a href='https://purrr.tidyverse.org/reference/map.html'
 so look there for more details.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>future_map</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(), <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>())
+    <pre class="usage"><span class='fu'>future_map</span>(
+  <span class='no'>.x</span>,
+  <span class='no'>.f</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
+  <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
+  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>()
+)
 
 <span class='fu'>future_map_chr</span>(
   <span class='no'>.x</span>,
   <span class='no'>.f</span>,
   <span class='no'>...</span>,
   <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
+  <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
   <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>()
 )
 
@@ -156,6 +164,7 @@ so look there for more details.</p>
   <span class='no'>.f</span>,
   <span class='no'>...</span>,
   <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
+  <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
   <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>()
 )
 
@@ -164,6 +173,7 @@ so look there for more details.</p>
   <span class='no'>.f</span>,
   <span class='no'>...</span>,
   <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
+  <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
   <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>()
 )
 
@@ -172,6 +182,7 @@ so look there for more details.</p>
   <span class='no'>.f</span>,
   <span class='no'>...</span>,
   <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
+  <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
   <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>()
 )
 
@@ -181,6 +192,7 @@ so look there for more details.</p>
   <span class='no'>...</span>,
   <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
+  <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
   <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>()
 )
 
@@ -189,10 +201,17 @@ so look there for more details.</p>
   <span class='no'>.f</span>,
   <span class='no'>...</span>,
   <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
+  <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
   <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>()
 )
 
-<span class='fu'>future_walk</span>(<span class='no'>.x</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>())</pre>
+<span class='fu'>future_walk</span>(
+  <span class='no'>.x</span>,
+  <span class='no'>.f</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
+  <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>()
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -229,10 +248,15 @@ present, the value of <code>.default</code> will be returned.</p></td>
 be the result from a call to <code><a href='furrr_options.html'>furrr_options()</a></code>.</p></td>
     </tr>
     <tr>
+      <th>.env_globals</th>
+      <td><p>The environment to look for globals required by
+<code>.f</code>, <code>...</code>, and <code>.x</code>.</p></td>
+    </tr>
+    <tr>
       <th>.progress</th>
       <td><p><img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' />:
 No longer has any effect. Use the
-<a href='https://cran.r-project.org/web/packages/progressr/index.html'>progressr</a>
+<a href='https://CRAN.R-project.org/package=progressr'>progressr</a>
 package instead.</p></td>
     </tr>
     <tr>
@@ -269,8 +293,8 @@ e.g. logical -&gt; integer -&gt; double -&gt; character.</p>
 
 <span class='fl'>1</span>:<span class='fl'>10</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>future_map</span>(<span class='no'>rnorm</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>10</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>future_map_dbl</span>(<span class='no'>mean</span>)</div><div class='output co'>#&gt;  [1]  1.139415  1.846501  3.487488  3.415873  4.925889  6.029335  7.305350
-#&gt;  [8]  8.195502  9.289112 10.230063</div><div class='input'>
+  <span class='fu'>future_map_dbl</span>(<span class='no'>mean</span>)</div><div class='output co'>#&gt;  [1] 1.319052 2.028798 2.753224 4.494300 4.940087 5.828817 7.158861 7.374684
+#&gt;  [9] 8.537798 9.722884</div><div class='input'>
 <span class='co'># If each element of the output is a data frame, use</span>
 <span class='co'># future_map_dfr to row-bind them together:</span>
 <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span>

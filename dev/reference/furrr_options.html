@@ -193,9 +193,9 @@ lazily or eagerly.</p></td>
     </tr>
     <tr>
       <th>seed</th>
-      <td><p>A logical, an integer of length <code>1</code> or <code>7</code>, or a list of
-<code><a href='https://rdrr.io/r/base/length.html'>length(.x)</a></code> with pre-generated random seeds. For details, see the
-<code>Reproducible random number generation (RNG)</code> section below.</p></td>
+      <td><p>A logical, an integer of length <code>1</code> or <code>7</code>, a list of
+<code><a href='https://rdrr.io/r/base/length.html'>length(.x)</a></code> with pre-generated random seeds, or <code>NULL</code>. For details, see
+the <code>Reproducible random number generation (RNG)</code> section below.</p></td>
     </tr>
     <tr>
       <th>scheduling</th>
@@ -252,6 +252,10 @@ globals to each future created, as they are always needed.</p></li>
 the exact same sequence of random numbers <em>given the same initial
 seed / RNG state</em> regardless of the type of futures and scheduling
 ("chunking") strategy.</p>
+<p>Setting <code>seed = NULL</code> is equivalent to <code>seed = FALSE</code>, except that the
+<code>future.rng.onMisuse</code> option is not consulted to potentially monitor the
+future for faulty random number usage. See the <code>seed</code> argument of
+<code><a href='https://rdrr.io/pkg/future/man/future.html'>future::future()</a></code> for more details.</p>
 <p>RNG reproducibility is achieved by pre-generating the random seeds for all
 iterations (over <code>.x</code>) by using L'Ecuyer-CMRG RNG streams. In each
 iteration, these seeds are set before calling <code>.f(.x[[i]], ...)</code>.
