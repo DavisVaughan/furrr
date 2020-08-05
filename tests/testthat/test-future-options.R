@@ -43,8 +43,6 @@ test_that("can selectively export packages on multisession", {
 # furrr_options(seed =)
 
 furrr_test_that("setting seed keeps reproducible numbers", {
-  skip("Until HenrikBengtsson/future#401 is fixed")
-
   opts <- furrr_options(seed = 1L)
 
   expect_identical(
