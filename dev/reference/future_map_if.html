@@ -142,6 +142,7 @@ purrr::map_at(), but allow you to run them in parallel." />
   <span class='no'>.p</span>,
   <span class='no'>.f</span>,
   <span class='no'>...</span>,
+  <span class='kw'>.else</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
   <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
   <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>()
@@ -194,6 +195,11 @@ present, the value of <code>.default</code> will be returned.</p></td>
     <tr>
       <th>...</th>
       <td><p>Additional arguments passed on to the mapped function.</p></td>
+    </tr>
+    <tr>
+      <th>.else</th>
+      <td><p>A function applied to elements of <code>.x</code> for which <code>.p</code>
+returns <code>FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>.options</th>
