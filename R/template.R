@@ -224,7 +224,7 @@ furrr_template <- function(args,
 
   # Reorder `chunks` based on the custom `order`
   if (!is.null(order)) {
-    chunks <- map(chunks, FUN = function(chunk) .subset(order, chunk))
+    chunks <- map(chunks, function(chunk) .subset(order, chunk))
   }
 
   gp <- get_globals_and_packages(

@@ -43,6 +43,11 @@ compute_n_chunks_from_scheduling_integer <- function(scheduling, n_x, n_workers)
 
   n_chunks <- scheduling * n_workers
 
+  # Catch `scheduling == 0L`
+  if (n_chunks < 1L) {
+    n_chunks <- 1L
+  }
+
   if (n_chunks > n_x) {
     n_chunks <- n_x
   }
