@@ -313,7 +313,7 @@ furrr_template <- function(args,
       chunk_globals[["...furrr_chunk_seeds"]] <- chunk_seeds
     }
 
-    futures[[i]] <- future(
+    futures[[i]] <- future::future(
       expr,
       substitute = FALSE,
       envir = env_globals,

@@ -1,5 +1,11 @@
 # furrr 0.1.0.9002
 
+* future has been moved from Depends to Imports. This means that the future
+  package will no longer be attached when `library(furrr)` is run. To
+  accomodate this change, `plan()`, `tweak()`, `makeClusterPSOCK()`, and
+  all stategy functions from future (such as `multisession()` and
+  `multicore()`) have been re-exported from furrr (#40).
+
 * There is a new pkgdown article on common gotchas when using furrr.
 
 * `future_map_if()` has gained the `.else` argument that was added to purrr's

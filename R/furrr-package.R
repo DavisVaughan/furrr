@@ -5,7 +5,6 @@
 # roxygen namespace tags. Modify with care!
 ## usethis namespace: start
 #' @import rlang
-#' @importFrom future future
 #' @importFrom purrr map
 #' @importFrom lifecycle deprecated
 #' @importFrom lifecycle is_present

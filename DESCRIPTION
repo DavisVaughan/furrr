@@ -20,10 +20,10 @@ License: MIT + file LICENSE
 URL: https://github.com/DavisVaughan/furrr
 BugReports: https://github.com/DavisVaughan/furrr/issues
 Depends:
-    future (>= 1.17.0),
     R (>= 3.2.0)
 Imports:
     ellipsis,
+    future (>= 1.17.0),
     globals (>= 0.12.5-9000),
     lifecycle (>= 0.2.0),
     purrr (>= 0.3.0),
