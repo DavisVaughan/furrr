@@ -8,6 +8,13 @@
 
 <title>Invoke functions via futures — future_invoke_map • furrr</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -42,6 +49,7 @@
 <meta property="og:title" content="Invoke functions via futures — future_invoke_map" />
 <meta property="og:description" content="These functions work exactly the same as purrr::invoke_map() functions,
 but allow you to invoke in parallel." />
+<meta property="og:image" content="/logo.png" />
 
 
 <meta name="robots" content="noindex">
@@ -268,15 +276,15 @@ package instead.</p></td>
 )
 
 <span class='fu'>future_invoke_map</span>(<span class='no'>df</span>$<span class='no'>f</span>, <span class='no'>df</span>$<span class='no'>params</span>)</div><div class='output co'>#&gt; [[1]]
-#&gt;  [1] 0.09288474 0.59715963 0.08539939 0.99715238 0.71103084 0.54822478
-#&gt;  [7] 0.22549026 0.94084270 0.28724342 0.01897870
+#&gt;  [1] 0.81873549 0.61103917 0.01570907 0.04092665 0.76901862 0.88207823
+#&gt;  [7] 0.45417625 0.49308098 0.78644733 0.85124276
 #&gt; 
 #&gt; [[2]]
-#&gt; [1]  9 11 10  9  7
+#&gt; [1]  6 13  9 12  9
 #&gt; 
 #&gt; [[3]]
-#&gt;  [1]   6.2951859  -1.0167773  -1.4716646  -0.3946382  -7.5422477  -2.9249188
-#&gt;  [7] -12.6813367   8.6626308 -15.3560917  -5.4581829
+#&gt;  [1]  -6.85100952  -6.82490435 -19.65668571   0.03214363  -2.52503689
+#&gt;  [6]  16.27945216  -8.87765904 -17.54607777 -30.77478488  -5.14160762
 #&gt; </div><div class='input'>
 <span class='co'># \dontshow{</span>
 <span class='co'># Close open connections for R CMD Check</span>
