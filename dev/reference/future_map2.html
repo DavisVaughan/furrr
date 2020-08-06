@@ -47,11 +47,11 @@
 
 
 <meta property="og:title" content="Map over multiple inputs simultaneously via futures — future_map2" />
-<meta property="og:description" content="These functions work exactly the same as purrr::map2() functions, but allow
-you to run the map in parallel. Note that &quot;parallel&quot; as described in purrr
+<meta property="og:description" content="These functions work exactly the same as purrr::map2() and its variants,
+but allow you to map in parallel. Note that &quot;parallel&quot; as described in purrr
 is just saying that you are working with multiple inputs, and parallel in
-this case means that you can work on multiple inputs AND process
-them all in parallel as well." />
+this case means that you can work on multiple inputs and process them all in
+parallel as well." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -144,11 +144,11 @@ them all in parallel as well." />
     </div>
 
     <div class="ref-description">
-    <p>These functions work exactly the same as <code><a href='https://purrr.tidyverse.org/reference/map2.html'>purrr::map2()</a></code> functions, but allow
-you to run the map in parallel. Note that "parallel" as described in <code>purrr</code>
+    <p>These functions work exactly the same as <code><a href='https://purrr.tidyverse.org/reference/map2.html'>purrr::map2()</a></code> and its variants,
+but allow you to map in parallel. Note that "parallel" as described in purrr
 is just saying that you are working with multiple inputs, and parallel in
-this case means that you can work on multiple inputs AND process
-them all in parallel as well.</p>
+this case means that you can work on multiple inputs and process them all in
+parallel as well.</p>
     </div>
 
     <pre class="usage"><span class='fu'>future_map2</span>(
@@ -340,19 +340,18 @@ present, the value of <code>.default</code> will be returned.</p></td>
     </tr>
     <tr>
       <th>.options</th>
-      <td><p>The <code>future</code> specific options to use with the workers. This must
-be the result from a call to <code><a href='furrr_options.html'>furrr_options()</a></code>.</p></td>
+      <td><p>The <code>future</code> specific options to use with the workers. This
+must be the result from a call to <code><a href='furrr_options.html'>furrr_options()</a></code>.</p></td>
     </tr>
     <tr>
       <th>.env_globals</th>
-      <td><p>The environment to look for globals required by
-<code>.f</code>, <code>...</code>, and <code>.x</code>.</p></td>
+      <td><p>The environment to look for globals required by <code>.f</code>,
+<code>...</code>, and <code>.x</code>.</p></td>
     </tr>
     <tr>
       <th>.progress</th>
-      <td><p><img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' />:
-No longer has any effect. Use the
-<a href='https://CRAN.R-project.org/package=progressr'>progressr</a>
+      <td><p><img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' />: No longer has any
+effect. Use the <a href='https://CRAN.R-project.org/package=progressr'>progressr</a>
 package instead.</p></td>
     </tr>
     <tr>
@@ -374,16 +373,13 @@ names will be used if present.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>An atomic vector, list, or data frame, depending on the suffix.
-Atomic vectors and lists will be named if <code>.x</code> or the first element of <code>.l</code> is named.</p>
-<p>If all input is length 0, the output will be length 0.
-If any input is length 1, it will be recycled to the length of the longest.</p>
+Atomic vectors and lists will be named if <code>.x</code> or the first element of <code>.l</code>
+is named.</p>
+<p>If all input is length 0, the output will be length 0. If any input is
+length 1, it will be recycled to the length of the longest.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>furrr</span>)
-<span class='co'># \donttest{</span>
-<span class='fu'><a href='https://rdrr.io/pkg/future/man/plan.html'>plan</a></span>(<span class='no'>multiprocess</span>)
-<span class='co'># }</span>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/future/man/plan.html'>plan</a></span>(<span class='no'>multiprocess</span>)
 
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fl'>1</span>, <span class='fl'>10</span>, <span class='fl'>100</span>)
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>)
@@ -451,6 +447,7 @@ If any input is length 1, it will be recycled to the length of the longest.</p>
   <span class='kw'>replacement</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"x"</span>, <span class='st'>"f"</span>, <span class='st'>"q"</span>),
   <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )
+
 <span class='fu'>future_pmap</span>(<span class='no'>df</span>, <span class='no'>gsub</span>)</div><div class='output co'>#&gt; [[1]]
 #&gt; [1] "axxle"
 #&gt; 
