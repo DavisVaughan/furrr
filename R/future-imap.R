@@ -1,7 +1,7 @@
 #' Apply a function to each element of a vector, and its index via futures
 #'
-#' These functions work exactly the same as [purrr::imap()] functions, but allow
-#' you to map in parallel.
+#' These functions work exactly the same as [purrr::imap()] functions,
+#' but allow you to map in parallel.
 #'
 #' @inheritParams purrr::imap
 #' @inheritParams future_map
@@ -9,12 +9,9 @@
 #' @return
 #' A vector the same length as .x.
 #'
+#' @export
 #' @examples
-#'
-#' library(furrr)
-#' \donttest{
-#' plan(multiprocess)
-#' }
+#' \donttest{plan(multiprocess)}
 #'
 #' future_imap_chr(sample(10), ~ paste0(.y, ": ", .x))
 #'
@@ -22,7 +19,6 @@
 #' # Close open connections for R CMD Check
 #' if (!inherits(plan(), "sequential")) plan(sequential)
 #' }
-#' @export
 future_imap <- function(.x,
                         .f,
                         ...,

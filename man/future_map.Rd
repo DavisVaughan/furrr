@@ -108,15 +108,14 @@ present, the value of \code{.default} will be returned.}
 
 \item{...}{Additional arguments passed on to the mapped function.}
 
-\item{.options}{The \code{future} specific options to use with the workers. This must
-be the result from a call to \code{\link[=furrr_options]{furrr_options()}}.}
+\item{.options}{The \code{future} specific options to use with the workers. This
+must be the result from a call to \code{\link[=furrr_options]{furrr_options()}}.}
 
-\item{.env_globals}{The environment to look for globals required by
-\code{.f}, \code{...}, and \code{.x}.}
+\item{.env_globals}{The environment to look for globals required by \code{.f},
+\code{...}, and \code{.x}.}
 
-\item{.progress}{\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}}:
-No longer has any effect. Use the
-\href{https://CRAN.R-project.org/package=progressr}{progressr}
+\item{.progress}{\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}}: No longer has any
+effect. Use the \href{https://CRAN.R-project.org/package=progressr}{progressr}
 package instead.}
 
 \item{.id}{Either a string or \code{NULL}. If a string, the output will contain
@@ -128,51 +127,46 @@ Only applies to \verb{_dfr} variant.}
 }
 \value{
 All functions return a vector the same length as \code{.x}.
+\itemize{
+\item \code{\link[=future_map]{future_map()}} returns a list
+\item \code{\link[=future_map_lgl]{future_map_lgl()}} a logical vector
+\item \code{\link[=future_map_int]{future_map_int()}} an integer vector
+\item \code{\link[=future_map_dbl]{future_map_dbl()}} a double vector
+\item \code{\link[=future_map_chr]{future_map_chr()}} a character vector
+}
 
-\code{\link[=future_map]{future_map()}} returns a list, \code{\link[=future_map_lgl]{future_map_lgl()}} a logical vector,
-\code{\link[=future_map_int]{future_map_int()}} an integer vector, \code{\link[=future_map_dbl]{future_map_dbl()}} a double vector,
-and \code{\link[=future_map_chr]{future_map_chr()}} a character vector.
-The output of \code{.f} will be automatically typed upwards,
-e.g. logical -> integer -> double -> character.
+The output of \code{.f} will be automatically typed upwards, e.g. logical ->
+integer -> double -> character.
 }
 \description{
-These functions work exactly the same as \code{\link[purrr:map]{purrr::map()}} functions, but allow
-you to run the map in parallel. The documentation is
-adapted from both \code{purrr::map()}, and \code{future.apply::future_lapply()},
-so look there for more details.
+These functions work exactly the same as \code{\link[purrr:map]{purrr::map()}} and its variants, but
+allow you to map in parallel.
 }
 \examples{
-
-library(furrr)
-library(dplyr) # for the pipe
-
-\donttest{
-plan(multiprocess)
-}
+library(magrittr)
+\donttest{plan(multiprocess)}
 
 1:10 \%>\%
   future_map(rnorm, n = 10) \%>\%
   future_map_dbl(mean)
 
 # If each element of the output is a data frame, use
-# future_map_dfr to row-bind them together:
+# `future_map_dfr()` to row-bind them together:
 mtcars \%>\%
   split(.$cyl) \%>\%
   future_map(~ lm(mpg ~ wt, data = .x)) \%>\%
   future_map_dfr(~ as.data.frame(t(as.matrix(coef(.)))))
 
-# You can be explicit about what gets exported to the workers
 
-# To see this, use multisession (NOT multicore if on a Mac as the forked workers
+# You can be explicit about what gets exported to the workers.
+# To see this, use multisession (not multicore as the forked workers
 # still have access to this environment)
-\donttest{
-plan(multisession)
-}
+\donttest{plan(multisession)}
 x <- 1
 y <- 2
 
 # This will fail, y is not exported (no black magic occurs)
-# future_map(1, ~y, .options = furrr_options(globals = "x"))
+try(future_map(1, ~y, .options = furrr_options(globals = "x")))
 
 # y is exported
 future_map(1, ~y, .options = furrr_options(globals = "y"))

@@ -200,15 +200,14 @@ present, the value of \code{.default} will be returned.}
 
 \item{...}{Additional arguments passed on to the mapped function.}
 
-\item{.options}{The \code{future} specific options to use with the workers. This must
-be the result from a call to \code{\link[=furrr_options]{furrr_options()}}.}
+\item{.options}{The \code{future} specific options to use with the workers. This
+must be the result from a call to \code{\link[=furrr_options]{furrr_options()}}.}
 
-\item{.env_globals}{The environment to look for globals required by
-\code{.f}, \code{...}, and \code{.x}.}
+\item{.env_globals}{The environment to look for globals required by \code{.f},
+\code{...}, and \code{.x}.}
 
-\item{.progress}{\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}}:
-No longer has any effect. Use the
-\href{https://CRAN.R-project.org/package=progressr}{progressr}
+\item{.progress}{\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}}: No longer has any
+effect. Use the \href{https://CRAN.R-project.org/package=progressr}{progressr}
 package instead.}
 
 \item{.id}{Either a string or \code{NULL}. If a string, the output will contain
@@ -224,24 +223,21 @@ names will be used if present.}
 }
 \value{
 An atomic vector, list, or data frame, depending on the suffix.
-Atomic vectors and lists will be named if \code{.x} or the first element of \code{.l} is named.
+Atomic vectors and lists will be named if \code{.x} or the first element of \code{.l}
+is named.
 
-If all input is length 0, the output will be length 0.
-If any input is length 1, it will be recycled to the length of the longest.
+If all input is length 0, the output will be length 0. If any input is
+length 1, it will be recycled to the length of the longest.
 }
 \description{
-These functions work exactly the same as \code{\link[purrr:map2]{purrr::map2()}} functions, but allow
-you to run the map in parallel. Note that "parallel" as described in \code{purrr}
+These functions work exactly the same as \code{\link[purrr:map2]{purrr::map2()}} and its variants,
+but allow you to map in parallel. Note that "parallel" as described in purrr
 is just saying that you are working with multiple inputs, and parallel in
-this case means that you can work on multiple inputs AND process
-them all in parallel as well.
+this case means that you can work on multiple inputs and process them all in
+parallel as well.
 }
 \examples{
-
-library(furrr)
-\donttest{
-plan(multiprocess)
-}
+\donttest{plan(multiprocess)}
 
 x <- list(1, 10, 100)
 y <- list(1, 2, 3)
@@ -266,6 +262,7 @@ df <- data.frame(
   replacement = c("x", "f", "q"),
   stringsAsFactors = FALSE
 )
+
 future_pmap(df, gsub)
 future_pmap_chr(df, gsub)
 

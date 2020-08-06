@@ -83,10 +83,10 @@ future_invoke_map_dfc(
 \arguments{
 \item{.f}{A list of functions.}
 
-\item{.x}{A list of argument-lists the same length as \code{.f} (or length 1).
-The default argument, \code{list(NULL)}, will be recycled to the same length as
-\code{.f}, and will call each function with no arguments
-(apart from any supplied in \code{...}.)}
+\item{.x}{A list of argument-lists the same length as \code{.f} (or length 1). The
+default argument, \code{list(NULL)}, will be recycled to the same length as
+\code{.f}, and will call each function with no arguments (apart from any
+supplied in \code{...}).}
 
 \item{...}{Additional arguments passed to each function.}
 
@@ -95,26 +95,24 @@ evaluate a constructed expression. This only matters if you pass
 as \code{.f} the name of a function rather than its value, or as
 \code{.x} symbols of objects rather than their values.}
 
-\item{.options}{The \code{future} specific options to use with the workers. This must
-be the result from a call to \code{\link[=furrr_options]{furrr_options()}}.}
+\item{.options}{The \code{future} specific options to use with the workers. This
+must be the result from a call to \code{\link[=furrr_options]{furrr_options()}}.}
 
-\item{.env_globals}{The environment to look for globals required by
-\code{.f}, \code{...}, and \code{.x}.}
+\item{.env_globals}{The environment to look for globals required by \code{.f},
+\code{...}, and \code{.x}.}
 
-\item{.progress}{\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}}:
-No longer has any effect. Use the
-\href{https://CRAN.R-project.org/package=progressr}{progressr}
+\item{.progress}{\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}}: No longer has any
+effect. Use the \href{https://CRAN.R-project.org/package=progressr}{progressr}
 package instead.}
 }
 \description{
-These functions work exactly the same as \code{\link[purrr:invoke]{purrr::invoke_map()}} functions,
-but allow you to invoke in parallel.
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#retired'><img src='figures/lifecycle-retired.svg' alt='Retired lifecycle'></a>}}{\strong{Retired}}
+
+These functions work exactly the same as \code{\link[purrr:invoke]{purrr::invoke_map()}} functions, but
+allow you to invoke in parallel.
 }
 \examples{
-
-\donttest{
-plan(multiprocess)
-}
+\donttest{plan(multiprocess)}
 
 df <- dplyr::tibble(
   f = c("runif", "rpois", "rnorm"),

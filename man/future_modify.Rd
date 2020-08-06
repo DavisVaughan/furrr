@@ -60,15 +60,14 @@ present, the value of \code{.default} will be returned.}
 
 \item{...}{Additional arguments passed on to the mapped function.}
 
-\item{.options}{The \code{future} specific options to use with the workers. This must
-be the result from a call to \code{\link[=furrr_options]{furrr_options()}}.}
+\item{.options}{The \code{future} specific options to use with the workers. This
+must be the result from a call to \code{\link[=furrr_options]{furrr_options()}}.}
 
-\item{.env_globals}{The environment to look for globals required by
-\code{.f}, \code{...}, and \code{.x}.}
+\item{.env_globals}{The environment to look for globals required by \code{.f},
+\code{...}, and \code{.x}.}
 
-\item{.progress}{\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}}:
-No longer has any effect. Use the
-\href{https://CRAN.R-project.org/package=progressr}{progressr}
+\item{.progress}{\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}}: No longer has any
+effect. Use the \href{https://CRAN.R-project.org/package=progressr}{progressr}
 package instead.}
 
 \item{.at}{A character vector of names, positive numeric vector of
@@ -85,26 +84,23 @@ inner lists. Only those elements where \code{.p} evaluates to
 \code{TRUE} will be modified.}
 }
 \value{
-An object the same class as .x
+An object the same class as \code{.x}
 }
 \description{
-These functions work exactly the same as \code{\link[purrr:modify]{purrr::modify()}} functions, but allow
-you to modify in parallel.
+These functions work exactly the same as \code{\link[purrr:modify]{purrr::modify()}} functions, but
+allow you to modify in parallel.
 }
 \details{
-From \code{purrr}) Since the transformation can alter the structure of the input;
+From purrr:
+
+Since the transformation can alter the structure of the input;
 it's your responsibility to ensure that the transformation produces a valid
 output. For example, if you're modifying a data frame, \code{.f} must preserve the
 length of the input.
 }
 \examples{
-
-library(furrr)
-library(dplyr) # for the pipe
-
-\donttest{
-plan(multiprocess)
-}
+library(magrittr)
+\donttest{plan(multiprocess)}
 
 # Convert each col to character, in parallel
 future_modify(mtcars, as.character)
@@ -113,7 +109,9 @@ iris \%>\%
  future_modify_if(is.factor, as.character) \%>\%
  str()
 
-mtcars \%>\% future_modify_at(c(1, 4, 5), as.character) \%>\% str()
+mtcars \%>\%
+  future_modify_at(c(1, 4, 5), as.character) \%>\%
+  str()
 
 \dontshow{
 # Close open connections for R CMD Check

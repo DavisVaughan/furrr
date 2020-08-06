@@ -1,28 +1,24 @@
 #' Map over multiple inputs simultaneously via futures
 #'
-#' These functions work exactly the same as [purrr::map2()] functions, but allow
-#' you to run the map in parallel. Note that "parallel" as described in `purrr`
+#' These functions work exactly the same as [purrr::map2()] and its variants,
+#' but allow you to map in parallel. Note that "parallel" as described in purrr
 #' is just saying that you are working with multiple inputs, and parallel in
-#' this case means that you can work on multiple inputs AND process
-#' them all in parallel as well.
+#' this case means that you can work on multiple inputs and process them all in
+#' parallel as well.
 #'
 #' @inheritParams purrr::map2
 #' @inheritParams future_map
 #'
-#' @return
-#' An atomic vector, list, or data frame, depending on the suffix.
-#' Atomic vectors and lists will be named if `.x` or the first element of `.l` is named.
+#' @return An atomic vector, list, or data frame, depending on the suffix.
+#'   Atomic vectors and lists will be named if `.x` or the first element of `.l`
+#'   is named.
 #'
-#' If all input is length 0, the output will be length 0.
-#' If any input is length 1, it will be recycled to the length of the longest.
+#'   If all input is length 0, the output will be length 0. If any input is
+#'   length 1, it will be recycled to the length of the longest.
 #'
-#'
+#' @export
 #' @examples
-#'
-#' library(furrr)
-#' \donttest{
-#' plan(multiprocess)
-#' }
+#' \donttest{plan(multiprocess)}
 #'
 #' x <- list(1, 10, 100)
 #' y <- list(1, 2, 3)
@@ -47,6 +43,7 @@
 #'   replacement = c("x", "f", "q"),
 #'   stringsAsFactors = FALSE
 #' )
+#'
 #' future_pmap(df, gsub)
 #' future_pmap_chr(df, gsub)
 #'
@@ -54,7 +51,6 @@
 #' # Close open connections for R CMD Check
 #' if (!inherits(plan(), "sequential")) plan(sequential)
 #' }
-#' @export
 future_map2 <- function(.x,
                         .y,
                         .f,

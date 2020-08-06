@@ -61,15 +61,14 @@ present, the value of \code{.default} will be returned.}
 \item{.else}{A function applied to elements of \code{.x} for which \code{.p}
 returns \code{FALSE}.}
 
-\item{.options}{The \code{future} specific options to use with the workers. This must
-be the result from a call to \code{\link[=furrr_options]{furrr_options()}}.}
+\item{.options}{The \code{future} specific options to use with the workers. This
+must be the result from a call to \code{\link[=furrr_options]{furrr_options()}}.}
 
-\item{.env_globals}{The environment to look for globals required by
-\code{.f}, \code{...}, and \code{.x}.}
+\item{.env_globals}{The environment to look for globals required by \code{.f},
+\code{...}, and \code{.x}.}
 
-\item{.progress}{\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}}:
-No longer has any effect. Use the
-\href{https://CRAN.R-project.org/package=progressr}{progressr}
+\item{.progress}{\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}}: No longer has any
+effect. Use the \href{https://CRAN.R-project.org/package=progressr}{progressr}
 package instead.}
 
 \item{.at}{A character vector of names, positive numeric vector of
@@ -79,15 +78,14 @@ If the \code{tidyselect} package is installed, you can use \code{vars()} and
 the \code{tidyselect} helpers to select elements.}
 }
 \value{
-Both functions return a list the same length as \code{.x} with the elements
-conditionally transformed.
+Both functions return a list the same length as \code{.x} with the
+elements conditionally transformed.
 }
 \description{
 These functions work exactly the same as \code{\link[purrr:map_if]{purrr::map_if()}} and
 \code{\link[purrr:map_if]{purrr::map_at()}}, but allow you to run them in parallel.
 }
 \examples{
-library(furrr)
 \donttest{plan(multiprocess)}
 
 # Modify the even elements
