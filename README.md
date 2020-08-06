@@ -1,6 +1,8 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+# furrr <a href='https://davisvaughan.github.io/furrr/'><img src='man/figures/logo.png' align="right" height="139" /></a>
+
 <!-- badges: start -->
 
 [![CRAN
@@ -11,7 +13,7 @@ status](https://github.com/DavisVaughan/furrr/workflows/R-CMD-check/badge.svg)](
 coverage](https://codecov.io/gh/DavisVaughan/furrr/branch/master/graph/badge.svg)](https://codecov.io/gh/DavisVaughan/furrr?branch=master)
 <!-- badges: end -->
 
-# furrr
+## Overview
 
 The goal of furrr is to combine purrr’s family of mapping functions with
 future’s parallel processing capabilities. The result is near drop in

@@ -24,13 +24,15 @@ library(broom)
 options(future.supportsMulticore.unstable = "quiet")
 ```
 
+# furrr <a href='https://davisvaughan.github.io/furrr/'><img src='man/figures/logo.png' align="right" height="139" /></a>
+
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/furrr)](https://cran.r-project.org/package=furrr)
 [![R build status](https://github.com/DavisVaughan/furrr/workflows/R-CMD-check/badge.svg)](https://github.com/DavisVaughan/furrr/actions)
 [![Codecov test coverage](https://codecov.io/gh/DavisVaughan/furrr/branch/master/graph/badge.svg)](https://codecov.io/gh/DavisVaughan/furrr?branch=master)
 <!-- badges: end -->
 
-# furrr
+## Overview
 
 The goal of furrr is to combine purrr's family of mapping functions with future's parallel processing capabilities. The result is near drop in replacements for purrr functions such as `map()` and `map2_dbl()`, which can be replaced with their furrr equivalents of `future_map()` and `future_map2_dbl()` to map in parallel.
 
