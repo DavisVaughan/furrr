@@ -101,7 +101,7 @@ so look there for more details." />
       <a href="../articles/advanced-furrr-remote-connections.html">Advanced furrr: Remote connections</a>
     </li>
     <li>
-      <a href="../articles/articles/package-development.html">Package development with furrr</a>
+      <a href="../articles/articles/gotchas.html">Common Gotchas</a>
     </li>
   </ul>
 </li>
@@ -293,8 +293,8 @@ e.g. logical -&gt; integer -&gt; double -&gt; character.</p>
 
 <span class='fl'>1</span>:<span class='fl'>10</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>future_map</span>(<span class='no'>rnorm</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>10</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>future_map_dbl</span>(<span class='no'>mean</span>)</div><div class='output co'>#&gt;  [1] 0.7740499 1.7307512 3.5666804 3.7862250 5.1013245 6.0797063 6.6965333
-#&gt;  [8] 8.2505769 8.4226851 9.8414605</div><div class='input'>
+  <span class='fu'>future_map_dbl</span>(<span class='no'>mean</span>)</div><div class='output co'>#&gt;  [1]  1.014131  1.900810  2.939971  3.994230  5.157443  5.907905  7.579188
+#&gt;  [8]  7.683463  8.418873 10.156638</div><div class='input'>
 <span class='co'># If each element of the output is a data frame, use</span>
 <span class='co'># future_map_dfr to row-bind them together:</span>
 <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span>

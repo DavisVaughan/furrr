@@ -99,7 +99,7 @@ but allow you to invoke in parallel." />
       <a href="../articles/advanced-furrr-remote-connections.html">Advanced furrr: Remote connections</a>
     </li>
     <li>
-      <a href="../articles/articles/package-development.html">Package development with furrr</a>
+      <a href="../articles/articles/gotchas.html">Common Gotchas</a>
     </li>
   </ul>
 </li>
@@ -268,15 +268,15 @@ package instead.</p></td>
 )
 
 <span class='fu'>future_invoke_map</span>(<span class='no'>df</span>$<span class='no'>f</span>, <span class='no'>df</span>$<span class='no'>params</span>)</div><div class='output co'>#&gt; [[1]]
-#&gt;  [1] 0.77676770 0.49353063 0.45165562 0.33584061 0.27552351 0.02459956
-#&gt;  [7] 0.51951326 0.40038927 0.05949613 0.80388598
+#&gt;  [1] 0.58728457 0.61860224 0.88672215 0.45578456 0.56853946 0.18349038
+#&gt;  [7] 0.81240119 0.47048814 0.04034918 0.62993072
 #&gt; 
 #&gt; [[2]]
-#&gt; [1] 15 10 19 11  7
+#&gt; [1] 11 17  6  8  8
 #&gt; 
 #&gt; [[3]]
-#&gt;  [1] -15.209169   8.954378 -18.119414  -9.366659  16.094424 -10.916862
-#&gt;  [7] -10.192194  -2.830299   9.071059   2.866556
+#&gt;  [1] -23.682808 -16.469464  -5.106532   8.156058 -17.560162  -6.527101
+#&gt;  [7] -13.347988   1.493074 -11.611035  -5.917380
 #&gt; </div><div class='input'>
 <span class='co'># \dontshow{</span>
 <span class='co'># Close open connections for R CMD Check</span>
