@@ -1,12 +1,5 @@
 ---
 title: "Advanced furrr: Remote connections"
-author: "Davis Vaughan"
-date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteEncoding{UTF-8}
-  %\VignetteIndexEntry{Advanced furrr: Remote connections}
-  %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
   chunk_output_type: console
 ---
@@ -19,14 +12,8 @@ knitr::opts_chunk$set(
 ```
 
 ```{r, include = FALSE}
-# NOTE:
-# This vignette doesn't evaluate any chunks for two reasons:
-# 1) It would need access to an AWS EC2 cluster
-# 2) R CMD Check does a temp install of `furrr` in a place where it can't be
-#    found by workers when `future_map()` is run, resulting in errors when
-#    trying to build the vignette. pkgdown doesn't error, so this could be
-#    worked around in general by making furrr vignettes into "articles" that
-#    are only run by pkgdown.
+# This vignette doesn't evaluate any chunks because it would need access to an
+# AWS EC2 instance
 knitr::opts_chunk$set(
   eval = FALSE
 )
