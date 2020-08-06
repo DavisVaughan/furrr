@@ -253,7 +253,7 @@ Here lexical scoping is used to find `fn`, but you could also pass it in as an a
 Again, we can prove that the object doesn't make it onto the workers:
 
 ```{r}
-plan(sequential, workers = 2)
+plan(multisession, workers = 2)
 
 fn2 <- function(x) {
   # does an object called `"big"` exist anywhere we can find it?
