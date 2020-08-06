@@ -1,5 +1,7 @@
 # furrr 0.1.0.9002
 
+* There is a new pkgdown article on common gotchas when using furrr.
+
 * `future_map_if()` has gained the `.else` argument that was added to purrr's
   `map_if()` in purrr 0.3.0 (#132).
 
