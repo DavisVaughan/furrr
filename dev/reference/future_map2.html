@@ -99,7 +99,7 @@ them all in parallel as well." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/advanced-furrr-remote-connections.html">Advanced furrr: Remote connections</a>
+      <a href="../articles/articles/advanced-furrr-remote-connections.html">Advanced furrr: Remote connections</a>
     </li>
     <li>
       <a href="../articles/articles/gotchas.html">Common Gotchas</a>
@@ -374,7 +374,7 @@ If any input is length 1, it will be recycled to the length of the longest.</p>
     <pre class="examples"><div class='input'>
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>furrr</span>)
 <span class='co'># \donttest{</span>
-<span class='fu'>plan</span>(<span class='no'>multiprocess</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/future/man/plan.html'>plan</a></span>(<span class='no'>multiprocess</span>)
 <span class='co'># }</span>
 
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fl'>1</span>, <span class='fl'>10</span>, <span class='fl'>100</span>)
@@ -454,7 +454,7 @@ If any input is length 1, it will be recycled to the length of the longest.</p>
 #&gt; </div><div class='input'><span class='fu'>future_pmap_chr</span>(<span class='no'>df</span>, <span class='no'>gsub</span>)</div><div class='output co'>#&gt; [1] "axxle"  "bafafa" "cqerry"</div><div class='input'>
 <span class='co'># \dontshow{</span>
 <span class='co'># Close open connections for R CMD Check</span>
-<span class='kw'>if</span> (!<span class='fu'><a href='https://rdrr.io/r/base/class.html'>inherits</a></span>(<span class='fu'>plan</span>(), <span class='st'>"sequential"</span>)) <span class='fu'>plan</span>(<span class='no'>sequential</span>)
+<span class='kw'>if</span> (!<span class='fu'><a href='https://rdrr.io/r/base/class.html'>inherits</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/future/man/plan.html'>plan</a></span>(), <span class='st'>"sequential"</span>)) <span class='fu'><a href='https://rdrr.io/pkg/future/man/plan.html'>plan</a></span>(<span class='no'>sequential</span>)
 <span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

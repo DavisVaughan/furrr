@@ -96,7 +96,7 @@ purrr::map_at(), but allow you to run them in parallel." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/advanced-furrr-remote-connections.html">Advanced furrr: Remote connections</a>
+      <a href="../articles/articles/advanced-furrr-remote-connections.html">Advanced furrr: Remote connections</a>
     </li>
     <li>
       <a href="../articles/articles/gotchas.html">Common Gotchas</a>
@@ -235,7 +235,7 @@ conditionally transformed.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>furrr</span>)
-<span class='fu'>plan</span>(<span class='no'>multiprocess</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/future/man/plan.html'>plan</a></span>(<span class='no'>multiprocess</span>)
 
 <span class='co'># Modify the even elements</span>
 <span class='fu'>future_map_if</span>(<span class='fl'>1</span>:<span class='fl'>5</span>, ~<span class='no'>.x</span> <span class='kw'>%%</span> <span class='fl'>2</span> <span class='kw'>==</span> <span class='fl'>0L</span>, ~ -<span class='fl'>1</span>)</div><div class='output co'>#&gt; [[1]]
@@ -269,7 +269,7 @@ conditionally transformed.</p>
 #&gt; [1] -1
 #&gt; </div><div class='input'><span class='co'># \dontshow{</span>
 <span class='co'># Close open connections for R CMD Check</span>
-<span class='kw'>if</span> (!<span class='fu'><a href='https://rdrr.io/r/base/class.html'>inherits</a></span>(<span class='fu'>plan</span>(), <span class='st'>"sequential"</span>)) <span class='fu'>plan</span>(<span class='no'>sequential</span>)
+<span class='kw'>if</span> (!<span class='fu'><a href='https://rdrr.io/r/base/class.html'>inherits</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/future/man/plan.html'>plan</a></span>(), <span class='st'>"sequential"</span>)) <span class='fu'><a href='https://rdrr.io/pkg/future/man/plan.html'>plan</a></span>(<span class='no'>sequential</span>)
 <span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -96,7 +96,7 @@ you to modify in parallel." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/advanced-furrr-remote-connections.html">Advanced furrr: Remote connections</a>
+      <a href="../articles/articles/advanced-furrr-remote-connections.html">Advanced furrr: Remote connections</a>
     </li>
     <li>
       <a href="../articles/articles/gotchas.html">Common Gotchas</a>
@@ -247,7 +247,7 @@ length of the input.</p>
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>) <span class='co'># for the pipe</span>
 
 <span class='co'># \donttest{</span>
-<span class='fu'>plan</span>(<span class='no'>multiprocess</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/future/man/plan.html'>plan</a></span>(<span class='no'>multiprocess</span>)
 <span class='co'># }</span>
 
 <span class='co'># Convert each col to character, in parallel</span>
@@ -306,7 +306,7 @@ length of the input.</p>
 #&gt;  $ carb: num  4 4 1 1 2 1 4 2 2 4 ...</div><div class='input'>
 <span class='co'># \dontshow{</span>
 <span class='co'># Close open connections for R CMD Check</span>
-<span class='kw'>if</span> (!<span class='fu'><a href='https://rdrr.io/r/base/class.html'>inherits</a></span>(<span class='fu'>plan</span>(), <span class='st'>"sequential"</span>)) <span class='fu'>plan</span>(<span class='no'>sequential</span>)
+<span class='kw'>if</span> (!<span class='fu'><a href='https://rdrr.io/r/base/class.html'>inherits</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/future/man/plan.html'>plan</a></span>(), <span class='st'>"sequential"</span>)) <span class='fu'><a href='https://rdrr.io/pkg/future/man/plan.html'>plan</a></span>(<span class='no'>sequential</span>)
 <span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

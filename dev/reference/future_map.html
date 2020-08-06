@@ -98,7 +98,7 @@ so look there for more details." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/advanced-furrr-remote-connections.html">Advanced furrr: Remote connections</a>
+      <a href="../articles/articles/advanced-furrr-remote-connections.html">Advanced furrr: Remote connections</a>
     </li>
     <li>
       <a href="../articles/articles/gotchas.html">Common Gotchas</a>
@@ -288,13 +288,13 @@ e.g. logical -&gt; integer -&gt; double -&gt; character.</p>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'>
 <span class='co'># \donttest{</span>
-<span class='fu'>plan</span>(<span class='no'>multiprocess</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/future/man/plan.html'>plan</a></span>(<span class='no'>multiprocess</span>)
 <span class='co'># }</span>
 
 <span class='fl'>1</span>:<span class='fl'>10</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>future_map</span>(<span class='no'>rnorm</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>10</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>future_map_dbl</span>(<span class='no'>mean</span>)</div><div class='output co'>#&gt;  [1]  0.9651081  2.1660080  2.8752734  4.5902488  4.7532350  5.6294712
-#&gt;  [7]  7.1296030  7.9722399  9.2889765 10.0647935</div><div class='input'>
+  <span class='fu'>future_map_dbl</span>(<span class='no'>mean</span>)</div><div class='output co'>#&gt;  [1]  1.092721  1.983334  3.078253  3.815793  4.828031  6.037517  7.137737
+#&gt;  [8]  7.390939  8.899169 10.185502</div><div class='input'>
 <span class='co'># If each element of the output is a data frame, use</span>
 <span class='co'># future_map_dfr to row-bind them together:</span>
 <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span>
@@ -309,7 +309,7 @@ e.g. logical -&gt; integer -&gt; double -&gt; character.</p>
 <span class='co'># To see this, use multisession (NOT multicore if on a Mac as the forked workers</span>
 <span class='co'># still have access to this environment)</span>
 <span class='co'># \donttest{</span>
-<span class='fu'>plan</span>(<span class='no'>multisession</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/future/man/plan.html'>plan</a></span>(<span class='no'>multisession</span>)
 <span class='co'># }</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>2</span>
@@ -323,7 +323,7 @@ e.g. logical -&gt; integer -&gt; double -&gt; character.</p>
 #&gt; </div><div class='input'>
 <span class='co'># \dontshow{</span>
 <span class='co'># Close open connections for R CMD Check</span>
-<span class='kw'>if</span> (!<span class='fu'><a href='https://rdrr.io/r/base/class.html'>inherits</a></span>(<span class='fu'>plan</span>(), <span class='st'>"sequential"</span>)) <span class='fu'>plan</span>(<span class='no'>sequential</span>)
+<span class='kw'>if</span> (!<span class='fu'><a href='https://rdrr.io/r/base/class.html'>inherits</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/future/man/plan.html'>plan</a></span>(), <span class='st'>"sequential"</span>)) <span class='fu'><a href='https://rdrr.io/pkg/future/man/plan.html'>plan</a></span>(<span class='no'>sequential</span>)
 <span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

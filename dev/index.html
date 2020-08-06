@@ -58,7 +58,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/advanced-furrr-remote-connections.html">Advanced furrr: Remote connections</a>
+      <a href="articles/articles/advanced-furrr-remote-connections.html">Advanced furrr: Remote connections</a>
     </li>
     <li>
       <a href="articles/articles/gotchas.html">Common Gotchas</a>
@@ -142,7 +142,7 @@
 <p>The default backend for future is a sequential one. This means that the above code will run out of the box, but it will <em>not</em> be in parallel. The design of future makes it incredibly easy to change this so that your code will run in parallel.</p>
 <div class="sourceCode" id="cb4"><pre class="r"><span class="co"># Set a "plan" for how the code should run.</span>
 <span class="co"># The easiest is `plan(multiprocess)`.</span>
-<span class="fu">plan</span>(<span class="no">multiprocess</span>)
+<span class="fu"><a href="https://rdrr.io/pkg/future/man/plan.html">plan</a></span>(<span class="no">multiprocess</span>)
 
 <span class="co"># This DOES run in parallel!</span>
 <span class="fu"><a href="reference/future_map.html">future_map</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"hello"</span>, <span class="st">"world"</span>), ~<span class="no">.x</span>)
@@ -155,7 +155,7 @@
 <div class="sourceCode" id="cb5"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tictoc</span>)
 
 <span class="co"># This should take 6 seconds in total running sequentially</span>
-<span class="fu">plan</span>(<span class="no">sequential</span>)
+<span class="fu"><a href="https://rdrr.io/pkg/future/man/plan.html">plan</a></span>(<span class="no">sequential</span>)
 
 <span class="fu">tic</span>()
 <span class="no">nothingness</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/future_map.html">future_map</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>), ~<span class="fu"><a href="https://rdrr.io/r/base/Sys.sleep.html">Sys.sleep</a></span>(<span class="no">.x</span>))
@@ -164,7 +164,7 @@
 <div class="sourceCode" id="cb6"><pre class="r"><span class="co"># This should take ~2 seconds running in parallel, with a little overhead</span>
 <span class="co"># in `future_map()` from sending data to the workers. There is generally also</span>
 <span class="co"># a one time cost from `plan(multiprocess)` setting up the workers.</span>
-<span class="fu">plan</span>(<span class="no">multiprocess</span>)
+<span class="fu"><a href="https://rdrr.io/pkg/future/man/plan.html">plan</a></span>(<span class="no">multiprocess</span>)
 
 <span class="fu">tic</span>()
 <span class="no">nothingness</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/future_map.html">future_map</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>), ~<span class="fu"><a href="https://rdrr.io/r/base/Sys.sleep.html">Sys.sleep</a></span>(<span class="no">.x</span>))
@@ -237,7 +237,7 @@
 <span class="fu">toc</span>()
 <span class="co">#&gt; 30.095 sec elapsed</span></pre></div>
 <div class="sourceCode" id="cb12"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">furrr</span>)
-<span class="fu">plan</span>(<span class="no">multiprocess</span>)
+<span class="fu"><a href="https://rdrr.io/pkg/future/man/plan.html">plan</a></span>(<span class="no">multiprocess</span>)
 
 <span class="fu">tic</span>()
 <span class="no">folds</span>$<span class="no">results</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/future_map.html">future_map_dbl</a></span>(<span class="no">folds</span>$<span class="no">splits</span>, <span class="no">compute_holdout_results</span>, <span class="no">mod_form</span>)
@@ -259,7 +259,7 @@
   <span class="no">mod</span>
 }
 
-<span class="fu">plan</span>(<span class="no">multiprocess</span>)
+<span class="fu"><a href="https://rdrr.io/pkg/future/man/plan.html">plan</a></span>(<span class="no">multiprocess</span>)
 
 <span class="fu">tic</span>()
 <span class="no">folds</span>$<span class="no">results2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/future_map.html">future_map</a></span>(<span class="no">folds</span>$<span class="no">splits</span>, <span class="no">model_only</span>, <span class="no">mod_form</span>)

@@ -94,7 +94,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/advanced-furrr-remote-connections.html">Advanced furrr: Remote connections</a>
+      <a href="../articles/articles/advanced-furrr-remote-connections.html">Advanced furrr: Remote connections</a>
     </li>
     <li>
       <a href="../articles/articles/gotchas.html">Common Gotchas</a>
@@ -134,6 +134,8 @@
 <a href="#furrr-0109002" class="anchor"></a>furrr 0.1.0.9002<small> Unreleased </small>
 </h1>
 <ul>
+<li><p>future has been moved from Depends to Imports. This means that the future package will no longer be attached when <code><a href="https://rdrr.io/pkg/furrr/man">library(furrr)</a></code> is run. To accomodate this change, <code><a href="https://rdrr.io/pkg/future/man/plan.html">plan()</a></code>, <code><a href="https://rdrr.io/pkg/future/man/tweak.html">tweak()</a></code>, <code><a href="https://rdrr.io/pkg/future/man/makeClusterPSOCK.html">makeClusterPSOCK()</a></code>, and all stategy functions from future (such as <code><a href="https://rdrr.io/pkg/future/man/multisession.html">multisession()</a></code> and <code><a href="https://rdrr.io/pkg/future/man/multicore.html">multicore()</a></code>) have been re-exported from furrr (<a href='https://github.com/DavisVaughan/furrr/issues/40'>#40</a>).</p></li>
+<li><p>There is a new pkgdown article on common gotchas when using furrr.</p></li>
 <li><p><code><a href="../reference/future_map_if.html">future_map_if()</a></code> has gained the <code>.else</code> argument that was added to purrr’s <code>map_if()</code> in purrr 0.3.0 (<a href='https://github.com/DavisVaughan/furrr/issues/132'>#132</a>).</p></li>
 <li><p><code><a href="../reference/furrr_options.html">furrr_options()</a></code> now has a variety of new arguments for fine tuning furrr. These are based on advancements made in both future and future.apply. The most important is <code>chunk_size</code>, which can be used as an alternative to <code>scheduling</code> to determine how to break up <code>.x</code> into chunks to send off to the workers. See <code><a href="../reference/furrr_options.html">?furrr_options</a></code> for full details.</p></li>
 <li><p>All furrr functions gained a new argument, <code>.env_globals</code>, which determines the environment in which globals for <code>.f</code>, <code>.x</code>, and <code>...</code> are looked up. It defaults to the caller environment, which is different than what was previously used, but should be more correct in some edge cases. Most of the time, you should not have to touch this argument (HenrikBengtsson/future.apply<a href='https://github.com/DavisVaughan/furrr/issues/62'>#62</a>).</p></li>
@@ -164,7 +166,7 @@
 <li><p>The <code>future.*</code> arguments to each function have been replaced with an overarching <code>.options</code> argument. Use <code><a href="../reference/future_options.html">future_options()</a></code> to create a set of options suitable to be passed to <code>.options</code>. This change streamlines the interface greatly, and simplifies documentation (<a href='https://github.com/DavisVaughan/furrr/issues/8'>#8</a>, <a href='https://github.com/hadley'>@hadley</a>).</p></li>
 <li><p><code>future_invoke_map_*()</code> functions have been added to mirror <code>invoke_map()</code>.</p></li>
 <li><p>More documentation and examples have been added.</p></li>
-<li><p>Added the ability to use a progress bar with <code>.progress = TRUE</code> for multicore, multiprocess, and multisession <code>plan()</code>s.</p></li>
+<li><p>Added the ability to use a progress bar with <code>.progress = TRUE</code> for multicore, multiprocess, and multisession <code><a href="https://rdrr.io/pkg/future/man/plan.html">plan()</a></code>s.</p></li>
 </ul>
 <p>Bug Fixes:</p>
 <ul>

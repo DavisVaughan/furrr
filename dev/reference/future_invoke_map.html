@@ -96,7 +96,7 @@ but allow you to invoke in parallel." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/advanced-furrr-remote-connections.html">Advanced furrr: Remote connections</a>
+      <a href="../articles/articles/advanced-furrr-remote-connections.html">Advanced furrr: Remote connections</a>
     </li>
     <li>
       <a href="../articles/articles/gotchas.html">Common Gotchas</a>
@@ -255,7 +255,7 @@ package instead.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'># \donttest{</span>
-<span class='fu'>plan</span>(<span class='no'>multiprocess</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/future/man/plan.html'>plan</a></span>(<span class='no'>multiprocess</span>)
 <span class='co'># }</span>
 
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/reexports.html'>tibble</a></span>(
@@ -268,19 +268,19 @@ package instead.</p></td>
 )
 
 <span class='fu'>future_invoke_map</span>(<span class='no'>df</span>$<span class='no'>f</span>, <span class='no'>df</span>$<span class='no'>params</span>)</div><div class='output co'>#&gt; [[1]]
-#&gt;  [1] 0.45280342 0.20380263 0.66826590 0.09901048 0.78644264 0.48381854
-#&gt;  [7] 0.30249803 0.37357130 0.26920925 0.54488239
+#&gt;  [1] 0.09288474 0.59715963 0.08539939 0.99715238 0.71103084 0.54822478
+#&gt;  [7] 0.22549026 0.94084270 0.28724342 0.01897870
 #&gt; 
 #&gt; [[2]]
-#&gt; [1] 14  8  8 13 11
+#&gt; [1]  9 11 10  9  7
 #&gt; 
 #&gt; [[3]]
-#&gt;  [1]  -6.440973   2.680855 -20.828781 -19.585592   3.772337 -15.860382
-#&gt;  [7]  22.888447 -33.599172 -19.895683 -13.330548
+#&gt;  [1]   6.2951859  -1.0167773  -1.4716646  -0.3946382  -7.5422477  -2.9249188
+#&gt;  [7] -12.6813367   8.6626308 -15.3560917  -5.4581829
 #&gt; </div><div class='input'>
 <span class='co'># \dontshow{</span>
 <span class='co'># Close open connections for R CMD Check</span>
-<span class='kw'>if</span> (!<span class='fu'><a href='https://rdrr.io/r/base/class.html'>inherits</a></span>(<span class='fu'>plan</span>(), <span class='st'>"sequential"</span>)) <span class='fu'>plan</span>(<span class='no'>sequential</span>)
+<span class='kw'>if</span> (!<span class='fu'><a href='https://rdrr.io/r/base/class.html'>inherits</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/future/man/plan.html'>plan</a></span>(), <span class='st'>"sequential"</span>)) <span class='fu'><a href='https://rdrr.io/pkg/future/man/plan.html'>plan</a></span>(<span class='no'>sequential</span>)
 <span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
