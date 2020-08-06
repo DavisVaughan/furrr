@@ -34,6 +34,7 @@ Suggests:
     dplyr (>= 0.7.4),
     knitr,
     listenv (>= 0.6.0),
+    magrittr,
     rmarkdown,
     testthat,
     withr

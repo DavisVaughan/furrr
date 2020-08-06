@@ -1,22 +1,23 @@
 #' Invoke functions via futures
 #'
-#' These functions work exactly the same as [purrr::invoke_map()] functions,
-#' but allow you to invoke in parallel.
+#' @description
+#' `r lifecycle::badge("retired")`
+#'
+#' These functions work exactly the same as [purrr::invoke_map()] functions, but
+#' allow you to invoke in parallel.
 #'
 #' @inheritParams purrr::invoke_map
 #' @inheritParams future_map
 #'
 #' @param .f A list of functions.
-#' @param .x A list of argument-lists the same length as `.f` (or length 1).
-#' The default argument, `list(NULL)`, will be recycled to the same length as
-#' `.f`, and will call each function with no arguments
-#' (apart from any supplied in `...`.)
+#' @param .x A list of argument-lists the same length as `.f` (or length 1). The
+#'   default argument, `list(NULL)`, will be recycled to the same length as
+#'   `.f`, and will call each function with no arguments (apart from any
+#'   supplied in `...`).
 #'
+#' @export
 #' @examples
-#'
-#' \donttest{
-#' plan(multiprocess)
-#' }
+#' \donttest{plan(multiprocess)}
 #'
 #' df <- dplyr::tibble(
 #'   f = c("runif", "rpois", "rnorm"),
@@ -33,8 +34,6 @@
 #' # Close open connections for R CMD Check
 #' if (!inherits(plan(), "sequential")) plan(sequential)
 #' }
-#' @export
-#'
 future_invoke_map <- function(.f,
                               .x = list(NULL),
                               ...,

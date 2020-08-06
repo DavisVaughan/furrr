@@ -108,15 +108,14 @@ present, the value of \code{.default} will be returned.}
 
 \item{...}{Additional arguments passed on to the mapped function.}
 
-\item{.options}{The \code{future} specific options to use with the workers. This must
-be the result from a call to \code{\link[=furrr_options]{furrr_options()}}.}
+\item{.options}{The \code{future} specific options to use with the workers. This
+must be the result from a call to \code{\link[=furrr_options]{furrr_options()}}.}
 
-\item{.env_globals}{The environment to look for globals required by
-\code{.f}, \code{...}, and \code{.x}.}
+\item{.env_globals}{The environment to look for globals required by \code{.f},
+\code{...}, and \code{.x}.}
 
-\item{.progress}{\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}}:
-No longer has any effect. Use the
-\href{https://CRAN.R-project.org/package=progressr}{progressr}
+\item{.progress}{\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}}: No longer has any
+effect. Use the \href{https://CRAN.R-project.org/package=progressr}{progressr}
 package instead.}
 
 \item{.id}{Either a string or \code{NULL}. If a string, the output will contain
@@ -130,15 +129,11 @@ Only applies to \verb{_dfr} variant.}
 A vector the same length as .x.
 }
 \description{
-These functions work exactly the same as \code{\link[purrr:imap]{purrr::imap()}} functions, but allow
-you to map in parallel.
+These functions work exactly the same as \code{\link[purrr:imap]{purrr::imap()}} functions,
+but allow you to map in parallel.
 }
 \examples{
-
-library(furrr)
-\donttest{
-plan(multiprocess)
-}
+\donttest{plan(multiprocess)}
 
 future_imap_chr(sample(10), ~ paste0(.y, ": ", .x))
 
