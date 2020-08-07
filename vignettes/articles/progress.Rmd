@@ -1,0 +1,113 @@
+---
+title: "Progress notifications with progressr"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(furrr)
+library(purrr)
+library(progressr)
+```
+
+## Introduction
+
+Everyone loves progress bars. This is even more true when running long computations in parallel, where you'd really like to have some approximation of when your job is going to finish. The future framework supports generic progress updates through the [progressr](https://CRAN.R-project.org/package=progressr) package, and furrr naturally inherits that ability.
+
+If you've never heard of progressr, I'd encourage you to read its [introduction vignette](https://CRAN.R-project.org/package=progressr/vignettes/progressr-intro.html). One of the neat things about it is that it isn't limited to just progress bars. progressr is really a framework for progress updates, which can then be relayed to the user using a progress bar, a beeping noise from their computer, or even through email or slack notifications. It works for sequential, multisession, and cluster futures, which means that it even works with remote connections. It currently doesn't work with multicore, but that is likely to change.
+
+Before we begin, please be aware that progressr is still a new experimental package. I doubt there will be many breaking changes in it, but new patterns for signaling progress updates will likely emerge after enough people start using it. If you've ever used the `.progress` argument that used to be in furrr, then the solutions presented below might feel a bit clunkier than that. As progressr gets more usage, hopefully a simpler unified way of presenting progress information will emerge that can be used in all of the map-reduce future packages (furrr, future.apply, and doFuture).
+
+How progressr is used varies slightly depending on whether you are a package developer or an interactive user. There are two main functions that are used: `progressor()`, which makes an object that can signal progress updates, and `with_progress()`, which listens for these progress signals. Generally, `progressor()` will be used by a package developer inside of a function that they would like to produce progress updates. When the user calls that function, they won't get any progress notifications unless they wrap the function call in `with_progress()`. Additionally, the user has complete control over how these progress updates are displayed through the use of a _progress handler_. In progressr, these all start with `handler_*()` and tell progressr how to display the progress update. This separation of developer API and user API is important, and can be summarized as:
+
+- Developer:
+  - `p <- progressor()` for making progress signalers
+  - `p()` for signaling progress
+
+- User:
+  - `with_progress()` for listening for progress signals
+  - `handler_*()` for displaying those caught progress signals
+
+## Package developers
+
+If you are a package developer using furrr with progressr, the function from your package that calls `future_map()` should first use `p <- progressor()` to create a progress object, and then call `p()` from within `.f` to signal a progress update after each iteration of the map. For example, the following function iterates over a list, `x`, calling `sum()` on each element of the list. At each iteration, we send a progress update. I've also introduced a bit of a delay because this otherwise would run extremely fast.
+
+```{r}
+my_pkg_fn <- function(x) {
+  p <- progressor(steps = length(x))
+  
+  future_map(x, ~{
+    p()
+    Sys.sleep(.1)
+    sum(.x)
+  })
+}
+```
+
+From the user's side, simply calling `my_pkg_fun()` won't display anything:
+
+```{r}
+plan(multisession, workers = 2)
+
+set.seed(123)
+
+x <- replicate(n = 10, runif(20), simplify = FALSE)
+```
+
+```{r}
+# No notifications
+result <- my_pkg_fn(x)
+```
+
+```{r, echo=FALSE}
+plan(sequential)
+```
+
+However, once the user wraps this in `with_progress()`, notifications are displayed. The default is to use `handler_txtprogressbar()`, which creates a progress bar with `utils::txtProgressBar()`.
+
+```{r, eval=FALSE}
+with_progress({
+  result <- my_pkg_fn(x)
+})
+#> |===============================                                     |  30%
+```
+
+As mentioned before, the user controls how to display progress updates. You can change to a different handler locally by providing it as an argument to `with_progress(handlers = )`, or you can use `handlers()` to set them globally. You can even use multiple handlers. For example, `handlers(handler_progress, handler_beepr)` can be used to generate a progress bar with the progress package and generate beeps with the beepr package.
+
+## Interactive usage
+
+When writing data analysis scripts that use furrr and progressr, the separation between developer and user APIs is not quite as clear since you'll need to generate the progress objects with `progressor()`, create the function that signals progress by calling `p()`, and call `with_progress()`. It is easiest to show this with an example:
+
+```{r, eval=FALSE}
+plan(multisession, workers = 2)
+
+with_progress({
+  p <- progressor(steps = length(x))
+  
+  future_map(x, ~{
+    p()
+    Sys.sleep(10)
+    sum(.x)
+  })
+})
+#> |=====================                                               |  20%
+```
+
+Rather than writing an anonymous function, you might want to wrap this up into a real function. 
+
+TODO: Finish me, but see 
+https://github.com/HenrikBengtsson/progressr/issues/83
+
+## Previous versions of furrr
+
+There used to be a `.progress` argument in `future_map()` and friends that would generate a default progress bar for you. This argument has since been deprecated in favor of progressr. progressr has a much richer set of features, and will likely be well-supported going forward. It is also directly integrated into future, compared with the `.progress` argument that was highly specific to furrr.
+
+The main reason for deprecating the `.progress` bar of furrr is because it was built on an awful hack that I deeply regret. There were performance issues, it didn't work on all future back-ends, and could even cause errors on some. A clean break to instead use progressr seemed like the best way forward.
+
