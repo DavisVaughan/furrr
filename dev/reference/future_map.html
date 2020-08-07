@@ -190,6 +190,15 @@ allow you to map in parallel.</p>
   <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>()
 )
 
+<span class='fu'>future_map_raw</span>(
+  <span class='no'>.x</span>,
+  <span class='no'>.f</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
+  <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
+  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>()
+)
+
 <span class='fu'>future_map_dfr</span>(
   <span class='no'>.x</span>,
   <span class='no'>.f</span>,
@@ -291,8 +300,8 @@ integer -&gt; double -&gt; character.</p>
 
 <span class='fl'>1</span>:<span class='fl'>10</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>future_map</span>(<span class='no'>rnorm</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>10</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>future_map_dbl</span>(<span class='no'>mean</span>)</div><div class='output co'>#&gt;  [1] 0.9088754 2.0305158 3.0624871 3.7297950 5.0831021 6.4026568 6.7021935
-#&gt;  [8] 8.2940406 9.3150162 9.7579783</div><div class='input'>
+  <span class='fu'>future_map_dbl</span>(<span class='no'>mean</span>)</div><div class='output co'>#&gt;  [1] 0.642508 2.384420 3.616649 3.750842 4.919604 6.200972 7.260651 8.051138
+#&gt;  [9] 8.686159 9.813737</div><div class='input'>
 <span class='co'># If each element of the output is a data frame, use</span>
 <span class='co'># `future_map_dfr()` to row-bind them together:</span>
 <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span>

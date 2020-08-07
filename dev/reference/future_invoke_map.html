@@ -197,6 +197,16 @@ allow you to invoke in parallel.</p>
   <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>()
 )
 
+<span class='fu'>future_invoke_map_raw</span>(
+  <span class='no'>.f</span>,
+  <span class='kw'>.x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>NULL</span>),
+  <span class='no'>...</span>,
+  <span class='kw'>.env</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
+  <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
+  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>()
+)
+
 <span class='fu'>future_invoke_map_dfr</span>(
   <span class='no'>.f</span>,
   <span class='kw'>.x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>NULL</span>),
@@ -274,15 +284,15 @@ package instead.</p></td>
 )
 
 <span class='fu'>future_invoke_map</span>(<span class='no'>df</span>$<span class='no'>f</span>, <span class='no'>df</span>$<span class='no'>params</span>)</div><div class='output co'>#&gt; [[1]]
-#&gt;  [1] 0.49640855 0.62873587 0.16819612 0.02664373 0.26595551 0.70300585
-#&gt;  [7] 0.25192197 0.62364277 0.52315801 0.94193668
+#&gt;  [1] 0.6156621 0.7832394 0.5035298 0.9425890 0.5485140 0.3919655 0.4678505
+#&gt;  [8] 0.6454125 0.3474877 0.8491914
 #&gt; 
 #&gt; [[2]]
-#&gt; [1] 10  8  8 10 13
+#&gt; [1] 17 11 13  7 14
 #&gt; 
 #&gt; [[3]]
-#&gt;  [1]   9.7392098 -10.5803881   0.9878459  -5.7358912  -0.4295377 -17.2567574
-#&gt;  [7] -10.2765470  -1.6315409   3.7919413   9.3726172
+#&gt;  [1]  11.94838758  -3.97661768  -0.03124169  21.37370093 -12.56805055
+#&gt;  [6]  -5.67542587  -8.60094799   9.98426856  -7.87528916   3.41769152
 #&gt; </div><div class='input'>
 <span class='co'># \dontshow{</span>
 <span class='co'># Close open connections for R CMD Check</span>
