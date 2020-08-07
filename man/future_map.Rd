@@ -6,6 +6,7 @@
 \alias{future_map_dbl}
 \alias{future_map_int}
 \alias{future_map_lgl}
+\alias{future_map_raw}
 \alias{future_map_dfr}
 \alias{future_map_dfc}
 \alias{future_walk}
@@ -48,6 +49,15 @@ future_map_int(
 )
 
 future_map_lgl(
+  .x,
+  .f,
+  ...,
+  .options = furrr_options(),
+  .env_globals = parent.frame(),
+  .progress = deprecated()
+)
+
+future_map_raw(
   .x,
   .f,
   ...,
