@@ -57,6 +57,15 @@ furrr_test_that("future_map_chr() works", {
   )
 })
 
+furrr_test_that("future_map_raw() works", {
+  x <- as.raw(1:3)
+
+  expect_identical(
+    future_map_raw(x, ~.x),
+    map_raw(x, ~.x)
+  )
+})
+
 furrr_test_that("names of `.x` are retained", {
   x <- c(a = 1, b = 2)
   expect_named(future_map_dbl(x, ~1), c("a", "b"))
@@ -95,6 +104,7 @@ furrr_test_that("atomic variants work with size zero input", {
   expect_identical(future_map_dbl(list(), identity), double())
   expect_identical(future_map_int(list(), identity), integer())
   expect_identical(future_map_lgl(list(), identity), logical())
+  expect_identical(future_map_raw(list(), identity), raw())
 })
 
 # ------------------------------------------------------------------------------

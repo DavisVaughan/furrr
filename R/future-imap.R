@@ -119,6 +119,26 @@ future_imap_lgl <- function(.x,
 
 #' @rdname future_imap
 #' @export
+future_imap_raw <- function(.x,
+                            .f,
+                            ...,
+                            .options = furrr_options(),
+                            .env_globals = parent.frame(),
+                            .progress = deprecated()) {
+  maybe_warn_deprecated_progress(is_present(.progress), what = "future_imap_raw")
+
+  future_map2_raw(
+    .x = .x,
+    .y = vec_index(.x),
+    .f = .f,
+    ...,
+    .options = .options,
+    .env_globals = .env_globals
+  )
+}
+
+#' @rdname future_imap
+#' @export
 future_imap_dfr <- function(.x,
                             .f,
                             ...,

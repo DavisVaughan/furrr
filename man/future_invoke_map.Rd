@@ -6,6 +6,7 @@
 \alias{future_invoke_map_dbl}
 \alias{future_invoke_map_int}
 \alias{future_invoke_map_lgl}
+\alias{future_invoke_map_raw}
 \alias{future_invoke_map_dfr}
 \alias{future_invoke_map_dfc}
 \title{Invoke functions via futures}
@@ -51,6 +52,16 @@ future_invoke_map_int(
 )
 
 future_invoke_map_lgl(
+  .f,
+  .x = list(NULL),
+  ...,
+  .env = NULL,
+  .options = furrr_options(),
+  .env_globals = parent.frame(),
+  .progress = deprecated()
+)
+
+future_invoke_map_raw(
   .f,
   .x = list(NULL),
   ...,

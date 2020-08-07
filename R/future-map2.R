@@ -166,6 +166,29 @@ future_map2_lgl <- function(.x,
 
 #' @rdname future_map2
 #' @export
+future_map2_raw <- function(.x,
+                            .y,
+                            .f,
+                            ...,
+                            .options = furrr_options(),
+                            .env_globals = parent.frame(),
+                            .progress = deprecated()) {
+  maybe_warn_deprecated_progress(is_present(.progress), what = "future_map2_raw")
+
+  furrr_map2_template(
+    x = .x,
+    y = .y,
+    fn = .f,
+    dots = list(...),
+    options = .options,
+    type = "raw",
+    map_fn = purrr::map2_raw,
+    env_globals = .env_globals
+  )
+}
+
+#' @rdname future_map2
+#' @export
 future_map2_dfr <- function(.x,
                             .y,
                             .f,

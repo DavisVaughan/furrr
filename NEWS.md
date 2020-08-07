@@ -1,5 +1,8 @@
 # furrr 0.1.0.9002
 
+* All `*_raw()` variants from purrr have been added, such as
+  `future_map_raw()` (#122).
+
 * `future_invoke_map()` and its variants have been marked as retired to match
   `purrr::invoke_map()`.
 

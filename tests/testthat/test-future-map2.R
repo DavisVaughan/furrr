@@ -62,6 +62,16 @@ furrr_test_that("future_map2_chr() works", {
   )
 })
 
+furrr_test_that("future_map2_raw() works", {
+  x <- c("a", "b", "c")
+  y <- as.raw(1:3)
+
+  expect_identical(
+    future_map2_raw(x, y, ~.y),
+    map2_raw(x, y, ~.y)
+  )
+})
+
 furrr_test_that("names of `.x` are retained", {
   x <- c(a = 1, b = 2)
   y <- c(c = 1, d = 2)
@@ -103,6 +113,7 @@ furrr_test_that("atomic variants work with size zero input", {
   expect_identical(future_map2_dbl(list(), list(), identity), double())
   expect_identical(future_map2_int(list(), list(), identity), integer())
   expect_identical(future_map2_lgl(list(), list(), identity), logical())
+  expect_identical(future_map2_raw(list(), list(), identity), raw())
 })
 
 furrr_test_that("size one recycling works", {
