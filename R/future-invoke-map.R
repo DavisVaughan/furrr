@@ -231,3 +231,14 @@ future_invoke_map_dfc <- function(.f,
     .env_globals = .env_globals
   )
 }
+
+# ------------------------------------------------------------------------------
+
+as_invoke_function <- function(f) {
+  if (is.function(f)) {
+    list(f)
+  }
+  else {
+    f
+  }
+}

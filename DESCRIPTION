@@ -37,7 +37,8 @@ Suggests:
     magrittr,
     rmarkdown,
     testthat,
-    withr
+    withr,
+    tidyselect
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
