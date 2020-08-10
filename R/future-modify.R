@@ -189,8 +189,104 @@ future_modify_at.default <- function(.x,
                                      .options = furrr_options(),
                                      .env_globals = parent.frame(),
                                      .progress = deprecated()) {
-  sel <- inv_which(.x, .at)
-  .x[sel] <- future_map(.x[sel], .f, ..., .options = .options, .env_globals = .env_globals)
+  where <- at_selection(names(.x), .at)
+  sel <- inv_which(.x, where)
+
+  future_modify_if(
+    .x = .x,
+    .p = sel,
+    .f = .f,
+    ...,
+    .options = .options,
+    .env_globals = .env_globals
+  )
+}
+
+#' @export
+future_modify_at.integer <- function(.x,
+                                     .at,
+                                     .f,
+                                     ...,
+                                     .options = furrr_options(),
+                                     .env_globals = parent.frame(),
+                                     .progress = deprecated()) {
+  where <- at_selection(names(.x), .at)
+  sel <- inv_which(.x, where)
+
+  .x[sel] <- future_map_int(
+    .x = .x[sel],
+    .f = .f,
+    ...,
+    .options = .options,
+    .env_globals = .env_globals
+  )
+
+  .x
+}
+
+#' @export
+future_modify_at.double <- function(.x,
+                                    .at,
+                                    .f,
+                                    ...,
+                                    .options = furrr_options(),
+                                    .env_globals = parent.frame(),
+                                    .progress = deprecated()) {
+  where <- at_selection(names(.x), .at)
+  sel <- inv_which(.x, where)
+
+  .x[sel] <- future_map_dbl(
+    .x = .x[sel],
+    .f = .f,
+    ...,
+    .options = .options,
+    .env_globals = .env_globals
+  )
+
+  .x
+}
+
+#' @export
+future_modify_at.character <- function(.x,
+                                       .at,
+                                       .f,
+                                       ...,
+                                       .options = furrr_options(),
+                                       .env_globals = parent.frame(),
+                                       .progress = deprecated()) {
+  where <- at_selection(names(.x), .at)
+  sel <- inv_which(.x, where)
+
+  .x[sel] <- future_map_chr(
+    .x = .x[sel],
+    .f = .f,
+    ...,
+    .options = .options,
+    .env_globals = .env_globals
+  )
+
+  .x
+}
+
+#' @export
+future_modify_at.logical <- function(.x,
+                                     .at,
+                                     .f,
+                                     ...,
+                                     .options = furrr_options(),
+                                     .env_globals = parent.frame(),
+                                     .progress = deprecated()) {
+  where <- at_selection(names(.x), .at)
+  sel <- inv_which(.x, where)
+
+  .x[sel] <- future_map_lgl(
+    .x = .x[sel],
+    .f = .f,
+    ...,
+    .options = .options,
+    .env_globals = .env_globals
+  )
+
   .x
 }
 

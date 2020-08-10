@@ -28,6 +28,21 @@ furrr_test_that("future_modify(<pairlist>) works", {
 })
 
 # ------------------------------------------------------------------------------
+# future_modify_at()
+
+furrr_test_that("future_modify_at() default works", {
+  expect_identical(future_modify_at(list(1, 2, 3), c(1, 3), ~5), list(5, 2, 5))
+  expect_identical(future_modify_at(data.frame(x = 1, y = 2), 2, ~3), data.frame(x = 1, y = 3))
+})
+
+furrr_test_that("future_modify_at() variants works", {
+  expect_identical(future_modify_at(c(1L, 2L, 3L), c(1, 3), ~5L), c(5L, 2L, 5L))
+  expect_identical(future_modify_at(c(1, 2, 3), c(1, 3), ~5), c(5, 2, 5))
+  expect_identical(future_modify_at(c("a", "b", "c"), c(1, 3), toupper), c("A", "b", "C"))
+  expect_identical(future_modify_at(c(TRUE, FALSE, TRUE), c(1, 3), ~NA), c(NA, FALSE, NA))
+})
+
+# ------------------------------------------------------------------------------
 # future_modify_if()
 
 furrr_test_that("future_modify_if() default works", {
