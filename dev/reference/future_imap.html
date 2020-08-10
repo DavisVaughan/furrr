@@ -262,8 +262,9 @@ must be the result from a call to <code><a href='furrr_options.html'>furrr_optio
     </tr>
     <tr>
       <th>.env_globals</th>
-      <td><p>The environment to look for globals required by <code>.f</code>,
-<code>...</code>, and <code>.x</code>.</p></td>
+      <td><p>The environment to look for globals required by <code>.x</code> and
+<code>...</code>. Globals required by <code>.f</code> are looked up in the function environment
+of <code>.f</code>.</p></td>
     </tr>
     <tr>
       <th>.progress</th>

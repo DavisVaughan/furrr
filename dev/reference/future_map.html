@@ -262,8 +262,9 @@ must be the result from a call to <code><a href='furrr_options.html'>furrr_optio
     </tr>
     <tr>
       <th>.env_globals</th>
-      <td><p>The environment to look for globals required by <code>.f</code>,
-<code>...</code>, and <code>.x</code>.</p></td>
+      <td><p>The environment to look for globals required by <code>.x</code> and
+<code>...</code>. Globals required by <code>.f</code> are looked up in the function environment
+of <code>.f</code>.</p></td>
     </tr>
     <tr>
       <th>.progress</th>
@@ -300,8 +301,8 @@ integer -&gt; double -&gt; character.</p>
 
 <span class='fl'>1</span>:<span class='fl'>10</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>future_map</span>(<span class='no'>rnorm</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>10</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>future_map_dbl</span>(<span class='no'>mean</span>)</div><div class='output co'>#&gt;  [1] 1.585754 1.181253 2.875296 3.640624 4.987273 6.536900 6.785552 7.760509
-#&gt;  [9] 9.413311 9.688092</div><div class='input'>
+  <span class='fu'>future_map_dbl</span>(<span class='no'>mean</span>)</div><div class='output co'>#&gt;  [1] 1.108240 2.575552 3.083793 4.238192 4.796977 5.718659 6.881248 7.723006
+#&gt;  [9] 8.480376 9.693164</div><div class='input'>
 <span class='co'># If each element of the output is a data frame, use</span>
 <span class='co'># `future_map_dfr()` to row-bind them together:</span>
 <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span>
