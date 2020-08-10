@@ -30,6 +30,7 @@ future_modify_if(
   .p,
   .f,
   ...,
+  .else = NULL,
   .options = furrr_options(),
   .env_globals = parent.frame(),
   .progress = deprecated()
@@ -82,6 +83,9 @@ Alternatively, if the elements of \code{.x} are themselves lists of
 objects, a string indicating the name of a logical element in the
 inner lists. Only those elements where \code{.p} evaluates to
 \code{TRUE} will be modified.}
+
+\item{.else}{A function applied to elements of \code{.x} for which \code{.p}
+returns \code{FALSE}.}
 }
 \value{
 An object the same class as \code{.x}
