@@ -1,5 +1,10 @@
 # furrr 0.1.0.9002
 
+* `future_modify()`, `future_modify_if()` and `future_modify_at()` have been
+  brought up to date with the changes in purrr 0.3.0 to their non-parallel
+  equivalents. Specifically, they now wrap `[[<-` and return the same type
+  as the input when the input is an atomic vector (#119).
+
 * All `*_raw()` variants from purrr have been added, such as
   `future_map_raw()` (#122).
 
