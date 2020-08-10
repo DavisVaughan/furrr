@@ -41,8 +41,6 @@ get_globals_and_packages <- function(globals, packages, map_fn, fn, dots, env_gl
   # Collect all globals recursively
   # Search in the parent frame of the `future_*()` call for globals
   if (is_true(globals)) {
-    dots <- globals_dots[["..."]]
-
     # Lookup `.f` globals in the function env of `.f` (#153)
     env_fn <- fn_env(fn)
     gp_fn <- future::getGlobalsAndPackages(fn, envir = env_fn, globals = TRUE)

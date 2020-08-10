@@ -265,3 +265,28 @@ furrr_test_that("`.f` globals are only looked up in the function env of `.f` (#1
   expect_error(wrapper(fn), "'y' not found")
   expect_identical(wrapper(fn2), list(-1, -1))
 })
+
+furrr_test_that("`...` globals/packages are found", {
+  fn <- globally({
+    function(x, fn_arg) {
+      fn_arg()
+    }
+  })
+
+  # `rlang` needs to be loaded on the worker!
+  expr <- rlang::expr
+
+  # Function is passed through `...`
+  # Evaluate in the global env so rlang isn't captured in the function env
+  # as a package to load
+  fn_arg <- globally({
+    function() {
+      expr(1)
+    }
+  })
+
+  expect_identical(
+    future_map(1:2, fn, fn_arg = fn_arg),
+    list(1, 1)
+  )
+})
