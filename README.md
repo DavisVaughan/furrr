@@ -35,7 +35,6 @@ Every variant of the following functions have been implemented:
   - `walk()`
   - `imap()`
   - `modify()`
-  - `invoke_map()`
 
 This includes atomic variants like `map_dbl()` through
 `future_map_dbl()` and predicate variants like `map_at()` through
