@@ -243,3 +243,25 @@ test_that("furrr is not loaded on the workers", {
 furrr_test_that("base package functions can be exported to workers (HenrikBengtsson/future#401)", {
   expect_identical(future_map(1:2, identity), list(1L, 2L))
 })
+
+furrr_test_that("`.f` globals are only looked up in the function env of `.f` (#153)", {
+  fn <- function(x) {
+    y
+  }
+
+  fn2 <- local({
+    y <- -1
+
+    function(x) {
+      y
+    }
+  })
+
+  wrapper <- function(f) {
+    y <- 1
+    future_map(1:2, f)
+  }
+
+  expect_error(wrapper(fn), "'y' not found")
+  expect_identical(wrapper(fn2), list(-1, -1))
+})

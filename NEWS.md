@@ -29,11 +29,12 @@
   to the workers. See `?furrr_options` for full details.
 
 * All furrr functions gained a new argument, `.env_globals`, which determines
-  the environment in which globals for `.f`, `.x`, and `...` are
+  the environment in which globals for `.x` and `...` are
   looked up. It defaults to the caller environment, which is different than
   what was previously used, but should be more correct in some edge cases.
-  Most of the time, you should not have to touch this argument 
-  (HenrikBengtsson/future.apply#62).
+  Most of the time, you should not have to touch this argument. Additionally,
+  globals for `.f` are now lookup up in the function environment of `.f`
+  (HenrikBengtsson/future.apply#62, #153).
 
 * The internals of furrr have been overhauled to unify the implementations of
   `future_map()`, `future_map2()`, `future_pmap()` and all of their variants.
