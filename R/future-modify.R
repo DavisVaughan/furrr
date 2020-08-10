@@ -53,9 +53,120 @@ future_modify.default <- function(.x,
                                   .options = furrr_options(),
                                   .env_globals = parent.frame(),
                                   .progress = deprecated()) {
-  .x[] <- future_map(.x, .f, ..., .options = .options, .env_globals = .env_globals)
+  result <- future_map(
+    .x = .x,
+    .f = .f,
+    ...,
+    .options = .options,
+    .env_globals = .env_globals
+  )
+
+  for (i in seq_along(.x)) {
+    .x[[i]] <- result[[i]]
+  }
+
   .x
 }
+
+#' @export
+future_modify.character <- function (.x,
+                                     .f,
+                                     ...,
+                                     .options = furrr_options(),
+                                     .env_globals = parent.frame(),
+                                     .progress = deprecated()) {
+  result <- future_map_chr(
+    .x = .x,
+    .f = .f,
+    ...,
+    .options = .options,
+    .env_globals = .env_globals
+  )
+
+  .x[] <- result
+
+  .x
+}
+
+#' @export
+future_modify.double <- function (.x,
+                                  .f,
+                                  ...,
+                                  .options = furrr_options(),
+                                  .env_globals = parent.frame(),
+                                  .progress = deprecated()) {
+  result <- future_map_dbl(
+    .x = .x,
+    .f = .f,
+    ...,
+    .options = .options,
+    .env_globals = .env_globals
+  )
+
+  .x[] <- result
+
+  .x
+}
+
+#' @export
+future_modify.integer <- function (.x,
+                                   .f,
+                                   ...,
+                                   .options = furrr_options(),
+                                   .env_globals = parent.frame(),
+                                   .progress = deprecated()) {
+  result <- future_map_int(
+    .x = .x,
+    .f = .f,
+    ...,
+    .options = .options,
+    .env_globals = .env_globals
+  )
+
+  .x[] <- result
+
+  .x
+}
+
+#' @export
+future_modify.logical <- function (.x,
+                                   .f,
+                                   ...,
+                                   .options = furrr_options(),
+                                   .env_globals = parent.frame(),
+                                   .progress = deprecated()) {
+  result <- future_map_lgl(
+    .x = .x,
+    .f = .f,
+    ...,
+    .options = .options,
+    .env_globals = .env_globals
+  )
+
+  .x[] <- result
+
+  .x
+}
+
+#' @export
+future_modify.pairlist <- function (.x,
+                                    .f,
+                                    ...,
+                                    .options = furrr_options(),
+                                    .env_globals = parent.frame(),
+                                    .progress = deprecated()) {
+  result <- future_map(
+    .x = .x,
+    .f = .f,
+    ...,
+    .options = .options,
+    .env_globals = .env_globals
+  )
+
+  as.pairlist(result)
+}
+
+# ------------------------------------------------------------------------------
 
 #' @rdname future_modify
 #' @export
@@ -82,6 +193,8 @@ future_modify_at.default <- function(.x,
   .x[sel] <- future_map(.x[sel], .f, ..., .options = .options, .env_globals = .env_globals)
   .x
 }
+
+# ------------------------------------------------------------------------------
 
 #' @rdname future_modify
 #' @export
