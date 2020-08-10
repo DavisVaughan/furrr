@@ -43,7 +43,10 @@ get_globals_and_packages <- function(globals, packages, map_fn, fn, dots, env_gl
   if (is_true(globals)) {
     dots <- globals_dots[["..."]]
 
-    gp_fn <- future::getGlobalsAndPackages(fn, envir = env_globals, globals = TRUE)
+    # Lookup `.f` globals in the function env of `.f` (#153)
+    env_fn <- fn_env(fn)
+    gp_fn <- future::getGlobalsAndPackages(fn, envir = env_fn, globals = TRUE)
+
     gp_dots <- future::getGlobalsAndPackages(dots, envir = env_globals, globals = TRUE)
 
     globals_out <- unique(c(globals_out, gp_fn$globals, gp_dots$globals))

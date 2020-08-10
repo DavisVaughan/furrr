@@ -109,8 +109,9 @@ as \code{.f} the name of a function rather than its value, or as
 \item{.options}{The \code{future} specific options to use with the workers. This
 must be the result from a call to \code{\link[=furrr_options]{furrr_options()}}.}
 
-\item{.env_globals}{The environment to look for globals required by \code{.f},
-\code{...}, and \code{.x}.}
+\item{.env_globals}{The environment to look for globals required by \code{.x} and
+\code{...}. Globals required by \code{.f} are looked up in the function environment
+of \code{.f}.}
 
 \item{.progress}{\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}}: No longer has any
 effect. Use the \href{https://CRAN.R-project.org/package=progressr}{progressr}

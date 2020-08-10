@@ -5,8 +5,9 @@
 #'
 #' @inheritParams purrr::map
 #'
-#' @param .env_globals The environment to look for globals required by `.f`,
-#'   `...`, and `.x`.
+#' @param .env_globals The environment to look for globals required by `.x` and
+#'   `...`. Globals required by `.f` are looked up in the function environment
+#'   of `.f`.
 #'
 #' @param .options The `future` specific options to use with the workers. This
 #'   must be the result from a call to [furrr_options()].
