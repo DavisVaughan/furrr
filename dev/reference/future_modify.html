@@ -169,6 +169,7 @@ allow you to modify in parallel.</p>
   <span class='no'>.p</span>,
   <span class='no'>.f</span>,
   <span class='no'>...</span>,
+  <span class='kw'>.else</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
   <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
   <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>()
@@ -235,6 +236,11 @@ Alternatively, if the elements of <code>.x</code> are themselves lists of
 objects, a string indicating the name of a logical element in the
 inner lists. Only those elements where <code>.p</code> evaluates to
 <code>TRUE</code> will be modified.</p></td>
+    </tr>
+    <tr>
+      <th>.else</th>
+      <td><p>A function applied to elements of <code>.x</code> for which <code>.p</code>
+returns <code>FALSE</code>.</p></td>
     </tr>
     </table>
 
