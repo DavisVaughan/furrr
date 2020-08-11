@@ -1,5 +1,5 @@
 ---
-title: "Advanced furrr: Remote connections"
+title: "Remote connections"
 editor_options: 
   chunk_output_type: console
 ---
