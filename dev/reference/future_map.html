@@ -107,6 +107,9 @@ allow you to map in parallel." />
       <a href="../articles/articles/advanced-furrr-remote-connections.html">Advanced furrr: Remote connections</a>
     </li>
     <li>
+      <a href="../articles/articles/chunking.html">Chunking Input</a>
+    </li>
+    <li>
       <a href="../articles/articles/gotchas.html">Common Gotchas</a>
     </li>
   </ul>
@@ -301,8 +304,8 @@ integer -&gt; double -&gt; character.</p>
 
 <span class='fl'>1</span>:<span class='fl'>10</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>future_map</span>(<span class='no'>rnorm</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>10</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>future_map_dbl</span>(<span class='no'>mean</span>)</div><div class='output co'>#&gt;  [1]  1.216789  2.215896  3.279014  4.047270  4.524341  5.647355  7.482472
-#&gt;  [8]  8.030974  8.665721 10.148359</div><div class='input'>
+  <span class='fu'>future_map_dbl</span>(<span class='no'>mean</span>)</div><div class='output co'>#&gt;  [1]  0.6870402  1.8274648  3.1489370  3.9337097  5.3231048  6.1532700
+#&gt;  [7]  6.1804673  8.1046077  9.3706390 10.6129040</div><div class='input'>
 <span class='co'># If each element of the output is a data frame, use</span>
 <span class='co'># `future_map_dfr()` to row-bind them together:</span>
 <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span>

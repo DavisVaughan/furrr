@@ -3,6 +3,7 @@ pkgdown: 1.5.1
 pkgdown_sha: ~
 articles:
   advanced-furrr-remote-connections: articles/advanced-furrr-remote-connections.html
+  chunking: articles/chunking.html
   gotchas: articles/gotchas.html
-last_built: 2020-08-11T12:32Z
+last_built: 2020-08-11T14:51Z
 
