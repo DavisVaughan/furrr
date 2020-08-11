@@ -1,0 +1,85 @@
+---
+title: "Chunking Input"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, message=FALSE}
+library(furrr)
+```
+
+## Introduction
+
+This article discusses how furrr "chunks" your input by default, and how to control it manually with the `scheduling` and `chunk_size` arguments. Chunking is the process of breaking up `.x` into smaller pieces that can be sent off to different workers to be processed in parallel. Once a worker gets a chunk of `.x`, it maps over it calling `.f` on each element. The results from the workers are returned to the main R session once all chunks have been processed to be combined and returned from `future_map()`.
+
+Chunks are determined using an internal function in furrr called `make_chunks()`. We'll expose that here to demonstrate various strategies.
+
+```{r}
+make_chunks <- furrr:::make_chunks
+```
+
+## Default chunking strategy
+
+The default chunking strategy in furrr is to place 1 chunk on each worker. It does this by splitting up `.x` as evenly as possible across the number of workers. This is the simplest strategy, and usually works fairly well.
+
+```{r}
+# Elements 1:6 go to worker 1
+# Elements 7:12 go to worker 2
+make_chunks(n_x = 12, n_workers = 2)
+
+# Element 1 goes to worker 1
+# Element 2 goes to worker 2
+make_chunks(n_x = 2, n_workers = 4)
+
+# Chunks aren't always evenly distributed
+make_chunks(n_x = 10, n_workers = 4)
+```
+
+## Tweaking the number of chunks per worker
+
+The above default strategy comes from using `furrr_options(scheduling = 1)`. This `scheduling` argument allows you to alter the average number of chunks per worker. As an example, increasing to `scheduling = 2L` makes furrr operate more "dynamically". With 12 elements and 2 workers, it will:
+
+- Send elements 1:3 off to worker 1
+
+- Send elements 4:6 off to worker 2
+
+- Wait for the next available worker
+
+- Send elements 7:9 off to that worker
+
+- Wait for the next available worker
+
+- Send elements 10:12 off to that worker
+
+```{r}
+make_chunks(n_x = 12, n_workers = 2, scheduling = 2L)
+```
+
+After the first two batches of work have been sent off, furrr will wait for the next available worker to send off elements 7:9 to. If worker 2 finishes before worker 1 (which is entirely possible if the elements it is processing require less time) then it will be used to work on elements 7:9. Contrast this with setting `scheduling = 1L` for this example, which results in just 2 chunks, 1:6 and 7:12. The first chunk is sent to worker 1 and the second to worker 2. If element 4 happens to take an extremely long amount of time, then you might be waiting for worker 1 to finish long after worker 2 has. In this case, the dynamic scheduling might help overall performance. However, it does result in more serialization calls, which can degrade performance. In the end, choosing the right strategy here requires some knowledge about the function you are trying to parallelize.
+
+The extreme end of `scheduling` is to set it to `Inf`, which creates `n_x` chunks (1 chunk per element of `.x`).
+
+```{r}
+make_chunks(n_x = 5, n_workers = 2, scheduling = Inf)
+```
+
+## Tweaking the number of elements per chunk
+
+Instead of using `scheduling`, you can also modify the chunking strategy using `chunk_size`, which controls the average number of elements per chunk. This is used in place of `scheduling`, and, if set, will override any `scheduling` value. For example, specifying a `chunk_size` of 4 below will create 3 chunks of size 4 to send off to the 2 workers. Computing chunks using `chunk_size` is independent of the number of workers.
+
+```{r}
+make_chunks(n_x = 12, n_workers = 2, chunk_size = 4)
+```
+
+An `Inf` `chunk_size` requests that all elements be processed in a single chunk.
+
+```{r}
+make_chunks(n_x = 5, n_workers = 3, chunk_size = Inf)
+```

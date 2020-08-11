@@ -1,4 +1,4 @@
-make_chunks <- function(n_x, n_workers, scheduling, chunk_size) {
+make_chunks <- function(n_x, n_workers, scheduling = 1L, chunk_size = NULL) {
   if (is.null(chunk_size)) {
     n_chunks <- compute_n_chunks_from_scheduling(scheduling, n_x, n_workers)
   } else {
