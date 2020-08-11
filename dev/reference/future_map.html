@@ -304,8 +304,8 @@ integer -&gt; double -&gt; character.</p>
 
 <span class='fl'>1</span>:<span class='fl'>10</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>future_map</span>(<span class='no'>rnorm</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>10</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>future_map_dbl</span>(<span class='no'>mean</span>)</div><div class='output co'>#&gt;  [1]  0.7529644  1.9247907  3.3491463  4.1112061  4.6312801  5.2907939
-#&gt;  [7]  6.6144392  8.2642746  9.2116701 10.0876111</div><div class='input'>
+  <span class='fu'>future_map_dbl</span>(<span class='no'>mean</span>)</div><div class='output co'>#&gt;  [1] 1.009828 1.840067 2.912273 4.142996 5.578278 6.129960 7.180402 7.946194
+#&gt;  [9] 9.018673 9.503099</div><div class='input'>
 <span class='co'># If each element of the output is a data frame, use</span>
 <span class='co'># `future_map_dfr()` to row-bind them together:</span>
 <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span>

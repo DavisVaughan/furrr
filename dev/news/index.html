@@ -160,7 +160,7 @@
 <ul>
 <li><p>New pkgdown article discussing how furrr “chunks” input to send if off to workers.</p></li>
 <li><p>New pkgdown article on common gotchas when using furrr.</p></li>
-<li><p>New article detailing how to use furrr with remote AWS EC2 connections.</p></li>
+<li><p>New pkgdown article detailing how to use furrr with remote AWS EC2 connections.</p></li>
 <li><p><code><a href="../reference/future_map.html">future_walk()</a></code> and friends have been added to mirror <code><a href="https://purrr.tidyverse.org/reference/map.html">purrr::walk()</a></code>.</p></li>
 <li><p><code><a href="../reference/furrr_options.html">furrr_options()</a></code> now has a variety of new arguments for fine tuning furrr. These are based on advancements made in both future and future.apply. The most important is <code>chunk_size</code>, which can be used as an alternative to <code>scheduling</code> to determine how to break up <code>.x</code> into chunks to send off to the workers. See <code><a href="../reference/furrr_options.html">?furrr_options</a></code> for full details.</p></li>
 <li><p><code><a href="../reference/future_map2.html">future_pmap()</a></code> and its variants now propagate the names of the first element of <code>.l</code> onto the output (<a href='https://github.com/DavisVaughan/furrr/issues/116'>#116</a>).</p></li>
