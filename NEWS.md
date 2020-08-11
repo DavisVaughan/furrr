@@ -1,72 +1,6 @@
 # furrr 0.1.0.9002
 
-* New pkgdown article discussing how furrr "chunks" input to send if off to
-  workers.
-
-* `future_modify()`, `future_modify_if()` and `future_modify_at()` have been
-  brought up to date with the changes in purrr 0.3.0 to their non-parallel
-  equivalents. Specifically, they now wrap `[[<-` and return the same type
-  as the input when the input is an atomic vector (#119).
-
-* All `*_raw()` variants from purrr have been added, such as
-  `future_map_raw()` (#122).
-
-* `future_invoke_map()` and its variants have been marked as retired to match
-  `purrr::invoke_map()`.
-
-* future has been moved from Depends to Imports. This means that the future
-  package will no longer be attached when `library(furrr)` is run. To
-  accomodate this change, `plan()`, `tweak()`, `makeClusterPSOCK()`, and
-  all stategy functions from future (such as `multisession()` and
-  `multicore()`) have been re-exported from furrr (#40).
-
-* There is a new pkgdown article on common gotchas when using furrr.
-
-* `future_map_if()` has gained the `.else` argument that was added to purrr's
-  `map_if()` in purrr 0.3.0 (#132).
-
-* `furrr_options()` now has a variety of new arguments for fine tuning furrr.
-  These are based on advancements made in both future and future.apply. The
-  most important is `chunk_size`, which can be used as an alternative
-  to `scheduling` to determine how to break up `.x` into chunks to send off
-  to the workers. See `?furrr_options` for full details.
-
-* All furrr functions gained a new argument, `.env_globals`, which determines
-  the environment in which globals for `.x` and `...` are
-  looked up. It defaults to the caller environment, which is different than
-  what was previously used, but should be more correct in some edge cases.
-  Most of the time, you should not have to touch this argument. Additionally,
-  globals for `.f` are now lookup up in the function environment of `.f`
-  (HenrikBengtsson/future.apply#62, #153).
-
-* The internals of furrr have been overhauled to unify the implementations of
-  `future_map()`, `future_map2()`, `future_pmap()` and all of their variants.
-  This should make furrr much easier to maintain going forward (#44).
-
-* The future specific global option `future.globals.maxSize` now scales with
-  the number of elements of `.x` that get exported to each worker. This
-  helps prevent some false positives about exporting objects that are too large,
-  and is the same approach taken in future.apply (#113).
-
-* `future_pmap()` and its variants now propagate the names of the first element
-  of `.l` onto the output (#116).
-
-* All furrr functions now enforce tidyverse recycling rules (for example, 
-  between `.x` and `.y` in `future_map2()`). Previously this was mostly the
-  case, except with size zero input. Recycling between input of size 0 and
-  input of size >1 no longer recycles to size 0, and is instead an error.
-  purrr will begin to do this as well in the next major release (#134).
-
-* `future_pmap()` and its variants now work with empty `list()` input (#135).
-
-* `future_options()` has been deprecated in favor of `furrr_options()`.
-  Calling `future_options()` will still work, but will trigger a once per
-  session warning and will eventually be removed. This change was made to
-  free up this function name in case the future package ever wants to use it.
-
-* purrr >= 0.3.0 is now required to gain access to various new features and
-  breaking changes. For example, `map_if()` gained an `.else` argument, which
-  has been added to `future_map_if()`.
+## Breaking changes:
 
 * The `.progress` argument has been deprecated. While useful, it was built using
   a hack that I deeply regret. There were performance issues, it didn't
@@ -79,26 +13,99 @@
   remote connections. That said, be aware that it is a relatively new package
   and the API is still stabilizing.
 
-* rlang >= 0.3.0 is now required to ensure that the rlang `~` is serializable.
-  The hacks in furrr that tried to work around this have been removed (#123).
+* future has been moved from Depends to Imports. This means that the future
+  package will no longer be attached when `library(furrr)` is run. To
+  accomodate this change, `plan()`, `tweak()`, `makeClusterPSOCK()`, and
+  all stategy functions from future (such as `multisession()` and
+  `multicore()`) have been re-exported from furrr (#40).
 
-* future >= 1.17.0 is now required to be able to use `future::value()` instead
-  of the soon to be deprecated `future::values()` (#108).
+* All furrr functions now enforce tidyverse recycling rules (for example, 
+  between `.x` and `.y` in `future_map2()`). Previously this was mostly the
+  case, except with size zero input. Recycling between input of size 0 and
+  input of size >1 no longer recycles to size 0, and is instead an error.
+  purrr will begin to do this as well in the next major release (#134).
 
-* A MIT license is now used.
+* `future_options()` has been deprecated in favor of `furrr_options()`.
+  Calling `future_options()` will still work, but will trigger a once per
+  session warning and will eventually be removed. This change was made to
+  free up this function name in case the future package ever wants to use it.
 
-* Added an advanced furrr vignette detailing how to use furrr with
+## Features / Fixes:
+
+* New pkgdown article discussing how furrr "chunks" input to send if off to
+  workers.
+
+* New pkgdown article on common gotchas when using furrr.
+
+* New advanced furrr article detailing how to use furrr with
   remote connections.
 
 * `future_walk()` and friends have been added to mirror `purrr::walk()`.
+
+* `furrr_options()` now has a variety of new arguments for fine tuning furrr.
+  These are based on advancements made in both future and future.apply. The
+  most important is `chunk_size`, which can be used as an alternative
+  to `scheduling` to determine how to break up `.x` into chunks to send off
+  to the workers. See `?furrr_options` for full details.
+
+* `future_pmap()` and its variants now propagate the names of the first element
+  of `.l` onto the output (#116).
+
+* `future_pmap()` and its variants now work with empty `list()` input (#135).
+
+* `future_modify()`, `future_modify_if()` and `future_modify_at()` have been
+  brought up to date with the changes in purrr 0.3.0 to their non-parallel
+  equivalents. Specifically, they now wrap `[[<-` and return the same type
+  as the input when the input is an atomic vector (#119).
+
+* `future_map_if()` and `future_modify_if()` gained the `.else` argument that
+  was added to purrr's `map_if()` and `modify_if()` in purrr 0.3.0 (#132).
+
+* All `*_raw()` variants from purrr have been added, such as
+  `future_map_raw()` (#122).
+  
+* All furrr functions gained a new argument, `.env_globals`, which determines
+  the environment in which globals for `.x` and `...` are
+  looked up. It defaults to the caller environment, which is different than
+  what was previously used, but should be more correct in some edge cases.
+  Most of the time, you should not have to touch this argument. Additionally,
+  globals for `.f` are now lookup up in the function environment of `.f`
+  (HenrikBengtsson/future.apply#62, #153).
+  
+* The future specific global option `future.globals.maxSize` now scales with
+  the number of elements of `.x` that get exported to each worker. This
+  helps prevent some false positives about exporting objects that are too large,
+  and is the same approach taken in future.apply (#113).
 
 * `.x` is now searched for globals. Only globals found in the slice of `.x`
   that corresponds to worker X are exported to worker X. This is relevant if
   `.x` is, say, a list of functions where each has their own set of globals
   (#16).
 
-* `globals (>= 0.12.1)` is now required because of substantial new speed boosts
-  there related to searching for global variables.
+* `future_invoke_map()` and its variants have been marked as retired to match
+  `purrr::invoke_map()`.
+  
+* The internals of furrr have been overhauled to unify the implementations of
+  `future_map()`, `future_map2()`, `future_pmap()` and all of their variants.
+  This should make furrr much easier to maintain going forward (#44).
+
+* A MIT license is now used.
+
+## Version requirements:
+
+* rlang >= 0.3.0 is now required to ensure that the rlang `~` is serializable.
+  The hacks in furrr that tried to work around this have been removed (#123).
+
+* future >= 1.17.0 is now required to be able to use `future::value()` instead
+  of the soon to be deprecated `future::values()` (#108).
+  
+* purrr >= 0.3.0 is now required to gain access to various new features and
+  breaking changes. For example, `map_if()` gained an `.else` argument, which
+  has been added to `future_map_if()`.
+
+* globals >= 0.12.6 is now required because of substantial new speed boosts
+  there related to searching for global variables, and to gain access to a few
+  bug fixes regarding searching for remapped globals.
 
 # furrr 0.1.0
 
