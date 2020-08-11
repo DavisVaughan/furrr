@@ -14,10 +14,9 @@
 
 # Dependencies
 
-|package  |old   |new        |Δ  |
-|:--------|:-----|:----------|:--|
-|furrr    |0.1.0 |0.1.0.9002 |*  |
-|magrittr |NA    |1.5.0.9000 |*  |
+|package |old   |new        |Δ  |
+|:-------|:-----|:----------|:--|
+|furrr   |0.1.0 |0.1.0.9002 |*  |
 
 # Revdeps
 
@@ -27,13 +26,11 @@
 |:--------|:-------|:-----|:-------|:----|
 |foieGras |0.6-9   |1     |        |     |
 
-## New problems (5)
+## New problems (3)
 
-|package                                      |version |error  |warning |note |
-|:--------------------------------------------|:-------|:------|:-------|:----|
-|[abjutils](problems.md#abjutils)             |0.2.3   |       |__+1__  |-1   |
-|[baguette](problems.md#baguette)             |0.0.1   |__+2__ |1       |     |
-|[disk.frame](problems.md#diskframe)          |0.3.7   |__+1__ |1       |     |
-|[photosynthesis](problems.md#photosynthesis) |1.0.2   |__+2__ |1       |     |
-|[simhelpers](problems.md#simhelpers)         |0.1.0   |__+1__ |        |1    |
+|package                              |version |error  |warning |note |
+|:------------------------------------|:-------|:------|:-------|:----|
+|[abjutils](problems.md#abjutils)     |0.2.3   |       |__+1__  |-1   |
+|[baguette](problems.md#baguette)     |0.0.1   |__+2__ |1       |     |
+|[simhelpers](problems.md#simhelpers) |0.1.0   |__+1__ |        |1    |
 
