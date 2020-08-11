@@ -37,7 +37,8 @@
 
 * New pkgdown article on common gotchas when using furrr.
 
-* New article detailing how to use furrr with remote AWS EC2 connections.
+* New pkgdown article detailing how to use furrr with remote AWS EC2
+  connections.
 
 * `future_walk()` and friends have been added to mirror `purrr::walk()`.
 
