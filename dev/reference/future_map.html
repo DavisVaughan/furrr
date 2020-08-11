@@ -104,13 +104,13 @@ allow you to map in parallel." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/articles/advanced-furrr-remote-connections.html">Advanced furrr: Remote connections</a>
+      <a href="../articles/articles/chunking.html">Chunking input</a>
     </li>
     <li>
-      <a href="../articles/articles/chunking.html">Chunking Input</a>
+      <a href="../articles/articles/gotchas.html">Common gotchas</a>
     </li>
     <li>
-      <a href="../articles/articles/gotchas.html">Common Gotchas</a>
+      <a href="../articles/articles/remote-connections.html">Remote connections</a>
     </li>
   </ul>
 </li>
@@ -304,8 +304,8 @@ integer -&gt; double -&gt; character.</p>
 
 <span class='fl'>1</span>:<span class='fl'>10</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>future_map</span>(<span class='no'>rnorm</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>10</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>future_map_dbl</span>(<span class='no'>mean</span>)</div><div class='output co'>#&gt;  [1] 1.377904 1.596501 2.896121 3.829881 5.133112 6.088411 6.839801 8.528604
-#&gt;  [9] 8.814438 9.758733</div><div class='input'>
+  <span class='fu'>future_map_dbl</span>(<span class='no'>mean</span>)</div><div class='output co'>#&gt;  [1]  0.7529644  1.9247907  3.3491463  4.1112061  4.6312801  5.2907939
+#&gt;  [7]  6.6144392  8.2642746  9.2116701 10.0876111</div><div class='input'>
 <span class='co'># If each element of the output is a data frame, use</span>
 <span class='co'># `future_map_dfr()` to row-bind them together:</span>
 <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span>

@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Common Gotchas • furrr</title>
+<title>Common gotchas • furrr</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../../apple-touch-icon.png">
@@ -17,7 +17,7 @@
 <script src="../../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
-<script src="../../pkgdown.js"></script><meta property="og:title" content="Common Gotchas">
+<script src="../../pkgdown.js"></script><meta property="og:title" content="Common gotchas">
 <meta property="og:description" content="furrr">
 <meta property="og:image" content="/logo.png">
 <meta name="robots" content="noindex">
@@ -62,13 +62,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../../articles/articles/advanced-furrr-remote-connections.html">Advanced furrr: Remote connections</a>
+      <a href="../../articles/articles/chunking.html">Chunking input</a>
     </li>
     <li>
-      <a href="../../articles/articles/chunking.html">Chunking Input</a>
+      <a href="../../articles/articles/gotchas.html">Common gotchas</a>
     </li>
     <li>
-      <a href="../../articles/articles/gotchas.html">Common Gotchas</a>
+      <a href="../../articles/articles/remote-connections.html">Remote connections</a>
     </li>
   </ul>
 </li>
@@ -96,7 +96,7 @@
       </header><script src="gotchas_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Common Gotchas</h1>
+      <h1 data-toc-skip>Common gotchas</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/DavisVaughan/furrr/blob/master/vignettes/articles/gotchas.Rmd"><code>vignettes/articles/gotchas.Rmd</code></a></small>
@@ -252,7 +252,7 @@
 
 <span class="no">t2</span> - <span class="no">t1</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   1.692   0.063   2.134</span></pre></body></html></div>
+<span class="co">#&gt;   1.578   0.052   1.974</span></pre></body></html></div>
 <p>The issue here is that the grouped nature of the data frame prevents furrr from doing what it is good at - sharding the <code>x</code> column into equally sized groups and sending them off to the workers to process them in parallel.</p>
 <p>Instead, because this data frame is grouped, and each group corresponds to 1 row of the data frame, dplyr hands <code><a href="../../reference/future_map.html">future_map_dbl()</a></code> 1 element of <code>x</code> at a time to operate on. So <code><a href="../../reference/future_map.html">future_map_dbl()</a></code> is actually being called 100 times here!</p>
 <p>The easy solution is to just ungroup the data frame before calling <code><a href="../../reference/future_map.html">future_map_dbl()</a></code>.</p>
@@ -284,7 +284,7 @@
 
 <span class="no">t2</span> - <span class="no">t1</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.060   0.002   0.167</span></pre></body></html></div>
+<span class="co">#&gt;   0.057   0.001   0.164</span></pre></body></html></div>
 </div>
 <div id="graphics-devices" class="section level2">
 <h2 class="hasAnchor">
@@ -325,13 +325,13 @@
   <span class="fu">my_fast_fn</span>()
 )
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.026   0.001   0.133</span>
+<span class="co">#&gt;   0.027   0.001   0.137</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>(
   <span class="fu">my_slow_fn</span>()
 )
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   2.856   0.584   4.952</span>
+<span class="co">#&gt;   2.968   0.601   5.022</span>
 
 <span class="fu"><a href="https://rdrr.io/pkg/future/man/plan.html">plan</a></span>(<span class="no">sequential</span>)</pre></body></html></div>
 <p>In the above example, <code>big</code> is captured in the function environment of the anonymous function <code>~.x</code> and is exported. Note that the problem isn’t that <code>big</code> is identified as a global by furrr. We can even prove that it is on the workers using <code><a href="https://rdrr.io/r/base/get.html">get()</a></code> to look for an object called <code>"big"</code> in the current and surrounding environments. I’ll use a smaller object here, but the concept is the same.</p>
@@ -368,7 +368,7 @@
   <span class="fu">my_not_so_slow_fn</span>()
 )
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.495   0.195   0.797</span>
+<span class="co">#&gt;   0.567   0.210   0.898</span>
 
 <span class="fu"><a href="https://rdrr.io/pkg/future/man/plan.html">plan</a></span>(<span class="no">sequential</span>)</pre></body></html></div>
 <p>Here lexical scoping is used to find <code>fn</code>, but you could also pass it in as an argument to <code>my_not_so_slow_fn()</code>. This works naturally in a package development environment, where <code>fn()</code> would just be a helper function in your package that you can call from anywhere else in the package without issue.</p>

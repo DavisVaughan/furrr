@@ -2,8 +2,8 @@ pandoc: 2.7.3
 pkgdown: 1.5.1
 pkgdown_sha: ~
 articles:
-  advanced-furrr-remote-connections: articles/advanced-furrr-remote-connections.html
   chunking: articles/chunking.html
   gotchas: articles/gotchas.html
-last_built: 2020-08-11T21:03Z
+  remote-connections: articles/remote-connections.html
+last_built: 2020-08-11T21:09Z
 
