@@ -252,7 +252,7 @@
 
 <span class="no">t2</span> - <span class="no">t1</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   1.556   0.050   1.945</span></pre></body></html></div>
+<span class="co">#&gt;   1.748   0.064   2.190</span></pre></body></html></div>
 <p>The issue here is that the grouped nature of the data frame prevents furrr from doing what it is good at - sharding the <code>x</code> column into equally sized groups and sending them off to the workers to process them in parallel.</p>
 <p>Instead, because this data frame is grouped, and each group corresponds to 1 row of the data frame, dplyr hands <code><a href="../../reference/future_map.html">future_map_dbl()</a></code> 1 element of <code>x</code> at a time to operate on. So <code><a href="../../reference/future_map.html">future_map_dbl()</a></code> is actually being called 100 times here!</p>
 <p>The easy solution is to just ungroup the data frame before calling <code><a href="../../reference/future_map.html">future_map_dbl()</a></code>.</p>
@@ -284,7 +284,7 @@
 
 <span class="no">t2</span> - <span class="no">t1</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.055   0.001   0.160</span></pre></body></html></div>
+<span class="co">#&gt;   0.062   0.001   0.180</span></pre></body></html></div>
 </div>
 <div id="graphics-devices" class="section level2">
 <h2 class="hasAnchor">
@@ -325,13 +325,13 @@
   <span class="fu">my_fast_fn</span>()
 )
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.024   0.001   0.125</span>
+<span class="co">#&gt;   0.025   0.001   0.146</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>(
   <span class="fu">my_slow_fn</span>()
 )
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   2.707   0.553   4.700</span>
+<span class="co">#&gt;   2.755   1.104   5.768</span>
 
 <span class="fu"><a href="https://rdrr.io/pkg/future/man/plan.html">plan</a></span>(<span class="no">sequential</span>)</pre></body></html></div>
 <p>In the above example, <code>big</code> is captured in the function environment of the anonymous function <code>~.x</code> and is exported. Note that the problem isn’t that <code>big</code> is identified as a global by furrr. We can even prove that it is on the workers using <code><a href="https://rdrr.io/r/base/get.html">get()</a></code> to look for an object called <code>"big"</code> in the current and surrounding environments. I’ll use a smaller object here, but the concept is the same.</p>
@@ -368,7 +368,7 @@
   <span class="fu">my_not_so_slow_fn</span>()
 )
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.468   0.186   0.757</span>
+<span class="co">#&gt;   0.473   0.196   0.779</span>
 
 <span class="fu"><a href="https://rdrr.io/pkg/future/man/plan.html">plan</a></span>(<span class="no">sequential</span>)</pre></body></html></div>
 <p>Here lexical scoping is used to find <code>fn</code>, but you could also pass it in as an argument to <code>my_not_so_slow_fn()</code>. This works naturally in a package development environment, where <code>fn()</code> would just be a helper function in your package that you can call from anywhere else in the package without issue.</p>
