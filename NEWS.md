@@ -1,5 +1,8 @@
 # furrr 0.1.0.9002
 
+* New pkgdown article discussing how furrr "chunks" input to send if off to
+  workers.
+
 * `future_modify()`, `future_modify_if()` and `future_modify_at()` have been
   brought up to date with the changes in purrr 0.3.0 to their non-parallel
   equivalents. Specifically, they now wrap `[[<-` and return the same type
