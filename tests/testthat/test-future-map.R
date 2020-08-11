@@ -273,13 +273,13 @@ furrr_test_that("`...` globals/packages are found", {
     }
   })
 
-  # `rlang` needs to be loaded on the worker!
-  expr <- rlang::expr
-
   # Function is passed through `...`
   # Evaluate in the global env so rlang isn't captured in the function env
   # as a package to load
   fn_arg <- globally({
+    # `rlang` needs to be loaded on the worker!
+    expr <- rlang::expr
+
     function() {
       expr(1)
     }
