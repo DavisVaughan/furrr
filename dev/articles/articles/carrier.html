@@ -200,7 +200,7 @@
 <span class="co">#&gt; function(x) {</span>
 <span class="co">#&gt;     x + constant</span>
 <span class="co">#&gt;   }</span></pre></body></html></div>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/future/man/plan.html">plan</a></span>(<span class="no">multisession</span>, <span class="kw">workers</span> <span class="kw">=</span> <span class="fl">2</span>)
+<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu">plan</span>(<span class="no">multisession</span>, <span class="kw">workers</span> <span class="kw">=</span> <span class="fl">2</span>)
 
 <span class="no">opts</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/furrr_options.html">furrr_options</a></span>(<span class="kw">globals</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
 
@@ -216,7 +216,7 @@
 <div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="no">median_doubled</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/carrier/man/crate.html">crate</a></span>(<span class="kw">function</span>(<span class="no">x</span>, <span class="no">na.rm</span> <span class="kw">=</span> <span class="fl">FALSE</span>) {
   <span class="kw pkg">stats</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span>(<span class="no">x</span>, <span class="kw">na.rm</span> <span class="kw">=</span> <span class="no">na.rm</span>) * <span class="fl">2</span>
 })</pre></body></html></div>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/future/man/plan.html">plan</a></span>(<span class="no">multisession</span>, <span class="kw">workers</span> <span class="kw">=</span> <span class="fl">2</span>)
+<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="fu">plan</span>(<span class="no">multisession</span>, <span class="kw">workers</span> <span class="kw">=</span> <span class="fl">2</span>)
 
 <span class="no">opts</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/furrr_options.html">furrr_options</a></span>(<span class="kw">globals</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
 
@@ -231,13 +231,13 @@
 
   <span class="fu"><a href="../../reference/future_map.html">future_map_int</a></span>(<span class="fl">1</span>:<span class="fl">5</span>, ~<span class="no">.x</span>)
 }</pre></body></html></div>
-<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/future/man/plan.html">plan</a></span>(<span class="no">multisession</span>, <span class="kw">workers</span> <span class="kw">=</span> <span class="fl">2</span>)
+<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="fu">plan</span>(<span class="no">multisession</span>, <span class="kw">workers</span> <span class="kw">=</span> <span class="fl">2</span>)
 
 <span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>({
   <span class="fu">my_slow_fn</span>()
 })
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   2.674   0.557   4.602</span></pre></body></html></div>
+<span class="co">#&gt;   3.218   0.705   5.707</span></pre></body></html></div>
 <p>One way to avoid this is to use carrier to crate the function, isolating it from the surrounding environment.</p>
 <div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="no">my_crated_fn</span> <span class="kw">&lt;-</span> <span class="kw">function</span>() {
   <span class="co"># Massive object - but we don't want it in `.f`</span>
@@ -248,13 +248,13 @@
 
   <span class="fu"><a href="../../reference/future_map.html">future_map_int</a></span>(<span class="fl">1</span>:<span class="fl">5</span>, <span class="no">fn</span>, <span class="kw">.options</span> <span class="kw">=</span> <span class="no">opts</span>)
 }</pre></body></html></div>
-<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/future/man/plan.html">plan</a></span>(<span class="no">multisession</span>, <span class="kw">workers</span> <span class="kw">=</span> <span class="fl">2</span>)
+<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="fu">plan</span>(<span class="no">multisession</span>, <span class="kw">workers</span> <span class="kw">=</span> <span class="fl">2</span>)
 
 <span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>({
   <span class="fu">my_crated_fn</span>()
 })
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.464   0.183   0.748</span></pre></body></html></div>
+<span class="co">#&gt;   0.584   0.230   0.943</span></pre></body></html></div>
 </div>
   </div>
 

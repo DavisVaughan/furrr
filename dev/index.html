@@ -158,7 +158,7 @@
 <span class="co">#&gt; [1] "world"</span></pre></div>
 <p>The default backend for future (and through it, furrr) is a sequential one. This means that the above code will run out of the box, but it will <em>not</em> be in parallel. The design of future makes it incredibly easy to change this so that your code will run in parallel.</p>
 <div class="sourceCode" id="cb4"><pre class="r"><span class="co"># Set a "plan" for how the code should run.</span>
-<span class="fu"><a href="https://rdrr.io/pkg/future/man/plan.html">plan</a></span>(<span class="no">multisession</span>, <span class="kw">workers</span> <span class="kw">=</span> <span class="fl">2</span>)
+<span class="fu">plan</span>(<span class="no">multisession</span>, <span class="kw">workers</span> <span class="kw">=</span> <span class="fl">2</span>)
 
 <span class="co"># This does run in parallel!</span>
 <span class="fu"><a href="reference/future_map.html">future_map</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"hello"</span>, <span class="st">"world"</span>), ~<span class="no">.x</span>)
@@ -171,7 +171,7 @@
 <div class="sourceCode" id="cb5"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tictoc</span>)
 
 <span class="co"># This should take 6 seconds in total running sequentially</span>
-<span class="fu"><a href="https://rdrr.io/pkg/future/man/plan.html">plan</a></span>(<span class="no">sequential</span>)
+<span class="fu">plan</span>(<span class="no">sequential</span>)
 
 <span class="fu">tic</span>()
 <span class="no">nothingness</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/future_map.html">future_map</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>), ~<span class="fu"><a href="https://rdrr.io/r/base/Sys.sleep.html">Sys.sleep</a></span>(<span class="no">.x</span>))
@@ -180,7 +180,7 @@
 <div class="sourceCode" id="cb6"><pre class="r"><span class="co"># This should take ~2 seconds running in parallel, with a little overhead</span>
 <span class="co"># in `future_map()` from sending data to the workers. There is generally also</span>
 <span class="co"># a one time cost from `plan(multisession)` setting up the workers.</span>
-<span class="fu"><a href="https://rdrr.io/pkg/future/man/plan.html">plan</a></span>(<span class="no">multisession</span>, <span class="kw">workers</span> <span class="kw">=</span> <span class="fl">3</span>)
+<span class="fu">plan</span>(<span class="no">multisession</span>, <span class="kw">workers</span> <span class="kw">=</span> <span class="fl">3</span>)
 
 <span class="fu">tic</span>()
 <span class="no">nothingness</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/future_map.html">future_map</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>), ~<span class="fu"><a href="https://rdrr.io/r/base/Sys.sleep.html">Sys.sleep</a></span>(<span class="no">.x</span>))

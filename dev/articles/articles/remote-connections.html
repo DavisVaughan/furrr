@@ -171,7 +171,7 @@
 <span class="co">#&gt; (Intercept)          cyl           hp           wt  </span>
 <span class="co">#&gt;    45.29099     -2.03268      0.02655     -6.42290</span></pre></body></html></div>
 <p>With furrr, we can run this in parallel locally using the following:</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/future/man/plan.html">plan</a></span>(<span class="no">multisession</span>, <span class="kw">workers</span> <span class="kw">=</span> <span class="fl">2</span>)
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu">plan</span>(<span class="no">multisession</span>, <span class="kw">workers</span> <span class="kw">=</span> <span class="fl">2</span>)
 
 <span class="no">models</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/future_map.html">future_map</a></span>(<span class="no">by_gear</span>, ~<span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(<span class="no">mpg</span> ~ <span class="no">cyl</span> + <span class="no">hp</span> + <span class="no">wt</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">.</span>))
 
@@ -223,7 +223,7 @@
 <span class="no">ssh_private_key_file</span> <span class="kw">&lt;-</span> <span class="st">"path/to/file.pem"</span></pre></body></html></div>
 <p>With all of this in hand, the next step is to use <code><a href="https://rdrr.io/pkg/future/man/makeClusterPSOCK.html">future::makeClusterPSOCK()</a></code> to connect to the instance. Traditionally, one would use <code><a href="https://rdrr.io/r/parallel/makeCluster.html">parallel::makePSOCKcluster()</a></code> to connect, but the future version has a few additional helpful arguments that allow us to add extra options when connecting to the worker. If the connection is successful, the code below should start outputting package installation messages into your local console.</p>
 <div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">connect_to_ec2</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">public_ip</span>, <span class="no">ssh_private_key_file</span>) {
-  <span class="fu"><a href="https://rdrr.io/pkg/future/man/makeClusterPSOCK.html">makeClusterPSOCK</a></span>(
+  <span class="fu">makeClusterPSOCK</span>(
 
     <span class="co"># Public IP number of EC2 instance</span>
     <span class="kw">workers</span> <span class="kw">=</span> <span class="no">public_ip</span>,
@@ -279,8 +279,8 @@
 <div id="running-the-code" class="section level3">
 <h3 class="hasAnchor">
 <a href="#running-the-code" class="anchor"></a>Running the code</h3>
-<p>Now that we have a connection to an EC2 instance loaded with R, we’ll need to tell future and furrr how to use it. Since we already have a cluster object, all we have to do is change the <code><a href="https://rdrr.io/pkg/future/man/plan.html">plan()</a></code> to use this cluster. Rather than using the <code>multisession</code> plan, we use the <code>cluster</code> plan with the extra argument, <code>workers</code>, set to the cluster connection (see <code><a href="https://rdrr.io/pkg/future/man/cluster.html">?future::cluster</a></code> for more info).</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/future/man/plan.html">plan</a></span>(<span class="no">cluster</span>, <span class="kw">workers</span> <span class="kw">=</span> <span class="no">cl</span>)
+<p>Now that we have a connection to an EC2 instance loaded with R, we’ll need to tell future and furrr how to use it. Since we already have a cluster object, all we have to do is change the <code>plan()</code> to use this cluster. Rather than using the <code>multisession</code> plan, we use the <code>cluster</code> plan with the extra argument, <code>workers</code>, set to the cluster connection (see <code><a href="https://rdrr.io/pkg/future/man/cluster.html">?future::cluster</a></code> for more info).</p>
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu">plan</span>(<span class="no">cluster</span>, <span class="kw">workers</span> <span class="kw">=</span> <span class="no">cl</span>)
 
 <span class="no">models</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/future_map.html">future_map</a></span>(<span class="no">by_gear</span>, ~<span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(<span class="no">mpg</span> ~ <span class="no">cyl</span> + <span class="no">hp</span> + <span class="no">wt</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">.</span>))
 
@@ -316,7 +316,7 @@
 <p>And that’s it! Your code just ran on an EC2 instance!</p>
 <p>It is good practice to always disconnect from your cluster when you are finished working with it. Don’t forget to terminate the instance as well!</p>
 <div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="co"># Revert back to a sequential plan</span>
-<span class="fu"><a href="https://rdrr.io/pkg/future/man/plan.html">plan</a></span>(<span class="no">sequential</span>)
+<span class="fu">plan</span>(<span class="no">sequential</span>)
 
 <span class="kw pkg">parallel</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/r/parallel/makeCluster.html">stopCluster</a></span>(<span class="no">cl</span>)</pre></body></html></div>
 </div>
@@ -353,10 +353,10 @@
 <div id="running-multi-level-parallel-code" class="section level3">
 <h3 class="hasAnchor">
 <a href="#running-multi-level-parallel-code" class="anchor"></a>Running multi-level parallel code</h3>
-<p>Now for the fun part. How do we tell future to first distribute our code over the 2 instances, and then run in parallel on each instance? You pass in a list of plans to <code><a href="https://rdrr.io/pkg/future/man/plan.html">plan()</a></code>, where you also have the option to <code><a href="https://rdrr.io/pkg/future/man/tweak.html">tweak()</a></code> each plan individually (which will be required to set the workers argument!).</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/future/man/plan.html">plan</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(
+<p>Now for the fun part. How do we tell future to first distribute our code over the 2 instances, and then run in parallel on each instance? You pass in a list of plans to <code>plan()</code>, where you also have the option to <code>tweak()</code> each plan individually (which will be required to set the workers argument!).</p>
+<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="fu">plan</span>(<span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(
   <span class="co"># The outer plan tells future to distribute over the 2 instances</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/future/man/tweak.html">tweak</a></span>(<span class="no">cluster</span>, <span class="kw">workers</span> <span class="kw">=</span> <span class="no">cl_multi</span>),
+  <span class="fu">tweak</span>(<span class="no">cluster</span>, <span class="kw">workers</span> <span class="kw">=</span> <span class="no">cl_multi</span>),
 
   <span class="co"># The inner plan says to run in parallel on each instance</span>
   <span class="no">multiprocess</span>
@@ -432,7 +432,7 @@
 <span class="co">#&gt;  0.075   0.018   2.728 </span></pre></body></html></div>
 <p>Not bad! The extra time is due to the overhead of communicating with the AWS workers, but with a large model this would not be as relevant.</p>
 <p>Don’t forget to close the connection, and then to terminate the EC2 instance!</p>
-<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/future/man/plan.html">plan</a></span>(<span class="no">sequential</span>)
+<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="fu">plan</span>(<span class="no">sequential</span>)
 
 <span class="kw pkg">parallel</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/r/parallel/makeCluster.html">stopCluster</a></span>(<span class="no">cl_multi</span>)</pre></body></html></div>
 </div>

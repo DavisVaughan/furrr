@@ -303,12 +303,12 @@ integer -&gt; double -&gt; character.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>magrittr</span>)
-<span class='fu'><a href='https://rdrr.io/pkg/future/man/plan.html'>plan</a></span>(<span class='no'>multiprocess</span>)
+<span class='fu'>plan</span>(<span class='no'>multiprocess</span>)
 
 <span class='fl'>1</span>:<span class='fl'>10</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>future_map</span>(<span class='no'>rnorm</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>10</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>future_map_dbl</span>(<span class='no'>mean</span>)</div><div class='output co'>#&gt;  [1]  1.074198  2.021578  3.078091  4.279253  4.902653  5.691299  7.223102
-#&gt;  [8]  8.481494  9.178667 10.156134</div><div class='input'>
+  <span class='fu'>future_map_dbl</span>(<span class='no'>mean</span>)</div><div class='output co'>#&gt;  [1]  1.447848  2.230013  2.217081  4.409858  5.365528  6.075419  6.560798
+#&gt;  [8]  8.659380  9.305697 10.031896</div><div class='input'>
 <span class='co'># If each element of the output is a data frame, use</span>
 <span class='co'># `future_map_dfr()` to row-bind them together:</span>
 <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span>
@@ -322,7 +322,7 @@ integer -&gt; double -&gt; character.</p>
 <span class='co'># You can be explicit about what gets exported to the workers.</span>
 <span class='co'># To see this, use multisession (not multicore as the forked workers</span>
 <span class='co'># still have access to this environment)</span>
-<span class='fu'><a href='https://rdrr.io/pkg/future/man/plan.html'>plan</a></span>(<span class='no'>multisession</span>)
+<span class='fu'>plan</span>(<span class='no'>multisession</span>)
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>2</span>
 
@@ -336,7 +336,7 @@ integer -&gt; double -&gt; character.</p>
 #&gt; </div><div class='input'>
 <span class='co'># \dontshow{</span>
 <span class='co'># Close open connections for R CMD Check</span>
-<span class='kw'>if</span> (!<span class='fu'><a href='https://rdrr.io/r/base/class.html'>inherits</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/future/man/plan.html'>plan</a></span>(), <span class='st'>"sequential"</span>)) <span class='fu'><a href='https://rdrr.io/pkg/future/man/plan.html'>plan</a></span>(<span class='no'>sequential</span>)
+<span class='kw'>if</span> (!<span class='fu'><a href='https://rdrr.io/r/base/class.html'>inherits</a></span>(<span class='fu'>plan</span>(), <span class='st'>"sequential"</span>)) <span class='fu'>plan</span>(<span class='no'>sequential</span>)
 <span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
