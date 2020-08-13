@@ -104,6 +104,9 @@ allow you to map in parallel." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/articles/carrier.html">Alternative to automatic globals detection</a>
+    </li>
+    <li>
       <a href="../articles/articles/chunking.html">Chunking input</a>
     </li>
     <li>
@@ -304,8 +307,8 @@ integer -&gt; double -&gt; character.</p>
 
 <span class='fl'>1</span>:<span class='fl'>10</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>future_map</span>(<span class='no'>rnorm</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>10</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>future_map_dbl</span>(<span class='no'>mean</span>)</div><div class='output co'>#&gt;  [1] 1.009828 1.840067 2.912273 4.142996 5.578278 6.129960 7.180402 7.946194
-#&gt;  [9] 9.018673 9.503099</div><div class='input'>
+  <span class='fu'>future_map_dbl</span>(<span class='no'>mean</span>)</div><div class='output co'>#&gt;  [1]  1.074198  2.021578  3.078091  4.279253  4.902653  5.691299  7.223102
+#&gt;  [8]  8.481494  9.178667 10.156134</div><div class='input'>
 <span class='co'># If each element of the output is a data frame, use</span>
 <span class='co'># `future_map_dfr()` to row-bind them together:</span>
 <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span>
