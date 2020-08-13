@@ -226,7 +226,7 @@ my_slow_fn2()
 plan(sequential)
 ```
 
-The solution to this is to create `.f` somewhere where it won't capture that massive object in its surrounding environment. For example:
+One solution to this is to create `.f` somewhere where it won't capture that massive object in its surrounding environment. For example:
 
 ```{r}
 fn <- function(x) {
@@ -271,4 +271,4 @@ my_not_so_slow_fn2()
 plan(sequential)
 ```
 
-
+Another alternative to help with this issue is to use the carrier package to _crate_ the function. To learn more about this, see the article entitled _Alternative to automatic globals detection_.

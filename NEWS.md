@@ -32,6 +32,10 @@
 
 ## Features / Fixes:
 
+* New pkgdown article discussing an alternative strategy to automatic globals
+  detection using the [carrier](https://CRAN.R-project.org/package=carrier)
+  package.
+
 * New pkgdown article discussing how furrr "chunks" input to send if off to
   workers.
 

@@ -30,6 +30,7 @@ Imports:
     rlang (>= 0.3.0),
     vctrs (>= 0.3.2)
 Suggests:
+    carrier,
     covr,
     dplyr (>= 0.7.4),
     knitr,
