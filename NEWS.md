@@ -13,12 +13,6 @@
   remote connections. That said, be aware that it is a relatively new package
   and the API is still stabilizing.
 
-* future has been moved from Depends to Imports. This means that the future
-  package will no longer be attached when `library(furrr)` is run. To
-  accomodate this change, `plan()`, `tweak()`, `makeClusterPSOCK()`, and
-  all stategy functions from future (such as `multisession()` and
-  `multicore()`) have been re-exported from furrr (#40).
-
 * All furrr functions now enforce tidyverse recycling rules (for example, 
   between `.x` and `.y` in `future_map2()`). Previously this was mostly the
   case, except with size zero input. Recycling between input of size 0 and
