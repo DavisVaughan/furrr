@@ -14,21 +14,20 @@ furrr_map_template <- function(x,
 
   progress <- reconcile_progress_with_strategy(progress)
 
-  expr_seed <- make_expr_seed(options$seed)
-  expr_progress_open <- make_expr_progress_open(progress)
+  expr_seed_setup <- make_expr_seed_setup(options$seed)
+  expr_seed_update <- make_expr_seed_update(options$seed)
+
+  expr_progress_setup <- make_expr_progress_setup(progress)
   expr_progress_update <- make_expr_progress_update(progress)
 
   expr <- expr({
-    ...furrr_chunk_seeds_idx <- 1L
     ...furrr_chunk_x <- ...furrr_chunk_args
 
-    !!expr_progress_open
+    !!expr_seed_setup
+    !!expr_progress_setup
 
     ...furrr_fn_wrapper <- function(...) {
-      !!expr_seed
-
-      ...furrr_chunk_seeds_idx <<- ...furrr_chunk_seeds_idx + 1L
-
+      !!expr_seed_update
       !!expr_progress_update
 
       ...furrr_fn(...)
@@ -88,22 +87,21 @@ furrr_map2_template <- function(x,
 
   progress <- reconcile_progress_with_strategy(progress)
 
-  expr_seed <- make_expr_seed(options$seed)
-  expr_progress_open <- make_expr_progress_open(progress)
+  expr_seed_setup <- make_expr_seed_setup(options$seed)
+  expr_seed_update <- make_expr_seed_update(options$seed)
+
+  expr_progress_setup <- make_expr_progress_setup(progress)
   expr_progress_update <- make_expr_progress_update(progress)
 
   expr <- expr({
-    ...furrr_chunk_seeds_idx <- 1L
     ...furrr_chunk_x <- ...furrr_chunk_args[[1]]
     ...furrr_chunk_y <- ...furrr_chunk_args[[2]]
 
-    !!expr_progress_open
+    !!expr_seed_setup
+    !!expr_progress_setup
 
     ...furrr_fn_wrapper <- function(...) {
-      !!expr_seed
-
-      ...furrr_chunk_seeds_idx <<- ...furrr_chunk_seeds_idx + 1L
-
+      !!expr_seed_update
       !!expr_progress_update
 
       ...furrr_fn(...)
@@ -170,21 +168,20 @@ furrr_pmap_template <- function(l,
 
   progress <- reconcile_progress_with_strategy(progress)
 
-  expr_seed <- make_expr_seed(options$seed)
-  expr_progress_open <- make_expr_progress_open(progress)
+  expr_seed_setup <- make_expr_seed_setup(options$seed)
+  expr_seed_update <- make_expr_seed_update(options$seed)
+
+  expr_progress_setup <- make_expr_progress_setup(progress)
   expr_progress_update <- make_expr_progress_update(progress)
 
   expr <- expr({
-    ...furrr_chunk_seeds_idx <- 1L
     ...furrr_chunk_l <- ...furrr_chunk_args
 
-    !!expr_progress_open
+    !!expr_seed_setup
+    !!expr_progress_setup
 
     ...furrr_fn_wrapper <- function(...) {
-      !!expr_seed
-
-      ...furrr_chunk_seeds_idx <<- ...furrr_chunk_seeds_idx + 1L
-
+      !!expr_seed_update
       !!expr_progress_update
 
       ...furrr_fn(...)
@@ -405,43 +402,38 @@ furrr_template <- function(args,
 
 # ------------------------------------------------------------------------------
 
-make_expr_seed <- function(seed) {
+make_expr_seed_setup <- function(seed) {
   if (is.null(seed) || is_false(seed)) {
     return(NULL)
   }
 
-  expr(
+  expr({
+    ...furrr_chunk_seeds_idx <- 1L
+  })
+}
+
+make_expr_seed_update <- function(seed) {
+  if (is.null(seed) || is_false(seed)) {
+    return(NULL)
+  }
+
+  expr({
     assign(
       x = ".Random.seed",
       value = ...furrr_chunk_seeds[[...furrr_chunk_seeds_idx]],
       envir = globalenv(),
       inherits = FALSE
     )
-  )
+
+    ...furrr_chunk_seeds_idx <<- ...furrr_chunk_seeds_idx + 1L
+  })
 }
 
 # ------------------------------------------------------------------------------
 
 # nocov start
 
-make_expr_progress_update <- function(progress) {
-  if (is_false(progress)) {
-    return(NULL)
-  }
-
-  expr({
-    if (...furrr_progress) {
-      try(
-        expr = {
-          cat("+", file = ...furrr_progress_con, sep = "")
-        },
-        silent = TRUE
-      )
-    }
-  })
-}
-
-make_expr_progress_open <- function(progress) {
+make_expr_progress_setup <- function(progress) {
   if (is_false(progress)) {
     return(NULL)
   }
@@ -458,6 +450,23 @@ make_expr_progress_open <- function(progress) {
         ...furrr_progress <<- FALSE
       }
     )
+  })
+}
+
+make_expr_progress_update <- function(progress) {
+  if (is_false(progress)) {
+    return(NULL)
+  }
+
+  expr({
+    if (...furrr_progress) {
+      try(
+        expr = {
+          cat("+", file = ...furrr_progress_con, sep = "")
+        },
+        silent = TRUE
+      )
+    }
   })
 }
 
