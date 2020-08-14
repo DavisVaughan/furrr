@@ -313,7 +313,7 @@ furrr_template <- function(args,
     globals_file <- list(...furrr_progress_file = file)
     globals_file <- future::as.FutureGlobals(globals_file)
     globals_file <- future::resolve(globals_file)
-    attr(globals_file, "total_size") <- objectSize(globals_file)
+    globals_file <- set_total_size(globals_file, objectSize(globals_file))
 
     globals <- c(globals, globals_file)
     # nocov end
@@ -341,7 +341,10 @@ furrr_template <- function(args,
         globals = TRUE
       )
 
-      chunk_globals <- c(chunk_globals, chunk_args_gp$globals)
+      chunk_args_globals <- chunk_args_gp$globals
+      chunk_args_globals <- enforce_future_globals(chunk_args_globals)
+
+      chunk_globals <- c(chunk_globals, chunk_args_globals)
       chunk_globals <- unique(chunk_globals)
 
       chunk_packages <- c(chunk_packages, chunk_args_gp$packages)
