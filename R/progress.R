@@ -17,11 +17,6 @@ poll_progress <- function(futures, file, n_x) {
     n_ticks <- get_n_ticks(con)
     close(con)
 
-    # `nchar()` returns
-    if (identical(n_ticks, integer())) {
-      n_ticks <- 0L
-    }
-
     # Console width might change while we poll
     width_max <- console_width()
     width_usable <- width_max - width_prefix - width_suffix - width_carriage
