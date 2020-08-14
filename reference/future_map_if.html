@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Modify elements selectively via futures — future_modify • furrr</title>
+<title>Apply a function to each element of a vector conditionally via futures — future_map_if • furrr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,9 @@
 
 
 
-<meta property="og:title" content="Modify elements selectively via futures — future_modify" />
-<meta property="og:description" content="These functions work exactly the same as purrr::modify() functions, but
-allow you to modify in parallel." />
+<meta property="og:title" content="Apply a function to each element of a vector conditionally via futures — future_map_if" />
+<meta property="og:description" content="These functions work exactly the same as purrr::map_if() and
+purrr::map_at(), but allow you to run them in parallel." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -144,41 +144,32 @@ allow you to modify in parallel." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Modify elements selectively via futures</h1>
-    <small class="dont-index">Source: <a href='https://github.com/DavisVaughan/furrr/blob/master/R/future-modify.R'><code>R/future-modify.R</code></a></small>
-    <div class="hidden name"><code>future_modify.Rd</code></div>
+    <h1>Apply a function to each element of a vector conditionally via futures</h1>
+    <small class="dont-index">Source: <a href='https://github.com/DavisVaughan/furrr/blob/master/R/future-map.R'><code>R/future-map.R</code></a></small>
+    <div class="hidden name"><code>future_map_if.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>These functions work exactly the same as <code><a href='https://purrr.tidyverse.org/reference/modify.html'>purrr::modify()</a></code> functions, but
-allow you to modify in parallel.</p>
+    <p>These functions work exactly the same as <code><a href='https://purrr.tidyverse.org/reference/map_if.html'>purrr::map_if()</a></code> and
+<code><a href='https://purrr.tidyverse.org/reference/map_if.html'>purrr::map_at()</a></code>, but allow you to run them in parallel.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>future_modify</span>(
-  <span class='no'>.x</span>,
-  <span class='no'>.f</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
-  <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
-  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)
-
-<span class='fu'>future_modify_at</span>(
-  <span class='no'>.x</span>,
-  <span class='no'>.at</span>,
-  <span class='no'>.f</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
-  <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
-  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)
-
-<span class='fu'>future_modify_if</span>(
+    <pre class="usage"><span class='fu'>future_map_if</span>(
   <span class='no'>.x</span>,
   <span class='no'>.p</span>,
   <span class='no'>.f</span>,
   <span class='no'>...</span>,
   <span class='kw'>.else</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
+  <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
+  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
+
+<span class='fu'>future_map_at</span>(
+  <span class='no'>.x</span>,
+  <span class='no'>.at</span>,
+  <span class='no'>.f</span>,
+  <span class='no'>...</span>,
   <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
   <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
   <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
@@ -190,6 +181,15 @@ allow you to modify in parallel.</p>
     <tr>
       <th>.x</th>
       <td><p>A list or atomic vector.</p></td>
+    </tr>
+    <tr>
+      <th>.p</th>
+      <td><p>A single predicate function, a formula describing such a
+predicate function, or a logical vector of the same length as <code>.x</code>.
+Alternatively, if the elements of <code>.x</code> are themselves lists of
+objects, a string indicating the name of a logical element in the
+inner lists. Only those elements where <code>.p</code> evaluates to
+<code>TRUE</code> will be modified.</p></td>
     </tr>
     <tr>
       <th>.f</th>
@@ -212,6 +212,11 @@ present, the value of <code>.default</code> will be returned.</p></td>
     <tr>
       <th>...</th>
       <td><p>Additional arguments passed on to the mapped function.</p></td>
+    </tr>
+    <tr>
+      <th>.else</th>
+      <td><p>A function applied to elements of <code>.x</code> for which <code>.p</code>
+returns <code>FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>.options</th>
@@ -243,94 +248,47 @@ exlude. Only those elements corresponding to <code>.at</code> will be modified.
 If the <code>tidyselect</code> package is installed, you can use <code>vars()</code> and
 the <code>tidyselect</code> helpers to select elements.</p></td>
     </tr>
-    <tr>
-      <th>.p</th>
-      <td><p>A single predicate function, a formula describing such a
-predicate function, or a logical vector of the same length as <code>.x</code>.
-Alternatively, if the elements of <code>.x</code> are themselves lists of
-objects, a string indicating the name of a logical element in the
-inner lists. Only those elements where <code>.p</code> evaluates to
-<code>TRUE</code> will be modified.</p></td>
-    </tr>
-    <tr>
-      <th>.else</th>
-      <td><p>A function applied to elements of <code>.x</code> for which <code>.p</code>
-returns <code>FALSE</code>.</p></td>
-    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An object the same class as <code>.x</code></p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>From purrr:</p>
-<p>Since the transformation can alter the structure of the input;
-it's your responsibility to ensure that the transformation produces a valid
-output. For example, if you're modifying a data frame, <code>.f</code> must preserve the
-length of the input.</p>
+    <p>Both functions return a list the same length as <code>.x</code> with the
+elements conditionally transformed.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>magrittr</span>)
-<span class='fu'>plan</span>(<span class='no'>multiprocess</span>)
+    <pre class="examples"><div class='input'><span class='fu'>plan</span>(<span class='no'>multiprocess</span>)
 
-<span class='co'># Convert each col to character, in parallel</span>
-<span class='fu'>future_modify</span>(<span class='no'>mtcars</span>, <span class='no'>as.character</span>)</div><div class='output co'>#&gt;                      mpg cyl  disp  hp drat    wt  qsec vs am gear carb
-#&gt; Mazda RX4             21   6   160 110  3.9  2.62 16.46  0  1    4    4
-#&gt; Mazda RX4 Wag         21   6   160 110  3.9 2.875 17.02  0  1    4    4
-#&gt; Datsun 710          22.8   4   108  93 3.85  2.32 18.61  1  1    4    1
-#&gt; Hornet 4 Drive      21.4   6   258 110 3.08 3.215 19.44  1  0    3    1
-#&gt; Hornet Sportabout   18.7   8   360 175 3.15  3.44 17.02  0  0    3    2
-#&gt; Valiant             18.1   6   225 105 2.76  3.46 20.22  1  0    3    1
-#&gt; Duster 360          14.3   8   360 245 3.21  3.57 15.84  0  0    3    4
-#&gt; Merc 240D           24.4   4 146.7  62 3.69  3.19    20  1  0    4    2
-#&gt; Merc 230            22.8   4 140.8  95 3.92  3.15  22.9  1  0    4    2
-#&gt; Merc 280            19.2   6 167.6 123 3.92  3.44  18.3  1  0    4    4
-#&gt; Merc 280C           17.8   6 167.6 123 3.92  3.44  18.9  1  0    4    4
-#&gt; Merc 450SE          16.4   8 275.8 180 3.07  4.07  17.4  0  0    3    3
-#&gt; Merc 450SL          17.3   8 275.8 180 3.07  3.73  17.6  0  0    3    3
-#&gt; Merc 450SLC         15.2   8 275.8 180 3.07  3.78    18  0  0    3    3
-#&gt; Cadillac Fleetwood  10.4   8   472 205 2.93  5.25 17.98  0  0    3    4
-#&gt; Lincoln Continental 10.4   8   460 215    3 5.424 17.82  0  0    3    4
-#&gt; Chrysler Imperial   14.7   8   440 230 3.23 5.345 17.42  0  0    3    4
-#&gt; Fiat 128            32.4   4  78.7  66 4.08   2.2 19.47  1  1    4    1
-#&gt; Honda Civic         30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
-#&gt; Toyota Corolla      33.9   4  71.1  65 4.22 1.835  19.9  1  1    4    1
-#&gt; Toyota Corona       21.5   4 120.1  97  3.7 2.465 20.01  1  0    3    1
-#&gt; Dodge Challenger    15.5   8   318 150 2.76  3.52 16.87  0  0    3    2
-#&gt; AMC Javelin         15.2   8   304 150 3.15 3.435  17.3  0  0    3    2
-#&gt; Camaro Z28          13.3   8   350 245 3.73  3.84 15.41  0  0    3    4
-#&gt; Pontiac Firebird    19.2   8   400 175 3.08 3.845 17.05  0  0    3    2
-#&gt; Fiat X1-9           27.3   4    79  66 4.08 1.935  18.9  1  1    4    1
-#&gt; Porsche 914-2         26   4 120.3  91 4.43  2.14  16.7  0  1    5    2
-#&gt; Lotus Europa        30.4   4  95.1 113 3.77 1.513  16.9  1  1    5    2
-#&gt; Ford Pantera L      15.8   8   351 264 4.22  3.17  14.5  0  1    5    4
-#&gt; Ferrari Dino        19.7   6   145 175 3.62  2.77  15.5  0  1    5    6
-#&gt; Maserati Bora         15   8   301 335 3.54  3.57  14.6  0  1    5    8
-#&gt; Volvo 142E          21.4   4   121 109 4.11  2.78  18.6  1  1    4    2</div><div class='input'>
-<span class='no'>iris</span> <span class='kw'>%&gt;%</span>
- <span class='fu'>future_modify_if</span>(<span class='no'>is.factor</span>, <span class='no'>as.character</span>) <span class='kw'>%&gt;%</span>
- <span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>()</div><div class='output co'>#&gt; 'data.frame':	150 obs. of  5 variables:
-#&gt;  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
-#&gt;  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
-#&gt;  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
-#&gt;  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
-#&gt;  $ Species     : chr  "setosa" "setosa" "setosa" "setosa" ...</div><div class='input'>
-<span class='no'>mtcars</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>future_modify_at</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>4</span>, <span class='fl'>5</span>), <span class='no'>as.character</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>()</div><div class='output co'>#&gt; 'data.frame':	32 obs. of  11 variables:
-#&gt;  $ mpg : chr  "21" "21" "22.8" "21.4" ...
-#&gt;  $ cyl : num  6 6 4 6 8 6 8 4 4 6 ...
-#&gt;  $ disp: num  160 160 108 258 360 ...
-#&gt;  $ hp  : chr  "110" "110" "93" "110" ...
-#&gt;  $ drat: chr  "3.9" "3.9" "3.85" "3.08" ...
-#&gt;  $ wt  : num  2.62 2.88 2.32 3.21 3.44 ...
-#&gt;  $ qsec: num  16.5 17 18.6 19.4 17 ...
-#&gt;  $ vs  : num  0 0 1 1 0 1 0 1 1 1 ...
-#&gt;  $ am  : num  1 1 1 0 0 0 0 0 0 0 ...
-#&gt;  $ gear: num  4 4 4 3 3 3 3 4 4 4 ...
-#&gt;  $ carb: num  4 4 1 1 2 1 4 2 2 4 ...</div><div class='input'>
-<span class='co'># \dontshow{</span>
+<span class='co'># Modify the even elements</span>
+<span class='fu'>future_map_if</span>(<span class='fl'>1</span>:<span class='fl'>5</span>, ~<span class='no'>.x</span> <span class='kw'>%%</span> <span class='fl'>2</span> <span class='kw'>==</span> <span class='fl'>0L</span>, ~ -<span class='fl'>1</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] 1
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] -1
+#&gt; 
+#&gt; [[3]]
+#&gt; [1] 3
+#&gt; 
+#&gt; [[4]]
+#&gt; [1] -1
+#&gt; 
+#&gt; [[5]]
+#&gt; [1] 5
+#&gt; </div><div class='input'>
+<span class='fu'>future_map_at</span>(<span class='fl'>1</span>:<span class='fl'>5</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>5</span>), ~ -<span class='fl'>1</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] -1
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] 2
+#&gt; 
+#&gt; [[3]]
+#&gt; [1] 3
+#&gt; 
+#&gt; [[4]]
+#&gt; [1] 4
+#&gt; 
+#&gt; [[5]]
+#&gt; [1] -1
+#&gt; </div><div class='input'><span class='co'># \dontshow{</span>
 <span class='co'># Close open connections for R CMD Check</span>
 <span class='kw'>if</span> (!<span class='fu'><a href='https://rdrr.io/r/base/class.html'>inherits</a></span>(<span class='fu'>plan</span>(), <span class='st'>"sequential"</span>)) <span class='fu'>plan</span>(<span class='no'>sequential</span>)
 <span class='co'># }</span></div></pre>

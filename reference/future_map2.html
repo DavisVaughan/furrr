@@ -8,6 +8,13 @@
 
 <title>Map over multiple inputs simultaneously via futures — future_map2 • furrr</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -40,11 +47,12 @@
 
 
 <meta property="og:title" content="Map over multiple inputs simultaneously via futures — future_map2" />
-<meta property="og:description" content="These functions work exactly the same as purrr::map2() functions, but allow
-you to run the map in parallel. Note that &quot;parallel&quot; as described in purrr
+<meta property="og:description" content="These functions work exactly the same as purrr::map2() and its variants,
+but allow you to map in parallel. Note that &quot;parallel&quot; as described in purrr
 is just saying that you are working with multiple inputs, and parallel in
-this case means that you can work on multiple inputs AND process
-them all in parallel as well." />
+this case means that you can work on multiple inputs and process them all in
+parallel as well." />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -99,7 +107,19 @@ them all in parallel as well." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/advanced-furrr-remote-connections.html">Advanced furrr: Remote connections</a>
+      <a href="../articles/articles/carrier.html">Alternative to automatic globals detection</a>
+    </li>
+    <li>
+      <a href="../articles/articles/chunking.html">Chunking input</a>
+    </li>
+    <li>
+      <a href="../articles/articles/gotchas.html">Common gotchas</a>
+    </li>
+    <li>
+      <a href="../articles/articles/progress.html">Progress notifications with progressr</a>
+    </li>
+    <li>
+      <a href="../articles/articles/remote-connections.html">Remote connections</a>
     </li>
   </ul>
 </li>
@@ -128,27 +148,36 @@ them all in parallel as well." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Map over multiple inputs simultaneously via futures</h1>
-    <small class="dont-index">Source: <a href='https://github.com/DavisVaughan/furrr/blob/master/R/future_map2.R'><code>R/future_map2.R</code></a>, <a href='https://github.com/DavisVaughan/furrr/blob/master/R/future_pmap.R'><code>R/future_pmap.R</code></a>, <a href='https://github.com/DavisVaughan/furrr/blob/master/R/future_walk.R'><code>R/future_walk.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/DavisVaughan/furrr/blob/master/R/future-map2.R'><code>R/future-map2.R</code></a>, <a href='https://github.com/DavisVaughan/furrr/blob/master/R/future-pmap.R'><code>R/future-pmap.R</code></a>, <a href='https://github.com/DavisVaughan/furrr/blob/master/R/future-walk.R'><code>R/future-walk.R</code></a></small>
     <div class="hidden name"><code>future_map2.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>These functions work exactly the same as <code><a href='https://purrr.tidyverse.org/reference/map2.html'>purrr::map2()</a></code> functions, but allow
-you to run the map in parallel. Note that "parallel" as described in <code>purrr</code>
+    <p>These functions work exactly the same as <code><a href='https://purrr.tidyverse.org/reference/map2.html'>purrr::map2()</a></code> and its variants,
+but allow you to map in parallel. Note that "parallel" as described in purrr
 is just saying that you are working with multiple inputs, and parallel in
-this case means that you can work on multiple inputs AND process
-them all in parallel as well.</p>
+this case means that you can work on multiple inputs and process them all in
+parallel as well.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>future_map2</span>(<span class='no'>.x</span>, <span class='no'>.y</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>())
+    <pre class="usage"><span class='fu'>future_map2</span>(
+  <span class='no'>.x</span>,
+  <span class='no'>.y</span>,
+  <span class='no'>.f</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
+  <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
+  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
 
 <span class='fu'>future_map2_chr</span>(
   <span class='no'>.x</span>,
   <span class='no'>.y</span>,
   <span class='no'>.f</span>,
   <span class='no'>...</span>,
-  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>()
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
+  <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
+  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )
 
 <span class='fu'>future_map2_dbl</span>(
@@ -156,8 +185,9 @@ them all in parallel as well.</p>
   <span class='no'>.y</span>,
   <span class='no'>.f</span>,
   <span class='no'>...</span>,
-  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>()
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
+  <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
+  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )
 
 <span class='fu'>future_map2_int</span>(
@@ -165,8 +195,9 @@ them all in parallel as well.</p>
   <span class='no'>.y</span>,
   <span class='no'>.f</span>,
   <span class='no'>...</span>,
-  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>()
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
+  <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
+  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )
 
 <span class='fu'>future_map2_lgl</span>(
@@ -174,8 +205,19 @@ them all in parallel as well.</p>
   <span class='no'>.y</span>,
   <span class='no'>.f</span>,
   <span class='no'>...</span>,
-  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>()
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
+  <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
+  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
+
+<span class='fu'>future_map2_raw</span>(
+  <span class='no'>.x</span>,
+  <span class='no'>.y</span>,
+  <span class='no'>.f</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
+  <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
+  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )
 
 <span class='fu'>future_map2_dfr</span>(
@@ -184,8 +226,9 @@ them all in parallel as well.</p>
   <span class='no'>.f</span>,
   <span class='no'>...</span>,
   <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>()
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
+  <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
+  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )
 
 <span class='fu'>future_map2_dfc</span>(
@@ -193,34 +236,102 @@ them all in parallel as well.</p>
   <span class='no'>.y</span>,
   <span class='no'>.f</span>,
   <span class='no'>...</span>,
-  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>()
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
+  <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
+  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )
 
-<span class='fu'>future_pmap</span>(<span class='no'>.l</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>())
+<span class='fu'>future_pmap</span>(
+  <span class='no'>.l</span>,
+  <span class='no'>.f</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
+  <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
+  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
 
-<span class='fu'>future_pmap_chr</span>(<span class='no'>.l</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>())
+<span class='fu'>future_pmap_chr</span>(
+  <span class='no'>.l</span>,
+  <span class='no'>.f</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
+  <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
+  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
 
-<span class='fu'>future_pmap_dbl</span>(<span class='no'>.l</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>())
+<span class='fu'>future_pmap_dbl</span>(
+  <span class='no'>.l</span>,
+  <span class='no'>.f</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
+  <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
+  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
 
-<span class='fu'>future_pmap_int</span>(<span class='no'>.l</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>())
+<span class='fu'>future_pmap_int</span>(
+  <span class='no'>.l</span>,
+  <span class='no'>.f</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
+  <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
+  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
 
-<span class='fu'>future_pmap_lgl</span>(<span class='no'>.l</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>())
+<span class='fu'>future_pmap_lgl</span>(
+  <span class='no'>.l</span>,
+  <span class='no'>.f</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
+  <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
+  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
+
+<span class='fu'>future_pmap_raw</span>(
+  <span class='no'>.l</span>,
+  <span class='no'>.f</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
+  <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
+  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
 
 <span class='fu'>future_pmap_dfr</span>(
   <span class='no'>.l</span>,
   <span class='no'>.f</span>,
   <span class='no'>...</span>,
   <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>()
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
+  <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
+  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )
 
-<span class='fu'>future_pmap_dfc</span>(<span class='no'>.l</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>())
+<span class='fu'>future_pmap_dfc</span>(
+  <span class='no'>.l</span>,
+  <span class='no'>.f</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
+  <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
+  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
 
-<span class='fu'>future_walk2</span>(<span class='no'>.x</span>, <span class='no'>.y</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>())
+<span class='fu'>future_walk2</span>(
+  <span class='no'>.x</span>,
+  <span class='no'>.y</span>,
+  <span class='no'>.f</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
+  <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
+  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
 
-<span class='fu'>future_pwalk</span>(<span class='no'>.l</span>, <span class='no'>.f</span>, <span class='no'>...</span>, <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='future_options.html'>future_options</a></span>())</pre>
+<span class='fu'>future_pwalk</span>(
+  <span class='no'>.l</span>,
+  <span class='no'>.f</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
+  <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
+  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -258,14 +369,26 @@ present, the value of <code>.default</code> will be returned.</p></td>
       <td><p>Additional arguments passed on to the mapped function.</p></td>
     </tr>
     <tr>
-      <th>.progress</th>
-      <td><p>A logical, for whether or not to print a progress bar for
-multiprocess, multisession, and multicore plans.</p></td>
+      <th>.options</th>
+      <td><p>The <code>future</code> specific options to use with the workers. This
+must be the result from a call to <code><a href='furrr_options.html'>furrr_options()</a></code>.</p></td>
     </tr>
     <tr>
-      <th>.options</th>
-      <td><p>The <code>future</code> specific options to use with the workers. This must
-be the result from a call to <code><a href='future_options.html'>future_options()</a></code>.</p></td>
+      <th>.env_globals</th>
+      <td><p>The environment to look for globals required by <code>.x</code> and
+<code>...</code>. Globals required by <code>.f</code> are looked up in the function environment
+of <code>.f</code>.</p></td>
+    </tr>
+    <tr>
+      <th>.progress</th>
+      <td><p>A single logical. Should a progress bar be displayed?
+Only works with multisession, multicore, and multiprocess futures. Note
+that if a multicore/multisession future falls back to sequential, then
+a progress bar will not be displayed.</p>
+<p><strong>Warning:</strong> The <code>.progress</code> argument will be deprecated and removed
+in a future version of furrr in favor of using the more robust
+<a href='https://CRAN.R-project.org/package=progressr'>progressr</a>
+package.</p></td>
     </tr>
     <tr>
       <th>.id</th>
@@ -286,16 +409,13 @@ names will be used if present.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>An atomic vector, list, or data frame, depending on the suffix.
-Atomic vectors and lists will be named if <code>.x</code> or the first element of <code>.l</code> is named.</p>
-<p>If all input is length 0, the output will be length 0.
-If any input is length 1, it will be recycled to the length of the longest.</p>
+Atomic vectors and lists will be named if <code>.x</code> or the first element of <code>.l</code>
+is named.</p>
+<p>If all input is length 0, the output will be length 0. If any input is
+length 1, it will be recycled to the length of the longest.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>furrr</span>)
-<span class='co'># \donttest{</span>
-<span class='fu'>plan</span>(<span class='no'>multiprocess</span>)
-<span class='co'># }</span>
+    <pre class="examples"><div class='input'><span class='fu'>plan</span>(<span class='no'>multiprocess</span>)
 
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fl'>1</span>, <span class='fl'>10</span>, <span class='fl'>100</span>)
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>)
@@ -363,6 +483,7 @@ If any input is length 1, it will be recycled to the length of the longest.</p>
   <span class='kw'>replacement</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"x"</span>, <span class='st'>"f"</span>, <span class='st'>"q"</span>),
   <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )
+
 <span class='fu'>future_pmap</span>(<span class='no'>df</span>, <span class='no'>gsub</span>)</div><div class='output co'>#&gt; [[1]]
 #&gt; [1] "axxle"
 #&gt; 
@@ -372,7 +493,10 @@ If any input is length 1, it will be recycled to the length of the longest.</p>
 #&gt; [[3]]
 #&gt; [1] "cqerry"
 #&gt; </div><div class='input'><span class='fu'>future_pmap_chr</span>(<span class='no'>df</span>, <span class='no'>gsub</span>)</div><div class='output co'>#&gt; [1] "axxle"  "bafafa" "cqerry"</div><div class='input'>
-</div></pre>
+<span class='co'># \dontshow{</span>
+<span class='co'># Close open connections for R CMD Check</span>
+<span class='kw'>if</span> (!<span class='fu'><a href='https://rdrr.io/r/base/class.html'>inherits</a></span>(<span class='fu'>plan</span>(), <span class='st'>"sequential"</span>)) <span class='fu'>plan</span>(<span class='no'>sequential</span>)
+<span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
