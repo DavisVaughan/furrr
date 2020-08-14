@@ -2,17 +2,6 @@
 
 ## Breaking changes:
 
-* The `.progress` argument has been deprecated. While useful, it was built using
-  a hack that I deeply regret. There were performance issues, it didn't
-  work on all future backends, and could even cause errors on some. Using
-  the `.progress` argument will now trigger a once per session warning, and
-  will no longer generate a progress bar. Instead, please use the
-  [progressr](https://CRAN.R-project.org/package=progressr)
-  package. It uses a much more robust idea, and has been integrated with future
-  in such a way that it can relay near real-time progress updates, even from
-  remote connections. That said, be aware that it is a relatively new package
-  and the API is still stabilizing.
-
 * All furrr functions now enforce tidyverse recycling rules (for example, 
   between `.x` and `.y` in `future_map2()`). Previously this was mostly the
   case, except with size zero input. Recycling between input of size 0 and
@@ -23,6 +12,20 @@
   Calling `future_options()` will still work, but will trigger a once per
   session warning and will eventually be removed. This change was made to
   free up this function name in case the future package ever wants to use it.
+  
+* In a future version of furrr, the `.progress` argument will be deprecated
+  and removed in favor of the 
+  [progressr](https://CRAN.R-project.org/package=progressr)
+  package. The progress bar has not yet been removed in furrr 0.2.0, however
+  I would encourage you to please start using progressr if possible. It uses
+  a much more robust idea, and has been integrated with future
+  in such a way that it can relay near real-time progress updates from
+  sequential, multisession, and even cluster futures (meaning that remote
+  connections can return live updates). Multicore support will come at some
+  point as well. That said, be aware that it is a relatively new package
+  and the API is still stabilizing. As more people use it, its place in the
+  future ecosystem will become clearer, and tighter integration with furrr
+  will likely be possible.
 
 ## Features / Fixes:
 
@@ -79,6 +82,13 @@
   that corresponds to worker X are exported to worker X. This is relevant if
   `.x` is, say, a list of functions where each has their own set of globals
   (#16).
+
+* The progress bar furrr creates now outputs to stderr rather than stdout.
+
+* The progress bar is now only enabled for multisession, multicore, and
+  multiprocess strategies. It has never worked for sequential futures or
+  cluster futures using remote connections, but `.progress` is now forced
+  to false in those cases.
 
 * `future_invoke_map()` and its variants have been marked as retired to match
   `purrr::invoke_map()`.
