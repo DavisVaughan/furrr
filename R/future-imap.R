@@ -24,16 +24,15 @@ future_imap <- function(.x,
                         ...,
                         .options = furrr_options(),
                         .env_globals = parent.frame(),
-                        .progress = deprecated()) {
-  maybe_warn_deprecated_progress(is_present(.progress), what = "future_imap")
-
+                        .progress = FALSE) {
   future_map2(
     .x = .x,
     .y = vec_index(.x),
     .f = .f,
     ...,
     .options = .options,
-    .env_globals = .env_globals
+    .env_globals = .env_globals,
+    .progress = .progress
   )
 }
 
@@ -44,16 +43,15 @@ future_imap_chr <- function(.x,
                             ...,
                             .options = furrr_options(),
                             .env_globals = parent.frame(),
-                            .progress = deprecated()) {
-  maybe_warn_deprecated_progress(is_present(.progress), what = "future_imap_chr")
-
+                            .progress = FALSE) {
   future_map2_chr(
     .x = .x,
     .y = vec_index(.x),
     .f = .f,
     ...,
     .options = .options,
-    .env_globals = .env_globals
+    .env_globals = .env_globals,
+    .progress = .progress
   )
 }
 
@@ -64,16 +62,15 @@ future_imap_dbl <- function(.x,
                             ...,
                             .options = furrr_options(),
                             .env_globals = parent.frame(),
-                            .progress = deprecated()) {
-  maybe_warn_deprecated_progress(is_present(.progress), what = "future_imap_dbl")
-
+                            .progress = FALSE) {
   future_map2_dbl(
     .x = .x,
     .y = vec_index(.x),
     .f = .f,
     ...,
     .options = .options,
-    .env_globals = .env_globals
+    .env_globals = .env_globals,
+    .progress = .progress
   )
 }
 
@@ -84,16 +81,15 @@ future_imap_int <- function(.x,
                             ...,
                             .options = furrr_options(),
                             .env_globals = parent.frame(),
-                            .progress = deprecated()) {
-  maybe_warn_deprecated_progress(is_present(.progress), what = "future_imap_int")
-
+                            .progress = FALSE) {
   future_map2_int(
     .x = .x,
     .y = vec_index(.x),
     .f = .f,
     ...,
     .options = .options,
-    .env_globals = .env_globals
+    .env_globals = .env_globals,
+    .progress = .progress
   )
 }
 
@@ -104,16 +100,15 @@ future_imap_lgl <- function(.x,
                             ...,
                             .options = furrr_options(),
                             .env_globals = parent.frame(),
-                            .progress = deprecated()) {
-  maybe_warn_deprecated_progress(is_present(.progress), what = "future_imap_lgl")
-
+                            .progress = FALSE) {
   future_map2_lgl(
     .x = .x,
     .y = vec_index(.x),
     .f = .f,
     ...,
     .options = .options,
-    .env_globals = .env_globals
+    .env_globals = .env_globals,
+    .progress = .progress
   )
 }
 
@@ -124,16 +119,15 @@ future_imap_raw <- function(.x,
                             ...,
                             .options = furrr_options(),
                             .env_globals = parent.frame(),
-                            .progress = deprecated()) {
-  maybe_warn_deprecated_progress(is_present(.progress), what = "future_imap_raw")
-
+                            .progress = FALSE) {
   future_map2_raw(
     .x = .x,
     .y = vec_index(.x),
     .f = .f,
     ...,
     .options = .options,
-    .env_globals = .env_globals
+    .env_globals = .env_globals,
+    .progress = .progress
   )
 }
 
@@ -145,9 +139,7 @@ future_imap_dfr <- function(.x,
                             .id = NULL,
                             .options = furrr_options(),
                             .env_globals = parent.frame(),
-                            .progress = deprecated()) {
-  maybe_warn_deprecated_progress(is_present(.progress), what = "future_imap_dfr")
-
+                            .progress = FALSE) {
   future_map2_dfr(
     .x = .x,
     .y = vec_index(.x),
@@ -155,7 +147,8 @@ future_imap_dfr <- function(.x,
     ...,
     .id = .id,
     .options = .options,
-    .env_globals = .env_globals
+    .env_globals = .env_globals,
+    .progress = .progress
   )
 }
 
@@ -166,15 +159,14 @@ future_imap_dfc <- function(.x,
                             ...,
                             .options = furrr_options(),
                             .env_globals = parent.frame(),
-                            .progress = deprecated()) {
-  maybe_warn_deprecated_progress(is_present(.progress), what = "future_imap_dfc")
-
+                            .progress = FALSE) {
   future_map2_dfc(
     .x = .x,
     .y = vec_index(.x),
     .f = .f,
     ...,
     .options = .options,
-    .env_globals = .env_globals
+    .env_globals = .env_globals,
+    .progress = .progress
   )
 }

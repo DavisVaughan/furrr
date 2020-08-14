@@ -18,7 +18,7 @@ future_invoke_map(
   .env = NULL,
   .options = furrr_options(),
   .env_globals = parent.frame(),
-  .progress = deprecated()
+  .progress = FALSE
 )
 
 future_invoke_map_chr(
@@ -28,7 +28,7 @@ future_invoke_map_chr(
   .env = NULL,
   .options = furrr_options(),
   .env_globals = parent.frame(),
-  .progress = deprecated()
+  .progress = FALSE
 )
 
 future_invoke_map_dbl(
@@ -38,7 +38,7 @@ future_invoke_map_dbl(
   .env = NULL,
   .options = furrr_options(),
   .env_globals = parent.frame(),
-  .progress = deprecated()
+  .progress = FALSE
 )
 
 future_invoke_map_int(
@@ -48,7 +48,7 @@ future_invoke_map_int(
   .env = NULL,
   .options = furrr_options(),
   .env_globals = parent.frame(),
-  .progress = deprecated()
+  .progress = FALSE
 )
 
 future_invoke_map_lgl(
@@ -58,7 +58,7 @@ future_invoke_map_lgl(
   .env = NULL,
   .options = furrr_options(),
   .env_globals = parent.frame(),
-  .progress = deprecated()
+  .progress = FALSE
 )
 
 future_invoke_map_raw(
@@ -68,7 +68,7 @@ future_invoke_map_raw(
   .env = NULL,
   .options = furrr_options(),
   .env_globals = parent.frame(),
-  .progress = deprecated()
+  .progress = FALSE
 )
 
 future_invoke_map_dfr(
@@ -78,7 +78,7 @@ future_invoke_map_dfr(
   .env = NULL,
   .options = furrr_options(),
   .env_globals = parent.frame(),
-  .progress = deprecated()
+  .progress = FALSE
 )
 
 future_invoke_map_dfc(
@@ -88,7 +88,7 @@ future_invoke_map_dfc(
   .env = NULL,
   .options = furrr_options(),
   .env_globals = parent.frame(),
-  .progress = deprecated()
+  .progress = FALSE
 )
 }
 \arguments{
@@ -113,9 +113,15 @@ must be the result from a call to \code{\link[=furrr_options]{furrr_options()}}.
 \code{...}. Globals required by \code{.f} are looked up in the function environment
 of \code{.f}.}
 
-\item{.progress}{\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}}: No longer has any
-effect. Use the \href{https://CRAN.R-project.org/package=progressr}{progressr}
-package instead.}
+\item{.progress}{A single logical. Should a progress bar be displayed?
+Only works with multisession, multicore, and multiprocess futures. Note
+that if a multicore/multisession future falls back to sequential, then
+a progress bar will not be displayed.
+
+\strong{Warning:} The \code{.progress} argument will be deprecated and removed
+in a future version of furrr in favor of using the more robust
+\href{https://CRAN.R-project.org/package=progressr}{progressr}
+package.}
 }
 \description{
 \ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#retired'><img src='figures/lifecycle-retired.svg' alt='Retired lifecycle'></a>}}{\strong{Retired}}

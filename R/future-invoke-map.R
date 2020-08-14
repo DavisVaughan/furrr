@@ -40,9 +40,7 @@ future_invoke_map <- function(.f,
                               .env = NULL,
                               .options = furrr_options(),
                               .env_globals = parent.frame(),
-                              .progress = deprecated()) {
-  maybe_warn_deprecated_progress(is_present(.progress), what = "future_invoke_map")
-
+                              .progress = FALSE) {
   .env <- .env %||% parent.frame()
   .f <- as_invoke_function(.f)
 
@@ -53,7 +51,8 @@ future_invoke_map <- function(.f,
     ...,
     .env = .env,
     .options = .options,
-    .env_globals = .env_globals
+    .env_globals = .env_globals,
+    .progress = .progress
   )
 }
 
@@ -65,9 +64,7 @@ future_invoke_map_chr <- function(.f,
                                   .env = NULL,
                                   .options = furrr_options(),
                                   .env_globals = parent.frame(),
-                                  .progress = deprecated()) {
-  maybe_warn_deprecated_progress(is_present(.progress), what = "future_invoke_map_chr")
-
+                                  .progress = FALSE) {
   .env <- .env %||% parent.frame()
   .f <- as_invoke_function(.f)
 
@@ -78,7 +75,8 @@ future_invoke_map_chr <- function(.f,
     ...,
     .env = .env,
     .options = .options,
-    .env_globals = .env_globals
+    .env_globals = .env_globals,
+    .progress = .progress
   )
 }
 
@@ -90,9 +88,7 @@ future_invoke_map_dbl <- function(.f,
                                   .env = NULL,
                                   .options = furrr_options(),
                                   .env_globals = parent.frame(),
-                                  .progress = deprecated()) {
-  maybe_warn_deprecated_progress(is_present(.progress), what = "future_invoke_map_dbl")
-
+                                  .progress = FALSE) {
   .env <- .env %||% parent.frame()
   .f <- as_invoke_function(.f)
 
@@ -103,7 +99,8 @@ future_invoke_map_dbl <- function(.f,
     ...,
     .env = .env,
     .options = .options,
-    .env_globals = .env_globals
+    .env_globals = .env_globals,
+    .progress = .progress
   )
 }
 
@@ -115,9 +112,7 @@ future_invoke_map_int <- function(.f,
                                   .env = NULL,
                                   .options = furrr_options(),
                                   .env_globals = parent.frame(),
-                                  .progress = deprecated()) {
-  maybe_warn_deprecated_progress(is_present(.progress), what = "future_invoke_map_int")
-
+                                  .progress = FALSE) {
   .env <- .env %||% parent.frame()
   .f <- as_invoke_function(.f)
 
@@ -128,7 +123,8 @@ future_invoke_map_int <- function(.f,
     ...,
     .env = .env,
     .options = .options,
-    .env_globals = .env_globals
+    .env_globals = .env_globals,
+    .progress = .progress
   )
 }
 
@@ -140,9 +136,7 @@ future_invoke_map_lgl <- function(.f,
                                   .env = NULL,
                                   .options = furrr_options(),
                                   .env_globals = parent.frame(),
-                                  .progress = deprecated()) {
-  maybe_warn_deprecated_progress(is_present(.progress), what = "future_invoke_map_lgl")
-
+                                  .progress = FALSE) {
   .env <- .env %||% parent.frame()
   .f <- as_invoke_function(.f)
 
@@ -153,7 +147,8 @@ future_invoke_map_lgl <- function(.f,
     ...,
     .env = .env,
     .options = .options,
-    .env_globals = .env_globals
+    .env_globals = .env_globals,
+    .progress = .progress
   )
 }
 
@@ -165,9 +160,7 @@ future_invoke_map_raw <- function(.f,
                                   .env = NULL,
                                   .options = furrr_options(),
                                   .env_globals = parent.frame(),
-                                  .progress = deprecated()) {
-  maybe_warn_deprecated_progress(is_present(.progress), what = "future_invoke_map_raw")
-
+                                  .progress = FALSE) {
   .env <- .env %||% parent.frame()
   .f <- as_invoke_function(.f)
 
@@ -178,7 +171,8 @@ future_invoke_map_raw <- function(.f,
     ...,
     .env = .env,
     .options = .options,
-    .env_globals = .env_globals
+    .env_globals = .env_globals,
+    .progress = .progress
   )
 }
 
@@ -190,9 +184,7 @@ future_invoke_map_dfr <- function(.f,
                                   .env = NULL,
                                   .options = furrr_options(),
                                   .env_globals = parent.frame(),
-                                  .progress = deprecated()) {
-  maybe_warn_deprecated_progress(is_present(.progress), what = "future_invoke_map_dfr")
-
+                                  .progress = FALSE) {
   .env <- .env %||% parent.frame()
   .f <- as_invoke_function(.f)
 
@@ -203,7 +195,8 @@ future_invoke_map_dfr <- function(.f,
     ...,
     .env = .env,
     .options = .options,
-    .env_globals = .env_globals
+    .env_globals = .env_globals,
+    .progress = .progress
   )
 }
 
@@ -215,9 +208,7 @@ future_invoke_map_dfc <- function(.f,
                                   .env = NULL,
                                   .options = furrr_options(),
                                   .env_globals = parent.frame(),
-                                  .progress = deprecated()) {
-  maybe_warn_deprecated_progress(is_present(.progress), what = "future_invoke_map_dfc")
-
+                                  .progress = FALSE) {
   .env <- .env %||% parent.frame()
   .f <- as_invoke_function(.f)
 
@@ -228,7 +219,8 @@ future_invoke_map_dfc <- function(.f,
     ...,
     .env = .env,
     .options = .options,
-    .env_globals = .env_globals
+    .env_globals = .env_globals,
+    .progress = .progress
   )
 }
 

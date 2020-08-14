@@ -12,9 +12,15 @@
 #' @param .options The `future` specific options to use with the workers. This
 #'   must be the result from a call to [furrr_options()].
 #'
-#' @param .progress `r lifecycle::badge("deprecated")`: No longer has any
-#'   effect. Use the [progressr](https://CRAN.R-project.org/package=progressr)
-#'   package instead.
+#' @param .progress A single logical. Should a progress bar be displayed?
+#'   Only works with multisession, multicore, and multiprocess futures. Note
+#'   that if a multicore/multisession future falls back to sequential, then
+#'   a progress bar will not be displayed.
+#'
+#'   __Warning:__ The `.progress` argument will be deprecated and removed
+#'   in a future version of furrr in favor of using the more robust
+#'   [progressr](https://CRAN.R-project.org/package=progressr)
+#'   package.
 #'
 #' @return All functions return a vector the same length as `.x`.
 #'
@@ -70,14 +76,13 @@ future_map <- function(.x,
                        ...,
                        .options = furrr_options(),
                        .env_globals = parent.frame(),
-                       .progress = deprecated()) {
-  maybe_warn_deprecated_progress(is_present(.progress), what = "future_map")
-
+                       .progress = FALSE) {
   furrr_map_template(
     x = .x,
     fn = .f,
     dots = list(...),
     options = .options,
+    progress = .progress,
     type = "list",
     map_fn = purrr::map,
     env_globals = .env_globals
@@ -91,14 +96,13 @@ future_map_chr <- function(.x,
                            ...,
                            .options = furrr_options(),
                            .env_globals = parent.frame(),
-                           .progress = deprecated()) {
-  maybe_warn_deprecated_progress(is_present(.progress), what = "future_map_chr")
-
+                           .progress = FALSE) {
   furrr_map_template(
     x = .x,
     fn = .f,
     dots = list(...),
     options = .options,
+    progress = .progress,
     type = "character",
     map_fn = purrr::map_chr,
     env_globals = .env_globals
@@ -112,14 +116,13 @@ future_map_dbl <- function(.x,
                            ...,
                            .options = furrr_options(),
                            .env_globals = parent.frame(),
-                           .progress = deprecated()) {
-  maybe_warn_deprecated_progress(is_present(.progress), what = "future_map_dbl")
-
+                           .progress = FALSE) {
   furrr_map_template(
     x = .x,
     fn = .f,
     dots = list(...),
     options = .options,
+    progress = .progress,
     type = "double",
     map_fn = purrr::map_dbl,
     env_globals = .env_globals
@@ -133,14 +136,13 @@ future_map_int <- function(.x,
                            ...,
                            .options = furrr_options(),
                            .env_globals = parent.frame(),
-                           .progress = deprecated()) {
-  maybe_warn_deprecated_progress(is_present(.progress), what = "future_map_int")
-
+                           .progress = FALSE) {
   furrr_map_template(
     x = .x,
     fn = .f,
     dots = list(...),
     options = .options,
+    progress = .progress,
     type = "integer",
     map_fn = purrr::map_int,
     env_globals = .env_globals
@@ -154,14 +156,13 @@ future_map_lgl <- function(.x,
                            ...,
                            .options = furrr_options(),
                            .env_globals = parent.frame(),
-                           .progress = deprecated()) {
-  maybe_warn_deprecated_progress(is_present(.progress), what = "future_map_lgl")
-
+                           .progress = FALSE) {
   furrr_map_template(
     x = .x,
     fn = .f,
     dots = list(...),
     options = .options,
+    progress = .progress,
     type = "logical",
     map_fn = purrr::map_lgl,
     env_globals = .env_globals
@@ -175,14 +176,13 @@ future_map_raw <- function(.x,
                            ...,
                            .options = furrr_options(),
                            .env_globals = parent.frame(),
-                           .progress = deprecated()) {
-  maybe_warn_deprecated_progress(is_present(.progress), what = "future_map_raw")
-
+                           .progress = FALSE) {
   furrr_map_template(
     x = .x,
     fn = .f,
     dots = list(...),
     options = .options,
+    progress = .progress,
     type = "raw",
     map_fn = purrr::map_raw,
     env_globals = .env_globals
@@ -197,14 +197,20 @@ future_map_dfr <- function(.x,
                            .id = NULL,
                            .options = furrr_options(),
                            .env_globals = parent.frame(),
-                           .progress = deprecated()) {
-  maybe_warn_deprecated_progress(is_present(.progress), what = "future_map_dfr")
-
+                           .progress = FALSE) {
   if (!rlang::is_installed("dplyr")) {
     rlang::abort("`future_map_dfr()` requires dplyr")
   }
 
-  res <- future_map(.x, .f, ..., .options = .options, .env_globals = .env_globals)
+  res <- future_map(
+    .x = .x,
+    .f = .f,
+    ...,
+    .options = .options,
+    .env_globals = .env_globals,
+    .progress = .progress
+  )
+
   dplyr::bind_rows(res, .id = .id)
 }
 
@@ -215,14 +221,20 @@ future_map_dfc <- function(.x,
                            ...,
                            .options = furrr_options(),
                            .env_globals = parent.frame(),
-                           .progress = deprecated()) {
-  maybe_warn_deprecated_progress(is_present(.progress), what = "future_map_dfc")
-
+                           .progress = FALSE) {
   if (!rlang::is_installed("dplyr")) {
     rlang::abort("`future_map_dfc()` requires dplyr")
   }
 
-  res <- future_map(.x, .f, ..., .options = .options, .env_globals = .env_globals)
+  res <- future_map(
+    .x = .x,
+    .f = .f,
+    ...,
+    .options = .options,
+    .env_globals = .env_globals,
+    .progress = .progress
+  )
+
   dplyr::bind_cols(res)
 }
 
@@ -258,9 +270,7 @@ future_map_if <- function(.x,
                           .else = NULL,
                           .options = furrr_options(),
                           .env_globals = parent.frame(),
-                          .progress = deprecated()) {
-  maybe_warn_deprecated_progress(is_present(.progress), what = "future_map_if")
-
+                          .progress = FALSE) {
   sel <- probe(.x, .p)
   out <- purrr::list_along(.x)
 
@@ -269,7 +279,8 @@ future_map_if <- function(.x,
     .f = .f,
     ...,
     .options = .options,
-    .env_globals = .env_globals
+    .env_globals = .env_globals,
+    .progress = .progress
   )
 
   if (is_null(.else)) {
@@ -280,7 +291,8 @@ future_map_if <- function(.x,
       .f = .else,
       ...,
       .options = .options,
-      .env_globals = .env_globals
+      .env_globals = .env_globals,
+      .progress = FALSE
     )
   }
 
@@ -296,13 +308,21 @@ future_map_at <- function(.x,
                           ...,
                           .options = furrr_options(),
                           .env_globals = parent.frame(),
-                          .progress = deprecated()) {
-  maybe_warn_deprecated_progress(is_present(.progress), what = "future_map_at")
-
+                          .progress = FALSE) {
   sel <- inv_which(.x, .at)
   out <- purrr::list_along(.x)
-  out[sel] <- future_map(.x[sel], .f, ..., .options = .options, .env_globals = .env_globals)
+
+  out[sel] <- future_map(
+    .x = .x[sel],
+    .f = .f,
+    ...,
+    .options = .options,
+    .env_globals = .env_globals,
+    .progress = .progress
+  )
+
   out[!sel] <- .x[!sel]
+
   set_names(out, names(.x))
 }
 
