@@ -341,7 +341,10 @@ furrr_template <- function(args,
         globals = TRUE
       )
 
-      chunk_globals <- c(chunk_globals, chunk_args_gp$globals)
+      chunk_args_globals <- chunk_args_gp$globals
+      chunk_args_globals <- enforce_future_globals(chunk_args_globals)
+
+      chunk_globals <- c(chunk_globals, chunk_args_globals)
       chunk_globals <- unique(chunk_globals)
 
       chunk_packages <- c(chunk_packages, chunk_args_gp$packages)

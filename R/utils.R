@@ -17,3 +17,11 @@ import_from <- function(name, default = NULL, package) {
     stop(sprintf("No such '%s' function: %s()", package, name))
   }
 }
+
+get_total_size <- function(x) {
+  attr(x, "total_size", exact = TRUE)
+}
+set_total_size <- function(x, total_size) {
+  attr(x, "total_size") <- total_size
+  x
+}
