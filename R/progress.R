@@ -25,9 +25,9 @@ poll_progress <- function(futures, file, n_x) {
     width_space <- width_usable - width_rule
 
     space <- paste0(rep(" ", times = width_space), collapse = "")
-    bar <- paste0(rep(symbol, times = width_rule), collapse = "")
+    rule <- paste0(rep(symbol, times = width_rule), collapse = "")
 
-    out <- paste0(prefix, bar, space, suffix)
+    out <- paste0(prefix, rule, space, suffix)
 
     cat("\r", out, file = stderr)
     utils::flush.console()
