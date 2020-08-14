@@ -7,5 +7,7 @@
 #' @import rlang
 #' @importFrom purrr map
 #' @importFrom future future
+#' @importFrom parallel nextRNGSubStream
+#' @importFrom parallel nextRNGStream
 ## usethis namespace: end
 NULL

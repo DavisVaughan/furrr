@@ -21,8 +21,8 @@ make_seeds <- function(seed, n) {
   out <- vector("list", length = n)
 
   for (i in seq_len(n)) {
-    out[[i]] <- parallel::nextRNGSubStream(seed)
-    seed <- parallel::nextRNGStream(seed)
+    out[[i]] <- nextRNGSubStream(seed)
+    seed <- nextRNGStream(seed)
   }
 
   out
