@@ -305,6 +305,7 @@ furrr_template <- function(args,
   }
 
   if (progress) {
+    # nocov start
     objectSize <- import_future("objectSize")
 
     file <- tempfile(fileext = ".txt")
@@ -318,6 +319,7 @@ furrr_template <- function(args,
     attr(globals_file, "total_size") <- objectSize(globals_file)
 
     globals <- c(globals, globals_file)
+    # nocov end
   }
 
   scan_chunk_args_for_globals <- is_true(options$globals)
@@ -418,6 +420,10 @@ make_expr_seed <- function(seed) {
   )
 }
 
+# ------------------------------------------------------------------------------
+
+# nocov start
+
 make_expr_progress_update <- function(progress) {
   if (is_false(progress)) {
     return(NULL)
@@ -454,6 +460,8 @@ make_expr_progress_open <- function(progress) {
     )
   })
 }
+
+# nocov end
 
 # ------------------------------------------------------------------------------
 
