@@ -239,7 +239,7 @@
   <span class="fu">my_slow_fn</span>()
 })
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   2.928   0.580   5.098</span></pre></body></html></div>
+<span class="co">#&gt;   2.852   0.610   4.857</span></pre></body></html></div>
 <p>One way to avoid this is to use carrier to crate the function, isolating it from the surrounding environment.</p>
 <div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="no">my_crated_fn</span> <span class="kw">&lt;-</span> <span class="kw">function</span>() {
   <span class="co"># Massive object - but we don't want it in `.f`</span>
@@ -256,7 +256,7 @@
   <span class="fu">my_crated_fn</span>()
 })
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.576   0.230   0.960</span></pre></body></html></div>
+<span class="co">#&gt;   0.508   0.203   0.829</span></pre></body></html></div>
 </div>
   </div>
 
