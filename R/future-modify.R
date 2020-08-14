@@ -41,8 +41,7 @@ future_modify <- function(.x,
                           ...,
                           .options = furrr_options(),
                           .env_globals = parent.frame(),
-                          .progress = deprecated()) {
-  maybe_warn_deprecated_progress(is_present(.progress), what = "future_modify")
+                          .progress = FALSE) {
   UseMethod("future_modify")
 }
 
@@ -52,13 +51,14 @@ future_modify.default <- function(.x,
                                   ...,
                                   .options = furrr_options(),
                                   .env_globals = parent.frame(),
-                                  .progress = deprecated()) {
+                                  .progress = FALSE) {
   result <- future_map(
     .x = .x,
     .f = .f,
     ...,
     .options = .options,
-    .env_globals = .env_globals
+    .env_globals = .env_globals,
+    .progress = .progress
   )
 
   for (i in seq_along(.x)) {
@@ -74,13 +74,14 @@ future_modify.character <- function (.x,
                                      ...,
                                      .options = furrr_options(),
                                      .env_globals = parent.frame(),
-                                     .progress = deprecated()) {
+                                     .progress = FALSE) {
   result <- future_map_chr(
     .x = .x,
     .f = .f,
     ...,
     .options = .options,
-    .env_globals = .env_globals
+    .env_globals = .env_globals,
+    .progress = .progress
   )
 
   .x[] <- result
@@ -94,13 +95,14 @@ future_modify.double <- function (.x,
                                   ...,
                                   .options = furrr_options(),
                                   .env_globals = parent.frame(),
-                                  .progress = deprecated()) {
+                                  .progress = FALSE) {
   result <- future_map_dbl(
     .x = .x,
     .f = .f,
     ...,
     .options = .options,
-    .env_globals = .env_globals
+    .env_globals = .env_globals,
+    .progress = .progress
   )
 
   .x[] <- result
@@ -114,13 +116,14 @@ future_modify.integer <- function (.x,
                                    ...,
                                    .options = furrr_options(),
                                    .env_globals = parent.frame(),
-                                   .progress = deprecated()) {
+                                   .progress = FALSE) {
   result <- future_map_int(
     .x = .x,
     .f = .f,
     ...,
     .options = .options,
-    .env_globals = .env_globals
+    .env_globals = .env_globals,
+    .progress = .progress
   )
 
   .x[] <- result
@@ -134,13 +137,14 @@ future_modify.logical <- function (.x,
                                    ...,
                                    .options = furrr_options(),
                                    .env_globals = parent.frame(),
-                                   .progress = deprecated()) {
+                                   .progress = FALSE) {
   result <- future_map_lgl(
     .x = .x,
     .f = .f,
     ...,
     .options = .options,
-    .env_globals = .env_globals
+    .env_globals = .env_globals,
+    .progress = .progress
   )
 
   .x[] <- result
@@ -154,13 +158,14 @@ future_modify.pairlist <- function (.x,
                                     ...,
                                     .options = furrr_options(),
                                     .env_globals = parent.frame(),
-                                    .progress = deprecated()) {
+                                    .progress = FALSE) {
   result <- future_map(
     .x = .x,
     .f = .f,
     ...,
     .options = .options,
-    .env_globals = .env_globals
+    .env_globals = .env_globals,
+    .progress = .progress
   )
 
   as.pairlist(result)
@@ -176,8 +181,7 @@ future_modify_at <- function(.x,
                              ...,
                              .options = furrr_options(),
                              .env_globals = parent.frame(),
-                             .progress = deprecated()) {
-  maybe_warn_deprecated_progress(is_present(.progress), what = "future_modify_at")
+                             .progress = FALSE) {
   UseMethod("future_modify_at")
 }
 
@@ -188,7 +192,7 @@ future_modify_at.default <- function(.x,
                                      ...,
                                      .options = furrr_options(),
                                      .env_globals = parent.frame(),
-                                     .progress = deprecated()) {
+                                     .progress = FALSE) {
   where <- at_selection(names(.x), .at)
   sel <- inv_which(.x, where)
 
@@ -198,7 +202,8 @@ future_modify_at.default <- function(.x,
     .f = .f,
     ...,
     .options = .options,
-    .env_globals = .env_globals
+    .env_globals = .env_globals,
+    .progress = .progress
   )
 }
 
@@ -209,7 +214,7 @@ future_modify_at.integer <- function(.x,
                                      ...,
                                      .options = furrr_options(),
                                      .env_globals = parent.frame(),
-                                     .progress = deprecated()) {
+                                     .progress = FALSE) {
   where <- at_selection(names(.x), .at)
   sel <- inv_which(.x, where)
 
@@ -218,7 +223,8 @@ future_modify_at.integer <- function(.x,
     .f = .f,
     ...,
     .options = .options,
-    .env_globals = .env_globals
+    .env_globals = .env_globals,
+    .progress = .progress
   )
 
   .x
@@ -231,7 +237,7 @@ future_modify_at.double <- function(.x,
                                     ...,
                                     .options = furrr_options(),
                                     .env_globals = parent.frame(),
-                                    .progress = deprecated()) {
+                                    .progress = FALSE) {
   where <- at_selection(names(.x), .at)
   sel <- inv_which(.x, where)
 
@@ -240,7 +246,8 @@ future_modify_at.double <- function(.x,
     .f = .f,
     ...,
     .options = .options,
-    .env_globals = .env_globals
+    .env_globals = .env_globals,
+    .progress = .progress
   )
 
   .x
@@ -253,7 +260,7 @@ future_modify_at.character <- function(.x,
                                        ...,
                                        .options = furrr_options(),
                                        .env_globals = parent.frame(),
-                                       .progress = deprecated()) {
+                                       .progress = FALSE) {
   where <- at_selection(names(.x), .at)
   sel <- inv_which(.x, where)
 
@@ -262,7 +269,8 @@ future_modify_at.character <- function(.x,
     .f = .f,
     ...,
     .options = .options,
-    .env_globals = .env_globals
+    .env_globals = .env_globals,
+    .progress = .progress
   )
 
   .x
@@ -275,7 +283,7 @@ future_modify_at.logical <- function(.x,
                                      ...,
                                      .options = furrr_options(),
                                      .env_globals = parent.frame(),
-                                     .progress = deprecated()) {
+                                     .progress = FALSE) {
   where <- at_selection(names(.x), .at)
   sel <- inv_which(.x, where)
 
@@ -284,7 +292,8 @@ future_modify_at.logical <- function(.x,
     .f = .f,
     ...,
     .options = .options,
-    .env_globals = .env_globals
+    .env_globals = .env_globals,
+    .progress = .progress
   )
 
   .x
@@ -301,8 +310,7 @@ future_modify_if <- function(.x,
                              .else = NULL,
                              .options = furrr_options(),
                              .env_globals = parent.frame(),
-                             .progress = deprecated()) {
-  maybe_warn_deprecated_progress(is_present(.progress), what = "future_modify_if")
+                             .progress = FALSE) {
   UseMethod("future_modify_if")
 }
 
@@ -314,7 +322,7 @@ future_modify_if.default <- function(.x,
                                      .else = NULL,
                                      .options = furrr_options(),
                                      .env_globals = parent.frame(),
-                                     .progress = deprecated()) {
+                                     .progress = FALSE) {
   sel <- probe(.x, .p)
   index <- seq_along(.x)
 
@@ -323,7 +331,8 @@ future_modify_if.default <- function(.x,
     .f = .f,
     ...,
     .options = .options,
-    .env_globals = .env_globals
+    .env_globals = .env_globals,
+    .progress = .progress
   )
 
   locs <- index[sel]
@@ -339,7 +348,8 @@ future_modify_if.default <- function(.x,
       .f = .else,
       ...,
       .options = .options,
-      .env_globals = .env_globals
+      .env_globals = .env_globals,
+      .progress = FALSE
     )
 
     locs_else <- index[!sel]
@@ -361,7 +371,7 @@ future_modify_if.integer <- function(.x,
                                      .else = NULL,
                                      .options = furrr_options(),
                                      .env_globals = parent.frame(),
-                                     .progress = deprecated()) {
+                                     .progress = FALSE) {
   future_modify_if_variant(
     .x = .x,
     .p = .p,
@@ -370,6 +380,7 @@ future_modify_if.integer <- function(.x,
     .else = .else,
     .options = .options,
     .env_globals = .env_globals,
+    .progress = .progress,
     .future_map_variant = future_map_int
   )
 }
@@ -382,7 +393,7 @@ future_modify_if.double <- function(.x,
                                     .else = NULL,
                                     .options = furrr_options(),
                                     .env_globals = parent.frame(),
-                                    .progress = deprecated()) {
+                                    .progress = FALSE) {
   future_modify_if_variant(
     .x = .x,
     .p = .p,
@@ -391,6 +402,7 @@ future_modify_if.double <- function(.x,
     .else = .else,
     .options = .options,
     .env_globals = .env_globals,
+    .progress = .progress,
     .future_map_variant = future_map_dbl
   )
 }
@@ -403,7 +415,7 @@ future_modify_if.character <- function(.x,
                                        .else = NULL,
                                        .options = furrr_options(),
                                        .env_globals = parent.frame(),
-                                       .progress = deprecated()) {
+                                       .progress = FALSE) {
   future_modify_if_variant(
     .x = .x,
     .p = .p,
@@ -412,6 +424,7 @@ future_modify_if.character <- function(.x,
     .else = .else,
     .options = .options,
     .env_globals = .env_globals,
+    .progress = .progress,
     .future_map_variant = future_map_chr
   )
 }
@@ -424,7 +437,7 @@ future_modify_if.logical <- function(.x,
                                        .else = NULL,
                                        .options = furrr_options(),
                                        .env_globals = parent.frame(),
-                                       .progress = deprecated()) {
+                                       .progress = FALSE) {
   future_modify_if_variant(
     .x = .x,
     .p = .p,
@@ -433,6 +446,7 @@ future_modify_if.logical <- function(.x,
     .else = .else,
     .options = .options,
     .env_globals = .env_globals,
+    .progress = .progress,
     .future_map_variant = future_map_lgl
   )
 }
@@ -444,6 +458,7 @@ future_modify_if_variant <- function(.x,
                                      .else,
                                      .options,
                                      .env_globals,
+                                     .progress,
                                      .future_map_variant) {
   sel <- probe(.x, .p)
 
@@ -452,7 +467,8 @@ future_modify_if_variant <- function(.x,
     .f = .f,
     ...,
     .options = .options,
-    .env_globals = .env_globals
+    .env_globals = .env_globals,
+    .progress = .progress
   )
 
   .x[sel] <- result
@@ -465,7 +481,8 @@ future_modify_if_variant <- function(.x,
       .f = .else,
       ...,
       .options = .options,
-      .env_globals = .env_globals
+      .env_globals = .env_globals,
+      .progress = FALSE
     )
 
     .x[not_sel] <- result

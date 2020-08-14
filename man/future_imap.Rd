@@ -18,7 +18,7 @@ future_imap(
   ...,
   .options = furrr_options(),
   .env_globals = parent.frame(),
-  .progress = deprecated()
+  .progress = FALSE
 )
 
 future_imap_chr(
@@ -27,7 +27,7 @@ future_imap_chr(
   ...,
   .options = furrr_options(),
   .env_globals = parent.frame(),
-  .progress = deprecated()
+  .progress = FALSE
 )
 
 future_imap_dbl(
@@ -36,7 +36,7 @@ future_imap_dbl(
   ...,
   .options = furrr_options(),
   .env_globals = parent.frame(),
-  .progress = deprecated()
+  .progress = FALSE
 )
 
 future_imap_int(
@@ -45,7 +45,7 @@ future_imap_int(
   ...,
   .options = furrr_options(),
   .env_globals = parent.frame(),
-  .progress = deprecated()
+  .progress = FALSE
 )
 
 future_imap_lgl(
@@ -54,7 +54,7 @@ future_imap_lgl(
   ...,
   .options = furrr_options(),
   .env_globals = parent.frame(),
-  .progress = deprecated()
+  .progress = FALSE
 )
 
 future_imap_raw(
@@ -63,7 +63,7 @@ future_imap_raw(
   ...,
   .options = furrr_options(),
   .env_globals = parent.frame(),
-  .progress = deprecated()
+  .progress = FALSE
 )
 
 future_imap_dfr(
@@ -73,7 +73,7 @@ future_imap_dfr(
   .id = NULL,
   .options = furrr_options(),
   .env_globals = parent.frame(),
-  .progress = deprecated()
+  .progress = FALSE
 )
 
 future_imap_dfc(
@@ -82,7 +82,7 @@ future_imap_dfc(
   ...,
   .options = furrr_options(),
   .env_globals = parent.frame(),
-  .progress = deprecated()
+  .progress = FALSE
 )
 
 future_iwalk(
@@ -90,7 +90,8 @@ future_iwalk(
   .f,
   ...,
   .options = furrr_options(),
-  .env_globals = parent.frame()
+  .env_globals = parent.frame(),
+  .progress = FALSE
 )
 }
 \arguments{
@@ -125,9 +126,15 @@ must be the result from a call to \code{\link[=furrr_options]{furrr_options()}}.
 \code{...}. Globals required by \code{.f} are looked up in the function environment
 of \code{.f}.}
 
-\item{.progress}{\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}}: No longer has any
-effect. Use the \href{https://CRAN.R-project.org/package=progressr}{progressr}
-package instead.}
+\item{.progress}{A single logical. Should a progress bar be displayed?
+Only works with multisession, multicore, and multiprocess futures. Note
+that if a multicore/multisession future falls back to sequential, then
+a progress bar will not be displayed.
+
+\strong{Warning:} The \code{.progress} argument will be deprecated and removed
+in a future version of furrr in favor of using the more robust
+\href{https://CRAN.R-project.org/package=progressr}{progressr}
+package.}
 
 \item{.id}{Either a string or \code{NULL}. If a string, the output will contain
 a variable with that name, storing either the name (if \code{.x} is named) or

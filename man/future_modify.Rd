@@ -12,7 +12,7 @@ future_modify(
   ...,
   .options = furrr_options(),
   .env_globals = parent.frame(),
-  .progress = deprecated()
+  .progress = FALSE
 )
 
 future_modify_at(
@@ -22,7 +22,7 @@ future_modify_at(
   ...,
   .options = furrr_options(),
   .env_globals = parent.frame(),
-  .progress = deprecated()
+  .progress = FALSE
 )
 
 future_modify_if(
@@ -33,7 +33,7 @@ future_modify_if(
   .else = NULL,
   .options = furrr_options(),
   .env_globals = parent.frame(),
-  .progress = deprecated()
+  .progress = FALSE
 )
 }
 \arguments{
@@ -68,9 +68,15 @@ must be the result from a call to \code{\link[=furrr_options]{furrr_options()}}.
 \code{...}. Globals required by \code{.f} are looked up in the function environment
 of \code{.f}.}
 
-\item{.progress}{\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}}: No longer has any
-effect. Use the \href{https://CRAN.R-project.org/package=progressr}{progressr}
-package instead.}
+\item{.progress}{A single logical. Should a progress bar be displayed?
+Only works with multisession, multicore, and multiprocess futures. Note
+that if a multicore/multisession future falls back to sequential, then
+a progress bar will not be displayed.
+
+\strong{Warning:} The \code{.progress} argument will be deprecated and removed
+in a future version of furrr in favor of using the more robust
+\href{https://CRAN.R-project.org/package=progressr}{progressr}
+package.}
 
 \item{.at}{A character vector of names, positive numeric vector of
 positions to include, or a negative numeric vector of positions to

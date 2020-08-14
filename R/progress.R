@@ -1,3 +1,5 @@
+# nocov start
+
 poll_progress <- function(futures, file, n_x) {
   symbol <- get_progress_symbol()
 
@@ -115,3 +117,5 @@ reconcile_progress_with_strategy <- function(progress) {
 
   progress
 }
+
+# nocov end
