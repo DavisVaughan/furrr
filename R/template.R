@@ -467,6 +467,7 @@ utils::globalVariables(c(
   "...furrr_globals_max_size",
   "...furrr_chunk_seeds",
   "...furrr_chunk_seeds_idx",
+  "...furrr_progress",
   "...furrr_progress_file",
   "...furrr_progress_con"
 ))

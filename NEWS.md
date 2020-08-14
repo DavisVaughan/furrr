@@ -29,6 +29,10 @@
 
 ## Features / Fixes:
 
+* New pkgdown article on using furrr with
+  [progressr](https://CRAN.R-project.org/package=progressr) for generating
+  progress updates.
+
 * New pkgdown article discussing an alternative strategy to automatic globals
   detection using the [carrier](https://CRAN.R-project.org/package=carrier)
   package.

@@ -45,7 +45,7 @@ get_n_ticks <- function(con) {
 }
 
 any_running <- function(futures) {
-  !all(resolved(futures))
+  !all(future::resolved(futures))
 }
 
 console_width <- function() {
