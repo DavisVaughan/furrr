@@ -2,6 +2,7 @@ furrr_map_template <- function(x,
                                fn,
                                dots,
                                options,
+                               progress,
                                type,
                                map_fn,
                                env_globals) {
@@ -9,17 +10,26 @@ furrr_map_template <- function(x,
   names <- names(x)
 
   assert_furrr_options(options)
+  assert_progress(progress)
+
+  progress <- reconcile_progress_with_strategy(progress)
 
   expr_seed <- make_expr_seed(options$seed)
+  expr_progress_open <- make_expr_progress_open(progress)
+  expr_progress_update <- make_expr_progress_update(progress)
 
   expr <- expr({
     ...furrr_chunk_seeds_idx <- 1L
     ...furrr_chunk_x <- ...furrr_chunk_args
 
+    !!expr_progress_open
+
     ...furrr_fn_wrapper <- function(...) {
       !!expr_seed
 
       ...furrr_chunk_seeds_idx <<- ...furrr_chunk_seeds_idx + 1L
+
+      !!expr_progress_update
 
       ...furrr_fn(...)
     }
@@ -40,6 +50,7 @@ furrr_map_template <- function(x,
     dots = dots,
     n = n,
     options = options,
+    progress = progress,
     type = type,
     map_fn = map_fn,
     names = names,
@@ -60,6 +71,7 @@ furrr_map2_template <- function(x,
                                 fn,
                                 dots,
                                 options,
+                                progress,
                                 type,
                                 map_fn,
                                 env_globals) {
@@ -72,18 +84,27 @@ furrr_map2_template <- function(x,
   names <- names(args[[1]])
 
   assert_furrr_options(options)
+  assert_progress(progress)
+
+  progress <- reconcile_progress_with_strategy(progress)
 
   expr_seed <- make_expr_seed(options$seed)
+  expr_progress_open <- make_expr_progress_open(progress)
+  expr_progress_update <- make_expr_progress_update(progress)
 
   expr <- expr({
     ...furrr_chunk_seeds_idx <- 1L
     ...furrr_chunk_x <- ...furrr_chunk_args[[1]]
     ...furrr_chunk_y <- ...furrr_chunk_args[[2]]
 
+    !!expr_progress_open
+
     ...furrr_fn_wrapper <- function(...) {
       !!expr_seed
 
       ...furrr_chunk_seeds_idx <<- ...furrr_chunk_seeds_idx + 1L
+
+      !!expr_progress_update
 
       ...furrr_fn(...)
     }
@@ -105,6 +126,7 @@ furrr_map2_template <- function(x,
     dots = dots,
     n = n,
     options = options,
+    progress = progress,
     type = type,
     map_fn = map_fn,
     names = names,
@@ -124,6 +146,7 @@ furrr_pmap_template <- function(l,
                                 fn,
                                 dots,
                                 options,
+                                progress,
                                 type,
                                 map_fn,
                                 env_globals) {
@@ -143,17 +166,26 @@ furrr_pmap_template <- function(l,
   }
 
   assert_furrr_options(options)
+  assert_progress(progress)
+
+  progress <- reconcile_progress_with_strategy(progress)
 
   expr_seed <- make_expr_seed(options$seed)
+  expr_progress_open <- make_expr_progress_open(progress)
+  expr_progress_update <- make_expr_progress_update(progress)
 
   expr <- expr({
     ...furrr_chunk_seeds_idx <- 1L
     ...furrr_chunk_l <- ...furrr_chunk_args
 
+    !!expr_progress_open
+
     ...furrr_fn_wrapper <- function(...) {
       !!expr_seed
 
       ...furrr_chunk_seeds_idx <<- ...furrr_chunk_seeds_idx + 1L
+
+      !!expr_progress_update
 
       ...furrr_fn(...)
     }
@@ -174,6 +206,7 @@ furrr_pmap_template <- function(l,
     dots = dots,
     n = n,
     options = options,
+    progress = progress,
     type = type,
     map_fn = map_fn,
     names = names,
@@ -194,6 +227,7 @@ furrr_template <- function(args,
                            dots,
                            n,
                            options,
+                           progress,
                            type,
                            map_fn,
                            names,
@@ -270,6 +304,22 @@ furrr_template <- function(args,
     labels <- paste0(options$prefix, "-", seq_len(n_chunks))
   }
 
+  if (progress) {
+    objectSize <- import_future("objectSize")
+
+    file <- tempfile(fileext = ".txt")
+
+    file.create(file)
+    on.exit(unlink(file, force = TRUE), add = TRUE)
+
+    globals_file <- list(...furrr_progress_file = file)
+    globals_file <- future::as.FutureGlobals(globals_file)
+    globals_file <- future::resolve(globals_file)
+    attr(globals_file, "total_size") <- objectSize(globals_file)
+
+    globals <- c(globals, globals_file)
+  }
+
   scan_chunk_args_for_globals <- is_true(options$globals)
 
   futures <- vector("list", length = n_chunks)
@@ -327,6 +377,10 @@ furrr_template <- function(args,
     )
   }
 
+  if (progress) {
+    poll_progress(futures, file, n)
+  }
+
   values <- future::value(futures)
 
   if (length(values) != length(chunks)) {
@@ -364,6 +418,43 @@ make_expr_seed <- function(seed) {
   )
 }
 
+make_expr_progress_update <- function(progress) {
+  if (is_false(progress)) {
+    return(NULL)
+  }
+
+  expr({
+    if (...furrr_progress) {
+      try(
+        expr = {
+          cat("+", file = ...furrr_progress_con, sep = "")
+        },
+        silent = TRUE
+      )
+    }
+  })
+}
+
+make_expr_progress_open <- function(progress) {
+  if (is_false(progress)) {
+    return(NULL)
+  }
+
+  expr({
+    ...furrr_progress <- TRUE
+
+    tryCatch(
+      expr = {
+        ...furrr_progress_con <- file(...furrr_progress_file, open = "a")
+        on.exit(close(...furrr_progress_con), add = TRUE)
+      },
+      error = function(cnd) {
+        ...furrr_progress <<- FALSE
+      }
+    )
+  })
+}
+
 # ------------------------------------------------------------------------------
 
 # Required global variable hack for variables used in `expr()`.
@@ -375,5 +466,7 @@ utils::globalVariables(c(
   "...furrr_dots",
   "...furrr_globals_max_size",
   "...furrr_chunk_seeds",
-  "...furrr_chunk_seeds_idx"
+  "...furrr_chunk_seeds_idx",
+  "...furrr_progress_file",
+  "...furrr_progress_con"
 ))
