@@ -1,3 +1,5 @@
+# nocov start
+
 probe <- function(.x, .p, ...) {
   if (is_logical(.p)) {
     stopifnot(length(.p) == length(.x))
@@ -44,3 +46,5 @@ at_selection <- function(nm, .at) {
   }
   .at
 }
+
+# nocov end
