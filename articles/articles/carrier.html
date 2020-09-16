@@ -111,8 +111,10 @@
 
     
     
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">furrr</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">carrier</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/DavisVaughan/furrr">furrr</a></span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/r-lib/carrier">carrier</a></span>)
+</pre></div>
 <div id="introduction" class="section level2">
 <h2 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h2>
@@ -123,49 +125,62 @@
 <h2 class="hasAnchor">
 <a href="#crates" class="anchor"></a>Crates</h2>
 <p>The idea behind carrier is to package up a function and all of its dependencies into a <em>crate</em>. A crate is just another function, but with a specialized function environment that carries around only the dependencies required for it to run. To create a crate, directly wrap a call to <code>function()</code> with <code><a href="https://rdrr.io/pkg/carrier/man/crate.html">crate()</a></code>.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">crt1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/carrier/man/crate.html">crate</a></span>(<span class="kw">function</span>(<span class="no">x</span>) {
-  <span class="kw pkg">stats</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">var</a></span>(<span class="no">x</span>)
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="kw">crt1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/carrier/man/crate.html">crate</a></span>(<span class="fu">function</span>(<span class="kw">x</span>) {
+  <span class="kw">stats</span>::<span class="fu"><a href="https://rdrr.io/r/stats/cor.html">var</a></span>(<span class="kw">x</span>)
 })
 
 <span class="fu">crt1</span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">3</span>))
-<span class="co">#&gt; [1] 4</span></pre></body></html></div>
-<p>You can also specify the function to crate using the anonymous function shorthand with <code>~</code>.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">crt1_anon</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/carrier/man/crate.html">crate</a></span>(~<span class="kw pkg">stats</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">var</a></span>(<span class="no">.x</span>))
+<span class="co">#&gt; [1] 4</span>
+</pre></div>
+<p>You can also specify the function to crate using the anonymous function shorthand with <code><a href="https://rdrr.io/r/base/tilde.html">~</a></code>.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="kw">crt1_anon</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/carrier/man/crate.html">crate</a></span>(<span class="op">~</span><span class="kw">stats</span>::<span class="fu"><a href="https://rdrr.io/r/stats/cor.html">var</a></span>(<span class="kw">.x</span>))
 
 <span class="fu">crt1_anon</span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">3</span>))
-<span class="co">#&gt; [1] 4</span></pre></body></html></div>
+<span class="co">#&gt; [1] 4</span>
+</pre></div>
 <p>You must manually namespace all package function calls with <code>pkg::</code>, as the crated function runs in an environment where only the base package has been loaded.</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">crt2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/carrier/man/crate.html">crate</a></span>(<span class="kw">function</span>(<span class="no">x</span>) {
-  <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">var</a></span>(<span class="no">x</span>)
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="kw">crt2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/carrier/man/crate.html">crate</a></span>(<span class="fu">function</span>(<span class="kw">x</span>) {
+  <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">var</a></span>(<span class="kw">x</span>)
 })
 
 <span class="fu">crt2</span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">3</span>))
-<span class="co">#&gt; Error in var(x): could not find function "var"</span></pre></body></html></div>
+<span class="co">#&gt; Error in var(x): could not find function "var"</span>
+</pre></div>
 <p>Any “outside” dependencies that you require must also be manually specified when creating the crate, otherwise it won’t be found.</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">constant</span> <span class="kw">&lt;-</span> <span class="fl">1.67</span>
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="kw">constant</span> <span class="op">&lt;-</span> <span class="fl">1.67</span>
 
-<span class="no">crt3</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/carrier/man/crate.html">crate</a></span>(~ <span class="no">.x</span> + <span class="no">constant</span>)
+<span class="kw">crt3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/carrier/man/crate.html">crate</a></span>(<span class="op">~</span> <span class="kw">.x</span> <span class="op">+</span> <span class="kw">constant</span>)
 
-<span class="fu">crt3</span>(<span class="fl">2</span>:<span class="fl">5</span>)
-<span class="co">#&gt; Error in crt3(2:5): object 'constant' not found</span></pre></body></html></div>
+<span class="fu">crt3</span>(<span class="fl">2</span><span class="op">:</span><span class="fl">5</span>)
+<span class="co">#&gt; Error in crt3(2:5): object 'constant' not found</span>
+</pre></div>
 <p>You can specify these dependencies by either inlining them into the crate with <code>!!</code>, or by supplying them as name-value pairs to <code><a href="https://rdrr.io/pkg/carrier/man/crate.html">crate()</a></code>:</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">crt4</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/carrier/man/crate.html">crate</a></span>(<span class="kw">function</span>(<span class="no">x</span>) {
-  <span class="no">x</span> + !!<span class="no">constant</span>
+<div class="sourceCode" id="cb6"><pre class="downlit">
+<span class="kw">crt4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/carrier/man/crate.html">crate</a></span>(<span class="fu">function</span>(<span class="kw">x</span>) {
+  <span class="kw">x</span> <span class="op">+</span> <span class="op">!</span><span class="op">!</span><span class="kw">constant</span>
 })
 
-<span class="fu">crt4</span>(<span class="fl">2</span>:<span class="fl">5</span>)
-<span class="co">#&gt; [1] 3.67 4.67 5.67 6.67</span></pre></body></html></div>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">crt5</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/carrier/man/crate.html">crate</a></span>(
-  <span class="kw">constant</span> <span class="kw">=</span> <span class="no">constant</span>,
-  <span class="kw">function</span>(<span class="no">x</span>) {
-    <span class="no">x</span> + <span class="no">constant</span>
+<span class="fu">crt4</span>(<span class="fl">2</span><span class="op">:</span><span class="fl">5</span>)
+<span class="co">#&gt; [1] 3.67 4.67 5.67 6.67</span>
+</pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit">
+<span class="kw">crt5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/carrier/man/crate.html">crate</a></span>(
+  constant = <span class="kw">constant</span>,
+  <span class="fu">function</span>(<span class="kw">x</span>) {
+    <span class="kw">x</span> <span class="op">+</span> <span class="kw">constant</span>
   }
 )
 
-<span class="fu">crt5</span>(<span class="fl">2</span>:<span class="fl">5</span>)
-<span class="co">#&gt; [1] 3.67 4.67 5.67 6.67</span></pre></body></html></div>
+<span class="fu">crt5</span>(<span class="fl">2</span><span class="op">:</span><span class="fl">5</span>)
+<span class="co">#&gt; [1] 3.67 4.67 5.67 6.67</span>
+</pre></div>
 <p>Crates have a nice print method, allowing you to see the size of the crate and what has been captured:</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">crt5</span>
+<div class="sourceCode" id="cb8"><pre class="downlit">
+<span class="kw">crt5</span>
 <span class="co">#&gt; Registered S3 method overwritten by 'pryr':</span>
 <span class="co">#&gt;   method      from</span>
 <span class="co">#&gt;   print.bytes Rcpp</span>
@@ -174,89 +189,110 @@
 <span class="co">#&gt; * `constant`: 56 B</span>
 <span class="co">#&gt; function(x) {</span>
 <span class="co">#&gt;     x + constant</span>
-<span class="co">#&gt;   }</span></pre></body></html></div>
+<span class="co">#&gt;   }</span>
+</pre></div>
 <p>One downside of inlining with <code>!!</code> is that it doesn’t show up as a separate element in the print method:</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">crt4</span>
+<div class="sourceCode" id="cb9"><pre class="downlit">
+<span class="kw">crt4</span>
 <span class="co">#&gt; &lt;crate&gt; 9.61 kB</span>
 <span class="co">#&gt; * function: 9.16 kB</span>
 <span class="co">#&gt; function(x) {</span>
 <span class="co">#&gt;   x + !!constant</span>
-<span class="co">#&gt; }</span></pre></body></html></div>
+<span class="co">#&gt; }</span>
+</pre></div>
 <p>The last thing to know about crates is that it is generally required that you crate a new function. By “new”, I mean that the function cannot have already been created beforehand and assigned a name, because this prevents <code><a href="https://rdrr.io/pkg/carrier/man/crate.html">crate()</a></code> from assigning it the correct environment.</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">fn</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">x</span>) {
-  <span class="no">x</span>
+<div class="sourceCode" id="cb10"><pre class="downlit">
+<span class="kw">fn</span> <span class="op">&lt;-</span> <span class="fu">function</span>(<span class="kw">x</span>) {
+  <span class="kw">x</span>
 }
 
-<span class="fu"><a href="https://rdrr.io/pkg/carrier/man/crate.html">crate</a></span>(<span class="no">fn</span>)
-<span class="co">#&gt; Error: The function must be defined inside the `crate()` call</span></pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/pkg/carrier/man/crate.html">crate</a></span>(<span class="kw">fn</span>)
+<span class="co">#&gt; Error: The function must be defined inside the `crate()` call</span>
+</pre></div>
 </div>
 <div id="crates-and-furrr" class="section level2">
 <h2 class="hasAnchor">
 <a href="#crates-and-furrr" class="anchor"></a>Crates and furrr</h2>
 <p>Using a crated function with furrr is just like using any other function, except you won’t need to rely on the automatic globals detection (unless you have globals in <code>.x</code> or <code>...</code> that need to be found, but this is somewhat rare).</p>
 <p>As an example, when <code>crt5()</code> was created we also captured the <code>constant</code> dependency object in the function’s environment. Since furrr serializes <code>.f</code> alongside its environment, the dependencies come along for free without the need to auto detect them.</p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">crt5</span>
+<div class="sourceCode" id="cb11"><pre class="downlit">
+<span class="kw">crt5</span>
 <span class="co">#&gt; &lt;crate&gt; 10.1 kB</span>
 <span class="co">#&gt; * function: 9.53 kB</span>
 <span class="co">#&gt; * `constant`: 56 B</span>
 <span class="co">#&gt; function(x) {</span>
 <span class="co">#&gt;     x + constant</span>
-<span class="co">#&gt;   }</span></pre></body></html></div>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu">plan</span>(<span class="no">multisession</span>, <span class="kw">workers</span> <span class="kw">=</span> <span class="fl">2</span>)
+<span class="co">#&gt;   }</span>
+</pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit">
+<span class="fu">plan</span>(<span class="kw">multisession</span>, workers = <span class="fl">2</span>)
 
-<span class="no">opts</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/furrr_options.html">furrr_options</a></span>(<span class="kw">globals</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+<span class="kw">opts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/furrr_options.html">furrr_options</a></span>(globals = <span class="fl">FALSE</span>)
 
-<span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="fl">1</span>:<span class="fl">10</span>, <span class="fl">11</span>:<span class="fl">20</span>)
+<span class="kw">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">11</span><span class="op">:</span><span class="fl">20</span>)
 
-<span class="fu"><a href="../../reference/future_map.html">future_map</a></span>(<span class="no">x</span>, <span class="no">crt5</span>, <span class="kw">.options</span> <span class="kw">=</span> <span class="no">opts</span>)
+<span class="fu"><a href="../../reference/future_map.html">future_map</a></span>(<span class="kw">x</span>, <span class="kw">crt5</span>, .options = <span class="kw">opts</span>)
 <span class="co">#&gt; [[1]]</span>
 <span class="co">#&gt;  [1]  2.67  3.67  4.67  5.67  6.67  7.67  8.67  9.67 10.67 11.67</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[2]]</span>
-<span class="co">#&gt;  [1] 12.67 13.67 14.67 15.67 16.67 17.67 18.67 19.67 20.67 21.67</span></pre></body></html></div>
+<span class="co">#&gt;  [1] 12.67 13.67 14.67 15.67 16.67 17.67 18.67 19.67 20.67 21.67</span>
+</pre></div>
 <p>If you crate a function with extra optional arguments, you can still pass those through using furrr:</p>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="no">median_doubled</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/carrier/man/crate.html">crate</a></span>(<span class="kw">function</span>(<span class="no">x</span>, <span class="no">na.rm</span> <span class="kw">=</span> <span class="fl">FALSE</span>) {
-  <span class="kw pkg">stats</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span>(<span class="no">x</span>, <span class="kw">na.rm</span> <span class="kw">=</span> <span class="no">na.rm</span>) * <span class="fl">2</span>
-})</pre></body></html></div>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="fu">plan</span>(<span class="no">multisession</span>, <span class="kw">workers</span> <span class="kw">=</span> <span class="fl">2</span>)
+<div class="sourceCode" id="cb13"><pre class="downlit">
+<span class="kw">median_doubled</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/carrier/man/crate.html">crate</a></span>(<span class="fu">function</span>(<span class="kw">x</span>, <span class="kw">na.rm</span> = <span class="fl">FALSE</span>) {
+  <span class="kw">stats</span>::<span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span>(<span class="kw">x</span>, na.rm = <span class="kw">na.rm</span>) <span class="op">*</span> <span class="fl">2</span>
+})
+</pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit">
+<span class="fu">plan</span>(<span class="kw">multisession</span>, workers = <span class="fl">2</span>)
 
-<span class="no">opts</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/furrr_options.html">furrr_options</a></span>(<span class="kw">globals</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+<span class="kw">opts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/furrr_options.html">furrr_options</a></span>(globals = <span class="fl">FALSE</span>)
 
-<span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">NA</span>, <span class="fl">2</span>), <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">NA</span>))
+<span class="kw">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">NA</span>, <span class="fl">2</span>), <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">NA</span>))
 
-<span class="fu"><a href="../../reference/future_map.html">future_map_dbl</a></span>(<span class="no">x</span>, <span class="no">median_doubled</span>, <span class="kw">na.rm</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">.options</span> <span class="kw">=</span> <span class="no">opts</span>)
-<span class="co">#&gt; [1] 3 9</span></pre></body></html></div>
+<span class="fu"><a href="../../reference/future_map.html">future_map_dbl</a></span>(<span class="kw">x</span>, <span class="kw">median_doubled</span>, na.rm = <span class="fl">TRUE</span>, .options = <span class="kw">opts</span>)
+<span class="co">#&gt; [1] 3 9</span>
+</pre></div>
 <p>Crates are also a great way to avoid accidentally shipping unneeded dependencies. In the <em>Common Gotchas</em> article, we discuss the following example of accidentally shipping this <code>big</code> object to each worker, even though it isn’t required by the function itself. This function call should be extremely fast, but is significantly slower than expected because it has to serialize <code>big</code>.</p>
-<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="no">my_slow_fn</span> <span class="kw">&lt;-</span> <span class="kw">function</span>() {
+<div class="sourceCode" id="cb15"><pre class="downlit">
+<span class="kw">my_slow_fn</span> <span class="op">&lt;-</span> <span class="fu">function</span>() {
   <span class="co"># Massive object - but we don't want it in `.f`</span>
-  <span class="no">big</span> <span class="kw">&lt;-</span> <span class="fl">1</span>:<span class="fl">1e8</span> + <span class="fl">0L</span>
-
-  <span class="fu"><a href="../../reference/future_map.html">future_map_int</a></span>(<span class="fl">1</span>:<span class="fl">5</span>, ~<span class="no">.x</span>)
-}</pre></body></html></div>
-<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="fu">plan</span>(<span class="no">multisession</span>, <span class="kw">workers</span> <span class="kw">=</span> <span class="fl">2</span>)
+  <span class="kw">big</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">1e8</span> <span class="op">+</span> <span class="fl">0L</span>
+  
+  <span class="fu"><a href="../../reference/future_map.html">future_map_int</a></span>(<span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="op">~</span><span class="kw">.x</span>)
+}
+</pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit">
+<span class="fu">plan</span>(<span class="kw">multisession</span>, workers = <span class="fl">2</span>)
 
 <span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>({
   <span class="fu">my_slow_fn</span>()
 })
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   3.386   0.661   5.616</span></pre></body></html></div>
+<span class="co">#&gt;   3.355   0.688   6.601</span>
+</pre></div>
 <p>One way to avoid this is to use carrier to crate the function, isolating it from the surrounding environment.</p>
-<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="no">my_crated_fn</span> <span class="kw">&lt;-</span> <span class="kw">function</span>() {
+<div class="sourceCode" id="cb17"><pre class="downlit">
+<span class="kw">my_crated_fn</span> <span class="op">&lt;-</span> <span class="fu">function</span>() {
   <span class="co"># Massive object - but we don't want it in `.f`</span>
-  <span class="no">big</span> <span class="kw">&lt;-</span> <span class="fl">1</span>:<span class="fl">1e8</span> + <span class="fl">0L</span>
-
-  <span class="no">fn</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/carrier/man/crate.html">crate</a></span>(~<span class="no">.x</span>)
-  <span class="no">opts</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/furrr_options.html">furrr_options</a></span>(<span class="kw">globals</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
-
-  <span class="fu"><a href="../../reference/future_map.html">future_map_int</a></span>(<span class="fl">1</span>:<span class="fl">5</span>, <span class="no">fn</span>, <span class="kw">.options</span> <span class="kw">=</span> <span class="no">opts</span>)
-}</pre></body></html></div>
-<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="fu">plan</span>(<span class="no">multisession</span>, <span class="kw">workers</span> <span class="kw">=</span> <span class="fl">2</span>)
+  <span class="kw">big</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">1e8</span> <span class="op">+</span> <span class="fl">0L</span>
+  
+  <span class="kw">fn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/carrier/man/crate.html">crate</a></span>(<span class="op">~</span><span class="kw">.x</span>)
+  <span class="kw">opts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/furrr_options.html">furrr_options</a></span>(globals = <span class="fl">FALSE</span>)
+  
+  <span class="fu"><a href="../../reference/future_map.html">future_map_int</a></span>(<span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="kw">fn</span>, .options = <span class="kw">opts</span>)
+}
+</pre></div>
+<div class="sourceCode" id="cb18"><pre class="downlit">
+<span class="fu">plan</span>(<span class="kw">multisession</span>, workers = <span class="fl">2</span>)
 
 <span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>({
   <span class="fu">my_crated_fn</span>()
 })
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.538   0.242   0.892</span></pre></body></html></div>
+<span class="co">#&gt;   0.562   0.259   1.115</span>
+</pre></div>
 </div>
   </div>
 
@@ -275,7 +311,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

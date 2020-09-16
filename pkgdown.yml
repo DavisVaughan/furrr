@@ -1,11 +1,11 @@
 pandoc: 2.7.3
-pkgdown: 1.5.1
+pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
-  carrier: articles/carrier.html
-  chunking: articles/chunking.html
-  gotchas: articles/gotchas.html
-  progress: articles/progress.html
-  remote-connections: articles/remote-connections.html
-last_built: 2020-08-14T20:59Z
+  articles/carrier: carrier.html
+  articles/chunking: chunking.html
+  articles/gotchas: gotchas.html
+  articles/progress: progress.html
+  articles/remote-connections: remote-connections.html
+last_built: 2020-09-16T12:09Z
 

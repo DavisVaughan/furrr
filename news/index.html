@@ -173,7 +173,7 @@
 <li><p><code><a href="../reference/future_map2.html">future_pmap()</a></code> and its variants now propagate the names of the first element of <code>.l</code> onto the output (<a href='https://github.com/DavisVaughan/furrr/issues/116'>#116</a>).</p></li>
 <li><p><code><a href="../reference/future_map2.html">future_pmap()</a></code> and its variants now work with empty <code><a href="https://rdrr.io/r/base/list.html">list()</a></code> input (<a href='https://github.com/DavisVaughan/furrr/issues/135'>#135</a>).</p></li>
 <li><p><code><a href="../reference/future_modify.html">future_modify()</a></code>, <code><a href="../reference/future_modify.html">future_modify_if()</a></code> and <code><a href="../reference/future_modify.html">future_modify_at()</a></code> have been brought up to date with the changes in purrr 0.3.0 to their non-parallel equivalents. Specifically, they now wrap <code>[[&lt;-</code> and return the same type as the input when the input is an atomic vector (<a href='https://github.com/DavisVaughan/furrr/issues/119'>#119</a>).</p></li>
-<li><p><code><a href="../reference/future_map_if.html">future_map_if()</a></code> and <code><a href="../reference/future_modify.html">future_modify_if()</a></code> gained the <code>.else</code> argument that was added to purrr’s <code>map_if()</code> and <code>modify_if()</code> in purrr 0.3.0 (<a href='https://github.com/DavisVaughan/furrr/issues/132'>#132</a>).</p></li>
+<li><p><code><a href="../reference/future_map_if.html">future_map_if()</a></code> and <code><a href="../reference/future_modify.html">future_modify_if()</a></code> gained the <code>.else</code> argument that was added to purrr’s <code><a href="https://purrr.tidyverse.org/reference/map_if.html">map_if()</a></code> and <code><a href="https://purrr.tidyverse.org/reference/modify.html">modify_if()</a></code> in purrr 0.3.0 (<a href='https://github.com/DavisVaughan/furrr/issues/132'>#132</a>).</p></li>
 <li><p>All <code>*_raw()</code> variants from purrr have been added, such as <code><a href="../reference/future_map.html">future_map_raw()</a></code> (<a href='https://github.com/DavisVaughan/furrr/issues/122'>#122</a>).</p></li>
 <li><p>All furrr functions gained a new argument, <code>.env_globals</code>, which determines the environment in which globals for <code>.x</code> and <code>...</code> are looked up. It defaults to the caller environment, which is different than what was previously used, but should be more correct in some edge cases. Most of the time, you should not have to touch this argument. Additionally, globals for <code>.f</code> are now lookup up in the function environment of <code>.f</code> (HenrikBengtsson/future.apply<a href='https://github.com/DavisVaughan/furrr/issues/62'>#62</a>, <a href='https://github.com/DavisVaughan/furrr/issues/153'>#153</a>).</p></li>
 <li><p>The future specific global option <code>future.globals.maxSize</code> now scales with the number of elements of <code>.x</code> that get exported to each worker. This helps prevent some false positives about exporting objects that are too large, and is the same approach taken in future.apply (<a href='https://github.com/DavisVaughan/furrr/issues/113'>#113</a>).</p></li>
@@ -189,9 +189,9 @@
 <h2 class="hasAnchor">
 <a href="#version-requirements" class="anchor"></a>Version requirements:</h2>
 <ul>
-<li><p>rlang &gt;= 0.3.0 is now required to ensure that the rlang <code>~</code> is serializable. The hacks in furrr that tried to work around this have been removed (<a href='https://github.com/DavisVaughan/furrr/issues/123'>#123</a>).</p></li>
+<li><p>rlang &gt;= 0.3.0 is now required to ensure that the rlang <code><a href="https://rdrr.io/r/base/tilde.html">~</a></code> is serializable. The hacks in furrr that tried to work around this have been removed (<a href='https://github.com/DavisVaughan/furrr/issues/123'>#123</a>).</p></li>
 <li><p>future &gt;= 1.17.0 is now required to be able to use <code><a href="https://rdrr.io/pkg/future/man/value.html">future::value()</a></code> instead of the soon to be deprecated <code><a href="https://rdrr.io/pkg/future/man/values.html">future::values()</a></code> (<a href='https://github.com/DavisVaughan/furrr/issues/108'>#108</a>).</p></li>
-<li><p>purrr &gt;= 0.3.0 is now required to gain access to various new features and breaking changes. For example, <code>map_if()</code> gained an <code>.else</code> argument, which has been added to <code><a href="../reference/future_map_if.html">future_map_if()</a></code>.</p></li>
+<li><p>purrr &gt;= 0.3.0 is now required to gain access to various new features and breaking changes. For example, <code><a href="https://purrr.tidyverse.org/reference/map_if.html">map_if()</a></code> gained an <code>.else</code> argument, which has been added to <code><a href="../reference/future_map_if.html">future_map_if()</a></code>.</p></li>
 <li><p>globals &gt;= 0.12.6 is now required because of substantial new speed boosts there related to searching for global variables, and to gain access to a few bug fixes regarding searching for remapped globals.</p></li>
 </ul>
 </div>
@@ -202,15 +202,15 @@
 </h1>
 <p>Features:</p>
 <ul>
-<li><p><code>future_pmap_*()</code> functions have been added to mirror <code>pmap()</code>.</p></li>
+<li><p><code>future_pmap_*()</code> functions have been added to mirror <code><a href="https://purrr.tidyverse.org/reference/map2.html">pmap()</a></code>.</p></li>
 <li><p>The <code>future.*</code> arguments to each function have been replaced with an overarching <code>.options</code> argument. Use <code><a href="../reference/future_options.html">future_options()</a></code> to create a set of options suitable to be passed to <code>.options</code>. This change streamlines the interface greatly, and simplifies documentation (<a href='https://github.com/DavisVaughan/furrr/issues/8'>#8</a>, <a href='https://github.com/hadley'>@hadley</a>).</p></li>
-<li><p><code>future_invoke_map_*()</code> functions have been added to mirror <code>invoke_map()</code>.</p></li>
+<li><p><code>future_invoke_map_*()</code> functions have been added to mirror <code><a href="https://purrr.tidyverse.org/reference/invoke.html">invoke_map()</a></code>.</p></li>
 <li><p>More documentation and examples have been added.</p></li>
 <li><p>Added the ability to use a progress bar with <code>.progress = TRUE</code> for multicore, multiprocess, and multisession <code>plan()</code>s.</p></li>
 </ul>
 <p>Bug Fixes:</p>
 <ul>
-<li><p>Fixed a bug with using <code>~</code> inside a <code>mutate()</code> + <code>map()</code> combination.</p></li>
+<li><p>Fixed a bug with using <code><a href="https://rdrr.io/r/base/tilde.html">~</a></code> inside a <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> + <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> combination.</p></li>
 <li><p>Added a missed <code><a href="../reference/future_imap.html">future_imap_int()</a></code>.</p></li>
 </ul>
 </div>
@@ -239,7 +239,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
