@@ -375,7 +375,7 @@ validate_chunk_size <- function(x) {
   }
 
   vctrs::vec_assert(x, size = 1L, arg = "chunk_size")
-  x <- vctrs::vec_cast(x, integer(), arg = "chunk_size")
+  x <- vctrs::vec_cast(x, integer(), x_arg = "chunk_size")
 
   if (is.na(x)) {
     abort("`chunk_size` can't be `NA`.")

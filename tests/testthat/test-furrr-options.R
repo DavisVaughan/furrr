@@ -226,6 +226,11 @@ test_that("validates `scheduling`", {
 # ------------------------------------------------------------------------------
 # furrr_options(chunk_size =)
 
+test_that("can specify `chunk_size`", {
+  x <- furrr_options(chunk_size = 2)
+  expect_identical(x$chunk_size, 2L)
+})
+
 test_that("validates `chunk_size`", {
   expect_error(furrr_options(chunk_size = c(1, 2)))
   expect_error(furrr_options(chunk_size = "x"))
