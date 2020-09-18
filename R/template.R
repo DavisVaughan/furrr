@@ -411,7 +411,8 @@ make_expr_seed_setup <- function(seed) {
   }
 
   expr({
-    ...furrr_chunk_seeds_idx <- 1L
+    ...furrr_chunk_seeds_env <- environment()
+    ...furrr_chunk_seeds_env[["i"]] <- 1L
   })
 }
 
@@ -421,14 +422,15 @@ make_expr_seed_update <- function(seed) {
   }
 
   expr({
+    ...furrr_chunk_seeds_i <- ...furrr_chunk_seeds_env[["i"]]
+    ...furrr_chunk_seeds_env[["i"]] <- ...furrr_chunk_seeds_i + 1L
+
     assign(
       x = ".Random.seed",
-      value = ...furrr_chunk_seeds[[...furrr_chunk_seeds_idx]],
+      value = ...furrr_chunk_seeds[[...furrr_chunk_seeds_i]],
       envir = globalenv(),
       inherits = FALSE
     )
-
-    ...furrr_chunk_seeds_idx <<- ...furrr_chunk_seeds_idx + 1L
   })
 }
 
@@ -486,7 +488,7 @@ utils::globalVariables(c(
   "...furrr_dots",
   "...furrr_globals_max_size",
   "...furrr_chunk_seeds",
-  "...furrr_chunk_seeds_idx",
+  "...furrr_chunk_seeds_env",
   "...furrr_progress",
   "...furrr_progress_file",
   "...furrr_progress_con"
