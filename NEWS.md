@@ -75,7 +75,7 @@
   looked up. It defaults to the caller environment, which is different than
   what was previously used, but should be more correct in some edge cases.
   Most of the time, you should not have to touch this argument. Additionally,
-  globals for `.f` are now lookup up in the function environment of `.f`
+  globals for `.f` are now looked up in the function environment of `.f`
   (HenrikBengtsson/future.apply#62, #153).
   
 * The future specific global option `future.globals.maxSize` now scales with
