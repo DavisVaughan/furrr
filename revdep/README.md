@@ -1,36 +1,23 @@
-# Platform
-
-|field    |value                        |
-|:--------|:----------------------------|
-|version  |R version 4.0.0 (2020-04-24) |
-|os       |macOS Mojave 10.14.6         |
-|system   |x86_64, darwin17.0           |
-|ui       |RStudio                      |
-|language |(EN)                         |
-|collate  |en_US.UTF-8                  |
-|ctype    |en_US.UTF-8                  |
-|tz       |America/New_York             |
-|date     |2020-08-11                   |
-
-# Dependencies
-
-|package |old   |new        |Δ  |
-|:-------|:-----|:----------|:--|
-|furrr   |0.1.0 |0.1.0.9002 |*  |
-
 # Revdeps
 
-## Failed to check (1)
+## Failed to check (2)
 
-|package  |version |error |warning |note |
-|:--------|:-------|:-----|:-------|:----|
-|foieGras |0.6-9   |1     |        |     |
+|package |version |error |warning |note |
+|:-------|:-------|:-----|:-------|:----|
+|NA      |?       |      |        |     |
+|metagam |?       |      |        |     |
 
-## New problems (3)
+## New problems (9)
 
-|package                              |version |error  |warning |note |
-|:------------------------------------|:-------|:------|:-------|:----|
-|[abjutils](problems.md#abjutils)     |0.2.3   |       |__+1__  |-1   |
-|[baguette](problems.md#baguette)     |0.0.1   |__+2__ |1       |     |
-|[simhelpers](problems.md#simhelpers) |0.1.0   |__+1__ |        |1    |
+|package                                      |version |error  |warning |note |
+|:--------------------------------------------|:-------|:------|:-------|:----|
+|[baguette](problems.md#baguette)             |0.0.1   |__+2__ |        |     |
+|[bigdist](problems.md#bigdist)               |0.1.4   |__+1__ |        |     |
+|[cort](problems.md#cort)                     |0.3.1   |__+2__ |        |1    |
+|[disk.frame](problems.md#diskframe)          |0.3.7   |__+1__ |        |     |
+|[ezcox](problems.md#ezcox)                   |0.7.0   |__+2__ |        |     |
+|[idmodelr](problems.md#idmodelr)             |0.3.2   |__+2__ |        |     |
+|[photosynthesis](problems.md#photosynthesis) |2.0.0   |__+1__ |        |     |
+|[sigminer](problems.md#sigminer)             |1.0.16  |__+1__ |        |1    |
+|[tealeaves](problems.md#tealeaves)           |1.0.5   |__+1__ |        |     |
 
