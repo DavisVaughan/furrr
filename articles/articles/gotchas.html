@@ -278,7 +278,7 @@
 
 <span class="kw">t2</span> <span class="op">-</span> <span class="kw">t1</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   2.222   0.065   3.235</span>
+<span class="co">#&gt;   1.750   0.048   2.174</span>
 </pre></div>
 <p>The issue here is that the grouped nature of the data frame prevents furrr from doing what it is good at - sharding the <code>x</code> column into equally sized groups and sending them off to the workers to process them in parallel.</p>
 <p>Instead, because this data frame is grouped, and each group corresponds to 1 row of the data frame, dplyr hands <code><a href="../../reference/future_map.html">future_map_dbl()</a></code> 1 element of <code>x</code> at a time to operate on. So <code><a href="../../reference/future_map.html">future_map_dbl()</a></code> is actually being called 100 times here!</p>
@@ -312,7 +312,7 @@
 
 <span class="kw">t2</span> <span class="op">-</span> <span class="kw">t1</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.070   0.001   0.192</span>
+<span class="co">#&gt;   0.066   0.001   0.184</span>
 </pre></div>
 </div>
 <div id="graphics-devices" class="section level2">
@@ -357,13 +357,13 @@
   <span class="fu">my_fast_fn</span>()
 )
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.028   0.001   0.144</span>
+<span class="co">#&gt;   0.038   0.001   0.185</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>(
   <span class="fu">my_slow_fn</span>()
 )
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   3.008   0.567   5.054</span>
+<span class="co">#&gt;   3.370   0.663   6.008</span>
 
 <span class="fu">plan</span>(<span class="kw">sequential</span>)
 </pre></div>
@@ -404,7 +404,7 @@
   <span class="fu">my_not_so_slow_fn</span>()
 )
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.489   0.238   0.832</span>
+<span class="co">#&gt;   0.569   0.254   0.986</span>
 
 <span class="fu">plan</span>(<span class="kw">sequential</span>)
 </pre></div>
