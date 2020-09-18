@@ -103,7 +103,7 @@ reconcile_progress_with_strategy <- function(progress) {
     return(progress)
   }
 
-  plan <- plan()
+  plan <- future::plan()
   progress_enabled_plan <- inherits_any(plan, progress_enabled_plans)
 
   if (!progress_enabled_plan) {
