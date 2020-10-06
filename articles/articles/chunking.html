@@ -112,16 +112,14 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/DavisVaughan/furrr">furrr</a></span>)
-</pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/DavisVaughan/furrr">furrr</a></span><span class="op">)</span></pre></div>
 <div id="introduction" class="section level2">
 <h2 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h2>
 <p>This article discusses how furrr “chunks” your input by default, and how to control it manually with the <code>scheduling</code> and <code>chunk_size</code> arguments. Chunking is the process of breaking up <code>.x</code> into smaller pieces that can be sent off to different workers to be processed in parallel. Once a worker gets a chunk of <code>.x</code>, it maps over it calling <code>.f</code> on each element. The results from the workers are returned to the main R session once all chunks have been processed to be combined and returned from <code><a href="../../reference/future_map.html">future_map()</a></code>.</p>
 <p>Chunks are determined using an internal function in furrr called <code>make_chunks()</code>. We’ll expose that here to demonstrate various strategies.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="kw">make_chunks</span> <span class="op">&lt;-</span> <span class="kw">furrr</span>:::<span class="kw">make_chunks</span>
-</pre></div>
+<span class="va">make_chunks</span> <span class="op">&lt;-</span> <span class="fu">furrr</span><span class="fu">:::</span><span class="va">make_chunks</span></pre></div>
 </div>
 <div id="default-chunking-strategy" class="section level2">
 <h2 class="hasAnchor">
@@ -130,7 +128,7 @@
 <div class="sourceCode" id="cb3"><pre class="downlit">
 <span class="co"># Elements 1:6 go to worker 1</span>
 <span class="co"># Elements 7:12 go to worker 2</span>
-<span class="fu">make_chunks</span>(n_x = <span class="fl">12</span>, n_workers = <span class="fl">2</span>)
+<span class="fu">make_chunks</span><span class="op">(</span>n_x <span class="op">=</span> <span class="fl">12</span>, n_workers <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 <span class="co">#&gt; [[1]]</span>
 <span class="co">#&gt; [1] 1 2 3 4 5 6</span>
 <span class="co">#&gt; </span>
@@ -139,7 +137,7 @@
 
 <span class="co"># Element 1 goes to worker 1</span>
 <span class="co"># Element 2 goes to worker 2</span>
-<span class="fu">make_chunks</span>(n_x = <span class="fl">2</span>, n_workers = <span class="fl">4</span>)
+<span class="fu">make_chunks</span><span class="op">(</span>n_x <span class="op">=</span> <span class="fl">2</span>, n_workers <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="co">#&gt; [[1]]</span>
 <span class="co">#&gt; [1] 1</span>
 <span class="co">#&gt; </span>
@@ -147,7 +145,7 @@
 <span class="co">#&gt; [1] 2</span>
 
 <span class="co"># Chunks aren't always evenly distributed</span>
-<span class="fu">make_chunks</span>(n_x = <span class="fl">10</span>, n_workers = <span class="fl">4</span>)
+<span class="fu">make_chunks</span><span class="op">(</span>n_x <span class="op">=</span> <span class="fl">10</span>, n_workers <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="co">#&gt; [[1]]</span>
 <span class="co">#&gt; [1] 1 2 3</span>
 <span class="co">#&gt; </span>
@@ -158,8 +156,7 @@
 <span class="co">#&gt; [1] 6 7</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[4]]</span>
-<span class="co">#&gt; [1]  8  9 10</span>
-</pre></div>
+<span class="co">#&gt; [1]  8  9 10</span></pre></div>
 </div>
 <div id="tweaking-the-number-of-chunks-per-worker" class="section level2">
 <h2 class="hasAnchor">
@@ -174,7 +171,7 @@
 <li><p>Send elements 10:12 off to that worker</p></li>
 </ul>
 <div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="fu">make_chunks</span>(n_x = <span class="fl">12</span>, n_workers = <span class="fl">2</span>, scheduling = <span class="fl">2L</span>)
+<span class="fu">make_chunks</span><span class="op">(</span>n_x <span class="op">=</span> <span class="fl">12</span>, n_workers <span class="op">=</span> <span class="fl">2</span>, scheduling <span class="op">=</span> <span class="fl">2L</span><span class="op">)</span>
 <span class="co">#&gt; [[1]]</span>
 <span class="co">#&gt; [1] 1 2 3</span>
 <span class="co">#&gt; </span>
@@ -185,12 +182,11 @@
 <span class="co">#&gt; [1] 7 8 9</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[4]]</span>
-<span class="co">#&gt; [1] 10 11 12</span>
-</pre></div>
+<span class="co">#&gt; [1] 10 11 12</span></pre></div>
 <p>After the first two batches of work have been sent off, furrr will wait for the next available worker to send off elements 7:9 to. If worker 2 finishes before worker 1 (which is entirely possible if the elements it is processing require less time) then it will be used to work on elements 7:9. Contrast this with setting <code>scheduling = 1L</code> for this example, which results in just 2 chunks, 1:6 and 7:12. The first chunk is sent to worker 1 and the second to worker 2. If element 4 happens to take an extremely long amount of time, then you might be waiting for worker 1 to finish long after worker 2 has. In this case, the dynamic scheduling might help overall performance. However, it does result in more serialization calls, which can degrade performance. In the end, choosing the right strategy here requires some knowledge about the function you are trying to parallelize.</p>
 <p>The extreme end of <code>scheduling</code> is to set it to <code>Inf</code>, which creates <code>n_x</code> chunks (1 chunk per element of <code>.x</code>).</p>
 <div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="fu">make_chunks</span>(n_x = <span class="fl">5</span>, n_workers = <span class="fl">2</span>, scheduling = <span class="fl">Inf</span>)
+<span class="fu">make_chunks</span><span class="op">(</span>n_x <span class="op">=</span> <span class="fl">5</span>, n_workers <span class="op">=</span> <span class="fl">2</span>, scheduling <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span>
 <span class="co">#&gt; [[1]]</span>
 <span class="co">#&gt; [1] 1</span>
 <span class="co">#&gt; </span>
@@ -204,15 +200,14 @@
 <span class="co">#&gt; [1] 4</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[5]]</span>
-<span class="co">#&gt; [1] 5</span>
-</pre></div>
+<span class="co">#&gt; [1] 5</span></pre></div>
 </div>
 <div id="tweaking-the-number-of-elements-per-chunk" class="section level2">
 <h2 class="hasAnchor">
 <a href="#tweaking-the-number-of-elements-per-chunk" class="anchor"></a>Tweaking the number of elements per chunk</h2>
 <p>Instead of using <code>scheduling</code>, you can also modify the chunking strategy using <code>chunk_size</code>, which controls the average number of elements per chunk. This is used in place of <code>scheduling</code>, and, if set, will override any <code>scheduling</code> value. For example, specifying a <code>chunk_size</code> of 4 below will create 3 chunks of size 4 to send off to the 2 workers. Computing chunks using <code>chunk_size</code> is independent of the number of workers.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="fu">make_chunks</span>(n_x = <span class="fl">12</span>, n_workers = <span class="fl">2</span>, chunk_size = <span class="fl">4</span>)
+<span class="fu">make_chunks</span><span class="op">(</span>n_x <span class="op">=</span> <span class="fl">12</span>, n_workers <span class="op">=</span> <span class="fl">2</span>, chunk_size <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="co">#&gt; [[1]]</span>
 <span class="co">#&gt; [1] 1 2 3 4</span>
 <span class="co">#&gt; </span>
@@ -220,14 +215,12 @@
 <span class="co">#&gt; [1] 5 6 7 8</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[3]]</span>
-<span class="co">#&gt; [1]  9 10 11 12</span>
-</pre></div>
+<span class="co">#&gt; [1]  9 10 11 12</span></pre></div>
 <p>An <code>Inf</code> <code>chunk_size</code> requests that all elements be processed in a single chunk.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="fu">make_chunks</span>(n_x = <span class="fl">5</span>, n_workers = <span class="fl">3</span>, chunk_size = <span class="fl">Inf</span>)
+<span class="fu">make_chunks</span><span class="op">(</span>n_x <span class="op">=</span> <span class="fl">5</span>, n_workers <span class="op">=</span> <span class="fl">3</span>, chunk_size <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span>
 <span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; [1] 1 2 3 4 5</span>
-</pre></div>
+<span class="co">#&gt; [1] 1 2 3 4 5</span></pre></div>
 </div>
   </div>
 
