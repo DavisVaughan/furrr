@@ -1,15 +1,12 @@
 # Revdeps
 
-## Failed to check (2)
+## Failed to check (5)
 
-|package |version |error |warning |note |
-|:-------|:-------|:-----|:-------|:----|
-|NA      |?       |      |        |     |
-|metagam |?       |      |        |     |
-
-## New problems (1)
-
-|package                          |version |error  |warning |note |
-|:--------------------------------|:-------|:------|:-------|:----|
-|[baguette](problems.md#baguette) |0.0.1   |__+2__ |        |     |
+|package    |version |error |warning |note |
+|:----------|:-------|:-----|:-------|:----|
+|NA         |?       |      |        |     |
+|ctDNAtools |?       |      |        |     |
+|foieGras   |?       |      |        |     |
+|metagam    |?       |      |        |     |
+|simhelpers |?       |      |        |     |
 
