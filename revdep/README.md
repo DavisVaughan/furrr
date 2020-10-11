@@ -1,12 +1,10 @@
 # Revdeps
 
-## Failed to check (5)
+## Failed to check (3)
 
-|package    |version |error |warning |note |
-|:----------|:-------|:-----|:-------|:----|
-|NA         |?       |      |        |     |
-|ctDNAtools |?       |      |        |     |
-|foieGras   |?       |      |        |     |
-|metagam    |?       |      |        |     |
-|simhelpers |?       |      |        |     |
+|package  |version |error |warning |note |
+|:--------|:-------|:-----|:-------|:----|
+|NA       |?       |      |        |     |
+|foieGras |?       |      |        |     |
+|metagam  |?       |      |        |     |
 
