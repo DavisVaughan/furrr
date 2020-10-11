@@ -109,8 +109,9 @@
 * rlang >= 0.3.0 is now required to ensure that the rlang `~` is serializable.
   The hacks in furrr that tried to work around this have been removed (#123).
 
-* future >= 1.17.0 is now required to be able to use `future::value()` instead
-  of the soon to be deprecated `future::values()` (#108).
+* future >= 1.19.1 is now required to be able to use `future::value()` instead
+  of the soon to be deprecated `future::values()` and to access a few bug
+  fixes (#108).
   
 * purrr >= 0.3.0 is now required to gain access to various new features and
   breaking changes. For example, `map_if()` gained an `.else` argument, which
