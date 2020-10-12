@@ -93,7 +93,7 @@ These functions work exactly the same as \code{\link[purrr:map_if]{purrr::map_if
 \code{\link[purrr:map_if]{purrr::map_at()}}, but allow you to run them in parallel.
 }
 \examples{
-\donttest{plan(multiprocess)}
+\donttest{plan(multisession, workers = 2)}
 
 # Modify the even elements
 future_map_if(1:5, ~.x \%\% 2 == 0L, ~ -1)

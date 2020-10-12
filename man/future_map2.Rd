@@ -267,7 +267,7 @@ this case means that you can work on multiple inputs and process them all in
 parallel as well.
 }
 \examples{
-\donttest{plan(multiprocess)}
+\donttest{plan(multisession, workers = 2)}
 
 x <- list(1, 10, 100)
 y <- list(1, 2, 3)

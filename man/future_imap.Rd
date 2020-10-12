@@ -151,7 +151,7 @@ These functions work exactly the same as \code{\link[purrr:imap]{purrr::imap()}}
 but allow you to map in parallel.
 }
 \examples{
-\donttest{plan(multiprocess)}
+\donttest{plan(multisession, workers = 2)}
 
 future_imap_chr(sample(10), ~ paste0(.y, ": ", .x))
 

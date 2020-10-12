@@ -258,7 +258,7 @@ plan(list(
   tweak(cluster, workers = cl_multi), 
   
   # The inner plan says to run in parallel on each instance
-  multiprocess
+  multisession
 ))
 ```
 

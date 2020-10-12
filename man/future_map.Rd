@@ -162,7 +162,7 @@ allow you to map in parallel.
 }
 \examples{
 library(magrittr)
-\donttest{plan(multiprocess)}
+\donttest{plan(multisession, workers = 2)}
 
 1:10 \%>\%
   future_map(rnorm, n = 10) \%>\%

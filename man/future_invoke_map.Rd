@@ -130,7 +130,7 @@ These functions work exactly the same as \code{\link[purrr:invoke]{purrr::invoke
 allow you to invoke in parallel.
 }
 \examples{
-\donttest{plan(multiprocess)}
+\donttest{plan(multisession, workers = 2)}
 
 df <- dplyr::tibble(
   f = c("runif", "rpois", "rnorm"),

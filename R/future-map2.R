@@ -18,7 +18,7 @@
 #'
 #' @export
 #' @examples
-#' \donttest{plan(multiprocess)}
+#' \donttest{plan(multisession, workers = 2)}
 #'
 #' x <- list(1, 10, 100)
 #' y <- list(1, 2, 3)

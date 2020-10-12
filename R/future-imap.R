@@ -11,7 +11,7 @@
 #'
 #' @export
 #' @examples
-#' \donttest{plan(multiprocess)}
+#' \donttest{plan(multisession, workers = 2)}
 #'
 #' future_imap_chr(sample(10), ~ paste0(.y, ": ", .x))
 #'

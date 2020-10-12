@@ -17,7 +17,7 @@
 #'
 #' @export
 #' @examples
-#' \donttest{plan(multiprocess)}
+#' \donttest{plan(multisession, workers = 2)}
 #'
 #' df <- dplyr::tibble(
 #'   f = c("runif", "rpois", "rnorm"),

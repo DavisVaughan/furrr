@@ -40,7 +40,7 @@
 #' @export
 #' @examples
 #' library(magrittr)
-#' \donttest{plan(multiprocess)}
+#' \donttest{plan(multisession, workers = 2)}
 #'
 #' 1:10 %>%
 #'   future_map(rnorm, n = 10) %>%
@@ -253,7 +253,7 @@ future_map_dfc <- function(.x,
 #'
 #' @export
 #' @examples
-#' \donttest{plan(multiprocess)}
+#' \donttest{plan(multisession, workers = 2)}
 #'
 #' # Modify the even elements
 #' future_map_if(1:5, ~.x %% 2 == 0L, ~ -1)

@@ -111,7 +111,7 @@ length of the input.
 }
 \examples{
 library(magrittr)
-\donttest{plan(multiprocess)}
+\donttest{plan(multisession, workers = 2)}
 
 # Convert each col to character, in parallel
 future_modify(mtcars, as.character)
