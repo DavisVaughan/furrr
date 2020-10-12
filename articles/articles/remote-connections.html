@@ -371,7 +371,7 @@
   <span class="fu">tweak</span><span class="op">(</span><span class="va">cluster</span>, workers <span class="op">=</span> <span class="va">cl_multi</span><span class="op">)</span>, 
   
   <span class="co"># The inner plan says to run in parallel on each instance</span>
-  <span class="va">multiprocess</span>
+  <span class="va">multisession</span>
 <span class="op">)</span><span class="op">)</span></pre></div>
 <p>How do we know this is working? Let’s try doing something that would require a fixed amount of time when run locally, then try it in parallel. We are just going to wait for 2 seconds on each iteration, and then return the instance we are on and the core we are using. In total this should take <em>16 seconds</em>.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit">

@@ -302,7 +302,7 @@ variable will be created.</p>
     <p>A vector the same length as .x.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>plan</span><span class='op'>(</span><span class='va'>multiprocess</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='fu'>plan</span><span class='op'>(</span><span class='va'>multisession</span>, workers <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
 
 <span class='fu'>future_imap_chr</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>, <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='va'>.y</span>, <span class='st'>": "</span>, <span class='va'>.x</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;  [1] "1: 7"  "2: 5"  "3: 6"  "4: 10" "5: 4"  "6: 1"  "7: 9"  "8: 8"  "9: 3" 
