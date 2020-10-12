@@ -117,7 +117,7 @@
   breaking changes. For example, `map_if()` gained an `.else` argument, which
   has been added to `future_map_if()`.
 
-* globals >= 0.13.0 is now required because of substantial new speed boosts
+* globals >= 0.13.1 is now required because of substantial new speed boosts
   there related to searching for global variables, and to gain access to a few
   bug fixes.
 
