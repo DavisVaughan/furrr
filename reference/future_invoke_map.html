@@ -82,7 +82,7 @@ allow you to invoke in parallel." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">furrr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -300,15 +300,15 @@ package.</p></td>
 
 <span class='fu'>future_invoke_map</span><span class='op'>(</span><span class='va'>df</span><span class='op'>$</span><span class='va'>f</span>, <span class='va'>df</span><span class='op'>$</span><span class='va'>params</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: UNRELIABLE VALUE: Future (‘&lt;none&gt;’) unexpectedly generated random numbers without specifying argument '[future.]seed'. There is a risk that those random numbers are not statistically sound and the overall results might be invalid. To fix this, specify argument '[future.]seed', e.g. 'seed=TRUE'. This ensures that proper, parallel-safe random numbers are produced via the L'Ecuyer-CMRG method. To disable this check, use [future].seed=NULL, or set option 'future.rng.onMisuse' to "ignore".</span></div><div class='output co'>#&gt; <span class='warning'>Warning: UNRELIABLE VALUE: Future (‘&lt;none&gt;’) unexpectedly generated random numbers without specifying argument '[future.]seed'. There is a risk that those random numbers are not statistically sound and the overall results might be invalid. To fix this, specify argument '[future.]seed', e.g. 'seed=TRUE'. This ensures that proper, parallel-safe random numbers are produced via the L'Ecuyer-CMRG method. To disable this check, use [future].seed=NULL, or set option 'future.rng.onMisuse' to "ignore".</span></div><div class='output co'>#&gt; [[1]]
-#&gt;  [1] 0.21101356 0.44892081 0.37158738 0.67493608 0.69081027 0.06848343
-#&gt;  [7] 0.58994282 0.53695830 0.64613691 0.46132227
+#&gt;  [1] 0.07294047 0.39253322 0.88059162 0.47434148 0.85541564 0.97797006
+#&gt;  [7] 0.04958665 0.27811215 0.33078341 0.96074926
 #&gt; 
 #&gt; [[2]]
-#&gt; [1]  9  9  6  8 18
+#&gt; [1] 10 11  8  8  6
 #&gt; 
 #&gt; [[3]]
-#&gt;  [1]  -1.106394   4.115749  -3.226086 -14.078412  -9.453712  -1.614293
-#&gt;  [7]   5.352252  19.156069  -6.821672 -13.687411
+#&gt;  [1] -10.067036  -4.740450  -5.104472   1.049209   8.901107  -6.664349
+#&gt;  [7]   4.868387  -7.680829 -15.821270  -1.622496
 #&gt; </div><div class='input'>
 <span class='co'># \dontshow{</span>
 <span class='co'># Close open connections for R CMD Check</span>
