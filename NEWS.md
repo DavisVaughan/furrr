@@ -1,4 +1,4 @@
-# furrr 0.1.0.9002
+# furrr 0.2.0
 
 ## Breaking changes:
 
