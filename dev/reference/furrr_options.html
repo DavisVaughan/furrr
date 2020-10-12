@@ -81,7 +81,7 @@ are either used by furrr directly, or are passed on to future::future()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">furrr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9002</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9000</span>
       </span>
     </div>
 
@@ -111,6 +111,9 @@ are either used by furrr directly, or are passed on to future::future()." />
     </li>
     <li>
       <a href="../articles/articles/gotchas.html">Common gotchas</a>
+    </li>
+    <li>
+      <a href="../articles/articles/progress.html">Progress notifications with progressr</a>
     </li>
     <li>
       <a href="../articles/articles/remote-connections.html">Remote connections</a>
@@ -151,18 +154,18 @@ are either used by furrr directly, or are passed on to future::future()." />
 are either used by furrr directly, or are passed on to <code><a href='https://rdrr.io/pkg/future/man/future.html'>future::future()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>furrr_options</span>(
-  <span class='no'>...</span>,
-  <span class='kw'>stdout</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>conditions</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>globals</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>packages</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>scheduling</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>chunk_size</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>prefix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
-)</pre>
+    <pre class="usage"><span class='fu'>furrr_options</span><span class='op'>(</span>
+  <span class='va'>...</span>,
+  stdout <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  conditions <span class='op'>=</span> <span class='cn'>NULL</span>,
+  globals <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  packages <span class='op'>=</span> <span class='cn'>NULL</span>,
+  lazy <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  seed <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  scheduling <span class='op'>=</span> <span class='fl'>1</span>,
+  chunk_size <span class='op'>=</span> <span class='cn'>NULL</span>,
+  prefix <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -295,7 +298,8 @@ script calling <code><a href='future_map.html'>future_map()</a></code> multiple 
 reproducible given the same initial seed.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>furrr_options</span>()</div><div class='output co'>#&gt; &lt;furrr_options&gt;</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>furrr_options</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;furrr_options&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -311,7 +315,7 @@ reproducible given the same initial seed.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

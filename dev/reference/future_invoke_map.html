@@ -82,7 +82,7 @@ allow you to invoke in parallel." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">furrr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9002</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9000</span>
       </span>
     </div>
 
@@ -112,6 +112,9 @@ allow you to invoke in parallel." />
     </li>
     <li>
       <a href="../articles/articles/gotchas.html">Common gotchas</a>
+    </li>
+    <li>
+      <a href="../articles/articles/progress.html">Progress notifications with progressr</a>
     </li>
     <li>
       <a href="../articles/articles/remote-connections.html">Remote connections</a>
@@ -153,85 +156,85 @@ allow you to invoke in parallel." />
 allow you to invoke in parallel.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>future_invoke_map</span>(
-  <span class='no'>.f</span>,
-  <span class='kw'>.x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>NULL</span>),
-  <span class='no'>...</span>,
-  <span class='kw'>.env</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
-  <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
-  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)
+    <pre class="usage"><span class='fu'>future_invoke_map</span><span class='op'>(</span>
+  <span class='va'>.f</span>,
+  .x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='cn'>NULL</span><span class='op'>)</span>,
+  <span class='va'>...</span>,
+  .env <span class='op'>=</span> <span class='cn'>NULL</span>,
+  .options <span class='op'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span><span class='op'>(</span><span class='op'>)</span>,
+  .env_globals <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span><span class='op'>(</span><span class='op'>)</span>,
+  .progress <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
 
-<span class='fu'>future_invoke_map_chr</span>(
-  <span class='no'>.f</span>,
-  <span class='kw'>.x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>NULL</span>),
-  <span class='no'>...</span>,
-  <span class='kw'>.env</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
-  <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
-  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)
+<span class='fu'>future_invoke_map_chr</span><span class='op'>(</span>
+  <span class='va'>.f</span>,
+  .x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='cn'>NULL</span><span class='op'>)</span>,
+  <span class='va'>...</span>,
+  .env <span class='op'>=</span> <span class='cn'>NULL</span>,
+  .options <span class='op'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span><span class='op'>(</span><span class='op'>)</span>,
+  .env_globals <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span><span class='op'>(</span><span class='op'>)</span>,
+  .progress <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
 
-<span class='fu'>future_invoke_map_dbl</span>(
-  <span class='no'>.f</span>,
-  <span class='kw'>.x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>NULL</span>),
-  <span class='no'>...</span>,
-  <span class='kw'>.env</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
-  <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
-  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)
+<span class='fu'>future_invoke_map_dbl</span><span class='op'>(</span>
+  <span class='va'>.f</span>,
+  .x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='cn'>NULL</span><span class='op'>)</span>,
+  <span class='va'>...</span>,
+  .env <span class='op'>=</span> <span class='cn'>NULL</span>,
+  .options <span class='op'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span><span class='op'>(</span><span class='op'>)</span>,
+  .env_globals <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span><span class='op'>(</span><span class='op'>)</span>,
+  .progress <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
 
-<span class='fu'>future_invoke_map_int</span>(
-  <span class='no'>.f</span>,
-  <span class='kw'>.x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>NULL</span>),
-  <span class='no'>...</span>,
-  <span class='kw'>.env</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
-  <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
-  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)
+<span class='fu'>future_invoke_map_int</span><span class='op'>(</span>
+  <span class='va'>.f</span>,
+  .x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='cn'>NULL</span><span class='op'>)</span>,
+  <span class='va'>...</span>,
+  .env <span class='op'>=</span> <span class='cn'>NULL</span>,
+  .options <span class='op'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span><span class='op'>(</span><span class='op'>)</span>,
+  .env_globals <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span><span class='op'>(</span><span class='op'>)</span>,
+  .progress <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
 
-<span class='fu'>future_invoke_map_lgl</span>(
-  <span class='no'>.f</span>,
-  <span class='kw'>.x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>NULL</span>),
-  <span class='no'>...</span>,
-  <span class='kw'>.env</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
-  <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
-  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)
+<span class='fu'>future_invoke_map_lgl</span><span class='op'>(</span>
+  <span class='va'>.f</span>,
+  .x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='cn'>NULL</span><span class='op'>)</span>,
+  <span class='va'>...</span>,
+  .env <span class='op'>=</span> <span class='cn'>NULL</span>,
+  .options <span class='op'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span><span class='op'>(</span><span class='op'>)</span>,
+  .env_globals <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span><span class='op'>(</span><span class='op'>)</span>,
+  .progress <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
 
-<span class='fu'>future_invoke_map_raw</span>(
-  <span class='no'>.f</span>,
-  <span class='kw'>.x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>NULL</span>),
-  <span class='no'>...</span>,
-  <span class='kw'>.env</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
-  <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
-  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)
+<span class='fu'>future_invoke_map_raw</span><span class='op'>(</span>
+  <span class='va'>.f</span>,
+  .x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='cn'>NULL</span><span class='op'>)</span>,
+  <span class='va'>...</span>,
+  .env <span class='op'>=</span> <span class='cn'>NULL</span>,
+  .options <span class='op'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span><span class='op'>(</span><span class='op'>)</span>,
+  .env_globals <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span><span class='op'>(</span><span class='op'>)</span>,
+  .progress <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
 
-<span class='fu'>future_invoke_map_dfr</span>(
-  <span class='no'>.f</span>,
-  <span class='kw'>.x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>NULL</span>),
-  <span class='no'>...</span>,
-  <span class='kw'>.env</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
-  <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
-  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)
+<span class='fu'>future_invoke_map_dfr</span><span class='op'>(</span>
+  <span class='va'>.f</span>,
+  .x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='cn'>NULL</span><span class='op'>)</span>,
+  <span class='va'>...</span>,
+  .env <span class='op'>=</span> <span class='cn'>NULL</span>,
+  .options <span class='op'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span><span class='op'>(</span><span class='op'>)</span>,
+  .env_globals <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span><span class='op'>(</span><span class='op'>)</span>,
+  .progress <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
 
-<span class='fu'>future_invoke_map_dfc</span>(
-  <span class='no'>.f</span>,
-  <span class='kw'>.x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>NULL</span>),
-  <span class='no'>...</span>,
-  <span class='kw'>.env</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>.options</span> <span class='kw'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span>(),
-  <span class='kw'>.env_globals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
-  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+<span class='fu'>future_invoke_map_dfc</span><span class='op'>(</span>
+  <span class='va'>.f</span>,
+  .x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='cn'>NULL</span><span class='op'>)</span>,
+  <span class='va'>...</span>,
+  .env <span class='op'>=</span> <span class='cn'>NULL</span>,
+  .options <span class='op'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span><span class='op'>(</span><span class='op'>)</span>,
+  .env_globals <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span><span class='op'>(</span><span class='op'>)</span>,
+  .progress <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -284,32 +287,34 @@ package.</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>plan</span>(<span class='no'>multiprocess</span>)
+    <pre class="examples"><div class='input'><span class='fu'>plan</span><span class='op'>(</span><span class='va'>multisession</span>, workers <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
 
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/reexports.html'>tibble</a></span>(
-  <span class='kw'>f</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"runif"</span>, <span class='st'>"rpois"</span>, <span class='st'>"rnorm"</span>),
-  <span class='kw'>params</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
-    <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>10</span>),
-    <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='fl'>10</span>),
-    <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>mean</span> <span class='kw'>=</span> -<span class='fl'>3</span>, <span class='kw'>sd</span> <span class='kw'>=</span> <span class='fl'>10</span>)
-  )
-)
+<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>
+  f <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"runif"</span>, <span class='st'>"rpois"</span>, <span class='st'>"rnorm"</span><span class='op'>)</span>,
+  params <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+    <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>,
+    <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>5</span>, lambda <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>,
+    <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>10</span>, mean <span class='op'>=</span> <span class='op'>-</span><span class='fl'>3</span>, sd <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
+  <span class='op'>)</span>
+<span class='op'>)</span>
 
-<span class='fu'>future_invoke_map</span>(<span class='no'>df</span>$<span class='no'>f</span>, <span class='no'>df</span>$<span class='no'>params</span>)</div><div class='output co'>#&gt; [[1]]
-#&gt;  [1] 0.33211823 0.05339431 0.58552502 0.28681840 0.83074694 0.47876156
-#&gt;  [7] 0.44256197 0.08444425 0.15736247 0.35213485
+<span class='fu'>future_invoke_map</span><span class='op'>(</span><span class='va'>df</span><span class='op'>$</span><span class='va'>f</span>, <span class='va'>df</span><span class='op'>$</span><span class='va'>params</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: UNRELIABLE VALUE: Future (‘&lt;none&gt;’) unexpectedly generated random numbers without specifying argument '[future.]seed'. There is a risk that those random numbers are not statistically sound and the overall results might be invalid. To fix this, specify argument '[future.]seed', e.g. 'seed=TRUE'. This ensures that proper, parallel-safe random numbers are produced via the L'Ecuyer-CMRG method. To disable this check, use [future].seed=NULL, or set option 'future.rng.onMisuse' to "ignore".</span></div><div class='output co'>#&gt; <span class='warning'>Warning: UNRELIABLE VALUE: Future (‘&lt;none&gt;’) unexpectedly generated random numbers without specifying argument '[future.]seed'. There is a risk that those random numbers are not statistically sound and the overall results might be invalid. To fix this, specify argument '[future.]seed', e.g. 'seed=TRUE'. This ensures that proper, parallel-safe random numbers are produced via the L'Ecuyer-CMRG method. To disable this check, use [future].seed=NULL, or set option 'future.rng.onMisuse' to "ignore".</span></div><div class='output co'>#&gt; [[1]]
+#&gt;  [1] 0.6192491 0.3663526 0.8739928 0.9721005 0.1173930 0.3897061 0.2377022
+#&gt;  [8] 0.3097660 0.8731505 0.1594555
 #&gt; 
 #&gt; [[2]]
-#&gt; [1] 10  9  9 15 12
+#&gt; [1] 11 10 11  9 10
 #&gt; 
 #&gt; [[3]]
-#&gt;  [1]  -1.4553261  -4.9516789  -3.5868530  -3.1267713   9.0394745   2.7703486
-#&gt;  [7]   0.4914922 -15.8867544  -8.2276404  -0.2025240
+#&gt;  [1] -10.030117  -6.771803   3.831144 -12.772611  11.493003 -12.803142
+#&gt;  [7]  -7.834402 -10.660324  15.122471  -5.767992
 #&gt; </div><div class='input'>
 <span class='co'># \dontshow{</span>
 <span class='co'># Close open connections for R CMD Check</span>
-<span class='kw'>if</span> (!<span class='fu'><a href='https://rdrr.io/r/base/class.html'>inherits</a></span>(<span class='fu'>plan</span>(), <span class='st'>"sequential"</span>)) <span class='fu'>plan</span>(<span class='no'>sequential</span>)
-<span class='co'># }</span></div></pre>
+<span class='kw'>if</span> <span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/class.html'>inherits</a></span><span class='op'>(</span><span class='fu'>plan</span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"sequential"</span><span class='op'>)</span><span class='op'>)</span> <span class='fu'>plan</span><span class='op'>(</span><span class='va'>sequential</span><span class='op'>)</span>
+<span class='co'># }</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -325,7 +330,7 @@ package.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

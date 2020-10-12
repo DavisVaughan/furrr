@@ -82,7 +82,7 @@ of furrr 0.2.0." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">furrr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9002</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9000</span>
       </span>
     </div>
 
@@ -112,6 +112,9 @@ of furrr 0.2.0." />
     </li>
     <li>
       <a href="../articles/articles/gotchas.html">Common gotchas</a>
+    </li>
+    <li>
+      <a href="../articles/articles/progress.html">Progress notifications with progressr</a>
     </li>
     <li>
       <a href="../articles/articles/remote-connections.html">Remote connections</a>
@@ -153,13 +156,13 @@ of furrr 0.2.0." />
 of furrr 0.2.0.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>future_options</span>(
-  <span class='kw'>globals</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>packages</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>lazy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>scheduling</span> <span class='kw'>=</span> <span class='fl'>1</span>
-)</pre>
+    <pre class="usage"><span class='fu'>future_options</span><span class='op'>(</span>
+  globals <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  packages <span class='op'>=</span> <span class='cn'>NULL</span>,
+  seed <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  lazy <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  scheduling <span class='op'>=</span> <span class='fl'>1</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -204,7 +207,8 @@ are enough elements in <code>.x</code>).</p></li>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>future_options</span>()</div><div class='output co'>#&gt; <span class='warning'>Warning: `future_options()` is deprecated as of furrr 0.2.0.</span>
+    <pre class="examples"><div class='input'><span class='fu'>future_options</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: `future_options()` is deprecated as of furrr 0.2.0.</span>
 #&gt; <span class='warning'>Please use `furrr_options()` instead.</span>
 #&gt; <span class='warning'><span style='color: #555555;'>This warning is displayed once every 8 hours.</span><span></span>
 #&gt; <span class='warning'></span><span style='color: #555555;'>Call `lifecycle::last_warnings()` to see where this warning was generated.</span><span></span></div><div class='output co'>#&gt; &lt;furrr_options&gt;</div></span></pre>
@@ -223,7 +227,7 @@ are enough elements in <code>.x</code>).</p></li>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
