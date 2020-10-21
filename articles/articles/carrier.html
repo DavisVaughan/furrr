@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">furrr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
       </span>
     </div>
 
@@ -98,7 +98,8 @@
 
       
 
-      </header><script src="carrier_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="carrier_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="carrier_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="carrier_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Alternative to automatic globals detection</h1>
@@ -255,7 +256,7 @@
   <span class="fu">my_slow_fn</span><span class="op">(</span><span class="op">)</span>
 <span class="op">}</span><span class="op">)</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   2.707   0.654   4.833</span></pre></div>
+<span class="co">#&gt;   7.540   2.715  16.167</span></pre></div>
 <p>One way to avoid this is to use carrier to crate the function, isolating it from the surrounding environment.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit">
 <span class="va">my_crated_fn</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
@@ -274,7 +275,7 @@
   <span class="fu">my_crated_fn</span><span class="op">(</span><span class="op">)</span>
 <span class="op">}</span><span class="op">)</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.463   0.189   0.755</span></pre></div>
+<span class="co">#&gt;   1.575   1.678   3.910</span></pre></div>
 </div>
   </div>
 
