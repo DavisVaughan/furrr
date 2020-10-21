@@ -28,7 +28,7 @@
 #'   )
 #' )
 #'
-#' future_invoke_map(df$f, df$params)
+#' future_invoke_map(df$f, df$params, .options = furrr_options(seed = 123))
 #'
 #' \dontshow{
 #' # Close open connections for R CMD Check
