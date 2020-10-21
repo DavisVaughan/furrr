@@ -1,5 +1,8 @@
 # furrr (development version)
 
+* Updated documentation examples to explicitly set the seed on the workers
+  when random numbers are generated (#175).
+  
 * Removed an internal call to `future:::supportsMulticore()` since it is no
   longer internal (#174).
 
