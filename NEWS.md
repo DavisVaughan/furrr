@@ -1,4 +1,4 @@
-# furrr (development version)
+# furrr 0.2.1
 
 * Updated documentation examples to explicitly set the seed on the workers
   when random numbers are generated (#175).
