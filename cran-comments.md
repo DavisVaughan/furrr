@@ -5,13 +5,12 @@
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
-
-  New maintainer:
-    Davis Vaughan <davis@rstudio.com>
-  Old maintainer(s):
-    Davis Vaughan <dvaughan@business-science.io>
+0 errors | 0 warnings | 0 notes
     
+## 0.2.1 Submission
+
+Minor release to accommodate a request from the future package.
+
 ## 0.2.0 Submission
 
 This is the second release of furrr. My email has been updated.
