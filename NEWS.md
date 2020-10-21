@@ -1,5 +1,8 @@
 # furrr (development version)
 
+* Removed an internal call to `future:::supportsMulticore()` since it is no
+  longer internal (#174).
+
 # furrr 0.2.0
 
 ## Breaking changes:

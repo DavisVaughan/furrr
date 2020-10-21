@@ -24,9 +24,7 @@ furrr_test_that <- function(desc, code) {
 supported_strategies <- function() {
   strategies <- c("sequential", "multisession", "multicore")
 
-  supportsMulticore <- import_future("supportsMulticore")
-
-  if (!supportsMulticore()) {
+  if (!future::supportsMulticore()) {
     strategies <- setdiff(strategies, "multicore")
   }
 
