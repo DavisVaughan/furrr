@@ -315,10 +315,10 @@ integer -&gt; double -&gt; character.</p>
 <span class='fu'>plan</span><span class='op'>(</span><span class='va'>multisession</span>, workers <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
 
 <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>future_map</span><span class='op'>(</span><span class='va'>rnorm</span>, n <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>future_map</span><span class='op'>(</span><span class='va'>rnorm</span>, n <span class='op'>=</span> <span class='fl'>10</span>, .options <span class='op'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span><span class='op'>(</span>seed <span class='op'>=</span> <span class='fl'>123</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>future_map_dbl</span><span class='op'>(</span><span class='va'>mean</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: UNRELIABLE VALUE: Future (‘&lt;none&gt;’) unexpectedly generated random numbers without specifying argument '[future.]seed'. There is a risk that those random numbers are not statistically sound and the overall results might be invalid. To fix this, specify argument '[future.]seed', e.g. 'seed=TRUE'. This ensures that proper, parallel-safe random numbers are produced via the L'Ecuyer-CMRG method. To disable this check, use [future].seed=NULL, or set option 'future.rng.onMisuse' to "ignore".</span></div><div class='output co'>#&gt; <span class='warning'>Warning: UNRELIABLE VALUE: Future (‘&lt;none&gt;’) unexpectedly generated random numbers without specifying argument '[future.]seed'. There is a risk that those random numbers are not statistically sound and the overall results might be invalid. To fix this, specify argument '[future.]seed', e.g. 'seed=TRUE'. This ensures that proper, parallel-safe random numbers are produced via the L'Ecuyer-CMRG method. To disable this check, use [future].seed=NULL, or set option 'future.rng.onMisuse' to "ignore".</span></div><div class='output co'>#&gt;  [1] 0.7594333 1.8792382 3.3228438 3.9728088 4.8366928 5.9115903 7.2305135
-#&gt;  [8] 8.0535906 9.1723020 9.7938216</div><div class='input'>
+</div><div class='output co'>#&gt;  [1] 1.180279 2.140442 2.909823 3.692207 5.058100 6.653926 7.065630 7.960713
+#&gt;  [9] 9.105674 9.766827</div><div class='input'>
 <span class='co'># If each element of the output is a data frame, use</span>
 <span class='co'># `future_map_dfr()` to row-bind them together:</span>
 <span class='va'>mtcars</span> <span class='op'>%&gt;%</span>

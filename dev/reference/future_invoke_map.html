@@ -298,17 +298,17 @@ package.</p></td>
   <span class='op'>)</span>
 <span class='op'>)</span>
 
-<span class='fu'>future_invoke_map</span><span class='op'>(</span><span class='va'>df</span><span class='op'>$</span><span class='va'>f</span>, <span class='va'>df</span><span class='op'>$</span><span class='va'>params</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: UNRELIABLE VALUE: Future (‘&lt;none&gt;’) unexpectedly generated random numbers without specifying argument '[future.]seed'. There is a risk that those random numbers are not statistically sound and the overall results might be invalid. To fix this, specify argument '[future.]seed', e.g. 'seed=TRUE'. This ensures that proper, parallel-safe random numbers are produced via the L'Ecuyer-CMRG method. To disable this check, use [future].seed=NULL, or set option 'future.rng.onMisuse' to "ignore".</span></div><div class='output co'>#&gt; <span class='warning'>Warning: UNRELIABLE VALUE: Future (‘&lt;none&gt;’) unexpectedly generated random numbers without specifying argument '[future.]seed'. There is a risk that those random numbers are not statistically sound and the overall results might be invalid. To fix this, specify argument '[future.]seed', e.g. 'seed=TRUE'. This ensures that proper, parallel-safe random numbers are produced via the L'Ecuyer-CMRG method. To disable this check, use [future].seed=NULL, or set option 'future.rng.onMisuse' to "ignore".</span></div><div class='output co'>#&gt; [[1]]
-#&gt;  [1] 0.363627732 0.742001096 0.456577929 0.024902474 0.291907175 0.002783913
-#&gt;  [7] 0.977527904 0.292242153 0.630740710 0.290337773
+<span class='fu'>future_invoke_map</span><span class='op'>(</span><span class='va'>df</span><span class='op'>$</span><span class='va'>f</span>, <span class='va'>df</span><span class='op'>$</span><span class='va'>params</span>, .options <span class='op'>=</span> <span class='fu'><a href='furrr_options.html'>furrr_options</a></span><span class='op'>(</span>seed <span class='op'>=</span> <span class='fl'>123</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
+#&gt;  [1] 0.15523168 0.13489836 0.77349355 0.06467378 0.72312291 0.34779719
+#&gt;  [7] 0.76720626 0.90894692 0.94261388 0.47246904
 #&gt; 
 #&gt; [[2]]
-#&gt; [1]  6 10 11 10 12
+#&gt; [1]  9 10  9  9  8
 #&gt; 
 #&gt; [[3]]
-#&gt;  [1] -29.032169   1.077088 -20.160425   8.049580  -1.472782  11.027961
-#&gt;  [7] -21.563919 -13.262348 -27.821937   2.128235
+#&gt;  [1]  -2.171833 -18.032800 -10.719393  15.365090   9.164918  -4.410979
+#&gt;  [7] -10.297802 -15.180494   1.718361  -4.452757
 #&gt; </div><div class='input'>
 <span class='co'># \dontshow{</span>
 <span class='co'># Close open connections for R CMD Check</span>
