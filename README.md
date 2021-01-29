@@ -29,12 +29,12 @@ them.
 
 Every variant of the following functions has been implemented:
 
-  - `map()`
-  - `map2()`
-  - `pmap()`
-  - `walk()`
-  - `imap()`
-  - `modify()`
+-   `map()`
+-   `map2()`
+-   `pmap()`
+-   `walk()`
+-   `imap()`
+-   `modify()`
 
 This includes atomic variants like `map_dbl()` through
 `future_map_dbl()` and predicate variants like `map_at()` through
@@ -66,19 +66,19 @@ page can be useful to get a general overview of the functions in the
 package, and the following vignettes are deep dives into various parts
 of furrr:
 
-  - [Common
+-   [Common
     gotchas](https://davisvaughan.github.io/furrr/articles/articles/gotchas.html)
 
-  - [Learn how furrr “chunks” your
+-   [Learn how furrr “chunks” your
     input](https://davisvaughan.github.io/furrr/articles/articles/chunking.html)
 
-  - [carrier - An alternative to automatic globals
+-   [carrier - An alternative to automatic globals
     detection](https://davisvaughan.github.io/furrr/articles/articles/carrier.html)
 
-  - [Progress notifications with
+-   [Progress notifications with
     progressr](https://davisvaughan.github.io/furrr/articles/articles/progress.html)
 
-  - [Using furrr with
+-   [Using furrr with
     connections](https://davisvaughan.github.io/furrr/articles/articles/remote-connections.html)
 
 ## Example
