@@ -1,5 +1,7 @@
 # furrr (development version)
 
+* Updated a test to fix an issue with upcoming lifecycle 1.0.0.
+
 # furrr 0.2.1
 
 * Updated documentation examples to explicitly set the seed on the workers
