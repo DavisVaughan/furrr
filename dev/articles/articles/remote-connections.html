@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">furrr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.1.9000</span>
       </span>
     </div>
 
@@ -47,7 +47,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -85,7 +85,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/DavisVaughan/furrr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -99,8 +99,7 @@
 
       
 
-      </header><script src="remote-connections_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="remote-connections_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="remote-connections_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="remote-connections_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Remote connections</h1>
@@ -121,10 +120,10 @@
 <li>Running code remotely on a single EC2 instance</li>
 <li>Running code in parallel on multiple EC2 instances</li>
 </ol>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/DavisVaughan/furrr">furrr</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/DavisVaughan/furrr">furrr</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://purrr.tidyverse.org">purrr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></code></pre></div>
 </div>
 <div id="aws-ec2-what" class="section level2">
 <h2 class="hasAnchor">
@@ -141,8 +140,8 @@
 <h3 class="hasAnchor">
 <a href="#modeling-code" class="anchor"></a>Modeling code</h3>
 <p>First, we need code to run that we want to run on the instance. For simplicity, say we want to run 3 separate linear models on mtcars, split up by <code>gear</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="va">by_gear</span> <span class="op">&lt;-</span> <span class="va">mtcars</span> <span class="op">%&gt;%</span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">by_gear</span> <span class="op">&lt;-</span> <span class="va">mtcars</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_split.html">group_split</a></span><span class="op">(</span><span class="va">gear</span><span class="op">)</span> 
 
 <span class="va">models</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">by_gear</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">cyl</span> <span class="op">+</span> <span class="va">hp</span> <span class="op">+</span> <span class="va">wt</span>, data <span class="op">=</span> <span class="va">.</span><span class="op">)</span><span class="op">)</span>
@@ -175,10 +174,10 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Coefficients:</span>
 <span class="co">#&gt; (Intercept)          cyl           hp           wt  </span>
-<span class="co">#&gt;    45.29099     -2.03268      0.02655     -6.42290</span></pre></div>
+<span class="co">#&gt;    45.29099     -2.03268      0.02655     -6.42290</span></code></pre></div>
 <p>With furrr, we can run this in parallel locally using the following:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="fu">plan</span><span class="op">(</span><span class="va">multisession</span>, workers <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">plan</span><span class="op">(</span><span class="va">multisession</span>, workers <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 
 <span class="va">models</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/future_map.html">future_map</a></span><span class="op">(</span><span class="va">by_gear</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">cyl</span> <span class="op">+</span> <span class="va">hp</span> <span class="op">+</span> <span class="va">wt</span>, data <span class="op">=</span> <span class="va">.</span><span class="op">)</span><span class="op">)</span>
 
@@ -210,7 +209,7 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Coefficients:</span>
 <span class="co">#&gt; (Intercept)          cyl           hp           wt  </span>
-<span class="co">#&gt;    45.29099     -2.03268      0.02655     -6.42290</span></pre></div>
+<span class="co">#&gt;    45.29099     -2.03268      0.02655     -6.42290</span></code></pre></div>
 <p>Note that this is NOT faster than the sequential code, this is just to demonstrate how one might run the models in parallel.</p>
 </div>
 <div id="connecting-to-an-ec2-instance" class="section level3">
@@ -222,16 +221,16 @@
 <li><p>Make sure that your Security Group allows for SSH access either from Anywhere or My IP.</p></li>
 <li><p>Find the path to your <code>.pem</code> file that is used to connect to the EC2 instance. This was created when you created the EC2 instance, and hopefully you know where you saved it!</p></li>
 </ul>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="co"># A t2.micro AWS instance</span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># A t2.micro AWS instance</span>
 <span class="co"># Created from http://www.louisaslett.com/RStudio_AMI/</span>
 <span class="va">public_ip</span> <span class="op">&lt;-</span> <span class="st">"34.230.28.118"</span>
 
 <span class="co"># This is where my pem file lives (password file to connect).</span>
-<span class="va">ssh_private_key_file</span> <span class="op">&lt;-</span> <span class="st">"path/to/file.pem"</span></pre></div>
-<p>With all of this in hand, the next step is to use <code><a href="https://rdrr.io/pkg/future/man/makeClusterPSOCK.html">future::makeClusterPSOCK()</a></code> to connect to the instance. Traditionally, one would use <code><a href="https://rdrr.io/r/parallel/makeCluster.html">parallel::makePSOCKcluster()</a></code> to connect, but the future version has a few additional helpful arguments that allow us to add extra options when connecting to the worker. If the connection is successful, the code below should start outputting package installation messages into your local console.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="va">connect_to_ec2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">public_ip</span>, <span class="va">ssh_private_key_file</span><span class="op">)</span> <span class="op">{</span>
+<span class="va">ssh_private_key_file</span> <span class="op">&lt;-</span> <span class="st">"path/to/file.pem"</span></code></pre></div>
+<p>With all of this in hand, the next step is to use <code><a href="https://rdrr.io/pkg/future/man/re-exports.html">future::makeClusterPSOCK()</a></code> to connect to the instance. Traditionally, one would use <code><a href="https://rdrr.io/r/parallel/makeCluster.html">parallel::makePSOCKcluster()</a></code> to connect, but the future version has a few additional helpful arguments that allow us to add extra options when connecting to the worker. If the connection is successful, the code below should start outputting package installation messages into your local console.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">connect_to_ec2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">public_ip</span>, <span class="va">ssh_private_key_file</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu">makeClusterPSOCK</span><span class="op">(</span>
     
     <span class="co"># Public IP number of EC2 instance</span>
@@ -269,7 +268,7 @@
 <span class="va">cl</span> <span class="op">&lt;-</span> <span class="fu">connect_to_ec2</span><span class="op">(</span><span class="va">public_ip</span>, <span class="va">ssh_private_key_file</span><span class="op">)</span>
 
 <span class="va">cl</span>
-<span class="co">#&gt; Socket cluster with 1 nodes where 1 node is on host ‘34.230.28.118’ (R version 3.6.0 (2019-04-26), platform x86_64-pc-linux-gnu)</span></pre></div>
+<span class="co">#&gt; Socket cluster with 1 nodes where 1 node is on host ‘34.230.28.118’ (R version 3.6.0 (2019-04-26), platform x86_64-pc-linux-gnu)</span></code></pre></div>
 <p>Let’s step through this a little.</p>
 <ul>
 <li><p><code>workers</code> - The public ip addresses of the workers you want to connect to. If you have multiple, you can list them here.</p></li>
@@ -289,8 +288,8 @@
 <h3 class="hasAnchor">
 <a href="#running-the-code" class="anchor"></a>Running the code</h3>
 <p>Now that we have a connection to an EC2 instance loaded with R, we’ll need to tell future and furrr how to use it. Since we already have a cluster object, all we have to do is change the <code>plan()</code> to use this cluster. Rather than using the <code>multisession</code> plan, we use the <code>cluster</code> plan with the extra argument, <code>workers</code>, set to the cluster connection (see <code><a href="https://rdrr.io/pkg/future/man/cluster.html">?future::cluster</a></code> for more info).</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="fu">plan</span><span class="op">(</span><span class="va">cluster</span>, workers <span class="op">=</span> <span class="va">cl</span><span class="op">)</span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">plan</span><span class="op">(</span><span class="va">cluster</span>, workers <span class="op">=</span> <span class="va">cl</span><span class="op">)</span>
 
 <span class="va">models</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/future_map.html">future_map</a></span><span class="op">(</span><span class="va">by_gear</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">cyl</span> <span class="op">+</span> <span class="va">hp</span> <span class="op">+</span> <span class="va">wt</span>, data <span class="op">=</span> <span class="va">.</span><span class="op">)</span><span class="op">)</span>
 
@@ -322,14 +321,14 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Coefficients:</span>
 <span class="co">#&gt; (Intercept)          cyl           hp           wt  </span>
-<span class="co">#&gt;    45.29099     -2.03268      0.02655     -6.42290  </span></pre></div>
+<span class="co">#&gt;    45.29099     -2.03268      0.02655     -6.42290  </span></code></pre></div>
 <p>And that’s it! Your code just ran on an EC2 instance!</p>
 <p>It is good practice to always disconnect from your cluster when you are finished working with it. Don’t forget to terminate the instance as well!</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="co"># Revert back to a sequential plan</span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Revert back to a sequential plan</span>
 <span class="fu">plan</span><span class="op">(</span><span class="va">sequential</span><span class="op">)</span>
 
-<span class="fu">parallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/parallel/makeCluster.html">stopCluster</a></span><span class="op">(</span><span class="va">cl</span><span class="op">)</span></pre></div>
+<span class="fu">parallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/parallel/makeCluster.html">stopCluster</a></span><span class="op">(</span><span class="va">cl</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
 <div id="running-code-in-parallel-on-each-ec2-instance" class="section level2">
@@ -349,35 +348,35 @@
 <p>To launch multiple, after clicking on the AMI you want to use from Louis’s page, under “Configure Instance Details” change the “Number of instances” box to whatever you require.</p>
 <p>You might also consider changing the Purchasing option to “Request Spot instances” for cheaper instances if you don’t mind the possibility that Amazon could take the instance away from you temporarily at any time (this hasn’t ever happened to me).</p>
 <p>Note that you now have a vector of public ip addresses.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="co"># Two t2.xlarge AWS instances</span>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Two t2.xlarge AWS instances</span>
 <span class="co"># Created from http://www.louisaslett.com/RStudio_AMI/</span>
 <span class="va">public_ip</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"54.157.169.96"</span>, <span class="st">"18.210.19.243"</span><span class="op">)</span>
 
 <span class="co"># This is where my pem file lives (password file to connect).</span>
-<span class="va">ssh_private_key_file</span> <span class="op">&lt;-</span> <span class="st">"path/to/file.pem"</span></pre></div>
+<span class="va">ssh_private_key_file</span> <span class="op">&lt;-</span> <span class="st">"path/to/file.pem"</span></code></pre></div>
 <p>Otherwise, the code remains the same to make the connection!</p>
-<div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="va">cl_multi</span> <span class="op">&lt;-</span> <span class="fu">connect_to_ec2</span><span class="op">(</span><span class="va">public_ip</span>, <span class="va">ssh_private_key_file</span><span class="op">)</span>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">cl_multi</span> <span class="op">&lt;-</span> <span class="fu">connect_to_ec2</span><span class="op">(</span><span class="va">public_ip</span>, <span class="va">ssh_private_key_file</span><span class="op">)</span>
 
 <span class="va">cl_multi</span>
-<span class="co">#&gt; Socket cluster with 2 nodes where 1 node is on host ‘18.210.19.243’ (R version 3.6.0 (2019-04-26), platform x86_64-pc-linux-gnu), 1 node is on host ‘54.157.169.96’ (R version 3.6.0 (2019-04-26), platform x86_64-pc-linux-gnu)</span></pre></div>
+<span class="co">#&gt; Socket cluster with 2 nodes where 1 node is on host ‘18.210.19.243’ (R version 3.6.0 (2019-04-26), platform x86_64-pc-linux-gnu), 1 node is on host ‘54.157.169.96’ (R version 3.6.0 (2019-04-26), platform x86_64-pc-linux-gnu)</span></code></pre></div>
 </div>
 <div id="running-multi-level-parallel-code" class="section level3">
 <h3 class="hasAnchor">
 <a href="#running-multi-level-parallel-code" class="anchor"></a>Running multi-level parallel code</h3>
 <p>Now for the fun part. How do we tell future to first distribute our code over the 2 instances, and then run in parallel on each instance? You pass in a list of plans to <code>plan()</code>, where you also have the option to <code>tweak()</code> each plan individually (which will be required to set the workers argument!).</p>
-<div class="sourceCode" id="cb10"><pre class="downlit">
-<span class="fu">plan</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">plan</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
   <span class="co"># The outer plan tells future to distribute over the 2 instances</span>
   <span class="fu">tweak</span><span class="op">(</span><span class="va">cluster</span>, workers <span class="op">=</span> <span class="va">cl_multi</span><span class="op">)</span>, 
   
   <span class="co"># The inner plan says to run in parallel on each instance</span>
   <span class="va">multisession</span>
-<span class="op">)</span><span class="op">)</span></pre></div>
+<span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>How do we know this is working? Let’s try doing something that would require a fixed amount of time when run locally, then try it in parallel. We are just going to wait for 2 seconds on each iteration, and then return the instance we are on and the core we are using. In total this should take <em>16 seconds</em>.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit">
-<span class="va">t1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/proc.time.html">proc.time</a></span><span class="op">(</span><span class="op">)</span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">t1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/proc.time.html">proc.time</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span>
   
@@ -410,14 +409,14 @@
 <span class="co">#&gt; [1] "Instance: 1 and core: 1" "Instance: 1 and core: 2" "Instance: 1 and core: 3" #&gt; "Instance: 1 and core: 4"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[2]]</span>
-<span class="co">#&gt; [1] "Instance: 2 and core: 1" "Instance: 2 and core: 2" "Instance: 2 and core: 3" #&gt; "Instance: 2 and core: 4"</span></pre></div>
-<div class="sourceCode" id="cb12"><pre class="downlit">
-<span class="va">t2</span> <span class="op">-</span> <span class="va">t1</span>
+<span class="co">#&gt; [1] "Instance: 2 and core: 1" "Instance: 2 and core: 2" "Instance: 2 and core: 3" #&gt; "Instance: 2 and core: 4"</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">t2</span> <span class="op">-</span> <span class="va">t1</span>
 <span class="co">#&gt;   user  system elapsed </span>
-<span class="co">#&gt;  0.055   0.051  16.022 </span></pre></div>
+<span class="co">#&gt;  0.055   0.051  16.022 </span></code></pre></div>
 <p>Now, in parallel with our cluster. The outer <code><a href="../../reference/future_map.html">future_map()</a></code> call distributes over the two instances, and the inner <code><a href="../../reference/future_map.html">future_map_chr()</a></code> call distributes over the cores of each instance. This should take <code>~2 seconds</code>, with some overhead (16 seconds sequentially, split between 2 instances, and then each instance has 4 physical cores. So 2 seconds on each of the 8 available cores).</p>
-<div class="sourceCode" id="cb13"><pre class="downlit">
-<span class="va">t1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/proc.time.html">proc.time</a></span><span class="op">(</span><span class="op">)</span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">t1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/proc.time.html">proc.time</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/future_map.html">future_map</a></span><span class="op">(</span>
   
@@ -443,17 +442,17 @@
   <span class="op">}</span>
 <span class="op">)</span>
 
-<span class="va">t2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/proc.time.html">proc.time</a></span><span class="op">(</span><span class="op">)</span></pre></div>
-<div class="sourceCode" id="cb14"><pre class="downlit">
-<span class="va">t2</span> <span class="op">-</span> <span class="va">t1</span>
+<span class="va">t2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/proc.time.html">proc.time</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">t2</span> <span class="op">-</span> <span class="va">t1</span>
 <span class="co">#&gt;   user  system elapsed </span>
-<span class="co">#&gt;  0.075   0.018   2.728 </span></pre></div>
+<span class="co">#&gt;  0.075   0.018   2.728 </span></code></pre></div>
 <p>Not bad! The extra time is due to the overhead of communicating with the AWS workers, but with a large model this would not be as relevant.</p>
 <p>Don’t forget to close the connection, and then to terminate the EC2 instance!</p>
-<div class="sourceCode" id="cb15"><pre class="downlit">
-<span class="fu">plan</span><span class="op">(</span><span class="va">sequential</span><span class="op">)</span>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">plan</span><span class="op">(</span><span class="va">sequential</span><span class="op">)</span>
 
-<span class="fu">parallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/parallel/makeCluster.html">stopCluster</a></span><span class="op">(</span><span class="va">cl_multi</span><span class="op">)</span></pre></div>
+<span class="fu">parallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/parallel/makeCluster.html">stopCluster</a></span><span class="op">(</span><span class="va">cl_multi</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="conclusion" class="section level3">
 <h3 class="hasAnchor">

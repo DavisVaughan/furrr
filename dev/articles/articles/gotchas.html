@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">furrr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.1.9000</span>
       </span>
     </div>
 
@@ -47,7 +47,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -85,7 +85,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/DavisVaughan/furrr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -99,8 +99,7 @@
 
       
 
-      </header><script src="gotchas_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="gotchas_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="gotchas_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="gotchas_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Common gotchas</h1>
@@ -113,10 +112,10 @@
 
     
     
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/DavisVaughan/furrr">furrr</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/DavisVaughan/furrr">furrr</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://purrr.tidyverse.org">purrr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></code></pre></div>
 <div id="introduction" class="section level2">
 <h2 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h2>
@@ -126,8 +125,8 @@
 <h2 class="hasAnchor">
 <a href="#non-standard-evaluation-of-arguments" class="anchor"></a>Non-standard evaluation of arguments</h2>
 <p>One difference with purrr is that furrr has to evaluate the arguments passed through <code>...</code> in functions such as <code><a href="../../reference/future_map.html">future_map()</a></code>. This has to happen before they can be serialized and shipped off to the worker sessions. It is guaranteed that these arguments are evaluated only once, but this prevents some “lazy” behavior that is possible with purrr. For example:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="va">filter_for_dogs</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">col</span><span class="op">)</span> <span class="op">{</span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">filter_for_dogs</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">col</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">data</span>, <span class="op">{</span><span class="op">{</span> <span class="va">col</span> <span class="op">}</span><span class="op">}</span> <span class="op">==</span> <span class="st">"dog"</span><span class="op">)</span>
 <span class="op">}</span>
 
@@ -141,10 +140,10 @@
   names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Stalone"</span>, <span class="st">"Fido"</span>, <span class="st">"Cheesy"</span><span class="op">)</span>
 <span class="op">)</span>
 
-<span class="va">dfs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">df1</span>, <span class="va">df2</span><span class="op">)</span></pre></div>
+<span class="va">dfs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">df1</span>, <span class="va">df2</span><span class="op">)</span></code></pre></div>
 <p><code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> delays evaluation as long as possible, and <code>pets</code> is evaluated in a context where the data frame exists, so it can detect that <code>pets</code> is a column in the data frame.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">dfs</span>, <span class="va">filter_for_dogs</span>, col <span class="op">=</span> <span class="va">pets</span><span class="op">)</span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">dfs</span>, <span class="va">filter_for_dogs</span>, col <span class="op">=</span> <span class="va">pets</span><span class="op">)</span>
 <span class="co">#&gt; [[1]]</span>
 <span class="co">#&gt; # A tibble: 1 x 2</span>
 <span class="co">#&gt;   pets  names </span>
@@ -155,18 +154,18 @@
 <span class="co">#&gt; # A tibble: 1 x 2</span>
 <span class="co">#&gt;   pets  names</span>
 <span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;</span>
-<span class="co">#&gt; 1 dog   Fido</span></pre></div>
+<span class="co">#&gt; 1 dog   Fido</span></code></pre></div>
 <p><code><a href="../../reference/future_map.html">future_map()</a></code> has to evaluate each argument early, so <code>pets</code> is evaluated in a context where the data frame doesn’t exist, so we get an error.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="fu"><a href="../../reference/future_map.html">future_map</a></span><span class="op">(</span><span class="va">dfs</span>, <span class="va">filter_for_dogs</span>, col <span class="op">=</span> <span class="va">pets</span><span class="op">)</span>
-<span class="co">#&gt; Error in get_globals_and_packages(options$globals, options$packages, map_fn, : object 'pets' not found</span></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../../reference/future_map.html">future_map</a></span><span class="op">(</span><span class="va">dfs</span>, <span class="va">filter_for_dogs</span>, col <span class="op">=</span> <span class="va">pets</span><span class="op">)</span>
+<span class="co">#&gt; Error in get_globals_and_packages(options$globals, options$packages, map_fn, : object 'pets' not found</span></code></pre></div>
 <p>One alternative is to pass the column through as a character string, and to use the <code>.data</code> pronoun to retrieve the column.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="va">filter_for_dogs2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">col</span><span class="op">)</span> <span class="op">{</span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">filter_for_dogs2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">col</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">data</span>, <span class="va">.data</span><span class="op">[[</span><span class="va">col</span><span class="op">]</span><span class="op">]</span> <span class="op">==</span> <span class="st">"dog"</span><span class="op">)</span>
-<span class="op">}</span></pre></div>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="fu"><a href="../../reference/future_map.html">future_map</a></span><span class="op">(</span><span class="va">dfs</span>, <span class="va">filter_for_dogs2</span>, col <span class="op">=</span> <span class="st">"pets"</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../../reference/future_map.html">future_map</a></span><span class="op">(</span><span class="va">dfs</span>, <span class="va">filter_for_dogs2</span>, col <span class="op">=</span> <span class="st">"pets"</span><span class="op">)</span>
 <span class="co">#&gt; [[1]]</span>
 <span class="co">#&gt; # A tibble: 1 x 2</span>
 <span class="co">#&gt;   pets  names </span>
@@ -177,28 +176,28 @@
 <span class="co">#&gt; # A tibble: 1 x 2</span>
 <span class="co">#&gt;   pets  names</span>
 <span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;</span>
-<span class="co">#&gt; 1 dog   Fido</span></pre></div>
+<span class="co">#&gt; 1 dog   Fido</span></code></pre></div>
 </div>
 <div id="argument-evaluation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#argument-evaluation" class="anchor"></a>Argument evaluation</h2>
 <p>In both purrr and furrr, there is a difference between passing arguments through <code>...</code> and specifying arguments in the anonymous function directly. Arguments passed through <code>...</code> are evaluated just once. If you want the argument to be evaluated at each iteration, you’ll need to put it inside the anonymous function. For example:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">3</span><span class="op">)</span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">3</span><span class="op">)</span>
 
-<span class="va">plus</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="va">x</span> <span class="op">+</span> <span class="va">y</span></pre></div>
-<div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span>
+<span class="va">plus</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="va">x</span> <span class="op">+</span> <span class="va">y</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span>
 
 <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">plus</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] 0.2875775 0.2875775 0.2875775</span>
 
 <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl</a></span><span class="op">(</span><span class="va">x</span>, <span class="op">~</span> <span class="fu">plus</span><span class="op">(</span><span class="va">.x</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.7883051 0.4089769 0.8830174</span></pre></div>
+<span class="co">#&gt; [1] 0.7883051 0.4089769 0.8830174</span></code></pre></div>
 <p>This is the case with both furrr and purrr, but is a common question.</p>
 <p>Note that in the furrr case, when you evaluate the argument in the anonymous function it will be evaluated on the worker itself. This means that to control the reproducibility, you should pass an <code>options</code> argument with a specified seed.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="fu">plan</span><span class="op">(</span><span class="va">multisession</span>, workers <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">plan</span><span class="op">(</span><span class="va">multisession</span>, workers <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 
 <span class="va">options</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/furrr_options.html">furrr_options</a></span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">123</span><span class="op">)</span>
 
@@ -208,14 +207,14 @@
 <span class="fu"><a href="../../reference/future_map.html">future_map_dbl</a></span><span class="op">(</span><span class="va">x</span>, <span class="op">~</span> <span class="fu">plus</span><span class="op">(</span><span class="va">.x</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>, .options <span class="op">=</span> <span class="va">options</span><span class="op">)</span>
 <span class="co">#&gt; [1] 0.1552317 0.4877356 0.5330014</span>
 
-<span class="fu">plan</span><span class="op">(</span><span class="va">sequential</span><span class="op">)</span></pre></div>
+<span class="fu">plan</span><span class="op">(</span><span class="va">sequential</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="grouped-data-frames" class="section level2">
 <h2 class="hasAnchor">
 <a href="#grouped-data-frames" class="anchor"></a>Grouped data frames</h2>
 <p>A common source of frustration is swapping a <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> for a <code><a href="../../reference/future_map.html">future_map()</a></code> and realizing that your computation is proceeding massively slower than it was with <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code>. One possible reason for this is that you have called <code><a href="../../reference/future_map.html">future_map()</a></code> on a column of a grouped data frame. For example it is possible for the following data frame to arise naturally if you have nested a grouped data frame.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span>
 
 <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
   g <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">100</span>,
@@ -239,10 +238,10 @@
 <span class="co">#&gt;  8     8 &lt;dbl [10]&gt;</span>
 <span class="co">#&gt;  9     9 &lt;dbl [10]&gt;</span>
 <span class="co">#&gt; 10    10 &lt;dbl [10]&gt;</span>
-<span class="co">#&gt; # … with 90 more rows</span></pre></div>
+<span class="co">#&gt; # … with 90 more rows</span></code></pre></div>
 <p>If you’d like to map over this and perform some computation on each element of <code>x</code>, you might try and use <code><a href="../../reference/future_map.html">future_map_dbl()</a></code>, but you’ll be surprised about how slow it can be.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit">
-<span class="fu">plan</span><span class="op">(</span><span class="va">multisession</span>, workers <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">plan</span><span class="op">(</span><span class="va">multisession</span>, workers <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 
 <span class="va">t1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/proc.time.html">proc.time</a></span><span class="op">(</span><span class="op">)</span>
 
@@ -270,12 +269,12 @@
 
 <span class="va">t2</span> <span class="op">-</span> <span class="va">t1</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   1.795   0.072   2.289</span></pre></div>
+<span class="co">#&gt;   1.582   0.058   2.027</span></code></pre></div>
 <p>The issue here is that the grouped nature of the data frame prevents furrr from doing what it is good at - sharding the <code>x</code> column into equally sized groups and sending them off to the workers to process them in parallel.</p>
 <p>Instead, because this data frame is grouped, and each group corresponds to 1 row of the data frame, dplyr hands <code><a href="../../reference/future_map.html">future_map_dbl()</a></code> 1 element of <code>x</code> at a time to operate on. So <code><a href="../../reference/future_map.html">future_map_dbl()</a></code> is actually being called 100 times here!</p>
 <p>The easy solution is to just ungroup the data frame before calling <code><a href="../../reference/future_map.html">future_map_dbl()</a></code>.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit">
-<span class="fu">plan</span><span class="op">(</span><span class="va">multisession</span>, workers <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">plan</span><span class="op">(</span><span class="va">multisession</span>, workers <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 
 <span class="va">t1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/proc.time.html">proc.time</a></span><span class="op">(</span><span class="op">)</span>
 
@@ -303,7 +302,7 @@
 
 <span class="va">t2</span> <span class="op">-</span> <span class="va">t1</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.060   0.002   0.195</span></pre></div>
+<span class="co">#&gt;   0.053   0.002   0.316</span></code></pre></div>
 </div>
 <div id="graphics-devices" class="section level2">
 <h2 class="hasAnchor">
@@ -328,8 +327,8 @@
 <h2 class="hasAnchor">
 <a href="#function-environments-and-large-objects" class="anchor"></a>Function environments and large objects</h2>
 <p>When <code><a href="../../reference/future_map.html">future_map()</a></code> and friends are called from within another function, you have to be extremely careful about the <code>.f</code> function that you pass through. If the function that <code><a href="../../reference/future_map.html">future_map()</a></code> is called from contains a large object, it is possible for that object to get captured by the function environment of <code>.f</code> and be exported to the worker, even if you never used it in the function itself.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit">
-<span class="va">my_fast_fn</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">my_fast_fn</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu"><a href="../../reference/future_map.html">future_map</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="op">~</span><span class="va">.x</span><span class="op">)</span>
 <span class="op">}</span>
 
@@ -338,26 +337,26 @@
   <span class="va">big</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">1e8</span> <span class="op">+</span> <span class="fl">0L</span>
   
   <span class="fu"><a href="../../reference/future_map.html">future_map</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="op">~</span><span class="va">.x</span><span class="op">)</span>
-<span class="op">}</span></pre></div>
-<div class="sourceCode" id="cb14"><pre class="downlit">
-<span class="fu">plan</span><span class="op">(</span><span class="va">multisession</span>, workers <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">plan</span><span class="op">(</span><span class="va">multisession</span>, workers <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span><span class="op">(</span>
   <span class="fu">my_fast_fn</span><span class="op">(</span><span class="op">)</span>
 <span class="op">)</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.025   0.002   0.137</span>
+<span class="co">#&gt;   0.028   0.001   0.242</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span><span class="op">(</span>
   <span class="fu">my_slow_fn</span><span class="op">(</span><span class="op">)</span>
 <span class="op">)</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   3.131   0.564   5.243</span>
+<span class="co">#&gt;   0.691   0.510   2.495</span>
 
-<span class="fu">plan</span><span class="op">(</span><span class="va">sequential</span><span class="op">)</span></pre></div>
+<span class="fu">plan</span><span class="op">(</span><span class="va">sequential</span><span class="op">)</span></code></pre></div>
 <p>In the above example, <code>big</code> is captured in the function environment of the anonymous function <code>~.x</code> and is exported. Note that the problem isn’t that <code>big</code> is identified as a global by furrr. We can even prove that it is on the workers using <code><a href="https://rdrr.io/r/base/get.html">get()</a></code> to look for an object called <code>"big"</code> in the current and surrounding environments. I’ll use a smaller object here, but the concept is the same.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit">
-<span class="fu">plan</span><span class="op">(</span><span class="va">multisession</span>, workers <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">plan</span><span class="op">(</span><span class="va">multisession</span>, workers <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 
 <span class="va">my_slow_fn2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">big</span> <span class="op">&lt;-</span> <span class="st">"can you find me?"</span>
@@ -372,10 +371,10 @@
 <span class="co">#&gt; [[2]]</span>
 <span class="co">#&gt; [1] "can you find me?"</span>
 
-<span class="fu">plan</span><span class="op">(</span><span class="va">sequential</span><span class="op">)</span></pre></div>
+<span class="fu">plan</span><span class="op">(</span><span class="va">sequential</span><span class="op">)</span></code></pre></div>
 <p>One solution to this is to create <code>.f</code> somewhere where it won’t capture that massive object in its surrounding environment. For example:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit">
-<span class="va">fn</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">fn</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">x</span>
 <span class="op">}</span>
 
@@ -391,13 +390,13 @@
   <span class="fu">my_not_so_slow_fn</span><span class="op">(</span><span class="op">)</span>
 <span class="op">)</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.527   0.220   0.955</span>
+<span class="co">#&gt;   0.473   0.200   0.897</span>
 
-<span class="fu">plan</span><span class="op">(</span><span class="va">sequential</span><span class="op">)</span></pre></div>
+<span class="fu">plan</span><span class="op">(</span><span class="va">sequential</span><span class="op">)</span></code></pre></div>
 <p>Here lexical scoping is used to find <code>fn</code>, but you could also pass it in as an argument to <code>my_not_so_slow_fn()</code>. This works naturally in a package development environment, where <code>fn()</code> would just be a helper function in your package that you can call from anywhere else in the package without issue.</p>
 <p>Again, we can prove that the object doesn’t make it onto the workers:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit">
-<span class="fu">plan</span><span class="op">(</span><span class="va">multisession</span>, workers <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">plan</span><span class="op">(</span><span class="va">multisession</span>, workers <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 
 <span class="va">fn2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
   <span class="co"># does an object called `"big"` exist anywhere we can find it?</span>
@@ -417,7 +416,7 @@
 <span class="co">#&gt; [[2]]</span>
 <span class="co">#&gt; [1] FALSE</span>
 
-<span class="fu">plan</span><span class="op">(</span><span class="va">sequential</span><span class="op">)</span></pre></div>
+<span class="fu">plan</span><span class="op">(</span><span class="va">sequential</span><span class="op">)</span></code></pre></div>
 <p>Another alternative to help with this issue is to use the carrier package to <em>crate</em> the function. To learn more about this, see the article entitled <em>Alternative to automatic globals detection</em>.</p>
 </div>
   </div>
