@@ -14,7 +14,11 @@ furrr_test_that <- function(desc, code) {
       }
 
       test_desc <- paste0(desc, " / strategy - ", strategy, " / cores - ", cores)
-      test_expr <- expr(test_that(test_desc, !!test_code))
+      test_expr <- expr(
+        test_that(test_desc, {
+          !!test_code
+        })
+      )
 
       eval_tidy(test_expr)
     }
