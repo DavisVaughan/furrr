@@ -6,6 +6,10 @@
 ## R CMD check results
 
 0 errors | 0 warnings | 0 notes
+
+## 0.2.2 Submission
+
+Minor release to update a test in preparation for a lifecycle 1.0.0 change.
     
 ## 0.2.1 Submission
 
