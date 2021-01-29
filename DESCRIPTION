@@ -36,7 +36,6 @@ Suggests:
     knitr,
     listenv (>= 0.6.0),
     magrittr,
-    progressr,
     rmarkdown,
     testthat (>= 3.0.0),
     withr,
