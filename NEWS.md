@@ -1,3 +1,5 @@
+# furrr (development version)
+
 # furrr 0.2.2
 
 * Updated a test to fix an issue with upcoming lifecycle 1.0.0.
