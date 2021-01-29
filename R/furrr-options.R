@@ -250,6 +250,10 @@ validate_globals <- function(x) {
 }
 
 validate_packages <- function(x) {
+  if (is.null(x)) {
+    return(x)
+  }
+
   x <- vctrs::vec_cast(x, character(), x_arg = "packages")
 
   if (any(is.na(x))) {

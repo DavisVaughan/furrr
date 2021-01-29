@@ -1,6 +1,6 @@
 Package: furrr
 Title: Apply Mapping Functions in Parallel using Futures
-Version: 0.2.1.9000
+Version: 0.2.2
 Authors@R: 
     c(person(given = "Davis",
              family = "Vaughan",
@@ -36,7 +36,6 @@ Suggests:
     knitr,
     listenv (>= 0.6.0),
     magrittr,
-    progressr,
     rmarkdown,
     testthat (>= 3.0.0),
     withr,

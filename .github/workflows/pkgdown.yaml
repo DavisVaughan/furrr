@@ -36,6 +36,13 @@ jobs:
           install.packages("pkgdown")
         shell: Rscript {0}
 
+      # progressr requires R 3.5, so we can't put it in Suggests,
+      # but need it for the article about progress bars
+      - name: Install article dependencies
+        run: |
+          install.packages("progressr")
+        shell: Rscript {0}
+
       - name: Install package
         run: R CMD INSTALL .
 
