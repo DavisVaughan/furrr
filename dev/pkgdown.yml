@@ -7,5 +7,8 @@ articles:
   articles/gotchas: gotchas.html
   articles/progress: progress.html
   articles/remote-connections: remote-connections.html
-last_built: 2021-01-29T16:44Z
+last_built: 2021-05-03T19:13Z
+urls:
+  reference: https://furrr.futureverse.org/reference
+  article: https://furrr.futureverse.org/articles
 
