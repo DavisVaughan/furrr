@@ -1,5 +1,8 @@
 # furrr (development version)
 
+* Updated snapshot tests failing on CI related to changes in lifecycle 1.0.0
+  (#193).
+
 # furrr 0.2.2
 
 * Updated a test to fix an issue with upcoming lifecycle 1.0.0.
