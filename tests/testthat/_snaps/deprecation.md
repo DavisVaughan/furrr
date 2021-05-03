@@ -3,7 +3,7 @@
     Code
       future_options()
     Warning <lifecycle_warning_deprecated>
-      `future_options()` is deprecated as of furrr 0.2.0.
+      `future_options()` was deprecated in furrr 0.2.0.
       Please use `furrr_options()` instead.
     Output
       <furrr_options>
