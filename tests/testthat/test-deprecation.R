@@ -1,15 +1,17 @@
 test_that("can use deprecated `future_options()`", {
   local_options(lifecycle_verbosity = "warning")
 
-  expect_identical(
-    expect_warning(future_options()),
-    furrr_options()
+  expect_warning(
+    expect_identical(
+      future_options(),
+      furrr_options()
+    )
   )
-  expect_identical(
-    expect_warning(
-      future_options(globals = "x", packages = "dplyr", seed = 1, lazy = TRUE, scheduling = 2)
-    ),
-    furrr_options(globals = "x", packages = "dplyr", seed = 1, lazy = TRUE, scheduling = 2)
+  expect_warning(
+    expect_identical(
+      future_options(globals = "x", packages = "dplyr", seed = 1, lazy = TRUE, scheduling = 2),
+      furrr_options(globals = "x", packages = "dplyr", seed = 1, lazy = TRUE, scheduling = 2)
+    )
   )
 })
 
