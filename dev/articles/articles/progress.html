@@ -114,7 +114,7 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/DavisVaughan/furrr">furrr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/HenrikBengtsson/progressr">progressr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://progressr.futureverse.org">progressr</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></code></pre></div>
 <div id="introduction" class="section level2">
 <h2 class="hasAnchor">
@@ -122,7 +122,7 @@
 <p>Everyone loves progress bars. This is even more true when running long computations in parallel, where you’d really like to have some approximation of when your job is going to finish. furrr currently has its own progress bar through the usage of <code>.progress = TRUE</code>, but in the future this will be deprecated in favor of generic and robust progress updates through the <a href="https://CRAN.R-project.org/package=progressr">progressr</a> package.</p>
 <p>If you’ve never heard of progressr, I’d encourage you to read its <a href="https://CRAN.R-project.org/package=progressr/vignettes/progressr-intro.html">introduction vignette</a>. One of the neat things about it is that it isn’t limited to just progress bars. progressr is really a framework for progress <em>updates</em>, which can then be relayed to the user using a progress bar, a beeping noise from their computer, or even through email or slack notifications. It works for sequential, multisession, and cluster futures, which means that it even works with remote connections. It currently doesn’t work with multicore, but that is likely to change.</p>
 <p>Before we begin, please be aware that progressr is still a new experimental package. I doubt there will be many breaking changes in it, but new patterns for signaling progress updates will likely emerge after enough people start using it. If you’ve used furrr’s <code>.progress</code> argument, then the solutions presented below might feel a bit clunkier than that. As progressr gets more usage, hopefully a simpler unified way of presenting progress information will emerge that can be used in all of the map-reduce future packages (furrr, future.apply, and doFuture).</p>
-<p>How progressr is used varies slightly depending on whether you are a package developer or an interactive user. There are two main functions that are used: <code><a href="https://rdrr.io/pkg/progressr/man/progressor.html">progressor()</a></code>, which makes an object that can signal progress updates, and <code><a href="https://rdrr.io/pkg/progressr/man/with_progress.html">with_progress()</a></code>, which listens for these progress signals. Generally, <code><a href="https://rdrr.io/pkg/progressr/man/progressor.html">progressor()</a></code> will be used by a package developer inside of a function that they would like to produce progress updates. When the user calls that function, they won’t get any progress notifications unless they wrap the function call in <code><a href="https://rdrr.io/pkg/progressr/man/with_progress.html">with_progress()</a></code>. Additionally, the user has complete control over how these progress updates are displayed through the use of a <em>progress handler</em>. In progressr, these all start with <code>handler_*()</code> and tell progressr how to display the progress update. This separation of developer API and user API is important, and can be summarized as:</p>
+<p>How progressr is used varies slightly depending on whether you are a package developer or an interactive user. There are two main functions that are used: <code><a href="https://progressr.futureverse.org/reference/progressor.html">progressor()</a></code>, which makes an object that can signal progress updates, and <code><a href="https://progressr.futureverse.org/reference/with_progress.html">with_progress()</a></code>, which listens for these progress signals. Generally, <code><a href="https://progressr.futureverse.org/reference/progressor.html">progressor()</a></code> will be used by a package developer inside of a function that they would like to produce progress updates. When the user calls that function, they won’t get any progress notifications unless they wrap the function call in <code><a href="https://progressr.futureverse.org/reference/with_progress.html">with_progress()</a></code>. Additionally, the user has complete control over how these progress updates are displayed through the use of a <em>progress handler</em>. In progressr, these all start with <code>handler_*()</code> and tell progressr how to display the progress update. This separation of developer API and user API is important, and can be summarized as:</p>
 <ul>
 <li>Developer:
 <ul>
@@ -135,7 +135,7 @@
 <li>User:
 <ul>
 <li>
-<code><a href="https://rdrr.io/pkg/progressr/man/with_progress.html">with_progress()</a></code> for listening for progress signals</li>
+<code><a href="https://progressr.futureverse.org/reference/with_progress.html">with_progress()</a></code> for listening for progress signals</li>
 <li>
 <code>handler_*()</code> for displaying those caught progress signals</li>
 </ul>
@@ -148,7 +148,7 @@
 <p>If you are a package developer using furrr with progressr, the function from your package that calls <code><a href="../../reference/future_map.html">future_map()</a></code> should first use <code>p &lt;- progressor()</code> to create a progress object, and then call <code>p()</code> from within <code>.f</code> to signal a progress update after each iteration of the map. For example, the following function iterates over a list, <code>x</code>, calling <code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code> on each element of the list. At each iteration, we send a progress update. I’ve also introduced a bit of a delay because this otherwise would run extremely fast.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">my_pkg_fn</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/progressr/man/progressor.html">progressor</a></span><span class="op">(</span>steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://progressr.futureverse.org/reference/progressor.html">progressor</a></span><span class="op">(</span>steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
   
   <span class="fu"><a href="../../reference/future_map.html">future_map</a></span><span class="op">(</span><span class="va">x</span>, <span class="op">~</span><span class="op">{</span>
     <span class="fu">p</span><span class="op">(</span><span class="op">)</span>
@@ -166,23 +166,23 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># No notifications</span>
 <span class="va">result</span> <span class="op">&lt;-</span> <span class="fu">my_pkg_fn</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
-<p>However, once the user wraps this in <code><a href="https://rdrr.io/pkg/progressr/man/with_progress.html">with_progress()</a></code>, notifications are displayed. The default is to use <code><a href="https://rdrr.io/pkg/progressr/man/handler_txtprogressbar.html">handler_txtprogressbar()</a></code>, which creates a progress bar with <code><a href="https://rdrr.io/r/utils/txtProgressBar.html">utils::txtProgressBar()</a></code>.</p>
+<p>However, once the user wraps this in <code><a href="https://progressr.futureverse.org/reference/with_progress.html">with_progress()</a></code>, notifications are displayed. The default is to use <code><a href="https://progressr.futureverse.org/reference/handler_txtprogressbar.html">handler_txtprogressbar()</a></code>, which creates a progress bar with <code><a href="https://rdrr.io/r/utils/txtProgressBar.html">utils::txtProgressBar()</a></code>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/progressr/man/with_progress.html">with_progress</a></span><span class="op">(</span><span class="op">{</span>
+<code class="sourceCode R"><span class="fu"><a href="https://progressr.futureverse.org/reference/with_progress.html">with_progress</a></span><span class="op">(</span><span class="op">{</span>
   <span class="va">result</span> <span class="op">&lt;-</span> <span class="fu">my_pkg_fn</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="op">}</span><span class="op">)</span>
 <span class="co">#&gt; |===============================                                     |  30%</span></code></pre></div>
-<p>As mentioned before, the <em>user</em> controls how to display progress updates. You can change to a different handler locally by providing it as an argument to <code><a href="https://rdrr.io/pkg/progressr/man/with_progress.html">with_progress(handlers = )</a></code>, or you can use <code><a href="https://rdrr.io/pkg/progressr/man/handlers.html">handlers()</a></code> to set them globally. You can even use multiple handlers. For example, <code><a href="https://rdrr.io/pkg/progressr/man/handlers.html">handlers(handler_progress, handler_beepr)</a></code> can be used to generate a progress bar with the progress package and generate beeps with the beepr package.</p>
+<p>As mentioned before, the <em>user</em> controls how to display progress updates. You can change to a different handler locally by providing it as an argument to <code><a href="https://progressr.futureverse.org/reference/with_progress.html">with_progress(handlers = )</a></code>, or you can use <code><a href="https://progressr.futureverse.org/reference/handlers.html">handlers()</a></code> to set them globally. You can even use multiple handlers. For example, <code><a href="https://progressr.futureverse.org/reference/handlers.html">handlers(handler_progress, handler_beepr)</a></code> can be used to generate a progress bar with the progress package and generate beeps with the beepr package.</p>
 </div>
 <div id="interactive-usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#interactive-usage" class="anchor"></a>Interactive usage</h2>
-<p>When writing data analysis scripts that use furrr and progressr, the separation between developer and user APIs is not quite as clear since you’ll need to generate the progress objects with <code><a href="https://rdrr.io/pkg/progressr/man/progressor.html">progressor()</a></code>, create the function that signals progress by calling <code>p()</code>, and call <code><a href="https://rdrr.io/pkg/progressr/man/with_progress.html">with_progress()</a></code>. It is easiest to show this with an example:</p>
+<p>When writing data analysis scripts that use furrr and progressr, the separation between developer and user APIs is not quite as clear since you’ll need to generate the progress objects with <code><a href="https://progressr.futureverse.org/reference/progressor.html">progressor()</a></code>, create the function that signals progress by calling <code>p()</code>, and call <code><a href="https://progressr.futureverse.org/reference/with_progress.html">with_progress()</a></code>. It is easiest to show this with an example:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">plan</span><span class="op">(</span><span class="va">multisession</span>, workers <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/pkg/progressr/man/with_progress.html">with_progress</a></span><span class="op">(</span><span class="op">{</span>
-  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/progressr/man/progressor.html">progressor</a></span><span class="op">(</span>steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://progressr.futureverse.org/reference/with_progress.html">with_progress</a></span><span class="op">(</span><span class="op">{</span>
+  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://progressr.futureverse.org/reference/progressor.html">progressor</a></span><span class="op">(</span>steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
   
   <span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/future_map.html">future_map</a></span><span class="op">(</span><span class="va">x</span>, <span class="op">~</span><span class="op">{</span>
     <span class="fu">p</span><span class="op">(</span><span class="op">)</span>
@@ -191,7 +191,7 @@
   <span class="op">}</span><span class="op">)</span>
 <span class="op">}</span><span class="op">)</span>
 <span class="co">#&gt; |=====================                                               |  20%</span></code></pre></div>
-<p>Currently, <code><a href="https://rdrr.io/pkg/progressr/man/with_progress.html">with_progress()</a></code> doesn’t return the value of the <code>expr</code>ession that it evaluates, so you have to assign the result to <code>result &lt;-</code>. This is likely to change.</p>
+<p>Currently, <code><a href="https://progressr.futureverse.org/reference/with_progress.html">with_progress()</a></code> doesn’t return the value of the <code>expr</code>ession that it evaluates, so you have to assign the result to <code>result &lt;-</code>. This is likely to change.</p>
 <p>Rather than writing an anonymous function, you might want to wrap the logic of <code>.f</code> up into a real function. The easiest way to do this right now is to have an extra argument for <code>p</code> that you can pass through.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">plan</span><span class="op">(</span><span class="va">multisession</span>, workers <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
@@ -202,15 +202,15 @@
   <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="op">}</span>
 
-<span class="fu"><a href="https://rdrr.io/pkg/progressr/man/with_progress.html">with_progress</a></span><span class="op">(</span><span class="op">{</span>
-  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/progressr/man/progressor.html">progressor</a></span><span class="op">(</span>steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://progressr.futureverse.org/reference/with_progress.html">with_progress</a></span><span class="op">(</span><span class="op">{</span>
+  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://progressr.futureverse.org/reference/progressor.html">progressor</a></span><span class="op">(</span>steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
   <span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/future_map.html">future_map</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">fn</span>, p <span class="op">=</span> <span class="va">p</span><span class="op">)</span>
 <span class="op">}</span><span class="op">)</span></code></pre></div>
-<p>The important thing here is that <code>p &lt;- progressor()</code> is called from inside <code><a href="https://rdrr.io/pkg/progressr/man/with_progress.html">with_progress()</a></code>. You generally can’t create the progressor object outside of the <code><a href="https://rdrr.io/pkg/progressr/man/with_progress.html">with_progress()</a></code> call. For example, this doesn’t work:</p>
+<p>The important thing here is that <code>p &lt;- progressor()</code> is called from inside <code><a href="https://progressr.futureverse.org/reference/with_progress.html">with_progress()</a></code>. You generally can’t create the progressor object outside of the <code><a href="https://progressr.futureverse.org/reference/with_progress.html">with_progress()</a></code> call. For example, this doesn’t work:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/progressr/man/progressor.html">progressor</a></span><span class="op">(</span>steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://progressr.futureverse.org/reference/progressor.html">progressor</a></span><span class="op">(</span>steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/pkg/progressr/man/with_progress.html">with_progress</a></span><span class="op">(</span><span class="op">{</span>
+<span class="fu"><a href="https://progressr.futureverse.org/reference/with_progress.html">with_progress</a></span><span class="op">(</span><span class="op">{</span>
   <span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/future_map.html">future_map</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">fn</span>, p <span class="op">=</span> <span class="va">p</span><span class="op">)</span>
 <span class="op">}</span><span class="op">)</span>
 <span class="co">#&gt; Error in error("length(timestamp) == 0L") : </span>
@@ -220,7 +220,7 @@
 <div id="with-dplyr" class="section level3">
 <h3 class="hasAnchor">
 <a href="#with-dplyr" class="anchor"></a>With dplyr</h3>
-<p>Because <code><a href="https://rdrr.io/pkg/progressr/man/with_progress.html">with_progress()</a></code> doesn’t return the value of <code>expr</code> right now, current usage of progressr, furrr, and dplyr is far from perfect. The only way to use them together currently is to wrap an entire dplyr pipeline in <code><a href="https://rdrr.io/pkg/progressr/man/with_progress.html">with_progress()</a></code>.</p>
+<p>Because <code><a href="https://progressr.futureverse.org/reference/with_progress.html">with_progress()</a></code> doesn’t return the value of <code>expr</code> right now, current usage of progressr, furrr, and dplyr is far from perfect. The only way to use them together currently is to wrap an entire dplyr pipeline in <code><a href="https://progressr.futureverse.org/reference/with_progress.html">with_progress()</a></code>.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">cars</span> <span class="op">&lt;-</span> <span class="va">mtcars</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">carb</span><span class="op">)</span> <span class="op">%&gt;%</span>
@@ -239,8 +239,8 @@
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">plan</span><span class="op">(</span><span class="va">multisession</span>, workers <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/pkg/progressr/man/with_progress.html">with_progress</a></span><span class="op">(</span><span class="op">{</span>
-  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/progressr/man/progressor.html">progressor</a></span><span class="op">(</span>steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">cars</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://progressr.futureverse.org/reference/with_progress.html">with_progress</a></span><span class="op">(</span><span class="op">{</span>
+  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://progressr.futureverse.org/reference/progressor.html">progressor</a></span><span class="op">(</span>steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">cars</span><span class="op">)</span><span class="op">)</span>
   
   <span class="va">cars2</span> <span class="op">&lt;-</span> <span class="va">cars</span> <span class="op">%&gt;%</span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>mod <span class="op">=</span> <span class="fu"><a href="../../reference/future_map.html">future_map</a></span><span class="op">(</span><span class="va">data</span>, <span class="va">model_fn</span>, p <span class="op">=</span> <span class="va">p</span><span class="op">)</span><span class="op">)</span>
@@ -251,18 +251,18 @@
 <code class="sourceCode R"><span class="fu">plan</span><span class="op">(</span><span class="va">multisession</span>, workers <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 
 <span class="va">model_mapper</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/progressr/man/progressor.html">progressor</a></span><span class="op">(</span>steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://progressr.futureverse.org/reference/progressor.html">progressor</a></span><span class="op">(</span>steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">)</span>
   <span class="fu"><a href="../../reference/future_map.html">future_map</a></span><span class="op">(</span><span class="va">data</span>, <span class="va">model_fn</span>, p <span class="op">=</span> <span class="va">p</span><span class="op">)</span>
 <span class="op">}</span>
 
-<span class="fu"><a href="https://rdrr.io/pkg/progressr/man/with_progress.html">with_progress</a></span><span class="op">(</span><span class="op">{</span>
+<span class="fu"><a href="https://progressr.futureverse.org/reference/with_progress.html">with_progress</a></span><span class="op">(</span><span class="op">{</span>
   <span class="va">cars2</span> <span class="op">&lt;-</span> <span class="va">cars</span> <span class="op">%&gt;%</span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>mod <span class="op">=</span> <span class="fu">model_mapper</span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">)</span>
 <span class="op">}</span><span class="op">)</span>
 <span class="co">#&gt; |================================================                    |  67%</span></code></pre></div>
-<p>An additional constraint (for now), is that <code><a href="https://rdrr.io/pkg/progressr/man/with_progress.html">with_progress()</a></code> will only respect progress updates from the first progressor object that signals one. This means that the first call to <code>model_mapper()</code> will signal updates, but the second won’t.</p>
+<p>An additional constraint (for now), is that <code><a href="https://progressr.futureverse.org/reference/with_progress.html">with_progress()</a></code> will only respect progress updates from the first progressor object that signals one. This means that the first call to <code>model_mapper()</code> will signal updates, but the second won’t.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/progressr/man/with_progress.html">with_progress</a></span><span class="op">(</span><span class="op">{</span>
+<code class="sourceCode R"><span class="fu"><a href="https://progressr.futureverse.org/reference/with_progress.html">with_progress</a></span><span class="op">(</span><span class="op">{</span>
   <span class="va">cars2</span> <span class="op">&lt;-</span> <span class="va">cars</span> <span class="op">%&gt;%</span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
       mod1 <span class="op">=</span> <span class="fu">model_mapper</span><span class="op">(</span><span class="va">data</span><span class="op">)</span>,
@@ -276,8 +276,8 @@
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">plan</span><span class="op">(</span><span class="va">multisession</span>, workers <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/pkg/progressr/man/with_progress.html">with_progress</a></span><span class="op">(</span><span class="op">{</span>
-  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/progressr/man/progressor.html">progressor</a></span><span class="op">(</span>steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">cars</span><span class="op">)</span> <span class="op">*</span> <span class="fl">2</span><span class="op">)</span>
+<span class="fu"><a href="https://progressr.futureverse.org/reference/with_progress.html">with_progress</a></span><span class="op">(</span><span class="op">{</span>
+  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://progressr.futureverse.org/reference/progressor.html">progressor</a></span><span class="op">(</span>steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">cars</span><span class="op">)</span> <span class="op">*</span> <span class="fl">2</span><span class="op">)</span>
   
   <span class="va">cars2</span> <span class="op">&lt;-</span> <span class="va">cars</span> <span class="op">%&gt;%</span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
