@@ -1,5 +1,7 @@
 # furrr (development version)
 
+* Preemptively updated tests related to upcoming changes in testthat (#196).
+
 * Updated snapshot tests failing on CI related to changes in lifecycle 1.0.0
   (#193).
 
