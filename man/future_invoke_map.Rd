@@ -124,7 +124,7 @@ in a future version of furrr in favor of using the more robust
 package.}
 }
 \description{
-\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#retired'><img src='figures/lifecycle-retired.svg' alt='Retired lifecycle'></a>}}{\strong{Retired}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 
 These functions work exactly the same as \code{\link[purrr:invoke]{purrr::invoke_map()}} functions, but
 allow you to invoke in parallel.

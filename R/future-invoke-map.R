@@ -1,7 +1,7 @@
 #' Invoke functions via futures
 #'
 #' @description
-#' `r lifecycle::badge("retired")`
+#' `r lifecycle::badge("deprecated")`
 #'
 #' These functions work exactly the same as [purrr::invoke_map()] functions, but
 #' allow you to invoke in parallel.
