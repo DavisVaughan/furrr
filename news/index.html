@@ -47,7 +47,7 @@
 
 
 <meta property="og:title" content="Changelog" />
-<meta property="og:image" content="/logo.png" />
+<meta property="og:image" content="https://furrr.futureverse.org/logo.png" />
 
 
 
@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">furrr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3</span>
       </span>
     </div>
 
@@ -87,7 +87,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -125,7 +125,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/DavisVaughan/furrr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -146,6 +146,23 @@
       <small>Source: <a href='https://github.com/DavisVaughan/furrr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="furrr-023" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.3">
+<a href="#furrr-023" class="anchor"></a>furrr 0.2.3<small> Unreleased </small>
+</h1>
+<ul>
+<li><p>Preemptively updated tests related to upcoming changes in testthat (<a href='https://github.com/DavisVaughan/furrr/issues/196'>#196</a>).</p></li>
+<li><p>Updated snapshot tests failing on CI related to changes in lifecycle 1.0.0 (<a href='https://github.com/DavisVaughan/furrr/issues/193'>#193</a>).</p></li>
+</ul>
+</div>
+    <div id="furrr-022" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.2">
+<a href="#furrr-022" class="anchor"></a>furrr 0.2.2<small> 2021-01-29 </small>
+</h1>
+<ul>
+<li>Updated a test to fix an issue with upcoming lifecycle 1.0.0.</li>
+</ul>
+</div>
     <div id="furrr-021" class="section level1">
 <h1 class="page-header" data-toc-text="0.2.1">
 <a href="#furrr-021" class="anchor"></a>furrr 0.2.1<small> 2020-10-21 </small>
@@ -172,11 +189,11 @@
 <h2 class="hasAnchor">
 <a href="#features--fixes" class="anchor"></a>Features / Fixes:</h2>
 <ul>
-<li><p><a href="https://davisvaughan.github.io/furrr/articles/articles/progress.html">New pkgdown article</a> on using furrr with <a href="https://CRAN.R-project.org/package=progressr">progressr</a> for generating progress updates.</p></li>
-<li><p><a href="https://davisvaughan.github.io/furrr/articles/articles/carrier.html">New pkgdown article</a> discussing an alternative strategy to automatic globals detection using the <a href="https://CRAN.R-project.org/package=carrier">carrier</a> package.</p></li>
-<li><p><a href="https://davisvaughan.github.io/furrr/articles/articles/chunking.html">New pkgdown article</a> discussing how furrr “chunks” input to send if off to workers.</p></li>
-<li><p><a href="https://davisvaughan.github.io/furrr/articles/articles/gotchas.html">New pkgdown article</a> on common gotchas when using furrr.</p></li>
-<li><p><a href="https://davisvaughan.github.io/furrr/articles/articles/remote-connections.html">New pkgdown article</a> detailing how to use furrr with remote AWS EC2 connections.</p></li>
+<li><p><a href="https://furrr.futureverse.org/articles/articles/progress.html">New pkgdown article</a> on using furrr with <a href="https://CRAN.R-project.org/package=progressr">progressr</a> for generating progress updates.</p></li>
+<li><p><a href="https://furrr.futureverse.org/articles/articles/carrier.html">New pkgdown article</a> discussing an alternative strategy to automatic globals detection using the <a href="https://CRAN.R-project.org/package=carrier">carrier</a> package.</p></li>
+<li><p><a href="https://furrr.futureverse.org/articles/articles/chunking.html">New pkgdown article</a> discussing how furrr “chunks” input to send if off to workers.</p></li>
+<li><p><a href="https://furrr.futureverse.org/articles/articles/gotchas.html">New pkgdown article</a> on common gotchas when using furrr.</p></li>
+<li><p><a href="https://furrr.futureverse.org/articles/articles/remote-connections.html">New pkgdown article</a> detailing how to use furrr with remote AWS EC2 connections.</p></li>
 <li><p><code><a href="../reference/future_map.html">future_walk()</a></code> and friends have been added to mirror <code><a href="https://purrr.tidyverse.org/reference/map.html">purrr::walk()</a></code>.</p></li>
 <li><p><code><a href="../reference/furrr_options.html">furrr_options()</a></code> now has a variety of new arguments for fine tuning furrr. These are based on advancements made in both future and future.apply. The most important is <code>chunk_size</code>, which can be used as an alternative to <code>scheduling</code> to determine how to break up <code>.x</code> into chunks to send off to the workers. See <code><a href="../reference/furrr_options.html">?furrr_options</a></code> for full details.</p></li>
 <li><p><code><a href="../reference/future_map2.html">future_pmap()</a></code> and its variants now propagate the names of the first element of <code>.l</code> onto the output (<a href='https://github.com/DavisVaughan/furrr/issues/116'>#116</a>).</p></li>
