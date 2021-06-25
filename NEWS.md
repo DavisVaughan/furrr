@@ -1,4 +1,4 @@
-# furrr (development version)
+# furrr 0.2.3
 
 * Preemptively updated tests related to upcoming changes in testthat (#196).
 
