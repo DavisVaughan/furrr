@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# furrr <a href='https://davisvaughan.github.io/furrr/'><img src='man/figures/logo.png' align="right" height="139" /></a>
+# furrr <a href='https://furrr.futureverse.org/'><img src='man/figures/logo.png' align="right" height="139" /></a>
 
 <!-- badges: start -->
 
@@ -59,27 +59,25 @@ remotes::install_github("DavisVaughan/furrr")
 ## Learning
 
 The easiest way to learn about furrr is to browse [the
-website](https://davisvaughan.github.io/furrr/). In particular, the
-[function
-reference](https://davisvaughan.github.io/furrr/reference/index.html)
-page can be useful to get a general overview of the functions in the
-package, and the following vignettes are deep dives into various parts
-of furrr:
+website](https://furrr.futureverse.org/). In particular, the [function
+reference](https://furrr.futureverse.org/reference/index.html) page can
+be useful to get a general overview of the functions in the package, and
+the following vignettes are deep dives into various parts of furrr:
 
 -   [Common
-    gotchas](https://davisvaughan.github.io/furrr/articles/articles/gotchas.html)
+    gotchas](https://furrr.futureverse.org/articles/articles/gotchas.html)
 
 -   [Learn how furrr “chunks” your
-    input](https://davisvaughan.github.io/furrr/articles/articles/chunking.html)
+    input](https://furrr.futureverse.org/articles/articles/chunking.html)
 
 -   [carrier - An alternative to automatic globals
-    detection](https://davisvaughan.github.io/furrr/articles/articles/carrier.html)
+    detection](https://furrr.futureverse.org/articles/articles/carrier.html)
 
 -   [Progress notifications with
-    progressr](https://davisvaughan.github.io/furrr/articles/articles/progress.html)
+    progressr](https://furrr.futureverse.org/articles/articles/progress.html)
 
 -   [Using furrr with
-    connections](https://davisvaughan.github.io/furrr/articles/articles/remote-connections.html)
+    connections](https://furrr.futureverse.org/articles/articles/remote-connections.html)
 
 ## Example
 
