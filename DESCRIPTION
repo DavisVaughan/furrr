@@ -1,6 +1,6 @@
 Package: furrr
 Title: Apply Mapping Functions in Parallel using Futures
-Version: 0.2.3
+Version: 0.2.3.9000
 Authors@R: 
     c(person(given = "Davis",
              family = "Vaughan",
