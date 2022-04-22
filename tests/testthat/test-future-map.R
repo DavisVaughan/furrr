@@ -228,12 +228,11 @@ test_that("furrr is not loaded on the workers", {
   plan(multisession, workers = 2)
   on.exit(plan(sequential), add = TRUE)
 
-  expect_false(value(future("furrr" %in% loadedNamespaces())))
-
   # Evaluate in the global env to avoid furrr being
   # in the parent envs of this fn
   fn <- globally(function(x) {
-    isNamespaceLoaded("furrr")
+    #isNamespaceLoaded("furrr")
+    stop(paste0(loadedNamespaces(), collapse = "  "))
   })
 
   expect_identical(
