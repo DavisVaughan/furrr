@@ -30,6 +30,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -49,35 +51,29 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/articles/carrier.html">Alternative to automatic globals detection</a>
+      <a href="articles/carrier.html">Alternative to automatic globals detection</a>
     </li>
     <li>
-      <a href="articles/articles/chunking.html">Chunking input</a>
+      <a href="articles/chunking.html">Chunking input</a>
     </li>
     <li>
-      <a href="articles/articles/gotchas.html">Common gotchas</a>
+      <a href="articles/gotchas.html">Common gotchas</a>
     </li>
     <li>
-      <a href="articles/articles/progress.html">Progress notifications with progressr</a>
+      <a href="articles/progress.html">Progress notifications with progressr</a>
     </li>
     <li>
-      <a href="articles/articles/remote-connections.html">Remote connections</a>
+      <a href="articles/remote-connections.html">Remote connections</a>
     </li>
   </ul>
 </li>
@@ -87,7 +83,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/DavisVaughan/furrr/">
+  <a href="https://github.com/DavisVaughan/furrr/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -104,46 +100,46 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="furrr-" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#furrr-" class="anchor"></a>furrr <a href="https://furrr.futureverse.org/"><img src="reference/figures/logo.png" align="right" height="139"></a>
+<div class="section level1">
+<div class="page-header"><h1 id="furrr-">furrr <a href="https://furrr.futureverse.org/"><img src="reference/figures/logo.png" align="right" height="139"></a>
+<a class="anchor" aria-label="anchor" href="#furrr-"></a>
 </h1></div>
 <!-- badges: start -->
 
-<div id="overview" class="section level2">
-<h2 class="hasAnchor">
-<a href="#overview" class="anchor"></a>Overview</h2>
-<p>The goal of furrr is to combine purrr’s family of mapping functions with future’s parallel processing capabilities. The result is near drop in replacements for purrr functions such as <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> and <code><a href="https://purrr.tidyverse.org/reference/map2.html">map2_dbl()</a></code>, which can be replaced with their furrr equivalents of <code><a href="reference/future_map.html">future_map()</a></code> and <code><a href="reference/future_map2.html">future_map2_dbl()</a></code> to map in parallel.</p>
+<div class="section level2">
+<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+</h2>
+<p>The goal of furrr is to combine purrr’s family of mapping functions with future’s parallel processing capabilities. The result is near drop in replacements for purrr functions such as <code><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map()</a></code> and <code><a href="https://purrr.tidyverse.org/reference/map2.html" class="external-link">map2_dbl()</a></code>, which can be replaced with their furrr equivalents of <code><a href="reference/future_map.html">future_map()</a></code> and <code><a href="reference/future_map2.html">future_map2_dbl()</a></code> to map in parallel.</p>
 <p>The code draws heavily from the implementations of purrr and future.apply and this package would not be possible without either of them.</p>
 </div>
-<div id="what-has-been-implemented" class="section level2">
-<h2 class="hasAnchor">
-<a href="#what-has-been-implemented" class="anchor"></a>What has been implemented?</h2>
+<div class="section level2">
+<h2 id="what-has-been-implemented">What has been implemented?<a class="anchor" aria-label="anchor" href="#what-has-been-implemented"></a>
+</h2>
 <p>Every variant of the following functions has been implemented:</p>
 <ul>
-<li><code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code></li>
-<li><code><a href="https://purrr.tidyverse.org/reference/map2.html">map2()</a></code></li>
-<li><code><a href="https://purrr.tidyverse.org/reference/map2.html">pmap()</a></code></li>
-<li><code><a href="https://purrr.tidyverse.org/reference/map.html">walk()</a></code></li>
-<li><code><a href="https://purrr.tidyverse.org/reference/imap.html">imap()</a></code></li>
-<li><code><a href="https://purrr.tidyverse.org/reference/modify.html">modify()</a></code></li>
+<li><code><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map()</a></code></li>
+<li><code><a href="https://purrr.tidyverse.org/reference/map2.html" class="external-link">map2()</a></code></li>
+<li><code><a href="https://purrr.tidyverse.org/reference/map2.html" class="external-link">pmap()</a></code></li>
+<li><code><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">walk()</a></code></li>
+<li><code><a href="https://purrr.tidyverse.org/reference/imap.html" class="external-link">imap()</a></code></li>
+<li><code><a href="https://purrr.tidyverse.org/reference/modify.html" class="external-link">modify()</a></code></li>
 </ul>
-<p>This includes atomic variants like <code><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl()</a></code> through <code><a href="reference/future_map.html">future_map_dbl()</a></code> and predicate variants like <code><a href="https://purrr.tidyverse.org/reference/map_if.html">map_at()</a></code> through <code><a href="reference/future_map_if.html">future_map_at()</a></code>.</p>
+<p>This includes atomic variants like <code><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map_dbl()</a></code> through <code><a href="reference/future_map.html">future_map_dbl()</a></code> and predicate variants like <code><a href="https://purrr.tidyverse.org/reference/map_if.html" class="external-link">map_at()</a></code> through <code><a href="reference/future_map_if.html">future_map_at()</a></code>.</p>
 </div>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install the released version of furrr from <a href="https://CRAN.R-project.org">CRAN</a> with:</p>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<p>You can install the released version of furrr from <a href="https://CRAN.R-project.org" class="external-link">CRAN</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"furrr"</span><span class="op">)</span></code></pre></div>
-<p>And the development version from <a href="https://github.com/">GitHub</a> with:</p>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"furrr"</span><span class="op">)</span></code></pre></div>
+<p>And the development version from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("remotes")</span>
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"DavisVaughan/furrr"</span><span class="op">)</span></code></pre></div>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"DavisVaughan/furrr"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="learning" class="section level2">
-<h2 class="hasAnchor">
-<a href="#learning" class="anchor"></a>Learning</h2>
+<div class="section level2">
+<h2 id="learning">Learning<a class="anchor" aria-label="anchor" href="#learning"></a>
+</h2>
 <p>The easiest way to learn about furrr is to browse <a href="https://furrr.futureverse.org/">the website</a>. In particular, the <a href="https://furrr.futureverse.org/reference/index.html">function reference</a> page can be useful to get a general overview of the functions in the package, and the following vignettes are deep dives into various parts of furrr:</p>
 <ul>
 <li><p><a href="https://furrr.futureverse.org/articles/articles/gotchas.html">Common gotchas</a></p></li>
@@ -153,22 +149,22 @@
 <li><p><a href="https://furrr.futureverse.org/articles/articles/remote-connections.html">Using furrr with connections</a></p></li>
 </ul>
 </div>
-<div id="example" class="section level2">
-<h2 class="hasAnchor">
-<a href="#example" class="anchor"></a>Example</h2>
+<div class="section level2">
+<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+</h2>
 <p>furrr has been designed to function as identically to purrr as possible, so that you can immediately have familiarity with it.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/DavisVaughan/furrr">furrr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://purrr.tidyverse.org">purrr</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/DavisVaughan/furrr" class="external-link">furrr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://purrr.tidyverse.org" class="external-link">purrr</a></span><span class="op">)</span>
 
-<span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"hello"</span>, <span class="st">"world"</span><span class="op">)</span>, <span class="op">~</span><span class="va">.x</span><span class="op">)</span>
+<span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hello"</span>, <span class="st">"world"</span><span class="op">)</span>, <span class="op">~</span><span class="va">.x</span><span class="op">)</span>
 <span class="co">#&gt; [[1]]</span>
 <span class="co">#&gt; [1] "hello"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[2]]</span>
 <span class="co">#&gt; [1] "world"</span>
 
-<span class="fu"><a href="reference/future_map.html">future_map</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"hello"</span>, <span class="st">"world"</span><span class="op">)</span>, <span class="op">~</span><span class="va">.x</span><span class="op">)</span>
+<span class="fu"><a href="reference/future_map.html">future_map</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hello"</span>, <span class="st">"world"</span><span class="op">)</span>, <span class="op">~</span><span class="va">.x</span><span class="op">)</span>
 <span class="co">#&gt; [[1]]</span>
 <span class="co">#&gt; [1] "hello"</span>
 <span class="co">#&gt; </span>
@@ -177,10 +173,10 @@
 <p>The default backend for future (and through it, furrr) is a sequential one. This means that the above code will run out of the box, but it will <em>not</em> be in parallel. The design of future makes it incredibly easy to change this so that your code will run in parallel.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Set a "plan" for how the code should run.</span>
-<span class="fu">plan</span><span class="op">(</span><span class="va">multisession</span>, workers <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
+<span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="va">multisession</span>, workers <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 
 <span class="co"># This does run in parallel!</span>
-<span class="fu"><a href="reference/future_map.html">future_map</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"hello"</span>, <span class="st">"world"</span><span class="op">)</span>, <span class="op">~</span><span class="va">.x</span><span class="op">)</span>
+<span class="fu"><a href="reference/future_map.html">future_map</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hello"</span>, <span class="st">"world"</span><span class="op">)</span>, <span class="op">~</span><span class="va">.x</span><span class="op">)</span>
 <span class="co">#&gt; [[1]]</span>
 <span class="co">#&gt; [1] "hello"</span>
 <span class="co">#&gt; </span>
@@ -188,29 +184,29 @@
 <span class="co">#&gt; [1] "world"</span></code></pre></div>
 <p>If you are still skeptical, here is some proof that we are running in parallel.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">tictoc</span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/collectivemedia/tictoc" class="external-link">tictoc</a></span><span class="op">)</span>
 
 <span class="co"># This should take 6 seconds in total running sequentially</span>
-<span class="fu">plan</span><span class="op">(</span><span class="va">sequential</span><span class="op">)</span>
+<span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="va">sequential</span><span class="op">)</span>
 
 <span class="fu">tic</span><span class="op">(</span><span class="op">)</span>
-<span class="va">nothingness</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/future_map.html">future_map</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.sleep.html">Sys.sleep</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span>
+<span class="va">nothingness</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/future_map.html">future_map</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.sleep.html" class="external-link">Sys.sleep</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span>
 <span class="fu">toc</span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; 6.08 sec elapsed</span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># This should take ~2 seconds running in parallel, with a little overhead</span>
 <span class="co"># in `future_map()` from sending data to the workers. There is generally also</span>
 <span class="co"># a one time cost from `plan(multisession)` setting up the workers.</span>
-<span class="fu">plan</span><span class="op">(</span><span class="va">multisession</span>, workers <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
+<span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="va">multisession</span>, workers <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
 
 <span class="fu">tic</span><span class="op">(</span><span class="op">)</span>
-<span class="va">nothingness</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/future_map.html">future_map</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.sleep.html">Sys.sleep</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span>
+<span class="va">nothingness</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/future_map.html">future_map</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.sleep.html" class="external-link">Sys.sleep</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span>
 <span class="fu">toc</span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; 2.212 sec elapsed</span></code></pre></div>
 </div>
-<div id="data-transfer" class="section level2">
-<h2 class="hasAnchor">
-<a href="#data-transfer" class="anchor"></a>Data transfer</h2>
+<div class="section level2">
+<h2 id="data-transfer">Data transfer<a class="anchor" aria-label="anchor" href="#data-transfer"></a>
+</h2>
 <p>It’s important to remember that data has to be passed back and forth between the workers. This means that whatever performance gain you might have gotten from your parallelization can be crushed by moving large amounts of data around. For example, if you are moving large data frames to the workers, running models in parallel, and returning large model objects back, the shuffling of data can take a large chunk of that time. Rather than returning the entire model object, you might consider only returning a performance metric, or smaller specific pieces of that model that you are most interested in.</p>
 <p>This performance drop can especially be prominent if using <code><a href="reference/future_map2.html">future_pmap()</a></code> to iterate over rows and return large objects at each iteration.</p>
 </div>
@@ -219,50 +215,60 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=furrr">https://​cloud.r-project.org/​package=furrr</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/DavisVaughan/furrr/">https://​github.com/​DavisVaughan/​furrr/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/DavisVaughan/furrr/issues">https://​github.com/​DavisVaughan/​furrr/​issues</a>
-</li>
-</ul>
-</div>
-<div class="license">
-<h2>License</h2>
-<ul class="list-unstyled">
-<li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
-</ul>
-</div>
-<div class="developers">
-<h2>Developers</h2>
-<ul class="list-unstyled">
-<li>Davis Vaughan <br><small class="roles"> Author, maintainer </small>  </li>
-<li>Matt Dancho <br><small class="roles"> Author </small>  </li>
-<li><a href="authors.html">All authors...</a></li>
+<li><a href="https://cloud.r-project.org/package=furrr" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/DavisVaughan/furrr/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/DavisVaughan/furrr/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="license">
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://cran.r-project.org/package=furrr"><img src="https://www.r-pkg.org/badges/version/furrr" alt="CRAN status"></a></li>
-<li><a href="https://github.com/DavisVaughan/furrr/actions"><img src="https://github.com/DavisVaughan/furrr/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
-<li><a href="https://codecov.io/gh/DavisVaughan/furrr?branch=master"><img src="https://codecov.io/gh/DavisVaughan/furrr/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="LICENSE.html">Full license</a></li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing furrr</a></li>
+</ul>
 </div>
+
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
+<ul class="list-unstyled">
+<li>Davis Vaughan <br><small class="roles"> Author, maintainer </small>  </li>
+<li>Matt Dancho <br><small class="roles"> Author </small>  </li>
+<li><a href="authors.html">More about authors...</a></li>
+</ul>
+</div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://cran.r-project.org/package=furrr" class="external-link"><img src="https://www.r-pkg.org/badges/version/furrr" alt="CRAN status"></a></li>
+<li><a href="https://github.com/DavisVaughan/furrr/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/DavisVaughan/furrr/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://codecov.io/gh/DavisVaughan/furrr?branch=main" class="external-link"><img src="https://codecov.io/gh/DavisVaughan/furrr/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
+</ul>
+</div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Davis Vaughan, Matt Dancho.</p>
+  <p></p>
+<p>Developed by Davis Vaughan, Matt Dancho.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -270,6 +276,8 @@
 
   
 
+
+  
 
   </body>
 </html>
