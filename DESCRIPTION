@@ -25,10 +25,10 @@ Depends:
 Imports:
     ellipsis,
     globals (>= 0.13.1),
-    lifecycle (>= 1.0.0),
+    lifecycle (>= 1.0.1),
     purrr (>= 0.3.0),
-    rlang (>= 0.3.0),
-    vctrs (>= 0.3.2)
+    rlang (>= 1.0.2),
+    vctrs (>= 0.4.1)
 Suggests:
     carrier,
     covr,
