@@ -1,5 +1,10 @@
 # furrr (development version)
 
+* lifecycle >=1.0.1, rlang >=1.0.2, and vctrs >=0.4.1 are now required (#214).
+
+* Updated snapshot tests related to how testthat prints condition details
+  (#213).
+
 # furrr 0.2.3
 
 * Preemptively updated tests related to upcoming changes in testthat (#196).
