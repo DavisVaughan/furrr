@@ -10,7 +10,7 @@ status](https://www.r-pkg.org/badges/version/furrr)](https://cran.r-project.org/
 [![R build
 status](https://github.com/DavisVaughan/furrr/workflows/R-CMD-check/badge.svg)](https://github.com/DavisVaughan/furrr/actions)
 [![Codecov test
-coverage](https://codecov.io/gh/DavisVaughan/furrr/branch/master/graph/badge.svg)](https://codecov.io/gh/DavisVaughan/furrr?branch=master)
+coverage](https://codecov.io/gh/DavisVaughan/furrr/branch/main/graph/badge.svg)](https://codecov.io/gh/DavisVaughan/furrr?branch=main)
 <!-- badges: end -->
 
 ## Overview
