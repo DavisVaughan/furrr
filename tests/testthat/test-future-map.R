@@ -225,10 +225,10 @@ test_that("furrr is not loaded on the workers", {
   # https://github.com/HenrikBengtsson/future/blob/d3a3e55cfdfd1bc4c47df3790923ad15c8c0bed1/R/ClusterFuture-class.R#L138
   skip_if("covr" %in% loadedNamespaces())
 
-  stop(deparse(attr(plan(), "call")))
-
   plan(multisession, workers = 2)
   on.exit(plan(sequential), add = TRUE)
+
+  expect_false(value(future("furrr" %in% loadedNamespaces())))
 
   # Evaluate in the global env to avoid furrr being
   # in the parent envs of this fn
