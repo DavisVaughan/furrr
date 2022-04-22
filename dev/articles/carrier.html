@@ -250,7 +250,7 @@
   <span class="fu">my_slow_fn</span><span class="op">(</span><span class="op">)</span>
 <span class="op">}</span><span class="op">)</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.759   0.703   3.016</span></code></pre></div>
+<span class="co">#&gt;   0.479   0.397   2.075</span></code></pre></div>
 <p>One way to avoid this is to use carrier to crate the function, isolating it from the surrounding environment.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">my_crated_fn</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
@@ -269,7 +269,7 @@
   <span class="fu">my_crated_fn</span><span class="op">(</span><span class="op">)</span>
 <span class="op">}</span><span class="op">)</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.370   0.339   1.314</span></code></pre></div>
+<span class="co">#&gt;   0.254   0.143   0.774</span></code></pre></div>
 </div>
   </div>
 
