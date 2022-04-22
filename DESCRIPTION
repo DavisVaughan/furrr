@@ -25,10 +25,10 @@ Depends:
 Imports:
     ellipsis,
     globals (>= 0.13.1),
-    lifecycle (>= 1.0.0),
+    lifecycle (>= 1.0.1),
     purrr (>= 0.3.0),
-    rlang (>= 0.3.0),
-    vctrs (>= 0.3.2)
+    rlang (>= 1.0.2),
+    vctrs (>= 0.4.1)
 Suggests:
     carrier,
     covr,
@@ -44,5 +44,5 @@ Config/Needs/website:
     progressr
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Config/testthat/edition: 3
