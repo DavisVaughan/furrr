@@ -53,12 +53,10 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: |
-            any::rcmdcheck,
-            HenrikBengtsson/future@1.21.0,
-            r-lib/testthat@v3.0.3
-
+          extra-packages: any::rcmdcheck
           needs: check
+
+      - uses: lhotari/action-upterm@v1
 
       - uses: r-lib/actions/check-r-package@v2
         with:
