@@ -232,11 +232,13 @@ test_that("furrr is not loaded on the workers", {
   # in the parent envs of this fn
   fn <- globally(function(x) {
     #isNamespaceLoaded("furrr")
-    stop(paste0(loadedNamespaces(), collapse = "  "))
+    stop(paste0(c(x, Sys.getpid()), collapse = "  "))
   })
 
+  x <- c(Sys.getpid(), Sys.getpid())
+
   expect_identical(
-    future_map_lgl(1:2, fn),
+    future_map_lgl(x, fn),
     c(FALSE, FALSE)
   )
 })
