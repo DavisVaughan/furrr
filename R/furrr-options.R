@@ -132,7 +132,7 @@ furrr_options <- function(...,
                           scheduling = 1.0,
                           chunk_size = NULL,
                           prefix = NULL) {
-  ellipsis::check_dots_empty()
+  check_dots_empty()
 
   stdout <- validate_stdout(stdout)
   conditions <- validate_conditions(conditions)
