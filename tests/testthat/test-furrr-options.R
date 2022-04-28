@@ -34,22 +34,20 @@ test_that("can detect globals from the caller environment (HenrikBengtsson/futur
 })
 
 test_that("can export globals with sequential futures", {
-  skip("Until HenrikBengtsson/future.apply#10 is fixed")
-
   plan(sequential)
 
   fn <- function(x) {
     exists("y")
   }
 
+  # With named list
+  opts <- furrr_options(globals = list(y = 1))
+  expect_identical(future_map_lgl(1:2, fn, .options = opts), c(TRUE, TRUE))
+
   wrapper <- function(options = furrr_options()) {
     y <- 1
     future_map_lgl(1, fn, .options = options)
   }
-
-  # With named list
-  opts <- furrr_options(globals = list(y = 1))
-  expect_identical(future_map_lgl(1:2, fn, .options = opts), c(TRUE, TRUE))
 
   # With character lookup in caller env
   opts <- furrr_options(globals = "y")
