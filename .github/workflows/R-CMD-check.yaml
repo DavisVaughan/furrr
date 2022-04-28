@@ -56,8 +56,6 @@ jobs:
           extra-packages: any::rcmdcheck
           needs: check
 
-      - uses: mxschmitt/action-tmate@v3
-
       - uses: r-lib/actions/check-r-package@v2
         with:
           upload-snapshots: true
