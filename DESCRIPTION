@@ -23,7 +23,6 @@ Depends:
     future (>= 1.19.1),
     R (>= 3.2.0)
 Imports:
-    ellipsis,
     globals (>= 0.13.1),
     lifecycle (>= 1.0.1),
     purrr (>= 0.3.0),
