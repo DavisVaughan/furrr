@@ -218,28 +218,6 @@ test_that("globals in `.x` are only exported to workers that use them", {
   )
 })
 
-test_that("furrr is not loaded on the workers", {
-  # future has some workarounds when running covr to ensure
-  # that the libpath that covr uses is on the workers. I think
-  # that somehow this loads furrr, so we just avoid this test when doing covr.
-  # https://github.com/HenrikBengtsson/future/blob/d3a3e55cfdfd1bc4c47df3790923ad15c8c0bed1/R/ClusterFuture-class.R#L138
-  skip_if("covr" %in% loadedNamespaces())
-
-  plan(multisession, workers = 2)
-  on.exit(plan(sequential), add = TRUE)
-
-  # Evaluate in the global env to avoid furrr being
-  # in the parent envs of this fn
-  fn <- globally(function(x) {
-    isNamespaceLoaded("furrr")
-  })
-
-  expect_identical(
-    future_map_lgl(1:2, fn),
-    c(FALSE, FALSE)
-  )
-})
-
 furrr_test_that("base package functions can be exported to workers (HenrikBengtsson/future#401)", {
   expect_identical(future_map(1:2, identity), list(1L, 2L))
 })
