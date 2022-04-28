@@ -1,5 +1,7 @@
 # furrr (development version)
 
+* Removed ellipsis in favor of the equivalent functions in rlang (#219).
+
 * Removed a multisession test related to whether or not an attempt was made to
   load furrr on the workers (#217).
 
