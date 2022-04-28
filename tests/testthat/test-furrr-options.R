@@ -39,19 +39,20 @@ test_that("can export globals with sequential futures", {
   fn <- function(x) {
     exists("y")
   }
+  environment(fn) <- .GlobalEnv
 
   # With named list
   opts <- furrr_options(globals = list(y = 1))
   expect_identical(future_map_lgl(1:2, fn, .options = opts), c(TRUE, TRUE))
 
-  wrapper <- function(options = furrr_options()) {
-    y <- 1
-    future_map_lgl(1, fn, .options = options)
-  }
-
   # With character lookup in caller env
-  opts <- furrr_options(globals = "y")
-  expect_identical(wrapper(opts), TRUE)
+  wrapper <- function(fn) {
+    y <- 1
+    future_map_lgl(1, fn, .options = furrr_options(globals = "y"))
+  }
+  environment(wrapper) <- .GlobalEnv
+
+  expect_identical(wrapper(fn), TRUE)
 })
 
 test_that("validates `globals`", {

@@ -245,23 +245,21 @@ furrr_test_that("`.f` globals are only looked up in the function env of `.f` (#1
 })
 
 furrr_test_that("`...` globals/packages are found", {
-  fn <- globally({
-    function(x, fn_arg) {
-      fn_arg()
-    }
-  })
+  # We set the function environments to the global environment to ensure
+  # that they aren't set to something else while `test()` is running
 
-  # Function is passed through `...`
-  # Evaluate in the global env so rlang isn't captured in the function env
-  # as a package to load
-  fn_arg <- globally({
-    # `rlang` needs to be loaded on the worker!
-    expr <- rlang::expr
+  fn <- function(x, fn_arg) {
+    fn_arg()
+  }
+  environment(fn) <- .GlobalEnv
 
-    function() {
-      expr(1)
-    }
-  })
+  fn_arg_env <- new_environment(list(x = 1), parent = .GlobalEnv)
+
+  # This function is passed through `...`
+  fn_arg <- function() {
+    x
+  }
+  environment(fn_arg) <- fn_arg_env
 
   expect_identical(
     future_map(1:2, fn, fn_arg = fn_arg),
