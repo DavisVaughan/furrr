@@ -20,7 +20,7 @@ furrr_map_template <- function(x,
   expr_progress_setup <- make_expr_progress_setup(progress)
   expr_progress_update <- make_expr_progress_update(progress)
 
-  expr <- expr({
+  expr <- expr_no_srcref({
     ...furrr_chunk_x <- ...furrr_chunk_args
 
     !!expr_seed_setup
@@ -93,7 +93,7 @@ furrr_map2_template <- function(x,
   expr_progress_setup <- make_expr_progress_setup(progress)
   expr_progress_update <- make_expr_progress_update(progress)
 
-  expr <- expr({
+  expr <- expr_no_srcref({
     ...furrr_chunk_x <- ...furrr_chunk_args[[1]]
     ...furrr_chunk_y <- ...furrr_chunk_args[[2]]
 
@@ -174,7 +174,7 @@ furrr_pmap_template <- function(l,
   expr_progress_setup <- make_expr_progress_setup(progress)
   expr_progress_update <- make_expr_progress_update(progress)
 
-  expr <- expr({
+  expr <- expr_no_srcref({
     ...furrr_chunk_l <- ...furrr_chunk_args
 
     !!expr_seed_setup
@@ -284,7 +284,7 @@ furrr_template <- function(args,
   }
 
   # Expression adjustment for per worker max global size
-  expr <- expr({
+  expr <- expr_no_srcref({
     future_globals_max_size <- getOption("future.globals.maxSize")
 
     if (!identical(future_globals_max_size, ...furrr_globals_max_size)) {
@@ -410,7 +410,7 @@ make_expr_seed_setup <- function(seed) {
     return(NULL)
   }
 
-  expr({
+  expr_no_srcref({
     ...furrr_chunk_seeds_env <- environment()
     ...furrr_chunk_seeds_env[["i"]] <- 1L
   })
@@ -421,7 +421,7 @@ make_expr_seed_update <- function(seed) {
     return(NULL)
   }
 
-  expr({
+  expr_no_srcref({
     ...furrr_chunk_seeds_i <- ...furrr_chunk_seeds_env[["i"]]
     ...furrr_chunk_seeds_env[["i"]] <- ...furrr_chunk_seeds_i + 1L
 
@@ -443,7 +443,7 @@ make_expr_progress_setup <- function(progress) {
     return(NULL)
   }
 
-  expr({
+  expr_no_srcref({
     ...furrr_progress <- TRUE
 
     tryCatch(
@@ -463,7 +463,7 @@ make_expr_progress_update <- function(progress) {
     return(NULL)
   }
 
-  expr({
+  expr_no_srcref({
     if (...furrr_progress) {
       try(
         expr = {

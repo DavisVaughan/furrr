@@ -25,3 +25,9 @@ set_total_size <- function(x, total_size) {
   attr(x, "total_size") <- total_size
   x
 }
+
+expr_no_srcref <- function(expr) {
+  expr <- enexpr(expr)
+  expr <- zap_srcref(expr)
+  expr
+}
