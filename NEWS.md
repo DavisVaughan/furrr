@@ -1,5 +1,8 @@
 # furrr (development version)
 
+* Unskipped a test now that the upstream bug in future is fixed
+  (#218, HenrikBengtsson/future.apply#10).
+
 * Removed ellipsis in favor of the equivalent functions in rlang (#219).
 
 * Removed a multisession test related to whether or not an attempt was made to
