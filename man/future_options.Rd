@@ -4,13 +4,7 @@
 \alias{future_options}
 \title{Deprecated furrr options}
 \usage{
-future_options(
-  globals = TRUE,
-  packages = NULL,
-  seed = FALSE,
-  lazy = FALSE,
-  scheduling = 1
-)
+future_options(globals = TRUE, packages = NULL, seed = FALSE, scheduling = 1)
 }
 \arguments{
 \item{globals}{A logical, a character vector, a named list, or \code{NULL} for
@@ -24,9 +18,6 @@ future is evaluated.}
 \item{seed}{A logical, an integer of length \code{1} or \code{7}, a list of
 \code{length(.x)} with pre-generated random seeds, or \code{NULL}. For details, see
 the \verb{Reproducible random number generation (RNG)} section below.}
-
-\item{lazy}{A logical. Specifies whether futures should be resolved
-lazily or eagerly.}
 
 \item{scheduling}{A single integer, logical, or \code{Inf}. This argument
 controls the average number of futures ("chunks") per worker.

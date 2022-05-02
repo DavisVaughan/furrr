@@ -10,7 +10,6 @@ furrr_options(
   conditions = "condition",
   globals = TRUE,
   packages = NULL,
-  lazy = FALSE,
   seed = FALSE,
   scheduling = 1,
   chunk_size = NULL,
@@ -42,9 +41,6 @@ controlling how globals are handled. For details, see the
 \item{packages}{A character vector, or \code{NULL}. If supplied, this specifies
 packages that are guaranteed to be attached in the R environment where the
 future is evaluated.}
-
-\item{lazy}{A logical. Specifies whether futures should be resolved
-lazily or eagerly.}
 
 \item{seed}{A logical, an integer of length \code{1} or \code{7}, a list of
 \code{length(.x)} with pre-generated random seeds, or \code{NULL}. For details, see

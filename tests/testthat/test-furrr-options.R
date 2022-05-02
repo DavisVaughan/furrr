@@ -158,20 +158,6 @@ test_that("validates `conditions`", {
 })
 
 # ------------------------------------------------------------------------------
-# furrr_options(lazy =)
-
-furrr_test_that("can use lazy futures", {
-  opts <- furrr_options(lazy = TRUE)
-  expect_identical(future_map(1:5, ~.x, .options = opts), as.list(1:5))
-})
-
-test_that("validates `lazy`", {
-  expect_error(furrr_options(lazy = 2))
-  expect_error(furrr_options(lazy = NA))
-  expect_error(furrr_options(lazy = c(TRUE, FALSE)))
-})
-
-# ------------------------------------------------------------------------------
 # furrr_options(seed =)
 
 furrr_test_that("can use integer `seed` of size 1", {
