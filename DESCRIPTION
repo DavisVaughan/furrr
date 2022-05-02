@@ -4,7 +4,7 @@ Version: 0.2.3.9000
 Authors@R: c(
     person("Davis", "Vaughan", , "davis@rstudio.com", role = c("aut", "cre")),
     person("Matt", "Dancho", , "mdancho@business-science.io", role = "aut"),
-    person("RStudio", role = "cph")
+    person("RStudio", role = c("cph", "fnd"))
   )
 Description: Implementations of the family of map() functions from 'purrr'
     that can be resolved using any 'future'-supported backend, e.g.
