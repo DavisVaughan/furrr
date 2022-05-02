@@ -1,26 +1,28 @@
 # furrr (development version)
 
-* furrr now requires R >=3.4.0, which is in line with the tidyverse.
-
-* `future_walk()` and the other walk functions now avoid sending the results
-  of calling `.f` back to the main process (#205).
+## Breaking changes
 
 * `future_options()` is now defunct and will be removed in the next minor
   release of furrr. Please use `furrr_options()` instead (#137).
-
-* Standard output is now dropped from future results before they are returned
-  to the main process (#216).
 
 * The `lazy` argument of `furrr_options()` has been completely removed. This
   argument had no effect, as futures are always resolved before the
   corresponding furrr function returns (#222).
 
-* Condition objects are now dropped from future results before they are returned
-  to the main process (#216).
+## Features / Fixes
+
+* `future_walk()` and the other walk functions now avoid sending the results
+  of calling `.f` back to the main process (#205).
 
 * The `conditions` argument of `furrr_options()` now supports selectively
   ignoring conditions through an `exclude` attribute. See `?furrr_options` for
   more information (#181).
+
+* Standard output is now dropped from future results before they are returned
+  to the main process (#216).
+
+* Condition objects are now dropped from future results before they are returned
+  to the main process (#216).
 
 * Unskipped a test now that the upstream bug in future is fixed
   (#218, HenrikBengtsson/future.apply#10).
@@ -30,11 +32,15 @@
 * Removed a multisession test related to whether or not an attempt was made to
   load furrr on the workers (#217).
 
-* lifecycle >=1.0.1, rlang >=1.0.2, purrr >=0.3.4, vctrs >=0.4.1,
-  globals >=0.14.0, and future >=1.25.0 are now required (#214).
-
 * Updated snapshot tests related to how testthat prints condition details
   (#213).
+
+## Version requirements
+
+* furrr now requires R >=3.4.0, which is in line with the tidyverse.
+
+* lifecycle >=1.0.1, rlang >=1.0.2, purrr >=0.3.4, vctrs >=0.4.1,
+  globals >=0.14.0, and future >=1.25.0 are now required (#214).
 
 # furrr 0.2.3
 
