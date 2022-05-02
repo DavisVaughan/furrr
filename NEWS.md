@@ -1,5 +1,8 @@
 # furrr (development version)
 
+* `future_options()` is now defunct and will be removed in the next minor
+  release of furrr. Please use `furrr_options()` instead (#137).
+
 * Standard output is now dropped from future results before they are returned
   to the main process (#216).
 
