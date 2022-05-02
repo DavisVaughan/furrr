@@ -1,21 +1,14 @@
 Package: furrr
 Title: Apply Mapping Functions in Parallel using Futures
 Version: 0.2.3.9000
-Authors@R: 
-    c(person(given = "Davis",
-             family = "Vaughan",
-             role = c("aut", "cre"),
-             email = "davis@rstudio.com"),
-      person(given = "Matt",
-             family = "Dancho",
-             role = "aut",
-             email = "mdancho@business-science.io"),
-      person(given = "RStudio",
-             role = "cph"))
-Description: Implementations of the family of map() functions
-    from 'purrr' that can be resolved using any 'future'-supported
-    backend, e.g. parallel on the local machine or distributed on a
-    compute cluster.
+Authors@R: c(
+    person("Davis", "Vaughan", , "davis@rstudio.com", role = c("aut", "cre")),
+    person("Matt", "Dancho", , "mdancho@business-science.io", role = "aut"),
+    person("RStudio", role = "cph")
+  )
+Description: Implementations of the family of map() functions from 'purrr'
+    that can be resolved using any 'future'-supported backend, e.g.
+    parallel on the local machine or distributed on a compute cluster.
 License: MIT + file LICENSE
 URL: https://github.com/DavisVaughan/furrr
 BugReports: https://github.com/DavisVaughan/furrr/issues
@@ -37,11 +30,11 @@ Suggests:
     magrittr,
     rmarkdown,
     testthat (>= 3.0.0),
-    withr,
-    tidyselect
+    tidyselect,
+    withr
 Config/Needs/website:
     progressr
+Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
-Config/testthat/edition: 3
