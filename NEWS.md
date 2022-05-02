@@ -15,7 +15,8 @@
 * Removed a multisession test related to whether or not an attempt was made to
   load furrr on the workers (#217).
 
-* lifecycle >=1.0.1, rlang >=1.0.2, and vctrs >=0.4.1 are now required (#214).
+* lifecycle >=1.0.1, rlang >=1.0.2, purrr >=0.3.4, vctrs >=0.4.1,
+  globals >=0.14.0, and future >=1.25.0 are now required (#214).
 
 * Updated snapshot tests related to how testthat prints condition details
   (#213).

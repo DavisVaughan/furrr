@@ -20,12 +20,12 @@ License: MIT + file LICENSE
 URL: https://github.com/DavisVaughan/furrr
 BugReports: https://github.com/DavisVaughan/furrr/issues
 Depends:
-    future (>= 1.19.1),
+    future (>= 1.25.0),
     R (>= 3.2.0)
 Imports:
-    globals (>= 0.13.1),
+    globals (>= 0.14.0),
     lifecycle (>= 1.0.1),
-    purrr (>= 0.3.0),
+    purrr (>= 0.3.4),
     rlang (>= 1.0.2),
     vctrs (>= 0.4.1)
 Suggests:
