@@ -233,10 +233,6 @@ furrr_template <- function(args,
                            extract) {
   fn <- purrr::as_mapper(fn)
 
-  if (is.null(options$conditions)) {
-    options$conditions <- eval(formals(future::Future)[["conditions"]])
-  }
-
   if (is.null(options$seed) || is_false(options$seed)) {
     seeds <- NULL
   } else {

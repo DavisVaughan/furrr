@@ -15,10 +15,11 @@
 #'
 #'   - If `NA`, output is not intercepted. This is not recommended.
 #'
-#' @param conditions A character string of conditions classes to be captured
-#'   and relayed. The default is the same as the condition argument of
-#'   [future::Future()]. To not intercept conditions, use
-#'   `conditions = character(0L)`. Errors are always relayed.
+#' @param conditions A character string of conditions classes to be relayed.
+#'   The default is to relay all conditions, including messages and warnings.
+#'   Errors are always relayed. To not relay any conditions (besides errors),
+#'   use `conditions = character()`. To selectively ignore specific classes,
+#'   use `conditions = structure("condition", exclude = "message")`.
 #'
 #' @param globals A logical, a character vector, a named list, or `NULL` for
 #'   controlling how globals are handled. For details, see the
@@ -124,7 +125,7 @@
 #' furrr_options()
 furrr_options <- function(...,
                           stdout = TRUE,
-                          conditions = NULL,
+                          conditions = "condition",
                           globals = TRUE,
                           packages = NULL,
                           lazy = FALSE,
@@ -218,7 +219,20 @@ validate_stdout <- function(x) {
 }
 
 validate_conditions <- function(x) {
-  vctrs::vec_cast(x, character(), x_arg = "conditions")
+  if (is.null(x)) {
+    return(NULL)
+  }
+
+  if (!is.character(x)) {
+    abort("`conditions` must be a character vector.")
+  }
+
+  # Always drop conditions from the future objects.
+  # Only the values are ever returned, so it is useless and potentially
+  # expensive to transfer these back from the workers (#216).
+  attr(x, "drop") <- TRUE
+
+  x
 }
 
 validate_globals <- function(x) {

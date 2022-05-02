@@ -7,7 +7,7 @@
 furrr_options(
   ...,
   stdout = TRUE,
-  conditions = NULL,
+  conditions = "condition",
   globals = TRUE,
   packages = NULL,
   lazy = FALSE,
@@ -29,10 +29,11 @@ relayed as soon as possible.
 \item If \code{NA}, output is not intercepted. This is not recommended.
 }}
 
-\item{conditions}{A character string of conditions classes to be captured
-and relayed. The default is the same as the condition argument of
-\code{\link[future:Future-class]{future::Future()}}. To not intercept conditions, use
-\code{conditions = character(0L)}. Errors are always relayed.}
+\item{conditions}{A character string of conditions classes to be relayed.
+The default is to relay all conditions, including messages and warnings.
+Errors are always relayed. To not relay any conditions (besides errors),
+use \code{conditions = character()}. To selectively ignore specific classes,
+use \code{conditions = structure("condition", exclude = "message")}.}
 
 \item{globals}{A logical, a character vector, a named list, or \code{NULL} for
 controlling how globals are handled. For details, see the
