@@ -20,6 +20,14 @@ furrr_map_template <- function(x,
   expr_progress_setup <- make_expr_progress_setup(progress)
   expr_progress_update <- make_expr_progress_update(progress)
 
+  walk <- identical(map_fn, purrr::walk)
+
+  if (walk) {
+    map_fn <- purrr::map
+  }
+
+  expr_out <- make_expr_out(walk)
+
   expr <- expr({
     ...furrr_chunk_x <- ...furrr_chunk_args
 
@@ -30,7 +38,9 @@ furrr_map_template <- function(x,
       !!expr_seed_update
       !!expr_progress_update
 
-      ...furrr_fn(...)
+      ...furrr_out <- ...furrr_fn(...)
+
+      !!expr_out
     }
 
     args <- list(
@@ -93,6 +103,14 @@ furrr_map2_template <- function(x,
   expr_progress_setup <- make_expr_progress_setup(progress)
   expr_progress_update <- make_expr_progress_update(progress)
 
+  walk <- identical(map_fn, purrr::walk2)
+
+  if (walk) {
+    map_fn <- purrr::map2
+  }
+
+  expr_out <- make_expr_out(walk)
+
   expr <- expr({
     ...furrr_chunk_x <- ...furrr_chunk_args[[1]]
     ...furrr_chunk_y <- ...furrr_chunk_args[[2]]
@@ -104,7 +122,9 @@ furrr_map2_template <- function(x,
       !!expr_seed_update
       !!expr_progress_update
 
-      ...furrr_fn(...)
+      ...furrr_out <- ...furrr_fn(...)
+
+      !!expr_out
     }
 
     args <- list(
@@ -174,6 +194,14 @@ furrr_pmap_template <- function(l,
   expr_progress_setup <- make_expr_progress_setup(progress)
   expr_progress_update <- make_expr_progress_update(progress)
 
+  walk <- identical(map_fn, purrr::pwalk)
+
+  if (walk) {
+    map_fn <- purrr::pmap
+  }
+
+  expr_out <- make_expr_out(walk)
+
   expr <- expr({
     ...furrr_chunk_l <- ...furrr_chunk_args
 
@@ -184,7 +212,9 @@ furrr_pmap_template <- function(l,
       !!expr_seed_update
       !!expr_progress_update
 
-      ...furrr_fn(...)
+      ...furrr_out <- ...furrr_fn(...)
+
+      !!expr_out
     }
 
     args <- list(
@@ -474,9 +504,30 @@ make_expr_progress_update <- function(progress) {
 
 # ------------------------------------------------------------------------------
 
+# nocov start
+
+make_expr_out <- function(walk) {
+  if (walk) {
+    # If `walk/walk2/pwalk()` is being used, we internally switch it for its
+    # `map()` equivalent and return `NULL` from each function call to avoid
+    # sending either `.x` or the function result back to the main process.
+    # We have to use the `map()` equivalent because `walk()` will force `.x` to
+    # be returned back to the main process, even if each individual `.f` call
+    # returns `NULL`. https://github.com/DavisVaughan/furrr/issues/205
+    expr(NULL)
+  } else {
+    expr(...furrr_out)
+  }
+}
+
+# nocov end
+
+# ------------------------------------------------------------------------------
+
 # Required global variable hack for variables used in `expr()`.
 # Required to pass R CMD check.
 utils::globalVariables(c(
+  "...furrr_out",
   "...furrr_chunk_args",
   "...furrr_fn",
   "...furrr_map_fn",
