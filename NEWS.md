@@ -1,5 +1,8 @@
 # furrr (development version)
 
+* Standard output is now dropped from future results before they are returned
+  to the main process (#216).
+
 * The `lazy` argument of `furrr_options()` has been completely removed. This
   argument had no effect, as futures are always resolved before the
   corresponding furrr function returns (#222).
