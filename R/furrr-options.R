@@ -8,12 +8,10 @@
 #'
 #' @param stdout A logical.
 #'
-#'   - If `TRUE`, standard output of the underlying futures is captured and
-#'     relayed as soon as possible.
+#'   - If `TRUE`, standard output of the underlying futures is relayed as soon
+#'   as possible.
 #'
 #'   - If `FALSE`, output is silenced by sinking it to the null device.
-#'
-#'   - If `NA`, output is not intercepted. This is not recommended.
 #'
 #' @param conditions A character string of conditions classes to be relayed.
 #'   The default is to relay all conditions, including messages and warnings.
@@ -207,7 +205,20 @@ is_furrr_options <- function(x) {
 
 validate_stdout <- function(x) {
   vctrs::vec_assert(x, size = 1L, arg = "stdout")
-  vctrs::vec_cast(x, logical(), x_arg = "stdout")
+
+  # Allowed to be `NA`, as this means output is not intercepted.
+  # We test for this but it is explicitly not recommended by future so we don't
+  # document it.
+  if (!is.logical(x)) {
+    abort("`stdout` must be `TRUE`, `FALSE`, or `NA`.")
+  }
+
+  # Always drop stdout from the future objects.
+  # Only the values are ever returned, so it is useless and potentially
+  # expensive to transfer this back from the workers (#216).
+  attr(x, "drop") <- TRUE
+
+  x
 }
 
 validate_conditions <- function(x) {

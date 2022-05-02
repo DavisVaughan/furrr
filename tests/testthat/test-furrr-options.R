@@ -99,9 +99,31 @@ furrr_test_that("can use `stdout = FALSE`", {
   expect_silent(future_map(1:5, fn, .options = opts))
 })
 
+test_that("can use `stdout = NA` to not intercept at all", {
+  opts <- furrr_options(stdout = NA)
+
+  fn <- function(x) {
+    con <- stdout()
+    write("hello", con)
+    x
+  }
+
+  # Output is likely shown for sequential backends
+  plan(sequential)
+  expect_snapshot(future_map(1:2, fn, .options = opts))
+
+  # Output is likely not passed back from the other R session
+  # (because it isn't handled or captured at all)
+  plan(multisession, workers = supported_max_cores("multisession"))
+  on.exit(plan(sequential), add = TRUE)
+  expect_snapshot(future_map(1:2, fn, .options = opts))
+})
+
 test_that("validates `stdout`", {
-  expect_error(furrr_options(stdout = "x"))
-  expect_error(furrr_options(stdout = c(TRUE, TRUE)))
+  expect_snapshot({
+    (expect_error(furrr_options(stdout = "x")))
+    (expect_error(furrr_options(stdout = c(TRUE, TRUE))))
+  })
 })
 
 # ------------------------------------------------------------------------------

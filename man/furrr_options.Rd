@@ -22,10 +22,9 @@ be empty.}
 
 \item{stdout}{A logical.
 \itemize{
-\item If \code{TRUE}, standard output of the underlying futures is captured and
-relayed as soon as possible.
+\item If \code{TRUE}, standard output of the underlying futures is relayed as soon
+as possible.
 \item If \code{FALSE}, output is silenced by sinking it to the null device.
-\item If \code{NA}, output is not intercepted. This is not recommended.
 }}
 
 \item{conditions}{A character string of conditions classes to be relayed.
