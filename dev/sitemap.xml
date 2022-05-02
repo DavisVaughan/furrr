@@ -1,66 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://furrr.futureverse.org/LICENSE-text.html</loc>
+    <loc>https://furrr.futureverse.org/dev/CODE_OF_CONDUCT.html</loc>
   </url>
   <url>
-    <loc>https://furrr.futureverse.org/LICENSE.html</loc>
+    <loc>https://furrr.futureverse.org/dev/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>https://furrr.futureverse.org/articles/carrier.html</loc>
+    <loc>https://furrr.futureverse.org/dev/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://furrr.futureverse.org/articles/chunking.html</loc>
+    <loc>https://furrr.futureverse.org/dev/articles/carrier.html</loc>
   </url>
   <url>
-    <loc>https://furrr.futureverse.org/articles/gotchas.html</loc>
+    <loc>https://furrr.futureverse.org/dev/articles/chunking.html</loc>
   </url>
   <url>
-    <loc>https://furrr.futureverse.org/articles/index.html</loc>
+    <loc>https://furrr.futureverse.org/dev/articles/gotchas.html</loc>
   </url>
   <url>
-    <loc>https://furrr.futureverse.org/articles/progress.html</loc>
+    <loc>https://furrr.futureverse.org/dev/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://furrr.futureverse.org/articles/remote-connections.html</loc>
+    <loc>https://furrr.futureverse.org/dev/articles/progress.html</loc>
   </url>
   <url>
-    <loc>https://furrr.futureverse.org/authors.html</loc>
+    <loc>https://furrr.futureverse.org/dev/articles/remote-connections.html</loc>
   </url>
   <url>
-    <loc>https://furrr.futureverse.org/index.html</loc>
+    <loc>https://furrr.futureverse.org/dev/authors.html</loc>
   </url>
   <url>
-    <loc>https://furrr.futureverse.org/news/index.html</loc>
+    <loc>https://furrr.futureverse.org/dev/index.html</loc>
   </url>
   <url>
-    <loc>https://furrr.futureverse.org/reference/furrr-package.html</loc>
+    <loc>https://furrr.futureverse.org/dev/news/index.html</loc>
   </url>
   <url>
-    <loc>https://furrr.futureverse.org/reference/furrr_options.html</loc>
+    <loc>https://furrr.futureverse.org/dev/reference/furrr-package.html</loc>
   </url>
   <url>
-    <loc>https://furrr.futureverse.org/reference/future_imap.html</loc>
+    <loc>https://furrr.futureverse.org/dev/reference/furrr_options.html</loc>
   </url>
   <url>
-    <loc>https://furrr.futureverse.org/reference/future_invoke_map.html</loc>
+    <loc>https://furrr.futureverse.org/dev/reference/future_imap.html</loc>
   </url>
   <url>
-    <loc>https://furrr.futureverse.org/reference/future_map.html</loc>
+    <loc>https://furrr.futureverse.org/dev/reference/future_invoke_map.html</loc>
   </url>
   <url>
-    <loc>https://furrr.futureverse.org/reference/future_map2.html</loc>
+    <loc>https://furrr.futureverse.org/dev/reference/future_map.html</loc>
   </url>
   <url>
-    <loc>https://furrr.futureverse.org/reference/future_map_if.html</loc>
+    <loc>https://furrr.futureverse.org/dev/reference/future_map2.html</loc>
   </url>
   <url>
-    <loc>https://furrr.futureverse.org/reference/future_modify.html</loc>
+    <loc>https://furrr.futureverse.org/dev/reference/future_map_if.html</loc>
   </url>
   <url>
-    <loc>https://furrr.futureverse.org/reference/future_options.html</loc>
+    <loc>https://furrr.futureverse.org/dev/reference/future_modify.html</loc>
   </url>
   <url>
-    <loc>https://furrr.futureverse.org/reference/index.html</loc>
+    <loc>https://furrr.futureverse.org/dev/reference/future_options.html</loc>
+  </url>
+  <url>
+    <loc>https://furrr.futureverse.org/dev/reference/index.html</loc>
   </url>
 </urlset>
