@@ -96,10 +96,9 @@ are either used by furrr directly, or are passed on to <code><a href="https://fu
 <dd><p>These dots are reserved for future extensibility and must
 be empty.</p></dd>
 <dt>stdout</dt>
-<dd><p>A logical.</p><ul><li><p>If <code>TRUE</code>, standard output of the underlying futures is captured and
-relayed as soon as possible.</p></li>
+<dd><p>A logical.</p><ul><li><p>If <code>TRUE</code>, standard output of the underlying futures is relayed as soon
+as possible.</p></li>
 <li><p>If <code>FALSE</code>, output is silenced by sinking it to the null device.</p></li>
-<li><p>If <code>NA</code>, output is not intercepted. This is not recommended.</p></li>
 </ul></dd>
 <dt>conditions</dt>
 <dd><p>A character string of conditions classes to be relayed.
