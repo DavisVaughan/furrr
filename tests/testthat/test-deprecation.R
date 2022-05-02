@@ -9,8 +9,8 @@ test_that("can use deprecated `future_options()`", {
   )
   expect_warning(
     expect_identical(
-      future_options(globals = "x", packages = "dplyr", seed = 1, lazy = TRUE, scheduling = 2),
-      furrr_options(globals = "x", packages = "dplyr", seed = 1, lazy = TRUE, scheduling = 2)
+      future_options(globals = "x", packages = "dplyr", seed = 1, scheduling = 2),
+      furrr_options(globals = "x", packages = "dplyr", seed = 1, scheduling = 2)
     )
   )
 })

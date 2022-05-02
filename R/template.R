@@ -370,7 +370,6 @@ furrr_template <- function(args,
       globals = chunk_globals,
       packages = chunk_packages,
       seed = options$seed,
-      lazy = options$lazy,
       label = labels[[i]]
     )
   }

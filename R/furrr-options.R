@@ -29,9 +29,6 @@
 #'   packages that are guaranteed to be attached in the R environment where the
 #'   future is evaluated.
 #'
-#' @param lazy A logical. Specifies whether futures should be resolved
-#'   lazily or eagerly.
-#'
 #' @param seed A logical, an integer of length `1` or `7`, a list of
 #'   `length(.x)` with pre-generated random seeds, or `NULL`. For details, see
 #'   the `Reproducible random number generation (RNG)` section below.
@@ -128,7 +125,6 @@ furrr_options <- function(...,
                           conditions = "condition",
                           globals = TRUE,
                           packages = NULL,
-                          lazy = FALSE,
                           seed = FALSE,
                           scheduling = 1.0,
                           chunk_size = NULL,
@@ -139,7 +135,6 @@ furrr_options <- function(...,
   conditions <- validate_conditions(conditions)
   globals <- validate_globals(globals)
   packages <- validate_packages(packages)
-  lazy <- validate_lazy(lazy)
   seed <- validate_seed(seed)
   scheduling <- validate_scheduling(scheduling)
   chunk_size <- validate_chunk_size(chunk_size)
@@ -150,7 +145,6 @@ furrr_options <- function(...,
     conditions = conditions,
     globals = globals,
     packages = packages,
-    lazy = lazy,
     seed = seed,
     scheduling = scheduling,
     chunk_size = chunk_size,
@@ -184,7 +178,6 @@ print.furrr_options <- function(x, ...) {
 future_options <- function(globals = TRUE,
                            packages = NULL,
                            seed = FALSE,
-                           lazy = FALSE,
                            scheduling = 1.0) {
   lifecycle::deprecate_warn("0.2.0", "future_options()", "furrr_options()")
 
@@ -192,7 +185,6 @@ future_options <- function(globals = TRUE,
     globals = globals,
     packages = packages,
     seed = seed,
-    lazy = lazy,
     scheduling = scheduling
   )
 }
@@ -272,17 +264,6 @@ validate_packages <- function(x) {
 
   if (any(is.na(x))) {
     abort("`packages` can't be `NA`.")
-  }
-
-  x
-}
-
-validate_lazy <- function(x) {
-  vctrs::vec_assert(x, size = 1, arg = "lazy")
-  x <- vctrs::vec_cast(x, logical(), x_arg = "lazy")
-
-  if (is.na(x)) {
-    abort("`lazy` can't be `NA`.")
   }
 
   x

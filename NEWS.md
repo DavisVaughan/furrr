@@ -1,5 +1,9 @@
 # furrr (development version)
 
+* The `lazy` argument of `furrr_options()` has been completely removed. This
+  argument had no effect, as futures are always resolved before the
+  corresponding furrr function returns (#222).
+
 * Condition objects are now dropped from future results before they are returned
   to the main process (#216).
 
