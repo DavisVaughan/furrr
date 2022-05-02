@@ -1,5 +1,7 @@
 # furrr (development version)
 
+* furrr now requires R >=3.4.0, which is in line with the tidyverse.
+
 * `future_walk()` and the other walk functions now avoid sending the results
   of calling `.f` back to the main process (#205).
 
