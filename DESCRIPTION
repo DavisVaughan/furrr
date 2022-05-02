@@ -10,7 +10,7 @@ Description: Implementations of the family of map() functions from 'purrr'
     that can be resolved using any 'future'-supported backend, e.g.
     parallel on the local machine or distributed on a compute cluster.
 License: MIT + file LICENSE
-URL: https://github.com/DavisVaughan/furrr
+URL: https://github.com/DavisVaughan/furrr, https://furrr.futureverse.org/
 BugReports: https://github.com/DavisVaughan/furrr/issues
 Depends:
     future (>= 1.25.0),
