@@ -32,10 +32,10 @@ are enough elements in \code{.x}).
 This argument is only used if \code{chunk_size} is \code{NULL}.}
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#defunct}{\figure{lifecycle-defunct.svg}{options: alt='[Defunct]'}}}{\strong{[Defunct]}}
 
-\code{future_options()} has been hard deprecated in favor of \code{\link[=furrr_options]{furrr_options()}} as
-of furrr 0.3.0.
+As of furrr 0.3.0, \code{future_options()} is defunct in favor of
+\code{\link[=furrr_options]{furrr_options()}}.
 }
 \examples{
 try(future_options())
