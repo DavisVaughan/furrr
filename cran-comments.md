@@ -1,3 +1,8 @@
+## 0.3.0 Submission
+
+Minor release that renders `future_options()` defunct, removes the `lazy`
+argument, and fixes a few bugs.
+
 ## 0.2.3 Submission
 
 Minor release to prepare for a breaking change in testthat.
