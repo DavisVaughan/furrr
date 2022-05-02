@@ -1,4 +1,7 @@
 url: https://furrr.futureverse.org
 
+template:
+  bootstrap: 5
+
 development:
   mode: auto
