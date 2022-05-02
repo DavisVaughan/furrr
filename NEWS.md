@@ -1,5 +1,8 @@
 # furrr (development version)
 
+* `future_walk()` and the other walk functions now avoid sending the results
+  of calling `.f` back to the main process (#205).
+
 * `future_options()` is now defunct and will be removed in the next minor
   release of furrr. Please use `furrr_options()` instead (#137).
 

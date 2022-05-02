@@ -6,13 +6,15 @@ future_walk <- function(.x,
                         .options = furrr_options(),
                         .env_globals = parent.frame(),
                         .progress = FALSE) {
-  future_map(
-    .x = .x,
-    .f = .f,
-    ...,
-    .options = .options,
-    .env_globals = .env_globals,
-    .progress = .progress
+  furrr_map_template(
+    x = .x,
+    fn = .f,
+    dots = list(...),
+    options = .options,
+    progress = .progress,
+    type = "list",
+    map_fn = purrr::walk,
+    env_globals = .env_globals
   )
 
   invisible(.x)
@@ -27,14 +29,16 @@ future_walk2 <- function(.x,
                          .options = furrr_options(),
                          .env_globals = parent.frame(),
                          .progress = FALSE) {
-  future_map2(
-    .x = .x,
-    .y = .y,
-    .f = .f,
-    ...,
-    .options = .options,
-    .env_globals = .env_globals,
-    .progress = .progress
+  furrr_map2_template(
+    x = .x,
+    y = .y,
+    fn = .f,
+    dots = list(...),
+    options = .options,
+    progress = .progress,
+    type = "list",
+    map_fn = purrr::walk2,
+    env_globals = .env_globals
   )
 
   invisible(.x)
@@ -48,13 +52,15 @@ future_pwalk <- function(.l,
                          .options = furrr_options(),
                          .env_globals = parent.frame(),
                          .progress = FALSE) {
-  future_pmap(
-    .l = .l,
-    .f = .f,
-    ...,
-    .options = .options,
-    .env_globals = .env_globals,
-    .progress = .progress
+  furrr_pmap_template(
+    l = .l,
+    fn = .f,
+    dots = list(...),
+    options = .options,
+    progress = .progress,
+    type = "list",
+    map_fn = purrr::pwalk,
+    env_globals = .env_globals
   )
 
   invisible(.l)
