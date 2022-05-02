@@ -107,23 +107,54 @@ test_that("validates `stdout`", {
 # ------------------------------------------------------------------------------
 # furrr_options(conditions =)
 
-test_that("can capture no conditions", {
-  # Only works when not doing sequential, see HenrikBengtsson/future#403
-  plan(multisession, workers = 2)
-  on.exit(plan(sequential), add = TRUE)
-
-  opts <- furrr_options(conditions = character())
-
+furrr_test_that("can capture no conditions", {
   fn <- function(x) {
     warning("hello")
     x
   }
 
+  opts <- furrr_options(conditions = character())
   expect_warning(future_map(1:5, fn, .options = opts), NA)
 })
 
+test_that("can avoid handling conditions altogether", {
+  fn <- function(x) {
+    warning("hello")
+    x
+  }
+
+  opts <- furrr_options(conditions = NULL)
+
+  # Warning is likely shown for sequential backends
+  plan(sequential)
+  expect_snapshot(future_map(1:5, fn, .options = opts))
+
+  # Warning is likely not passed back from the other R session
+  # (because it isn't handled or captured at all)
+  plan(multisession, workers = supported_max_cores("multisession"))
+  on.exit(plan(sequential), add = TRUE)
+  expect_snapshot(future_map(1:5, fn, .options = opts))
+})
+
+furrr_test_that("can selectively avoid conditions", {
+  fn <- function(x) {
+    rlang::warn("classed warning", class = "ignore_me")
+    rlang::warn("unclassed warning", class = "dont_ignore_me")
+    x
+  }
+
+  # Both warnings are shown
+  expect_warning(expect_warning(future_map(1, fn), class = "ignore_me"), class = "dont_ignore_me")
+
+  # Only dont_ignore_me is shown
+  opts <- furrr_options(conditions = structure("condition", exclude = "ignore_me"))
+  expect_warning(future_map(1, fn, .options = opts), class = "dont_ignore_me")
+})
+
 test_that("validates `conditions`", {
-  expect_error(furrr_options(conditions = 1))
+  expect_snapshot({
+    (expect_error(furrr_options(conditions = 1)))
+  })
 })
 
 # ------------------------------------------------------------------------------

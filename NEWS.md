@@ -1,5 +1,12 @@
 # furrr (development version)
 
+* Condition objects are now dropped from future results before they are returned
+  to the main process (#216).
+
+* The `conditions` argument of `furrr_options()` now supports selectively
+  ignoring conditions through an `exclude` attribute. See `?furrr_options` for
+  more information (#181).
+
 * Unskipped a test now that the upstream bug in future is fixed
   (#218, HenrikBengtsson/future.apply#10).
 
