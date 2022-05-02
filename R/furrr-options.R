@@ -162,22 +162,22 @@ print.furrr_options <- function(x, ...) {
 #' Deprecated furrr options
 #'
 #' @description
-#' `r lifecycle::badge("deprecated")`
+#' `r lifecycle::badge("defunct")`
 #'
-#' `future_options()` has been deprecated in favor of [furrr_options()] as
-#' of furrr 0.2.0.
+#' As of furrr 0.3.0, `future_options()` is defunct in favor of
+#' [furrr_options()].
 #'
 #' @inheritParams furrr_options
 #'
 #' @keywords internal
 #' @export
 #' @examples
-#' future_options()
+#' try(future_options())
 future_options <- function(globals = TRUE,
                            packages = NULL,
                            seed = FALSE,
                            scheduling = 1.0) {
-  lifecycle::deprecate_warn("0.2.0", "future_options()", "furrr_options()")
+  lifecycle::deprecate_stop("0.3.0", "future_options()", "furrr_options()")
 
   furrr_options(
     globals = globals,

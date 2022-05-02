@@ -1,24 +1,5 @@
-test_that("can use deprecated `future_options()`", {
-  local_options(lifecycle_verbosity = "warning")
-
-  expect_warning(
-    expect_identical(
-      future_options(),
-      furrr_options()
-    )
-  )
-  expect_warning(
-    expect_identical(
-      future_options(globals = "x", packages = "dplyr", seed = 1, scheduling = 2),
-      furrr_options(globals = "x", packages = "dplyr", seed = 1, scheduling = 2)
-    )
-  )
-})
-
-test_that("deprecated `future_options()` warns when used", {
-  local_options(lifecycle_verbosity = "warning")
-
-  expect_snapshot(
+test_that("`future_options()` is hard deprecated", {
+  expect_snapshot(error = TRUE, {
     future_options()
-  )
+  })
 })
