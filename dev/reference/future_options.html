@@ -79,13 +79,7 @@ of furrr 0.2.0.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">future_options</span><span class="op">(</span>
-  globals <span class="op">=</span> <span class="cn">TRUE</span>,
-  packages <span class="op">=</span> <span class="cn">NULL</span>,
-  seed <span class="op">=</span> <span class="cn">FALSE</span>,
-  lazy <span class="op">=</span> <span class="cn">FALSE</span>,
-  scheduling <span class="op">=</span> <span class="fl">1</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">future_options</span><span class="op">(</span>globals <span class="op">=</span> <span class="cn">TRUE</span>, packages <span class="op">=</span> <span class="cn">NULL</span>, seed <span class="op">=</span> <span class="cn">FALSE</span>, scheduling <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -102,9 +96,6 @@ future is evaluated.</p></dd>
 <dd><p>A logical, an integer of length <code>1</code> or <code>7</code>, a list of
 <code>length(.x)</code> with pre-generated random seeds, or <code>NULL</code>. For details, see
 the <code>Reproducible random number generation (RNG)</code> section below.</p></dd>
-<dt>lazy</dt>
-<dd><p>A logical. Specifies whether futures should be resolved
-lazily or eagerly.</p></dd>
 <dt>scheduling</dt>
 <dd><p>A single integer, logical, or <code>Inf</code>. This argument
 controls the average number of futures ("chunks") per worker.</p><ul><li><p>If <code>0</code>, then a single future is used to process all elements of <code>.x</code>.</p></li>

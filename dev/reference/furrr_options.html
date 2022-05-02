@@ -83,7 +83,6 @@ are either used by furrr directly, or are passed on to <code><a href="https://fu
   conditions <span class="op">=</span> <span class="st">"condition"</span>,
   globals <span class="op">=</span> <span class="cn">TRUE</span>,
   packages <span class="op">=</span> <span class="cn">NULL</span>,
-  lazy <span class="op">=</span> <span class="cn">FALSE</span>,
   seed <span class="op">=</span> <span class="cn">FALSE</span>,
   scheduling <span class="op">=</span> <span class="fl">1</span>,
   chunk_size <span class="op">=</span> <span class="cn">NULL</span>,
@@ -116,9 +115,6 @@ controlling how globals are handled. For details, see the
 <dd><p>A character vector, or <code>NULL</code>. If supplied, this specifies
 packages that are guaranteed to be attached in the R environment where the
 future is evaluated.</p></dd>
-<dt>lazy</dt>
-<dd><p>A logical. Specifies whether futures should be resolved
-lazily or eagerly.</p></dd>
 <dt>seed</dt>
 <dd><p>A logical, an integer of length <code>1</code> or <code>7</code>, a list of
 <code>length(.x)</code> with pre-generated random seeds, or <code>NULL</code>. For details, see

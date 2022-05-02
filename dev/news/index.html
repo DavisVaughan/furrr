@@ -71,7 +71,8 @@
 
     <div class="section level2">
 <h2 class="page-header" data-toc-text="development version" id="furrr-development-version">furrr (development version)<a class="anchor" aria-label="anchor" href="#furrr-development-version"></a></h2>
-<ul><li><p>Condition objects are now dropped from future results before they are returned to the main process (<a href="https://github.com/DavisVaughan/furrr/issues/216" class="external-link">#216</a>).</p></li>
+<ul><li><p>The <code>lazy</code> argument of <code><a href="../reference/furrr_options.html">furrr_options()</a></code> has been completely removed. This argument had no effect, as futures are always resolved before the corresponding furrr function returns (<a href="https://github.com/DavisVaughan/furrr/issues/222" class="external-link">#222</a>).</p></li>
+<li><p>Condition objects are now dropped from future results before they are returned to the main process (<a href="https://github.com/DavisVaughan/furrr/issues/216" class="external-link">#216</a>).</p></li>
 <li><p>The <code>conditions</code> argument of <code><a href="../reference/furrr_options.html">furrr_options()</a></code> now supports selectively ignoring conditions through an <code>exclude</code> attribute. See <code><a href="../reference/furrr_options.html">?furrr_options</a></code> for more information (<a href="https://github.com/DavisVaughan/furrr/issues/181" class="external-link">#181</a>).</p></li>
 <li><p>Unskipped a test now that the upstream bug in future is fixed (<a href="https://github.com/DavisVaughan/furrr/issues/218" class="external-link">#218</a>, HenrikBengtsson/future.apply#10).</p></li>
 <li><p>Removed ellipsis in favor of the equivalent functions in rlang (<a href="https://github.com/DavisVaughan/furrr/issues/219" class="external-link">#219</a>).</p></li>
