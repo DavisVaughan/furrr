@@ -34,7 +34,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">furrr</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.2.3.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.3.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -234,7 +234,7 @@
   <span class="fu">my_slow_fn</span><span class="op">(</span><span class="op">)</span>
 <span class="op">}</span><span class="op">)</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.531   0.489   2.240</span></code></pre></div>
+<span class="co">#&gt;   0.588   0.544   2.509</span></code></pre></div>
 <p>One way to avoid this is to use carrier to crate the function, isolating it from the surrounding environment.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">my_crated_fn</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
@@ -253,7 +253,7 @@
   <span class="fu">my_crated_fn</span><span class="op">(</span><span class="op">)</span>
 <span class="op">}</span><span class="op">)</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.236   0.218   0.869</span></code></pre></div>
+<span class="co">#&gt;   0.276   0.225   0.989</span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

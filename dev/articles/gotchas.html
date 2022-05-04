@@ -34,7 +34,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">furrr</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.2.3.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.3.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -249,7 +249,7 @@
 
 <span class="va">t2</span> <span class="op">-</span> <span class="va">t1</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   1.191   0.056   5.725</span></code></pre></div>
+<span class="co">#&gt;   1.462   0.073   5.960</span></code></pre></div>
 <p>The issue here is that the grouped nature of the data frame prevents furrr from doing what it is good at - sharding the <code>x</code> column into equally sized groups and sending them off to the workers to process them in parallel.</p>
 <p>Instead, because this data frame is grouped, and each group corresponds to 1 row of the data frame, dplyr hands <code><a href="../reference/future_map.html">future_map_dbl()</a></code> 1 element of <code>x</code> at a time to operate on. So <code><a href="../reference/future_map.html">future_map_dbl()</a></code> is actually being called 100 times here!</p>
 <p>The easy solution is to just ungroup the data frame before calling <code><a href="../reference/future_map.html">future_map_dbl()</a></code>.</p>
@@ -282,7 +282,7 @@
 
 <span class="va">t2</span> <span class="op">-</span> <span class="va">t1</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.043   0.003   0.460</span></code></pre></div>
+<span class="co">#&gt;   0.054   0.004   0.541</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="graphics-devices">Graphics devices<a class="anchor" aria-label="anchor" href="#graphics-devices"></a>
@@ -325,13 +325,13 @@
   <span class="fu">my_fast_fn</span><span class="op">(</span><span class="op">)</span>
 <span class="op">)</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.025   0.001   0.456</span>
+<span class="co">#&gt;   0.032   0.000   0.526</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span>
   <span class="fu">my_slow_fn</span><span class="op">(</span><span class="op">)</span>
 <span class="op">)</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.514   0.497   1.842</span>
+<span class="co">#&gt;   0.569   0.561   2.110</span>
 
 <span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="va">sequential</span><span class="op">)</span></code></pre></div>
 <p>In the above example, <code>big</code> is captured in the function environment of the anonymous function <code>~.x</code> and is exported. Note that the problem isn’t that <code>big</code> is identified as a global by furrr. We can even prove that it is on the workers using <code><a href="https://rdrr.io/r/base/get.html" class="external-link">get()</a></code> to look for an object called <code>"big"</code> in the current and surrounding environments. I’ll use a smaller object here, but the concept is the same.</p>
@@ -370,7 +370,7 @@
   <span class="fu">my_not_so_slow_fn</span><span class="op">(</span><span class="op">)</span>
 <span class="op">)</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.249   0.198   0.880</span>
+<span class="co">#&gt;   0.296   0.218   1.067</span>
 
 <span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="va">sequential</span><span class="op">)</span></code></pre></div>
 <p>Here lexical scoping is used to find <code>fn</code>, but you could also pass it in as an argument to <code>my_not_so_slow_fn()</code>. This works naturally in a package development environment, where <code>fn()</code> would just be a helper function in your package that you can call from anywhere else in the package without issue.</p>

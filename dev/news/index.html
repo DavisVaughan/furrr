@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">furrr</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.2.3.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.3.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,15 +54,16 @@
       <small>Source: <a href="https://github.com/DavisVaughan/furrr/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2"><h2 class="pkg-version" data-toc-text="development version" id="furrr-development-version">furrr (development version)<a class="anchor" aria-label="anchor" href="#furrr-development-version"></a></h2></div>
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="furrr-development-version">furrr (development version)<a class="anchor" aria-label="anchor" href="#furrr-development-version"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.3.0" id="furrr-030">furrr 0.3.0<a class="anchor" aria-label="anchor" href="#furrr-030"></a></h2><p class="text-muted">CRAN release: 2022-05-04</p>
 <div class="section level3">
-<h3 id="breaking-changes-development-version">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-development-version"></a></h3>
+<h3 id="breaking-changes-0-3-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-3-0"></a></h3>
 <ul><li><p><code><a href="../reference/future_options.html">future_options()</a></code> is now defunct and will be removed in the next minor release of furrr. Please use <code><a href="../reference/furrr_options.html">furrr_options()</a></code> instead (<a href="https://github.com/DavisVaughan/furrr/issues/137" class="external-link">#137</a>).</p></li>
 <li><p>The <code>lazy</code> argument of <code><a href="../reference/furrr_options.html">furrr_options()</a></code> has been completely removed. This argument had no effect, as futures are always resolved before the corresponding furrr function returns (<a href="https://github.com/DavisVaughan/furrr/issues/222" class="external-link">#222</a>).</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="features--fixes-development-version">Features / Fixes<a class="anchor" aria-label="anchor" href="#features--fixes-development-version"></a></h3>
+<h3 id="features--fixes-0-3-0">Features / Fixes<a class="anchor" aria-label="anchor" href="#features--fixes-0-3-0"></a></h3>
 <ul><li><p><code><a href="../reference/future_map.html">future_walk()</a></code> and the other walk functions now avoid sending the results of calling <code>.f</code> back to the main process (<a href="https://github.com/DavisVaughan/furrr/issues/205" class="external-link">#205</a>).</p></li>
 <li><p>The <code>conditions</code> argument of <code><a href="../reference/furrr_options.html">furrr_options()</a></code> now supports selectively ignoring conditions through an <code>exclude</code> attribute. See <code><a href="../reference/furrr_options.html">?furrr_options</a></code> for more information (<a href="https://github.com/DavisVaughan/furrr/issues/181" class="external-link">#181</a>).</p></li>
 <li><p>Standard output is now dropped from future results before they are returned to the main process (<a href="https://github.com/DavisVaughan/furrr/issues/216" class="external-link">#216</a>).</p></li>
@@ -73,7 +74,7 @@
 <li><p>Updated snapshot tests related to how testthat prints condition details (<a href="https://github.com/DavisVaughan/furrr/issues/213" class="external-link">#213</a>).</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="version-requirements-development-version">Version requirements<a class="anchor" aria-label="anchor" href="#version-requirements-development-version"></a></h3>
+<h3 id="version-requirements-0-3-0">Version requirements<a class="anchor" aria-label="anchor" href="#version-requirements-0-3-0"></a></h3>
 <ul><li><p>furrr now requires R &gt;=3.4.0, which is in line with the tidyverse.</p></li>
 <li><p>lifecycle &gt;=1.0.1, rlang &gt;=1.0.2, purrr &gt;=0.3.4, vctrs &gt;=0.4.1, globals &gt;=0.14.0, and future &gt;=1.25.0 are now required (<a href="https://github.com/DavisVaughan/furrr/issues/214" class="external-link">#214</a>).</p></li>
 </ul></div>
