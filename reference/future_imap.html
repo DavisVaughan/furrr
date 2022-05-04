@@ -199,8 +199,8 @@ variable will be created.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="va">multisession</span>, workers <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu">future_imap_chr</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">.y</span>, <span class="st">": "</span>, <span class="va">.x</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "1: 2"  "2: 5"  "3: 10" "4: 7"  "5: 4"  "6: 8"  "7: 3"  "8: 1"  "9: 6" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "10: 9"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "1: 1"  "2: 7"  "3: 10" "4: 9"  "5: 2"  "6: 5"  "7: 8"  "8: 6"  "9: 3" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "10: 4"</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># \dontshow{</span></span>
 <span class="r-in"><span class="co"># Close open connections for R CMD Check</span></span>
