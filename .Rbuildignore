@@ -13,3 +13,4 @@
 ^vignettes/articles$
 ^revdep$
 ^CRAN-RELEASE$
+^CRAN-SUBMISSION$

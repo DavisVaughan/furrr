@@ -1,6 +1,6 @@
 Package: furrr
 Title: Apply Mapping Functions in Parallel using Futures
-Version: 0.2.3.9000
+Version: 0.3.0
 Authors@R: c(
     person("Davis", "Vaughan", , "davis@rstudio.com", role = c("aut", "cre")),
     person("Matt", "Dancho", , "mdancho@business-science.io", role = "aut"),
