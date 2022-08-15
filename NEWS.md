@@ -1,5 +1,8 @@
 # furrr (development version)
 
+* Redocumented the package with roxygen2 7.2.1 to fix invalid HTML5 issues
+  (#242).
+
 # furrr 0.3.0
 
 ## Breaking changes

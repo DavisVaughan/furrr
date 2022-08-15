@@ -195,10 +195,7 @@ future_pwalk(
 )
 }
 \arguments{
-\item{.x}{Vectors of the same length. A vector of length 1 will
-be recycled.}
-
-\item{.y}{Vectors of the same length. A vector of length 1 will
+\item{.x, .y}{Vectors of the same length. A vector of length 1 will
 be recycled.}
 
 \item{.f}{A function, formula, or vector (not necessarily atomic).
