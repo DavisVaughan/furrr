@@ -39,3 +39,4 @@ jobs:
         with:
           args: '"--as-cran"'
           build_args: 'character()'
+          error-on: '"note"'
