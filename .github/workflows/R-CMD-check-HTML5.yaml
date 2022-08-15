@@ -30,3 +30,6 @@ jobs:
           needs: check
 
       - uses: r-lib/actions/check-r-package@v2
+        with:
+          args: '"--as-cran"'
+          build_args: 'character()'
