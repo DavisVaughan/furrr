@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Remote connections">
 <meta property="og:description" content="furrr">
@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">furrr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.3.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -81,7 +81,7 @@
 
 
 <div class="row">
-  <main id="main"><div class="page-header">
+  <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Remote connections</h1>
             
       
@@ -100,9 +100,9 @@
 <li>Running code in parallel on multiple EC2 instances</li>
 </ol>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/DavisVaughan/furrr" class="external-link">furrr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://purrr.tidyverse.org" class="external-link">purrr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/DavisVaughan/furrr" class="external-link">furrr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://purrr.tidyverse.org" class="external-link">purrr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="aws-ec2-what">AWS EC2? What?<a class="anchor" aria-label="anchor" href="#aws-ec2-what"></a>
@@ -120,75 +120,75 @@
 </h3>
 <p>First, we need code to run that we want to run on the instance. For simplicity, say we want to run 3 separate linear models on mtcars, split up by <code>gear</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">by_gear</span> <span class="op">&lt;-</span> <span class="va">mtcars</span> <span class="op"><a href="https://purrr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_split.html" class="external-link">group_split</a></span><span class="op">(</span><span class="va">gear</span><span class="op">)</span> 
-
-<span class="va">models</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="va">by_gear</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">cyl</span> <span class="op">+</span> <span class="va">hp</span> <span class="op">+</span> <span class="va">wt</span>, data <span class="op">=</span> <span class="va">.</span><span class="op">)</span><span class="op">)</span>
-
-<span class="va">models</span>
-<span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Call:</span>
-<span class="co">#&gt; lm(formula = mpg ~ cyl + hp + wt, data = .)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Coefficients:</span>
-<span class="co">#&gt; (Intercept)          cyl           hp           wt  </span>
-<span class="co">#&gt;    30.48956     -0.31883     -0.02326     -2.03083  </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; [[2]]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Call:</span>
-<span class="co">#&gt; lm(formula = mpg ~ cyl + hp + wt, data = .)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Coefficients:</span>
-<span class="co">#&gt; (Intercept)          cyl           hp           wt  </span>
-<span class="co">#&gt;    43.69353      0.05647     -0.12331     -3.20537  </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; [[3]]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Call:</span>
-<span class="co">#&gt; lm(formula = mpg ~ cyl + hp + wt, data = .)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Coefficients:</span>
-<span class="co">#&gt; (Intercept)          cyl           hp           wt  </span>
-<span class="co">#&gt;    45.29099     -2.03268      0.02655     -6.42290</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">by_gear</span> <span class="op">&lt;-</span> <span class="va">mtcars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_split.html" class="external-link">group_split</a></span><span class="op">(</span><span class="va">gear</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="va">models</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="va">by_gear</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">cyl</span> <span class="op">+</span> <span class="va">hp</span> <span class="op">+</span> <span class="va">wt</span>, data <span class="op">=</span> <span class="va">.</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">models</span></span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Call:</span></span>
+<span><span class="co">#&gt; lm(formula = mpg ~ cyl + hp + wt, data = .)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Coefficients:</span></span>
+<span><span class="co">#&gt; (Intercept)          cyl           hp           wt  </span></span>
+<span><span class="co">#&gt;    30.48956     -0.31883     -0.02326     -2.03083  </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[2]]</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Call:</span></span>
+<span><span class="co">#&gt; lm(formula = mpg ~ cyl + hp + wt, data = .)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Coefficients:</span></span>
+<span><span class="co">#&gt; (Intercept)          cyl           hp           wt  </span></span>
+<span><span class="co">#&gt;    43.69353      0.05647     -0.12331     -3.20537  </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[3]]</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Call:</span></span>
+<span><span class="co">#&gt; lm(formula = mpg ~ cyl + hp + wt, data = .)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Coefficients:</span></span>
+<span><span class="co">#&gt; (Intercept)          cyl           hp           wt  </span></span>
+<span><span class="co">#&gt;    45.29099     -2.03268      0.02655     -6.42290</span></span></code></pre></div>
 <p>With furrr, we can run this in parallel locally using the following:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="va">multisession</span>, workers <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
-
-<span class="va">models</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/future_map.html">future_map</a></span><span class="op">(</span><span class="va">by_gear</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">cyl</span> <span class="op">+</span> <span class="va">hp</span> <span class="op">+</span> <span class="va">wt</span>, data <span class="op">=</span> <span class="va">.</span><span class="op">)</span><span class="op">)</span>
-
-<span class="va">models</span>
-<span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Call:</span>
-<span class="co">#&gt; lm(formula = mpg ~ cyl + hp + wt, data = .)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Coefficients:</span>
-<span class="co">#&gt; (Intercept)          cyl           hp           wt  </span>
-<span class="co">#&gt;    30.48956     -0.31883     -0.02326     -2.03083  </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; [[2]]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Call:</span>
-<span class="co">#&gt; lm(formula = mpg ~ cyl + hp + wt, data = .)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Coefficients:</span>
-<span class="co">#&gt; (Intercept)          cyl           hp           wt  </span>
-<span class="co">#&gt;    43.69353      0.05647     -0.12331     -3.20537  </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; [[3]]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Call:</span>
-<span class="co">#&gt; lm(formula = mpg ~ cyl + hp + wt, data = .)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Coefficients:</span>
-<span class="co">#&gt; (Intercept)          cyl           hp           wt  </span>
-<span class="co">#&gt;    45.29099     -2.03268      0.02655     -6.42290</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="va">multisession</span>, workers <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">models</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/future_map.html">future_map</a></span><span class="op">(</span><span class="va">by_gear</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">cyl</span> <span class="op">+</span> <span class="va">hp</span> <span class="op">+</span> <span class="va">wt</span>, data <span class="op">=</span> <span class="va">.</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">models</span></span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Call:</span></span>
+<span><span class="co">#&gt; lm(formula = mpg ~ cyl + hp + wt, data = .)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Coefficients:</span></span>
+<span><span class="co">#&gt; (Intercept)          cyl           hp           wt  </span></span>
+<span><span class="co">#&gt;    30.48956     -0.31883     -0.02326     -2.03083  </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[2]]</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Call:</span></span>
+<span><span class="co">#&gt; lm(formula = mpg ~ cyl + hp + wt, data = .)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Coefficients:</span></span>
+<span><span class="co">#&gt; (Intercept)          cyl           hp           wt  </span></span>
+<span><span class="co">#&gt;    43.69353      0.05647     -0.12331     -3.20537  </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[3]]</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Call:</span></span>
+<span><span class="co">#&gt; lm(formula = mpg ~ cyl + hp + wt, data = .)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Coefficients:</span></span>
+<span><span class="co">#&gt; (Intercept)          cyl           hp           wt  </span></span>
+<span><span class="co">#&gt;    45.29099     -2.03268      0.02655     -6.42290</span></span></code></pre></div>
 <p>Note that this is NOT faster than the sequential code, this is just to demonstrate how one might run the models in parallel.</p>
 </div>
 <div class="section level3">
@@ -201,53 +201,53 @@
 <li><p>Find the path to your <code>.pem</code> file that is used to connect to the EC2 instance. This was created when you created the EC2 instance, and hopefully you know where you saved it!</p></li>
 </ul>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># A t2.micro AWS instance</span>
-<span class="co"># Created from http://www.louisaslett.com/RStudio_AMI/</span>
-<span class="va">public_ip</span> <span class="op">&lt;-</span> <span class="st">"34.230.28.118"</span>
-
-<span class="co"># This is where my pem file lives (password file to connect).</span>
-<span class="va">ssh_private_key_file</span> <span class="op">&lt;-</span> <span class="st">"path/to/file.pem"</span></code></pre></div>
-<p>With all of this in hand, the next step is to use <code><a href="https://future.futureverse.org/reference/re-exports.html" class="external-link">future::makeClusterPSOCK()</a></code> to connect to the instance. Traditionally, one would use <code><a href="https://rdrr.io/r/parallel/makeCluster.html" class="external-link">parallel::makePSOCKcluster()</a></code> to connect, but the future version has a few additional helpful arguments that allow us to add extra options when connecting to the worker. If the connection is successful, the code below should start outputting package installation messages into your local console.</p>
+<code class="sourceCode R"><span><span class="co"># A t2.micro AWS instance</span></span>
+<span><span class="co"># Created from http://www.louisaslett.com/RStudio_AMI/</span></span>
+<span><span class="va">public_ip</span> <span class="op">&lt;-</span> <span class="st">"34.230.28.118"</span></span>
+<span></span>
+<span><span class="co"># This is where my pem file lives (password file to connect).</span></span>
+<span><span class="va">ssh_private_key_file</span> <span class="op">&lt;-</span> <span class="st">"path/to/file.pem"</span></span></code></pre></div>
+<p>With all of this in hand, the next step is to use <code><a href="https://parallelly.futureverse.org/reference/makeClusterPSOCK.html" class="external-link">future::makeClusterPSOCK()</a></code> to connect to the instance. Traditionally, one would use <code><a href="https://rdrr.io/r/parallel/makeCluster.html" class="external-link">parallel::makePSOCKcluster()</a></code> to connect, but the future version has a few additional helpful arguments that allow us to add extra options when connecting to the worker. If the connection is successful, the code below should start outputting package installation messages into your local console.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">connect_to_ec2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">public_ip</span>, <span class="va">ssh_private_key_file</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="https://future.futureverse.org/reference/re-exports.html" class="external-link">makeClusterPSOCK</a></span><span class="op">(</span>
-    
-    <span class="co"># Public IP number of EC2 instance</span>
-    workers <span class="op">=</span> <span class="va">public_ip</span>,
-    
-    <span class="co"># User name (always 'ubuntu')</span>
-    user <span class="op">=</span> <span class="st">"ubuntu"</span>,
-    
-    <span class="co"># Use private SSH key registered with AWS</span>
-    rshopts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
-      <span class="st">"-o"</span>, <span class="st">"StrictHostKeyChecking=no"</span>,
-      <span class="st">"-o"</span>, <span class="st">"IdentitiesOnly=yes"</span>,
-      <span class="st">"-i"</span>, <span class="va">ssh_private_key_file</span>
-    <span class="op">)</span>,
-    
-    rscript_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
-      <span class="co"># Set up .libPaths() for the 'ubuntu' user</span>
-      <span class="st">"-e"</span>, <span class="fu"><a href="https://rdrr.io/r/base/shQuote.html" class="external-link">shQuote</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span>
-        <span class="st">"local({"</span>,
-        <span class="st">"p &lt;- Sys.getenv('R_LIBS_USER'); "</span>,
-        <span class="st">"dir.create(p, recursive = TRUE, showWarnings = FALSE); "</span>,
-        <span class="st">".libPaths(p)"</span>,
-        <span class="st">"})"</span>
-      <span class="op">)</span><span class="op">)</span>,
-      <span class="co"># Install furrr</span>
-      <span class="st">"-e"</span>, <span class="fu"><a href="https://rdrr.io/r/base/shQuote.html" class="external-link">shQuote</a></span><span class="op">(</span><span class="st">"install.packages('furrr')"</span><span class="op">)</span>
-    <span class="op">)</span>,
-    
-    <span class="co"># Switch this to TRUE to see the code that is run on the workers without</span>
-    <span class="co"># making the connection</span>
-    dryrun <span class="op">=</span> <span class="cn">FALSE</span>
-  <span class="op">)</span>
-<span class="op">}</span>
-
-<span class="va">cl</span> <span class="op">&lt;-</span> <span class="fu">connect_to_ec2</span><span class="op">(</span><span class="va">public_ip</span>, <span class="va">ssh_private_key_file</span><span class="op">)</span>
-
-<span class="va">cl</span>
-<span class="co">#&gt; Socket cluster with 1 nodes where 1 node is on host ‘34.230.28.118’ (R version 3.6.0 (2019-04-26), platform x86_64-pc-linux-gnu)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">connect_to_ec2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">public_ip</span>, <span class="va">ssh_private_key_file</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://parallelly.futureverse.org/reference/makeClusterPSOCK.html" class="external-link">makeClusterPSOCK</a></span><span class="op">(</span></span>
+<span>    </span>
+<span>    <span class="co"># Public IP number of EC2 instance</span></span>
+<span>    workers <span class="op">=</span> <span class="va">public_ip</span>,</span>
+<span>    </span>
+<span>    <span class="co"># User name (always 'ubuntu')</span></span>
+<span>    user <span class="op">=</span> <span class="st">"ubuntu"</span>,</span>
+<span>    </span>
+<span>    <span class="co"># Use private SSH key registered with AWS</span></span>
+<span>    rshopts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>      <span class="st">"-o"</span>, <span class="st">"StrictHostKeyChecking=no"</span>,</span>
+<span>      <span class="st">"-o"</span>, <span class="st">"IdentitiesOnly=yes"</span>,</span>
+<span>      <span class="st">"-i"</span>, <span class="va">ssh_private_key_file</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    </span>
+<span>    rscript_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>      <span class="co"># Set up .libPaths() for the 'ubuntu' user</span></span>
+<span>      <span class="st">"-e"</span>, <span class="fu"><a href="https://rdrr.io/r/base/shQuote.html" class="external-link">shQuote</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
+<span>        <span class="st">"local({"</span>,</span>
+<span>        <span class="st">"p &lt;- Sys.getenv('R_LIBS_USER'); "</span>,</span>
+<span>        <span class="st">"dir.create(p, recursive = TRUE, showWarnings = FALSE); "</span>,</span>
+<span>        <span class="st">".libPaths(p)"</span>,</span>
+<span>        <span class="st">"})"</span></span>
+<span>      <span class="op">)</span><span class="op">)</span>,</span>
+<span>      <span class="co"># Install furrr</span></span>
+<span>      <span class="st">"-e"</span>, <span class="fu"><a href="https://rdrr.io/r/base/shQuote.html" class="external-link">shQuote</a></span><span class="op">(</span><span class="st">"install.packages('furrr')"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    </span>
+<span>    <span class="co"># Switch this to TRUE to see the code that is run on the workers without</span></span>
+<span>    <span class="co"># making the connection</span></span>
+<span>    dryrun <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">cl</span> <span class="op">&lt;-</span> <span class="fu">connect_to_ec2</span><span class="op">(</span><span class="va">public_ip</span>, <span class="va">ssh_private_key_file</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">cl</span></span>
+<span><span class="co">#&gt; Socket cluster with 1 nodes where 1 node is on host ‘34.230.28.118’ (R version 3.6.0 (2019-04-26), platform x86_64-pc-linux-gnu)</span></span></code></pre></div>
 <p>Let’s step through this a little.</p>
 <ul>
 <li><p><code>workers</code> - The public ip addresses of the workers you want to connect to. If you have multiple, you can list them here.</p></li>
@@ -268,46 +268,46 @@
 </h3>
 <p>Now that we have a connection to an EC2 instance loaded with R, we’ll need to tell future and furrr how to use it. Since we already have a cluster object, all we have to do is change the <code><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan()</a></code> to use this cluster. Rather than using the <code>multisession</code> plan, we use the <code>cluster</code> plan with the extra argument, <code>workers</code>, set to the cluster connection (see <code><a href="https://future.futureverse.org/reference/cluster.html" class="external-link">?future::cluster</a></code> for more info).</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="va">cluster</span>, workers <span class="op">=</span> <span class="va">cl</span><span class="op">)</span>
-
-<span class="va">models</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/future_map.html">future_map</a></span><span class="op">(</span><span class="va">by_gear</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">cyl</span> <span class="op">+</span> <span class="va">hp</span> <span class="op">+</span> <span class="va">wt</span>, data <span class="op">=</span> <span class="va">.</span><span class="op">)</span><span class="op">)</span>
-
-<span class="va">models</span>
-<span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Call:</span>
-<span class="co">#&gt; lm(formula = mpg ~ cyl + hp + wt, data = .)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Coefficients:</span>
-<span class="co">#&gt; (Intercept)          cyl           hp           wt  </span>
-<span class="co">#&gt;    30.48956     -0.31883     -0.02326     -2.03083  </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; [[2]]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Call:</span>
-<span class="co">#&gt; lm(formula = mpg ~ cyl + hp + wt, data = .)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Coefficients:</span>
-<span class="co">#&gt; (Intercept)          cyl           hp           wt  </span>
-<span class="co">#&gt;    43.69353      0.05647     -0.12331     -3.20537  </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; [[3]]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Call:</span>
-<span class="co">#&gt; lm(formula = mpg ~ cyl + hp + wt, data = .)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Coefficients:</span>
-<span class="co">#&gt; (Intercept)          cyl           hp           wt  </span>
-<span class="co">#&gt;    45.29099     -2.03268      0.02655     -6.42290  </span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="va">cluster</span>, workers <span class="op">=</span> <span class="va">cl</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">models</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/future_map.html">future_map</a></span><span class="op">(</span><span class="va">by_gear</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">cyl</span> <span class="op">+</span> <span class="va">hp</span> <span class="op">+</span> <span class="va">wt</span>, data <span class="op">=</span> <span class="va">.</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">models</span></span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Call:</span></span>
+<span><span class="co">#&gt; lm(formula = mpg ~ cyl + hp + wt, data = .)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Coefficients:</span></span>
+<span><span class="co">#&gt; (Intercept)          cyl           hp           wt  </span></span>
+<span><span class="co">#&gt;    30.48956     -0.31883     -0.02326     -2.03083  </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[2]]</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Call:</span></span>
+<span><span class="co">#&gt; lm(formula = mpg ~ cyl + hp + wt, data = .)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Coefficients:</span></span>
+<span><span class="co">#&gt; (Intercept)          cyl           hp           wt  </span></span>
+<span><span class="co">#&gt;    43.69353      0.05647     -0.12331     -3.20537  </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[3]]</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Call:</span></span>
+<span><span class="co">#&gt; lm(formula = mpg ~ cyl + hp + wt, data = .)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Coefficients:</span></span>
+<span><span class="co">#&gt; (Intercept)          cyl           hp           wt  </span></span>
+<span><span class="co">#&gt;    45.29099     -2.03268      0.02655     -6.42290  </span></span></code></pre></div>
 <p>And that’s it! Your code just ran on an EC2 instance!</p>
 <p>It is good practice to always disconnect from your cluster when you are finished working with it. Don’t forget to terminate the instance as well!</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Revert back to a sequential plan</span>
-<span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="va">sequential</span><span class="op">)</span>
-
-<span class="fu">parallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/parallel/makeCluster.html" class="external-link">stopCluster</a></span><span class="op">(</span><span class="va">cl</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Revert back to a sequential plan</span></span>
+<span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="va">sequential</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">parallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/parallel/makeCluster.html" class="external-link">stopCluster</a></span><span class="op">(</span><span class="va">cl</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -328,110 +328,110 @@
 <p>You might also consider changing the Purchasing option to “Request Spot instances” for cheaper instances if you don’t mind the possibility that Amazon could take the instance away from you temporarily at any time (this hasn’t ever happened to me).</p>
 <p>Note that you now have a vector of public ip addresses.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Two t2.xlarge AWS instances</span>
-<span class="co"># Created from http://www.louisaslett.com/RStudio_AMI/</span>
-<span class="va">public_ip</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"54.157.169.96"</span>, <span class="st">"18.210.19.243"</span><span class="op">)</span>
-
-<span class="co"># This is where my pem file lives (password file to connect).</span>
-<span class="va">ssh_private_key_file</span> <span class="op">&lt;-</span> <span class="st">"path/to/file.pem"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Two t2.xlarge AWS instances</span></span>
+<span><span class="co"># Created from http://www.louisaslett.com/RStudio_AMI/</span></span>
+<span><span class="va">public_ip</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"54.157.169.96"</span>, <span class="st">"18.210.19.243"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># This is where my pem file lives (password file to connect).</span></span>
+<span><span class="va">ssh_private_key_file</span> <span class="op">&lt;-</span> <span class="st">"path/to/file.pem"</span></span></code></pre></div>
 <p>Otherwise, the code remains the same to make the connection!</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">cl_multi</span> <span class="op">&lt;-</span> <span class="fu">connect_to_ec2</span><span class="op">(</span><span class="va">public_ip</span>, <span class="va">ssh_private_key_file</span><span class="op">)</span>
-
-<span class="va">cl_multi</span>
-<span class="co">#&gt; Socket cluster with 2 nodes where 1 node is on host ‘18.210.19.243’ (R version 3.6.0 (2019-04-26), platform x86_64-pc-linux-gnu), 1 node is on host ‘54.157.169.96’ (R version 3.6.0 (2019-04-26), platform x86_64-pc-linux-gnu)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">cl_multi</span> <span class="op">&lt;-</span> <span class="fu">connect_to_ec2</span><span class="op">(</span><span class="va">public_ip</span>, <span class="va">ssh_private_key_file</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">cl_multi</span></span>
+<span><span class="co">#&gt; Socket cluster with 2 nodes where 1 node is on host ‘18.210.19.243’ (R version 3.6.0 (2019-04-26), platform x86_64-pc-linux-gnu), 1 node is on host ‘54.157.169.96’ (R version 3.6.0 (2019-04-26), platform x86_64-pc-linux-gnu)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="running-multi-level-parallel-code">Running multi-level parallel code<a class="anchor" aria-label="anchor" href="#running-multi-level-parallel-code"></a>
 </h3>
 <p>Now for the fun part. How do we tell future to first distribute our code over the 2 instances, and then run in parallel on each instance? You pass in a list of plans to <code><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan()</a></code>, where you also have the option to <code><a href="https://future.futureverse.org/reference/tweak.html" class="external-link">tweak()</a></code> each plan individually (which will be required to set the workers argument!).</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
-  <span class="co"># The outer plan tells future to distribute over the 2 instances</span>
-  <span class="fu"><a href="https://future.futureverse.org/reference/tweak.html" class="external-link">tweak</a></span><span class="op">(</span><span class="va">cluster</span>, workers <span class="op">=</span> <span class="va">cl_multi</span><span class="op">)</span>, 
-  
-  <span class="co"># The inner plan says to run in parallel on each instance</span>
-  <span class="va">multisession</span>
-<span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="co"># The outer plan tells future to distribute over the 2 instances</span></span>
+<span>  <span class="fu"><a href="https://future.futureverse.org/reference/tweak.html" class="external-link">tweak</a></span><span class="op">(</span><span class="va">cluster</span>, workers <span class="op">=</span> <span class="va">cl_multi</span><span class="op">)</span>, </span>
+<span>  </span>
+<span>  <span class="co"># The inner plan says to run in parallel on each instance</span></span>
+<span>  <span class="va">multisession</span></span>
+<span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>How do we know this is working? Let’s try doing something that would require a fixed amount of time when run locally, then try it in parallel. We are just going to wait for 2 seconds on each iteration, and then return the instance we are on and the core we are using. In total this should take <em>16 seconds</em>.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">t1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/proc.time.html" class="external-link">proc.time</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span>
-  
-  <span class="co"># Map over the two instances</span>
-  .x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, 
-  
-  .f <span class="op">=</span> <span class="op">~</span> <span class="op">{</span>
-    
-    <span class="va">outer_idx</span> <span class="op">&lt;-</span> <span class="va">.x</span>
-    
-    <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map_chr</a></span><span class="op">(</span>
-      
-      <span class="co"># Each instance has 4 cores we can utilize</span>
-      .x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span>, 
-      
-      .f <span class="op">=</span> <span class="op">~</span> <span class="op">{</span>
-        <span class="va">inner_idx</span> <span class="op">&lt;-</span> <span class="va">.x</span>
-        <span class="fu"><a href="https://rdrr.io/r/base/Sys.sleep.html" class="external-link">Sys.sleep</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>
-        <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Instance: "</span>, <span class="va">outer_idx</span>, <span class="st">" and core: "</span>, <span class="va">inner_idx</span><span class="op">)</span>
-      <span class="op">}</span>
-    <span class="op">)</span>
-    
-  <span class="op">}</span>
-<span class="op">)</span>
-
-<span class="va">t2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/proc.time.html" class="external-link">proc.time</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="va">res</span>
-<span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; [1] "Instance: 1 and core: 1" "Instance: 1 and core: 2" "Instance: 1 and core: 3" #&gt; "Instance: 1 and core: 4"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; [[2]]</span>
-<span class="co">#&gt; [1] "Instance: 2 and core: 1" "Instance: 2 and core: 2" "Instance: 2 and core: 3" #&gt; "Instance: 2 and core: 4"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">t1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/proc.time.html" class="external-link">proc.time</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span></span>
+<span>  </span>
+<span>  <span class="co"># Map over the two instances</span></span>
+<span>  .x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, </span>
+<span>  </span>
+<span>  .f <span class="op">=</span> <span class="op">~</span> <span class="op">{</span></span>
+<span>    </span>
+<span>    <span class="va">outer_idx</span> <span class="op">&lt;-</span> <span class="va">.x</span></span>
+<span>    </span>
+<span>    <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map_chr</a></span><span class="op">(</span></span>
+<span>      </span>
+<span>      <span class="co"># Each instance has 4 cores we can utilize</span></span>
+<span>      .x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span>, </span>
+<span>      </span>
+<span>      .f <span class="op">=</span> <span class="op">~</span> <span class="op">{</span></span>
+<span>        <span class="va">inner_idx</span> <span class="op">&lt;-</span> <span class="va">.x</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/Sys.sleep.html" class="external-link">Sys.sleep</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Instance: "</span>, <span class="va">outer_idx</span>, <span class="st">" and core: "</span>, <span class="va">inner_idx</span><span class="op">)</span></span>
+<span>      <span class="op">}</span></span>
+<span>    <span class="op">)</span></span>
+<span>    </span>
+<span>  <span class="op">}</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">t2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/proc.time.html" class="external-link">proc.time</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">res</span></span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt; [1] "Instance: 1 and core: 1" "Instance: 1 and core: 2" "Instance: 1 and core: 3" #&gt; "Instance: 1 and core: 4"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[2]]</span></span>
+<span><span class="co">#&gt; [1] "Instance: 2 and core: 1" "Instance: 2 and core: 2" "Instance: 2 and core: 3" #&gt; "Instance: 2 and core: 4"</span></span></code></pre></div>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">t2</span> <span class="op">-</span> <span class="va">t1</span>
-<span class="co">#&gt;   user  system elapsed </span>
-<span class="co">#&gt;  0.055   0.051  16.022 </span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">t2</span> <span class="op">-</span> <span class="va">t1</span></span>
+<span><span class="co">#&gt;   user  system elapsed </span></span>
+<span><span class="co">#&gt;  0.055   0.051  16.022 </span></span></code></pre></div>
 <p>Now, in parallel with our cluster. The outer <code><a href="../reference/future_map.html">future_map()</a></code> call distributes over the two instances, and the inner <code><a href="../reference/future_map.html">future_map_chr()</a></code> call distributes over the cores of each instance. This should take <code>~2 seconds</code>, with some overhead (16 seconds sequentially, split between 2 instances, and then each instance has 4 physical cores. So 2 seconds on each of the 8 available cores).</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">t1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/proc.time.html" class="external-link">proc.time</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/future_map.html">future_map</a></span><span class="op">(</span>
-  
-  <span class="co"># Map over the two instances</span>
-  .x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, 
-  
-  .f <span class="op">=</span> <span class="op">~</span><span class="op">{</span>
-    
-    <span class="va">outer_idx</span> <span class="op">&lt;-</span> <span class="va">.x</span>
-    
-    <span class="fu"><a href="../reference/future_map.html">future_map_chr</a></span><span class="op">(</span>
-      
-      <span class="co"># Each instance has 4 cores we can utilize</span>
-      .x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span>, 
-      
-      .f <span class="op">=</span> <span class="op">~</span><span class="op">{</span>
-        <span class="va">inner_idx</span> <span class="op">&lt;-</span> <span class="va">.x</span>
-        <span class="fu"><a href="https://rdrr.io/r/base/Sys.sleep.html" class="external-link">Sys.sleep</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>
-        <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Instance: "</span>, <span class="va">outer_idx</span>, <span class="st">" and core: "</span>, <span class="va">inner_idx</span><span class="op">)</span>
-      <span class="op">}</span>
-    <span class="op">)</span>
-    
-  <span class="op">}</span>
-<span class="op">)</span>
-
-<span class="va">t2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/proc.time.html" class="external-link">proc.time</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">t1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/proc.time.html" class="external-link">proc.time</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/future_map.html">future_map</a></span><span class="op">(</span></span>
+<span>  </span>
+<span>  <span class="co"># Map over the two instances</span></span>
+<span>  .x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, </span>
+<span>  </span>
+<span>  .f <span class="op">=</span> <span class="op">~</span><span class="op">{</span></span>
+<span>    </span>
+<span>    <span class="va">outer_idx</span> <span class="op">&lt;-</span> <span class="va">.x</span></span>
+<span>    </span>
+<span>    <span class="fu"><a href="../reference/future_map.html">future_map_chr</a></span><span class="op">(</span></span>
+<span>      </span>
+<span>      <span class="co"># Each instance has 4 cores we can utilize</span></span>
+<span>      .x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span>, </span>
+<span>      </span>
+<span>      .f <span class="op">=</span> <span class="op">~</span><span class="op">{</span></span>
+<span>        <span class="va">inner_idx</span> <span class="op">&lt;-</span> <span class="va">.x</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/Sys.sleep.html" class="external-link">Sys.sleep</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Instance: "</span>, <span class="va">outer_idx</span>, <span class="st">" and core: "</span>, <span class="va">inner_idx</span><span class="op">)</span></span>
+<span>      <span class="op">}</span></span>
+<span>    <span class="op">)</span></span>
+<span>    </span>
+<span>  <span class="op">}</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">t2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/proc.time.html" class="external-link">proc.time</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">t2</span> <span class="op">-</span> <span class="va">t1</span>
-<span class="co">#&gt;   user  system elapsed </span>
-<span class="co">#&gt;  0.075   0.018   2.728 </span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">t2</span> <span class="op">-</span> <span class="va">t1</span></span>
+<span><span class="co">#&gt;   user  system elapsed </span></span>
+<span><span class="co">#&gt;  0.075   0.018   2.728 </span></span></code></pre></div>
 <p>Not bad! The extra time is due to the overhead of communicating with the AWS workers, but with a large model this would not be as relevant.</p>
 <p>Don’t forget to close the connection, and then to terminate the EC2 instance!</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="va">sequential</span><span class="op">)</span>
-
-<span class="fu">parallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/parallel/makeCluster.html" class="external-link">stopCluster</a></span><span class="op">(</span><span class="va">cl_multi</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="va">sequential</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">parallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/parallel/makeCluster.html" class="external-link">stopCluster</a></span><span class="op">(</span><span class="va">cl_multi</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="conclusion">Conclusion<a class="anchor" aria-label="anchor" href="#conclusion"></a>
@@ -452,7 +452,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
     </footer>

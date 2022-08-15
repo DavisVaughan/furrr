@@ -3,7 +3,7 @@
 but allow you to map in parallel. Note that "parallel" as described in purrr
 is just saying that you are working with multiple inputs, and parallel in
 this case means that you can work on multiple inputs and process them all in
-parallel as well.'><title>Map over multiple inputs simultaneously via futures — future_map2 • furrr</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Map over multiple inputs simultaneously via futures — future_map2"><meta property="og:description" content='These functions work exactly the same as purrr::map2() and its variants,
+parallel as well.'><title>Map over multiple inputs simultaneously via futures — future_map2 • furrr</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Map over multiple inputs simultaneously via futures — future_map2"><meta property="og:description" content='These functions work exactly the same as purrr::map2() and its variants,
 but allow you to map in parallel. Note that "parallel" as described in purrr
 is just saying that you are working with multiple inputs, and parallel in
 this case means that you can work on multiple inputs and process them all in
@@ -18,7 +18,7 @@ parallel as well.'><meta property="og:image" content="https://furrr.futureverse.
     
     <a class="navbar-brand me-2" href="../index.html">furrr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.3.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -73,188 +73,187 @@ parallel as well.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">future_map2</span><span class="op">(</span>
-  <span class="va">.x</span>,
-  <span class="va">.y</span>,
-  <span class="va">.f</span>,
-  <span class="va">...</span>,
-  .options <span class="op">=</span> <span class="fu"><a href="furrr_options.html">furrr_options</a></span><span class="op">(</span><span class="op">)</span>,
-  .env_globals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>,
-  .progress <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">future_map2_chr</span><span class="op">(</span>
-  <span class="va">.x</span>,
-  <span class="va">.y</span>,
-  <span class="va">.f</span>,
-  <span class="va">...</span>,
-  .options <span class="op">=</span> <span class="fu"><a href="furrr_options.html">furrr_options</a></span><span class="op">(</span><span class="op">)</span>,
-  .env_globals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>,
-  .progress <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">future_map2_dbl</span><span class="op">(</span>
-  <span class="va">.x</span>,
-  <span class="va">.y</span>,
-  <span class="va">.f</span>,
-  <span class="va">...</span>,
-  .options <span class="op">=</span> <span class="fu"><a href="furrr_options.html">furrr_options</a></span><span class="op">(</span><span class="op">)</span>,
-  .env_globals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>,
-  .progress <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">future_map2_int</span><span class="op">(</span>
-  <span class="va">.x</span>,
-  <span class="va">.y</span>,
-  <span class="va">.f</span>,
-  <span class="va">...</span>,
-  .options <span class="op">=</span> <span class="fu"><a href="furrr_options.html">furrr_options</a></span><span class="op">(</span><span class="op">)</span>,
-  .env_globals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>,
-  .progress <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">future_map2_lgl</span><span class="op">(</span>
-  <span class="va">.x</span>,
-  <span class="va">.y</span>,
-  <span class="va">.f</span>,
-  <span class="va">...</span>,
-  .options <span class="op">=</span> <span class="fu"><a href="furrr_options.html">furrr_options</a></span><span class="op">(</span><span class="op">)</span>,
-  .env_globals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>,
-  .progress <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">future_map2_raw</span><span class="op">(</span>
-  <span class="va">.x</span>,
-  <span class="va">.y</span>,
-  <span class="va">.f</span>,
-  <span class="va">...</span>,
-  .options <span class="op">=</span> <span class="fu"><a href="furrr_options.html">furrr_options</a></span><span class="op">(</span><span class="op">)</span>,
-  .env_globals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>,
-  .progress <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">future_map2_dfr</span><span class="op">(</span>
-  <span class="va">.x</span>,
-  <span class="va">.y</span>,
-  <span class="va">.f</span>,
-  <span class="va">...</span>,
-  .id <span class="op">=</span> <span class="cn">NULL</span>,
-  .options <span class="op">=</span> <span class="fu"><a href="furrr_options.html">furrr_options</a></span><span class="op">(</span><span class="op">)</span>,
-  .env_globals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>,
-  .progress <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">future_map2_dfc</span><span class="op">(</span>
-  <span class="va">.x</span>,
-  <span class="va">.y</span>,
-  <span class="va">.f</span>,
-  <span class="va">...</span>,
-  .options <span class="op">=</span> <span class="fu"><a href="furrr_options.html">furrr_options</a></span><span class="op">(</span><span class="op">)</span>,
-  .env_globals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>,
-  .progress <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">future_pmap</span><span class="op">(</span>
-  <span class="va">.l</span>,
-  <span class="va">.f</span>,
-  <span class="va">...</span>,
-  .options <span class="op">=</span> <span class="fu"><a href="furrr_options.html">furrr_options</a></span><span class="op">(</span><span class="op">)</span>,
-  .env_globals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>,
-  .progress <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">future_pmap_chr</span><span class="op">(</span>
-  <span class="va">.l</span>,
-  <span class="va">.f</span>,
-  <span class="va">...</span>,
-  .options <span class="op">=</span> <span class="fu"><a href="furrr_options.html">furrr_options</a></span><span class="op">(</span><span class="op">)</span>,
-  .env_globals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>,
-  .progress <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">future_pmap_dbl</span><span class="op">(</span>
-  <span class="va">.l</span>,
-  <span class="va">.f</span>,
-  <span class="va">...</span>,
-  .options <span class="op">=</span> <span class="fu"><a href="furrr_options.html">furrr_options</a></span><span class="op">(</span><span class="op">)</span>,
-  .env_globals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>,
-  .progress <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">future_pmap_int</span><span class="op">(</span>
-  <span class="va">.l</span>,
-  <span class="va">.f</span>,
-  <span class="va">...</span>,
-  .options <span class="op">=</span> <span class="fu"><a href="furrr_options.html">furrr_options</a></span><span class="op">(</span><span class="op">)</span>,
-  .env_globals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>,
-  .progress <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">future_pmap_lgl</span><span class="op">(</span>
-  <span class="va">.l</span>,
-  <span class="va">.f</span>,
-  <span class="va">...</span>,
-  .options <span class="op">=</span> <span class="fu"><a href="furrr_options.html">furrr_options</a></span><span class="op">(</span><span class="op">)</span>,
-  .env_globals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>,
-  .progress <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">future_pmap_raw</span><span class="op">(</span>
-  <span class="va">.l</span>,
-  <span class="va">.f</span>,
-  <span class="va">...</span>,
-  .options <span class="op">=</span> <span class="fu"><a href="furrr_options.html">furrr_options</a></span><span class="op">(</span><span class="op">)</span>,
-  .env_globals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>,
-  .progress <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">future_pmap_dfr</span><span class="op">(</span>
-  <span class="va">.l</span>,
-  <span class="va">.f</span>,
-  <span class="va">...</span>,
-  .id <span class="op">=</span> <span class="cn">NULL</span>,
-  .options <span class="op">=</span> <span class="fu"><a href="furrr_options.html">furrr_options</a></span><span class="op">(</span><span class="op">)</span>,
-  .env_globals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>,
-  .progress <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">future_pmap_dfc</span><span class="op">(</span>
-  <span class="va">.l</span>,
-  <span class="va">.f</span>,
-  <span class="va">...</span>,
-  .options <span class="op">=</span> <span class="fu"><a href="furrr_options.html">furrr_options</a></span><span class="op">(</span><span class="op">)</span>,
-  .env_globals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>,
-  .progress <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">future_walk2</span><span class="op">(</span>
-  <span class="va">.x</span>,
-  <span class="va">.y</span>,
-  <span class="va">.f</span>,
-  <span class="va">...</span>,
-  .options <span class="op">=</span> <span class="fu"><a href="furrr_options.html">furrr_options</a></span><span class="op">(</span><span class="op">)</span>,
-  .env_globals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>,
-  .progress <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">future_pwalk</span><span class="op">(</span>
-  <span class="va">.l</span>,
-  <span class="va">.f</span>,
-  <span class="va">...</span>,
-  .options <span class="op">=</span> <span class="fu"><a href="furrr_options.html">furrr_options</a></span><span class="op">(</span><span class="op">)</span>,
-  .env_globals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>,
-  .progress <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">future_map2</span><span class="op">(</span></span>
+<span>  <span class="va">.x</span>,</span>
+<span>  <span class="va">.y</span>,</span>
+<span>  <span class="va">.f</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  .options <span class="op">=</span> <span class="fu"><a href="furrr_options.html">furrr_options</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  .env_globals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  .progress <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">future_map2_chr</span><span class="op">(</span></span>
+<span>  <span class="va">.x</span>,</span>
+<span>  <span class="va">.y</span>,</span>
+<span>  <span class="va">.f</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  .options <span class="op">=</span> <span class="fu"><a href="furrr_options.html">furrr_options</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  .env_globals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  .progress <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">future_map2_dbl</span><span class="op">(</span></span>
+<span>  <span class="va">.x</span>,</span>
+<span>  <span class="va">.y</span>,</span>
+<span>  <span class="va">.f</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  .options <span class="op">=</span> <span class="fu"><a href="furrr_options.html">furrr_options</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  .env_globals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  .progress <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">future_map2_int</span><span class="op">(</span></span>
+<span>  <span class="va">.x</span>,</span>
+<span>  <span class="va">.y</span>,</span>
+<span>  <span class="va">.f</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  .options <span class="op">=</span> <span class="fu"><a href="furrr_options.html">furrr_options</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  .env_globals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  .progress <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">future_map2_lgl</span><span class="op">(</span></span>
+<span>  <span class="va">.x</span>,</span>
+<span>  <span class="va">.y</span>,</span>
+<span>  <span class="va">.f</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  .options <span class="op">=</span> <span class="fu"><a href="furrr_options.html">furrr_options</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  .env_globals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  .progress <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">future_map2_raw</span><span class="op">(</span></span>
+<span>  <span class="va">.x</span>,</span>
+<span>  <span class="va">.y</span>,</span>
+<span>  <span class="va">.f</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  .options <span class="op">=</span> <span class="fu"><a href="furrr_options.html">furrr_options</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  .env_globals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  .progress <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">future_map2_dfr</span><span class="op">(</span></span>
+<span>  <span class="va">.x</span>,</span>
+<span>  <span class="va">.y</span>,</span>
+<span>  <span class="va">.f</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  .id <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  .options <span class="op">=</span> <span class="fu"><a href="furrr_options.html">furrr_options</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  .env_globals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  .progress <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">future_map2_dfc</span><span class="op">(</span></span>
+<span>  <span class="va">.x</span>,</span>
+<span>  <span class="va">.y</span>,</span>
+<span>  <span class="va">.f</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  .options <span class="op">=</span> <span class="fu"><a href="furrr_options.html">furrr_options</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  .env_globals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  .progress <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">future_pmap</span><span class="op">(</span></span>
+<span>  <span class="va">.l</span>,</span>
+<span>  <span class="va">.f</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  .options <span class="op">=</span> <span class="fu"><a href="furrr_options.html">furrr_options</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  .env_globals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  .progress <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">future_pmap_chr</span><span class="op">(</span></span>
+<span>  <span class="va">.l</span>,</span>
+<span>  <span class="va">.f</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  .options <span class="op">=</span> <span class="fu"><a href="furrr_options.html">furrr_options</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  .env_globals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  .progress <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">future_pmap_dbl</span><span class="op">(</span></span>
+<span>  <span class="va">.l</span>,</span>
+<span>  <span class="va">.f</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  .options <span class="op">=</span> <span class="fu"><a href="furrr_options.html">furrr_options</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  .env_globals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  .progress <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">future_pmap_int</span><span class="op">(</span></span>
+<span>  <span class="va">.l</span>,</span>
+<span>  <span class="va">.f</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  .options <span class="op">=</span> <span class="fu"><a href="furrr_options.html">furrr_options</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  .env_globals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  .progress <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">future_pmap_lgl</span><span class="op">(</span></span>
+<span>  <span class="va">.l</span>,</span>
+<span>  <span class="va">.f</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  .options <span class="op">=</span> <span class="fu"><a href="furrr_options.html">furrr_options</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  .env_globals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  .progress <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">future_pmap_raw</span><span class="op">(</span></span>
+<span>  <span class="va">.l</span>,</span>
+<span>  <span class="va">.f</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  .options <span class="op">=</span> <span class="fu"><a href="furrr_options.html">furrr_options</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  .env_globals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  .progress <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">future_pmap_dfr</span><span class="op">(</span></span>
+<span>  <span class="va">.l</span>,</span>
+<span>  <span class="va">.f</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  .id <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  .options <span class="op">=</span> <span class="fu"><a href="furrr_options.html">furrr_options</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  .env_globals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  .progress <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">future_pmap_dfc</span><span class="op">(</span></span>
+<span>  <span class="va">.l</span>,</span>
+<span>  <span class="va">.f</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  .options <span class="op">=</span> <span class="fu"><a href="furrr_options.html">furrr_options</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  .env_globals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  .progress <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">future_walk2</span><span class="op">(</span></span>
+<span>  <span class="va">.x</span>,</span>
+<span>  <span class="va">.y</span>,</span>
+<span>  <span class="va">.f</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  .options <span class="op">=</span> <span class="fu"><a href="furrr_options.html">furrr_options</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  .env_globals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  .progress <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">future_pwalk</span><span class="op">(</span></span>
+<span>  <span class="va">.l</span>,</span>
+<span>  <span class="va">.f</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  .options <span class="op">=</span> <span class="fu"><a href="furrr_options.html">furrr_options</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  .env_globals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  .progress <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>.x</dt>
+    <dl><dt>.x, .y</dt>
 <dd><p>Vectors of the same length. A vector of length 1 will
 be recycled.</p></dd>
-<dt>.y</dt>
-<dd><p>Vectors of the same length. A vector of length 1 will
-be recycled.</p></dd>
+
+
 <dt>.f</dt>
 <dd><p>A function, formula, or vector (not necessarily atomic).</p>
 <p>If a <strong>function</strong>, it is used as is.</p>
@@ -268,15 +267,23 @@ converted to an extractor function. Character vectors index by
 name and numeric vectors index by position; use a list to index
 by position and name at different levels. If a component is not
 present, the value of <code>.default</code> will be returned.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional arguments passed on to the mapped function.</p></dd>
+
+
 <dt>.options</dt>
 <dd><p>The <code>future</code> specific options to use with the workers. This
 must be the result from a call to <code><a href="furrr_options.html">furrr_options()</a></code>.</p></dd>
+
+
 <dt>.env_globals</dt>
 <dd><p>The environment to look for globals required by <code>.x</code> and
 <code>...</code>. Globals required by <code>.f</code> are looked up in the function environment
 of <code>.f</code>.</p></dd>
+
+
 <dt>.progress</dt>
 <dd><p>A single logical. Should a progress bar be displayed?
 Only works with multisession, multicore, and multiprocess futures. Note
@@ -286,34 +293,46 @@ a progress bar will not be displayed.</p>
 in a future version of furrr in favor of using the more robust
 <a href="https://CRAN.R-project.org/package=progressr" class="external-link">progressr</a>
 package.</p></dd>
+
+
 <dt>.id</dt>
 <dd><p>Either a string or <code>NULL</code>. If a string, the output will contain
 a variable with that name, storing either the name (if <code>.x</code> is named) or
 the index (if <code>.x</code> is unnamed) of the input. If <code>NULL</code>, the default, no
 variable will be created.</p>
 <p>Only applies to <code>_dfr</code> variant.</p></dd>
+
+
 <dt>.l</dt>
 <dd><p>A list of vectors, such as a data frame. The length of <code>.l</code>
 determines the number of arguments that <code>.f</code> will be called with. List
 names will be used if present.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>An atomic vector, list, or data frame, depending on the suffix.
-Atomic vectors and lists will be named if <code>.x</code> or the first element of <code>.l</code>is named.
-If all input is length 0, the output will be length 0. If any input is
+    
+
+<p>An atomic vector, list, or data frame, depending on the suffix.
+Atomic vectors and lists will be named if <code>.x</code> or the first element of <code>.l</code></p>
+
+
+<p>is named.</p>
+
+
+<p>If all input is length 0, the output will be length 0. If any input is
 length 1, it will be recycled to the length of the longest.</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="va">multisession</span>, workers <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">10</span>, <span class="fl">100</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">50</span>, <span class="fl">500</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">future_map2</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="op">~</span> <span class="va">.x</span> <span class="op">+</span> <span class="va">.y</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="va">multisession</span>, workers <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">10</span>, <span class="fl">100</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">50</span>, <span class="fl">500</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">future_map2</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="op">~</span> <span class="va">.x</span> <span class="op">+</span> <span class="va">.y</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -323,11 +342,11 @@ length 1, it will be recycled to the length of the longest.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 103</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Split into pieces, fit model to each piece, then predict</span></span>
-<span class="r-in"><span class="va">by_cyl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/split.html" class="external-link">split</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="va">mtcars</span><span class="op">$</span><span class="va">cyl</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mods</span> <span class="op">&lt;-</span> <span class="fu"><a href="future_map.html">future_map</a></span><span class="op">(</span><span class="va">by_cyl</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">wt</span>, data <span class="op">=</span> <span class="va">.</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">future_map2</span><span class="op">(</span><span class="va">mods</span>, <span class="va">by_cyl</span>, <span class="va">predict</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Split into pieces, fit model to each piece, then predict</span></span></span>
+<span class="r-in"><span><span class="va">by_cyl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/split.html" class="external-link">split</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="va">mtcars</span><span class="op">$</span><span class="va">cyl</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mods</span> <span class="op">&lt;-</span> <span class="fu"><a href="future_map.html">future_map</a></span><span class="op">(</span><span class="va">by_cyl</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">wt</span>, data <span class="op">=</span> <span class="va">.</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">future_map2</span><span class="op">(</span><span class="va">mods</span>, <span class="va">by_cyl</span>, <span class="va">predict</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`4`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Datsun 710      Merc 240D       Merc 230       Fiat 128    Honda Civic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       26.47010       21.55719       21.78307       27.14774       30.45125 </span>
@@ -352,8 +371,8 @@ length 1, it will be recycled to the length of the longest.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      Ford Pantera L       Maserati Bora </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            16.91800            16.04103 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">future_pmap</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span><span class="op">)</span>, <span class="va">sum</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">future_pmap</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span><span class="op">)</span>, <span class="va">sum</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -363,9 +382,9 @@ length 1, it will be recycled to the length of the longest.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 603</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Matching arguments by position</span></span>
-<span class="r-in"><span class="fu">future_pmap</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span> ,<span class="va">c</span><span class="op">)</span> <span class="va">a</span> <span class="op">/</span> <span class="op">(</span><span class="va">b</span> <span class="op">+</span> <span class="va">c</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Matching arguments by position</span></span></span>
+<span class="r-in"><span><span class="fu">future_pmap</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span> ,<span class="va">c</span><span class="op">)</span> <span class="va">a</span> <span class="op">/</span> <span class="op">(</span><span class="va">b</span> <span class="op">+</span> <span class="va">c</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1666667</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -375,16 +394,16 @@ length 1, it will be recycled to the length of the longest.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1988072</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Vectorizing a function over multiple arguments</span></span>
-<span class="r-in"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span class="r-in">  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"apple"</span>, <span class="st">"banana"</span>, <span class="st">"cherry"</span><span class="op">)</span>,</span>
-<span class="r-in">  pattern <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"p"</span>, <span class="st">"n"</span>, <span class="st">"h"</span><span class="op">)</span>,</span>
-<span class="r-in">  replacement <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"f"</span>, <span class="st">"q"</span><span class="op">)</span>,</span>
-<span class="r-in">  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">future_pmap</span><span class="op">(</span><span class="va">df</span>, <span class="va">gsub</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Vectorizing a function over multiple arguments</span></span></span>
+<span class="r-in"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"apple"</span>, <span class="st">"banana"</span>, <span class="st">"cherry"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  pattern <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"p"</span>, <span class="st">"n"</span>, <span class="st">"h"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  replacement <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"f"</span>, <span class="st">"q"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">future_pmap</span><span class="op">(</span><span class="va">df</span>, <span class="va">gsub</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "axxle"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -394,13 +413,13 @@ length 1, it will be recycled to the length of the longest.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "cqerry"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu">future_pmap_chr</span><span class="op">(</span><span class="va">df</span>, <span class="va">gsub</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">future_pmap_chr</span><span class="op">(</span><span class="va">df</span>, <span class="va">gsub</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "axxle"  "bafafa" "cqerry"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># \dontshow{</span></span>
-<span class="r-in"><span class="co"># Close open connections for R CMD Check</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">inherits</a></span><span class="op">(</span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"sequential"</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="va">sequential</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># }</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># \dontshow{</span></span></span>
+<span class="r-in"><span><span class="co"># Close open connections for R CMD Check</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">inherits</a></span><span class="op">(</span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"sequential"</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="va">sequential</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -412,7 +431,7 @@ length 1, it will be recycled to the length of the longest.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
     </footer></div>
