@@ -50,9 +50,10 @@ my_pkg_fn <- function(x) {
   p <- progressor(steps = length(x))
   
   future_map(x, ~{
-    p()
     Sys.sleep(.2)
-    sum(.x)
+    out <- sum(.x)
+    p()
+    out
   })
 }
 ```
@@ -94,9 +95,10 @@ with_progress({
   p <- progressor(steps = length(x))
   
   result <- future_map(x, ~{
-    p()
     Sys.sleep(.2)
-    sum(.x)
+    out <- sum(.x)
+    p()
+    out
   })
 })
 #> |=====================                                               |  20%
@@ -110,9 +112,10 @@ Rather than writing an anonymous function, you might want to wrap the logic of `
 plan(multisession, workers = 2)
 
 fn <- function(x, p) {
-  p()
   Sys.sleep(.2)
-  sum(x)
+  out <- sum(x)
+  p()
+  out
 }
 
 with_progress({
